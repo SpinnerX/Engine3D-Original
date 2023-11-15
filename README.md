@@ -14,6 +14,7 @@ developing how the subsytems inside a game engine works. Containing more notes d
 specific topics. Where each notes will be numbered on the process it takes when developing a game engine.
 
 
+`__attribute__((visibility("default")))` - Just know that this is the Mac's version of  __declspec(dllexport).
 
 
 ## Frameworks 
