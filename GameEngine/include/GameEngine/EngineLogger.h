@@ -26,7 +26,7 @@ namespace RendererEngine{
             }
             return coreLogger;
         }
-        
+
         inline static std::shared_ptr<Logger::Log>& GetClientLogger() {
             if(EngineLogger::isLoggerInit()){
                 Logger::fatal("EngineLogger::Init() needs to be called!\n");
@@ -41,8 +41,6 @@ namespace RendererEngine{
         static std::shared_ptr<Logger::Log> clientLogger;
     };
 };
-
-// #define CORE_LOG_TRACE(...) RendererEngine::EnginesLogger::GetCoreLogger()->trace(__VA_ARGS__);
 
 // ------------ core logs ------------
 template<typename... T>
