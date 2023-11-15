@@ -44,52 +44,52 @@ namespace RendererEngine{
 
 // ------------ core logs ------------
 template<typename... T>
-void coreLogTrace(std::string fmt, T&&... args) {
+inline void coreLogTrace(std::string fmt, T&&... args) {
     RendererEngine::EngineLogger::GetCoreLogger()->trace(fmt, (args)...);
 }
 
 template<typename... T>
-void coreLogInfo(std::string fmt, T&&... args) {
+inline void coreLogInfo(std::string fmt, T&&... args) {
     RendererEngine::EngineLogger::GetCoreLogger()->info(fmt, (args)...);
 }
 
 template<typename... T>
-void coreLogWarn(std::string fmt, T&&... args) {
+inline void coreLogWarn(std::string fmt, T&&... args) {
     RendererEngine::EngineLogger::GetCoreLogger()->warn(fmt, (args)...);
 }
 
 template<typename... T>
-void coreLogError(std::string fmt, T&&... args) {
+inline void coreLogError(std::string fmt, T&&... args) {
     RendererEngine::EngineLogger::GetCoreLogger()->error(fmt, (args)...);
 }
 
 template<typename... T>
-void coreLogFatal(std::string fmt, T&&... args) {
+inline void coreLogFatal(std::string fmt, T&&... args) {
     RendererEngine::EngineLogger::GetCoreLogger()->fatal(fmt, (args)...);
 }
 
 // ------------ Client logs ------------
 template<typename... T>
-void clientLogTrace(std::string fmt, T&&... args) {
+inline void clientLogTrace(std::string fmt, T&&... args) {
     RendererEngine::EngineLogger::GetClientLogger()->trace(fmt, (args)...);
 }
 
 template<typename... T>
-void clientLogInfo(std::string fmt, T&&... args) {
+inline void clientLogInfo(std::string fmt, T&&... args) {
     RendererEngine::EngineLogger::GetClientLogger()->info(fmt, (args)...);
 }
 
 template<typename... T>
-void clientLogWarn(std::string fmt, T&&... args) {
+inline void clientLogWarn(std::string fmt, T&&... args) {
     RendererEngine::EngineLogger::GetClientLogger()->warn(fmt, (args)...);
 }
 
 template<typename... T>
-void clientLogError(std::string fmt, T&&... args) {
+inline void clientLogError(std::string fmt, T&&... args) {
     RendererEngine::EngineLogger::GetClientLogger()->error(fmt, (args)...);
 }
 
 template<typename... T>
-void clientLogFatal(std::string fmt, T&&... args) {
+inline void clientLogFatal(std::string fmt, T&&... args) {
     RendererEngine::EngineLogger::GetClientLogger()->fatal(fmt, (args)...);
 }
