@@ -8,11 +8,15 @@ set(CMAKE_CXX_STANDARD 20)
 
 find_package(Logger REQUIRED)
 
-include_directories(${PROJECT_SOURCE_DIR}/GameEngine/include)
+include_directories(
+  ${PROJECT_SOURCE_DIR}/GameEngine/include
+  ${PROJECT_SOURCE_DIR}/GameEngine/include/GameEngine
+)
 
 set(
   all_src
-  GameEngine/src/GameEngine/core/test.cpp
+  GameEngine/src/GameEngine/core.cpp
+  GameEngine/include/GameEngine/Application.cpp
 )
 
 add_subdirectory(Sandbox)
@@ -27,6 +31,7 @@ target_include_directories(
   ${PROJECT_NAME}
   PUBLIC
   ${PROJECT_SOURCE_DIR}/GameEngine/include
+  ${PROJECT_SOURCE_DIR}/GameEngine/include/GameEngine
 )
 
 target_link_libraries(${PROJECT_NAME} Logger)
