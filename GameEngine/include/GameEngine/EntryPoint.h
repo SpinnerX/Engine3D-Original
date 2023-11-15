@@ -19,8 +19,12 @@
 
   int main(int argc, char** argv){
     RendererEngine::EnginesLogger::Init();
-    RendererEngine::EnginesLogger::GetCoreLogger()->warn("Initiating Log!\n");
-    RendererEngine::EnginesLogger::GetClientLogger()->info("Hello!\n");
+    // RendererEngine::EnginesLogger::GetCoreLogger()->warn("Initiating Log!\n");
+    // RendererEngine::EnginesLogger::GetClientLogger()->info("Hello!\n");
+    // CORE_LOG_TRACE("Testing!\n");
+
+    coreLogWarn("This is interesting!\n");
+    coreLogInfo("This is testing info logging\n");
 
     auto app = RendererEngine::CreateApplication();
     app->Run();

@@ -2,9 +2,6 @@
 #include <memory>
 #include <GameEngine/core.h>
 #include <Logger/core/Logger.h>
-// namespace Logger{
-//     class Log;
-// };
 
 namespace RendererEngine{
 
@@ -23,3 +20,30 @@ namespace RendererEngine{
         static std::shared_ptr<Logger::Log> clientLogger;
     };
 };
+
+// #define CORE_LOG_TRACE(...) RendererEngine::EnginesLogger::GetCoreLogger()->trace(__VA_ARGS__);
+
+template<typename... T>
+void coreLogTrace(std::string fmt, T&&... args) {
+    RendererEngine::EnginesLogger::GetCoreLogger()->trace(fmt, (args)...);
+}
+
+template<typename... T>
+void coreLogInfo(std::string fmt, T&&... args) {
+    RendererEngine::EnginesLogger::GetCoreLogger()->info(fmt, (args)...);
+}
+
+template<typename... T>
+void coreLogWarn(std::string fmt, T&&... args) {
+    RendererEngine::EnginesLogger::GetCoreLogger()->warn(fmt, (args)...);
+}
+
+template<typename... T>
+void coreLogError(std::string fmt, T&&... args) {
+    RendererEngine::EnginesLogger::GetCoreLogger()->error(fmt, (args)...);
+}
+
+template<typename... T>
+void coreLogFatal(std::string fmt, T&&... args) {
+    RendererEngine::EnginesLogger::GetCoreLogger()->fatal(fmt, (args)...);
+}

@@ -11,8 +11,6 @@ namespace RendererEngine{
     void EnginesLogger::Init(){
         coreLogger = std::make_shared<Logger::Log>("GameEngine");
         clientLogger = std::make_shared<Logger::Log>("APP");
-        
-
     }
 
 };
