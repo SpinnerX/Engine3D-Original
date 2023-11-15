@@ -40,16 +40,16 @@ ENDMACRO(ADD_MSVC_PRECOMPILED_HEADER)
 # ADD_MSVC_PRECOMPILED_HEADER("EntryPoint.h" "EntryPoint.cpp" MySources)
 
 
-target_precompile_headers(
-  ${PROJECT_NAME} PRIVATE
-  "$<$<COMPILE_LANGUAGE:CXX>:GameEngine/Application.h>"
-  "$<$<COMPILE_LANGUAGE:CXX>:GameEngine/Application.cpp>"
-  "$<$<COMPILE_LANGUAGE:CXX>:GameEngine/core.h>"
-  "$<$<COMPILE_LANGUAGE:CXX>:GameEngine/EngineLogger.h>"
-  "$<$<COMPILE_LANGUAGE:CXX>:GameEngine/EngineLogger.cpp>"
-  "$<$<COMPILE_LANGUAGE:CXX>:GameEngine/EntryPoint.h>"
-  "$<$<COMPILE_LANGUAGE:CXX>:GameEngine/GameEngine.h>"
-)
+# target_precompile_headers(
+#   ${PROJECT_NAME} PRIVATE
+#   "$<$<COMPILE_LANGUAGE:CXX>:GameEngine/Application.h>"
+#   "$<$<COMPILE_LANGUAGE:CXX>:GameEngine/Application.cpp>"
+#   "$<$<COMPILE_LANGUAGE:CXX>:GameEngine/core.h>"
+#   "$<$<COMPILE_LANGUAGE:CXX>:GameEngine/EngineLogger.h>"
+#   "$<$<COMPILE_LANGUAGE:CXX>:GameEngine/EngineLogger.cpp>"
+#   "$<$<COMPILE_LANGUAGE:CXX>:GameEngine/EntryPoint.h>"
+#   "$<$<COMPILE_LANGUAGE:CXX>:GameEngine/GameEngine.h>"
+# )
 
 # Log::Log1 is the alias we made when we created an alias in the Logger CMakeLists.txt file
 target_link_libraries(
