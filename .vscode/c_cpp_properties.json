@@ -4,7 +4,7 @@
             "name": "3DConsoleEngine",
             "includePath": [
                 "${default}",
-                "${workspaceFolder}/include/**"
+                "${workspaceFolder}/GameEngine/include/**"
             ],
             "defines": [],
             "macFrameworkPath": [
