@@ -22,11 +22,11 @@ set(
 )
 
 # Adding precompiled headers to speed up the compilation process
-add_precompiled_header(${PROJECT_NAME} Application.h FORCEINCLUDE SOURCE_CXX Application.cpp)
-add_precompiled_header(${PROJECT_NAME} EngineLogger.h FORCEINCLUDE SOURCE_CXX EngineLogger.cpp)
-add_precompiled_header(${PROJECT_NAME} EntryPoint.h)
-add_precompiled_header(${PROJECT_NAME} GameEngine.h)
-add_precompiled_header(${PROJECT_NAME} core.h)
+# add_precompiled_header(${PROJECT_NAME} Application.h FORCEINCLUDE SOURCE_CXX Application.cpp)
+# add_precompiled_header(${PROJECT_NAME} EngineLogger.h FORCEINCLUDE SOURCE_CXX EngineLogger.cpp)
+# add_precompiled_header(${PROJECT_NAME} EntryPoint.h)
+# add_precompiled_header(${PROJECT_NAME} GameEngine.h)
+# add_precompiled_header(${PROJECT_NAME} core.h)
 
 add_subdirectory(Sandbox)
 
