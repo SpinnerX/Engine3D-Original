@@ -1,6 +1,6 @@
 # Entry Point NOTES
 - When developing game engines there are entry points
-- Using __attribute__((visibility("default))) to basically specify thaht this class/function/variable be visiblt to other dynamically linked executables or shared libraries.
+- Using __attribute__((visibility("default))) to basically specify thaht this class/function/variable be visible to other dynamically linked executables or shared libraries.
 - We create EntryPoint.h to contain our actual main
 - As Sandbox contain our CreateApplication() it also allows us to create our engine a lot easier
 - Looking cleaner.
