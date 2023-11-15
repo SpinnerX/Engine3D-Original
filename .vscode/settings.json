@@ -81,7 +81,9 @@
         "charconv": "cpp",
         "queue": "cpp",
         "source_location": "cpp",
-        "stack": "cpp"
+        "stack": "cpp",
+        "format": "cpp",
+        "semaphore": "cpp"
     },
     "discord.enabled": true,
     "C_Cpp.errorSquiggles": "enabled",
