@@ -7,8 +7,11 @@ project(${PROJECT_NAME})
 find_package(formatCpp REQUIRED)
 find_package(Logger REQUIRED)
 
+# Allows us to outputfiles into the project instead of the build directory
+# set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/../../build")
+
 # Create the executable
-add_executable(${PROJECT_NAME} main.cpp)
+add_executable(${PROJECT_NAME} Application.cpp)
 
 # Link the static library from subproject1 using its alias sub::lib1
 # Link the header only library from subproject2 using its alias sub::lib2
