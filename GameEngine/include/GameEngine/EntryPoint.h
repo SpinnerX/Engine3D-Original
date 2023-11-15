@@ -6,22 +6,24 @@
 // that allows us to create different entry points when creating game engines, and stuff
 
 #ifdef RENDER_PLATFORM_WINDOWS
+  extern RendererEngine::Application* RendererEngine::CreateApplication();
 
-extern RendererEngine::Application* RendererEngine::CreateApplication();
+  int main(int argc, char** argv){
 
-int main(int argc, char** argv){
-
-    auto app = RendererEngine::CreateApplication();
-    app->Run();
-    delete app;
-}
+      auto app = RendererEngine::CreateApplication();
+      app->Run();
+      delete app;
+  }
 #else
-extern RendererEngine::Application* RendererEngine::CreateApplication();
+  extern RendererEngine::Application* RendererEngine::CreateApplication();
 
-int main(int argc, char** argv){
-    Logger::info("GameEngine starting up...\n");
+  int main(int argc, char** argv){
+    RendererEngine::EnginesLogger::Init();
+    RendererEngine::EnginesLogger::GetCoreLogger()->warn("Initiating Log!\n");
+    RendererEngine::EnginesLogger::GetClientLogger()->info("Hello!\n");
+
     auto app = RendererEngine::CreateApplication();
     app->Run();
     delete app;
-}
+  }
 #endif

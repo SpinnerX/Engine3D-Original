@@ -10,7 +10,8 @@
 */
 
 #include <GameEngine/Application.h>
-#include <Logger/core/Logger.h>
+#include <GameEngine/EngineLogger.h>
+
 // --------------- Entry Point ---------------
 #include <GameEngine/EntryPoint.h>
 // -------------------------------------------
