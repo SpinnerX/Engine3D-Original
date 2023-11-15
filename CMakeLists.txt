@@ -5,7 +5,8 @@ set(CMAKE_CXX_FLAGS "-std=c++20")
 
 project(${PROJECT_NAME})
 set(CMAKE_CXX_STANDARD 20)
-
+include(cmake/precompiled_headers.cmake)
+find_package(formatCpp REQUIRED)
 find_package(Logger REQUIRED)
 
 include_directories(
@@ -17,11 +18,19 @@ set(
   all_src
   GameEngine/src/GameEngine/core.cpp
   GameEngine/include/GameEngine/Application.cpp
+  GameEngine/include/GameEngine/EngineLogger.cpp
 )
+
+# Adding precompiled headers to speed up the compilation process
+add_precompiled_header(${PROJECT_NAME} Application.h FORCEINCLUDE SOURCE_CXX Application.cpp)
+add_precompiled_header(${PROJECT_NAME} EngineLogger.h FORCEINCLUDE SOURCE_CXX EngineLogger.cpp)
+add_precompiled_header(${PROJECT_NAME} EntryPoint.h)
+add_precompiled_header(${PROJECT_NAME} GameEngine.h)
+add_precompiled_header(${PROJECT_NAME} core.h)
 
 add_subdirectory(Sandbox)
 
-add_library(${PROJECT_NAME} STATIC ${all_src})
+add_library(${PROJECT_NAME} SHARED ${all_src})
 add_library(Engine::Engine ALIAS ${PROJECT_NAME}) # Allows to alias the library
 
 set_property(TARGET ${PROJECT_NAME} PROPERTY INTERPROCEDURAL_OPTIMIZATION True)
@@ -34,4 +43,4 @@ target_include_directories(
   ${PROJECT_SOURCE_DIR}/GameEngine/include/GameEngine
 )
 
-target_link_libraries(${PROJECT_NAME} Logger)
+target_link_libraries(${PROJECT_NAME} formatCpp Logger)
