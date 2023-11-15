@@ -25,9 +25,19 @@
 
     coreLogWarn("This is interesting!\n");
     coreLogInfo("This is testing info logging\n");
+    coreLogTrace("This is a trace msg\n");
+    coreLogError("Error message\n");
+    coreLogFatal("Fatal message alert!\n");
+
+    clientLogWarn("This is interesting!\n");
+    clientLogInfo("This is testing info logging\n");
+    clientLogTrace("This is a trace msg\n");
+    clientLogError("Error message\n");
+    clientLogFatal("Fatal message alert!\n");
+
 
     auto app = RendererEngine::CreateApplication();
     app->Run();
     delete app;
-  }
+}
 #endif
