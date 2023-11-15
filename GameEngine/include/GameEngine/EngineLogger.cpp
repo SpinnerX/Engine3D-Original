@@ -1,14 +1,14 @@
 #include <GameEngine/EngineLogger.h>
 
 namespace RendererEngine{
-    std::shared_ptr<Logger::Log> EnginesLogger::coreLogger;
-    std::shared_ptr<Logger::Log> EnginesLogger::clientLogger;
+    std::shared_ptr<Logger::Log> EngineLogger::coreLogger;
+    std::shared_ptr<Logger::Log> EngineLogger::clientLogger;
 
-    EnginesLogger::EnginesLogger(){}
+    EngineLogger::EngineLogger(){}
 
-    EnginesLogger::~EnginesLogger(){}
+    EngineLogger::~EngineLogger(){}
 
-    void EnginesLogger::Init(){
+    void EngineLogger::Init(){
         coreLogger = std::make_shared<Logger::Log>("GameEngine");
         clientLogger = std::make_shared<Logger::Log>("APP");
     }
