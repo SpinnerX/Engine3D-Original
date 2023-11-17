@@ -1,6 +1,7 @@
 #pragma once
 #include <GameEngine/core.h>
 #include <GameEngine/Window.h>
+#include <GameEngine/LayerStack.h>
 
 namespace RendererEngine{
     class RENDER_API Application{
@@ -14,6 +15,9 @@ namespace RendererEngine{
         // events that is needed to dispatched being passed in.
         void onEvent(Event& event);
 
+        void pushLayer(Layer* layer);
+        void pushOverlay(Layer* layer);
+
 
     private:
         bool onWindowClose(WindowCloseEvent& e);
@@ -21,6 +25,7 @@ namespace RendererEngine{
     private:
         std::unique_ptr<Window> _window; // a unique pointer because this class owns this ptr
         bool isRunning;
+        LayerStack _layerStack;
     };
 
     // To be defined in client.

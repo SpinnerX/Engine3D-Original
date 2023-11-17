@@ -17,12 +17,12 @@ namespace RendererEngine{
      * 
      * T: class instance (such as the class instance like "this" keyword)
      * M: is the function we are forwarding a callable object
-     * 
+     * NOTE GOING TO USE - overhead in runtime and compile-time
     */
-    template<typename T>
-    auto bind_event_function(T* instance, auto M){
-        return std::bind(M, instance, std::placeholders::_1);
-    }
+    // template<typename T>
+    // auto bind_event_function(T* instance, auto M){
+    //     return std::bind(M, instance, std::placeholders::_1);
+    // }
 
 
     // template<typename T>
@@ -31,10 +31,6 @@ namespace RendererEngine{
     // }
     Application::Application(){
         _window = std::unique_ptr<Window>(Window::create());
-        // _window.setEventCallback(std::bind(&Application::onEvent, this, std::placeholders::_1));
-        // _window->setEventCallback(bind_event_function(onEvent));
-
-        // _window->setEventCallback(bind_event_function(this, &Application::onEvent));
 
         // Reasons not to use std::bind
         // Instead of using std::bind because of using more ram, and runtime, compile time overhead
@@ -64,6 +60,15 @@ namespace RendererEngine{
 
     Application::~Application(){}
 
+    void Application::pushLayer(Layer* layer){
+        _layerStack.pushLayer(layer);
+    }
+
+    void Application::pushOverlay(Layer* overlay){
+        _layerStack.pushOverlay(overlay);
+    }
+
+
     void Application::onEvent(Event& event){
         EventDispatcher dispatcher(event);
 
@@ -86,6 +91,16 @@ namespace RendererEngine{
         dispatcher.Dispatch<WindowCloseEvent>(bind_function(this, &Application::onWindowClose));
         coreLogTrace("{}", event);
 
+
+        // Iterating backwards thhrough the layer stack and thhen we called onEvent, and if it isn;t handled thhen it breaks 
+        // If not a layer and an overlay then we do not continue.
+        for(auto iter = _layerStack.end(); iter != _layerStack.begin(); iter--){
+            // (*--iter)->onEvent(event);
+            (*iter)->onEvent(event);
+
+            if(event._handled) break;
+        }
+
     }
 
 
@@ -93,6 +108,11 @@ namespace RendererEngine{
         while(isRunning){
             glClearColor(1, 0, 1, 1);
             glClear(GL_COLOR_BUFFER_BIT);
+
+            for(Layer* layer : _layerStack){
+                layer->onUpdate();
+            }
+
             _window->onUpdate();
         }
     }

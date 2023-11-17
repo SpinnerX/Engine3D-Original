@@ -10,7 +10,7 @@
 */
 
 #include <GameEngine/Application.h>
-#include <GameEngine/EngineLogger.h>
+#include <GameEngine/Layer.h>
 
 // ------------- Engine Logger ---------------
 #include <GameEngine/EngineLogger.h>
