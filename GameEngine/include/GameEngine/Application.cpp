@@ -10,7 +10,13 @@ namespace RendererEngine{
 
     void Application::Run(){
         WindowResizeEvent e(1280, 420);
-        coreLogInfo("{}\n", fmt::streamed(e));
+        if(e.isInCategory(EventCategoryApplication)){
+            coreLogTrace("{}\n", fmt::streamed(e));
+        }
+
+        if(e.isInCategory(EventCategoryInput)){
+            coreLogTrace("{}\n", fmt::streamed(e));
+        }
         while(true);
     }
 };

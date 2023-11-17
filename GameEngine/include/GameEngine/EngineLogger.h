@@ -1,9 +1,7 @@
 #pragma once
-#include <memory>
 #include <GameEngine/core.h>
 #include <spdlog/spdlog.h>
 #include <spdlog/fmt/ostr.h>
-#include <cstdarg>
 
 namespace RendererEngine{
 

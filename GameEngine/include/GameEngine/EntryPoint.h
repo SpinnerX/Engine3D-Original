@@ -19,27 +19,6 @@
 
   int main(int argc, char** argv){
     RendererEngine::EngineLogger::Init(); 
-    RendererEngine::EngineLogger::GetCoreLogger()->warn("Initiating Log!\n");
-    RendererEngine::EngineLogger::GetClientLogger()->info("Hello!\n");
-
-    coreLogWarn("This is interesting!\n");
-    coreLogInfo("This is testing info logging\n");
-    coreLogTrace("This is a trace msg\n");
-    coreLogError("Error message\n");
-    coreLogFatal("Fatal message alert!\n");
-
-    clientLogWarn("This is interesting!\n");
-    clientLogInfo("This is testing info logging\n");
-    clientLogTrace("This is a trace msg\n");
-    clientLogError("Error message\n");
-    clientLogFatal("Fatal message alert!\n");
-
-
-    int a = 5;
-    clientLogInfo("Value is {}\n", a);
-
-
-
     auto app = RendererEngine::CreateApplication();
     app->Run();
     delete app;

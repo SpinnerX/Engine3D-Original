@@ -12,7 +12,9 @@
 #include <GameEngine/Application.h>
 #include <GameEngine/EngineLogger.h>
 
+// ------------- Engine Logger ---------------
 #include <GameEngine/EngineLogger.h>
+// -------------------------------------------
 
 // --------------- Entry Point ---------------
 #include <GameEngine/EntryPoint.h>
