@@ -19,7 +19,7 @@ namespace RendererEngine{
     Application::~Application(){}
 
     void Application::onEvent(Event& event){
-        CORE_TRACE("{}", fmt::streamed(event));
+        coreLogTrace("{}", fmt::streamed(event));
     }
 
 
