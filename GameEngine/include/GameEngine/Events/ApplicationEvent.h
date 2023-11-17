@@ -15,7 +15,7 @@ namespace RendererEngine{
         std::string toString() const  override {
             // return formatCpp::format("WindowResizeEvent: (w={}, h={})", _width, _height);
             std::stringstream ss;
-            ss << "WindowResizeEvent: " << _width << _height;
+            ss << "WindowResizeEvent: " << _width << ", " << _height;
             return ss.str();
         }
 
