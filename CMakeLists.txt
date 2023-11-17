@@ -4,10 +4,11 @@ set(CMAKE_CXX_FLAGS "-Wno-dev")
 set(CMAKE_CXX_FLAGS "-std=c++20")
 
 project(${PROJECT_NAME})
-set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD 23)
 include(cmake/precompiled_headers.cmake)
-find_package(formatCpp REQUIRED)
-find_package(Logger REQUIRED)
+
+find_package(fmt REQUIRED)
+find_package(spdlog REQUIRED)
 
 include_directories(
   ${PROJECT_SOURCE_DIR}/GameEngine/include
@@ -27,6 +28,8 @@ set(
 # add_precompiled_header(${PROJECT_NAME} EntryPoint.h)
 # add_precompiled_header(${PROJECT_NAME} GameEngine.h)
 # add_precompiled_header(${PROJECT_NAME} core.h)
+add_precompiled_header(${PROJECT_NAME} include/GameEnginePrecompiledHeader.h FORCEINCLUDE SOURCE_CXX include/GameEnginePrecompiledHeader.cpp)
+
 
 add_subdirectory(Sandbox)
 
@@ -43,4 +46,10 @@ target_include_directories(
   ${PROJECT_SOURCE_DIR}/GameEngine/include/GameEngine
 )
 
-target_link_libraries(${PROJECT_NAME} formatCpp Logger)
+# This is how you can have precompiled headers
+# This allows for faster compile time
+target_precompile_headers(${PROJECT_NAME} PRIVATE
+  "$<$<COMPILE_LANGUAGE:CXX>:${CMAKE_CURRENT_SOURCE_DIR}/GameEngine/include/GameEnginePrecompiledHeader.h>"
+)
+
+target_link_libraries(${PROJECT_NAME} fmt::fmt spdlog::spdlog)
