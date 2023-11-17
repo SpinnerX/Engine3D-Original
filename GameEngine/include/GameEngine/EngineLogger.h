@@ -50,10 +50,6 @@ namespace RendererEngine{
 
 #define CORE_TRACE(...) RendererEngine::EngineLogger::GetCoreLogger()->trace(__VA_ARGS__);
 
-template<typename... T>
-inline void coreLogTrace2(spdlog::format_string_t<T...> fmt, T&&... args) {
-    RendererEngine::EngineLogger::GetCoreLogger()->trace(fmt, std::forward<T>(args)...);
-}
 
 template<typename... T>
 inline void coreLogTrace(spdlog::format_string_t<T...> fmt, T&&... args) {

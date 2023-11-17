@@ -58,6 +58,10 @@ namespace RendererEngine{
             return GetCategoryFlags() & category;
         }
 
+        friend std::ostream& operator<<(std::ostream& os, const Event& e){
+		    return os << e.toString();
+	    }
+
     protected:
         bool _handled = false;
     };

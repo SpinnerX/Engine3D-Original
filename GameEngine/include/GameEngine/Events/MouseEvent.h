@@ -11,8 +11,11 @@ namespace RendererEngine{
         inline float GetX() const { return _mouseX; }
         inline float GetY() const { return _mouseY; }
 
-        std::string toString() const{
-            return formatCpp::format("MouseMovedEvent: ({}, {})", _mouseX, _mouseY);
+        std::string toString() const override {
+            // return formatCpp::format("MouseMovedEvent: ({}, {})", _mouseX, _mouseY);
+            std::stringstream ss;
+            ss << fmt::format("MouseMovedEvent: ({}, {})", _mouseX, _mouseY);
+            return ss.str();
         }
 
         // In runtime we want to see what event type this is.
@@ -41,8 +44,11 @@ namespace RendererEngine{
         inline float GetXOffset() const { return _xOffset; }
         inline float GetYOffset() const { return _yOffset; }
 
-        std::string toString() const{
-            return formatCpp::format("MouseScrolledEvent: ({}, {})", _xOffset, _yOffset);
+        std::string toString() const override {
+            // return formatCpp::format("MouseScrolledEvent: ({}, {})", _xOffset, _yOffset);
+            std::stringstream ss;
+            ss << fmt::format("MouseScrolledEvent: ({}, {})", _xOffset, _yOffset);
+            return ss.str();
         }
 
         // In runtime we want to see what event type this is.
@@ -87,8 +93,11 @@ namespace RendererEngine{
     public:
         MouseButtonPressedEvent(int button) : MouseButtonEvent(button) {}
 
-        std::string toString() const{
-            return formatCpp::format("MouseButtonPressedEvent: {}", _button);
+        std::string toString() const override {
+            // return formatCpp::format("MouseButtonPressedEvent: {}", _button);
+            std::stringstream ss;
+            ss << fmt::format("MouseButtonPressedEvent: {}", _button);
+            return ss.str();
         }
 
         // In runtime we want to see what event type this is.
@@ -103,8 +112,11 @@ namespace RendererEngine{
     public:
         MouseButtonReleasedEvent(int button) : MouseButtonEvent(button) {}
 
-        std::string toString() const{
-            return formatCpp::format("MouseButtonReleasedEvent: {}", _button);
+        std::string toString() const override {
+            // return formatCpp::format("MouseButtonReleasedEvent: {}", _button);
+            std::stringstream ss;
+            ss << fmt::format("MouseButtonReleasedEvent: {}", _button);
+            return ss.str();
         }
 
         // In runtime we want to see what event type this is.

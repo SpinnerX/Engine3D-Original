@@ -31,9 +31,11 @@ namespace RendererEngine{
         inline int GetRepeatCount() const { return _repeatCount; }
 
         std::string toString() const override{
-            // std::stringstream ss;
+            std::stringstream ss;
             // ss << formatCpp::format("KeyPressed Event: {} ({} repeats)",  _keyCode, _repeatCount);
-            return formatCpp::format("KeyPressed Event: {} ({} repeats)",  _keyCode, _repeatCount);
+            // return formatCpp::format("KeyPressed Event: {} ({} repeats)",  _keyCode, _repeatCount);
+            ss << fmt::format("KeyPressedEvent: {} ({} repeats)", _keyCode, _repeatCount);
+            return ss.str();
         }
 
         // In runtime we want to see what event type this is.
@@ -42,10 +44,6 @@ namespace RendererEngine{
         // We need another instance of it, so we know what the actual event type it is.
         virtual EventType GetEventType() const override { return GetStaticType(); }
         virtual const char* GetName() const override { return "EventType::KeyPressed"; }
-
-        std::string toString() const override {
-            return formatCpp::format("KeyPressedEvent: {} ({} repeats)", _keyCode, _repeatCount);
-        }
 
     private:
         int _repeatCount;
@@ -56,7 +54,10 @@ namespace RendererEngine{
         KeyReleasedEvent(int keycode) : KeyEvent(keycode){}
 
         std::string toString() const override {
-            return formatCpp::format("KeyReleasedEvent: {}", _keyCode);
+            // return formatCpp::format("KeyReleasedEvent: {}", _keyCode);
+            std::stringstream ss;
+            ss << fmt::format("KeyReleasedEvent: {}", _keyCode);
+            return ss.str();
         }
 
         // In runtime we want to see what event type this is.
