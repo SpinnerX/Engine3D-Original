@@ -4,7 +4,7 @@ set(CMAKE_CXX_FLAGS "-Wno-dev")
 set(CMAKE_CXX_FLAGS "-std=c++20")
 
 project(${PROJECT_NAME})
-set(CMAKE_CXX_STANDARD 23)
+set(CMAKE_CXX_STANDARD 20)
 include(cmake/precompiled_headers.cmake)
 
 find_package(fmt REQUIRED)
@@ -20,15 +20,11 @@ set(
   GameEngine/src/GameEngine/core.cpp
   GameEngine/include/GameEngine/Application.cpp
   GameEngine/include/GameEngine/EngineLogger.cpp
+  GameEngine/src/GameEngine/platforms/WindowsWindow.cpp
+
 )
 
-# Adding precompiled headers to speed up the compilation process
-# add_precompiled_header(${PROJECT_NAME} Application.h FORCEINCLUDE SOURCE_CXX Application.cpp)
-# add_precompiled_header(${PROJECT_NAME} EngineLogger.h FORCEINCLUDE SOURCE_CXX EngineLogger.cpp)
-# add_precompiled_header(${PROJECT_NAME} EntryPoint.h)
-# add_precompiled_header(${PROJECT_NAME} GameEngine.h)
-# add_precompiled_header(${PROJECT_NAME} core.h)
-add_precompiled_header(${PROJECT_NAME} include/GameEnginePrecompiledHeader.h FORCEINCLUDE SOURCE_CXX include/GameEnginePrecompiledHeader.cpp)
+add_precompiled_header(${PROJECT_NAME} include/GameEnginePrecompiledHeader.h FORCEINCLUDE SOURCE_CXX src/GameEnginePrecompiledHeader.cpp)
 
 
 add_subdirectory(Sandbox)
@@ -51,5 +47,5 @@ target_include_directories(
 target_precompile_headers(${PROJECT_NAME} PRIVATE
   "$<$<COMPILE_LANGUAGE:CXX>:${CMAKE_CURRENT_SOURCE_DIR}/GameEngine/include/GameEnginePrecompiledHeader.h>"
 )
-
+include(cmake/glfw.cmake)
 target_link_libraries(${PROJECT_NAME} fmt::fmt spdlog::spdlog)
