@@ -2,6 +2,7 @@
 #include <GameEngine/core.h>
 #include <spdlog/spdlog.h>
 #include <spdlog/fmt/ostr.h>
+#include <GameEngine/Events/Event.h>
 
 namespace RendererEngine{
 
@@ -48,7 +49,7 @@ namespace RendererEngine{
 
 // ------------ core logs ------------
 
-#define CORE_TRACE(...) RendererEngine::EngineLogger::GetCoreLogger()->trace(__VA_ARGS__);
+// #define CORE_TRACE(...) RendererEngine::EngineLogger::GetCoreLogger()->trace(__VA_ARGS__);
 
 
 template<typename... T>

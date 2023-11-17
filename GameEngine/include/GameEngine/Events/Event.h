@@ -2,6 +2,7 @@
 #include <GameEngine/core.h>
 #include <string>
 #include <functional>
+#include <fmt/format.h>
 
 
 namespace RendererEngine{
@@ -93,5 +94,21 @@ namespace RendererEngine{
 
     private:
         Event& _event;
+    };
+
+};
+
+namespace fmt{
+    template<>
+    struct fmt::formatter<RendererEngine::Event> {
+        template<typename ParseContext>
+        constexpr auto parse(ParseContext& ctx) { return ctx.begin(); }
+
+        auto format(const RendererEngine::Event& p, format_context& ctx) const -> format_context::iterator {
+            // ctx.out() is an output iterator to write to.
+            std::stringstream stream;
+            stream << p;
+            return format_to(ctx.out(), "{}", stream.str());
+        }
     };
 };

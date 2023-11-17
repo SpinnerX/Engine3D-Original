@@ -12,8 +12,11 @@
 #include <unordered_map>
 #include <unordered_set>
 
+#include <GameEngine/Events/ApplicationEvent.h>
+
 #include <GameEngine/EngineLogger.h>
 
+#include <fmt/ostream.h>
 #if RENDER_PLATFORM_WINDOWS
     #include <Windows.h> // include Windows.h if we are in Windows platform
 #endif

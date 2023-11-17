@@ -14,6 +14,10 @@ namespace RendererEngine{
         // events that is needed to dispatched being passed in.
         void onEvent(Event& event);
 
+
+    private:
+        bool onWindowClose(WindowCloseEvent& e);
+
     private:
         std::unique_ptr<Window> _window; // a unique pointer because this class owns this ptr
         bool isRunning;
