@@ -15,6 +15,35 @@
     #define RENDER_API __attribute__((visibility("default")))
 #endif
 
+
+// What this does is checks a specific condition
+// Then it logs the message if it fails then calls __debug break (kind of like setting a breakpoint)
+#ifdef RENDER_ENABLE_ASSERTS
+    template<typename... T>
+    void render_assert(bool x, T&&... args){
+        if(!(x)){
+            clientLogError("Assertion Failed: {}", std::forward(args)...);
+            __debugbreak();
+        }
+    }
+
+    template<typename... T>
+    void render_core_assert(bool x, T&&... args){
+        if(!(x)){
+            coreLogError("Assertion Failed: {}", std::forward(args)...);
+            __debugbreak();
+        }
+    }
+#else
+    // #define RENDER_ASSERT(x, ...)
+    // #define RENDER_CORE_ASSERT(x, ...)
+    template<typename... T>
+    void render_assert(bool x, T&&... args){}
+
+    template<typename... T>
+    void render_core_assert(bool x, T&&... args){}
+#endif
+
 // Using a bitfield to go into multiple categories
 // Hence, why we are using a bitfield.
 constexpr uint64_t bit(uint64_t x){

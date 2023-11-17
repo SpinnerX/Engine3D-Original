@@ -3,20 +3,18 @@
 #include <GameEngine/EngineLogger.h>
 
 namespace RendererEngine{
-    Application::Application(){}
+    Application::Application(){
+        _window = std::unique_ptr<Window>(Window::create());
+        isRunning = true;
+    }
 
     Application::~Application(){}
 
 
     void Application::Run(){
-        WindowResizeEvent e(1280, 420);
-        if(e.isInCategory(EventCategoryApplication)){
-            coreLogTrace("{}\n", fmt::streamed(e));
-        }
+        while(isRunning){
+            _window->onUpdate();
 
-        if(e.isInCategory(EventCategoryInput)){
-            coreLogTrace("{}\n", fmt::streamed(e));
         }
-        while(true);
     }
 };
