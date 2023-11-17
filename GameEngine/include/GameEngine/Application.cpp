@@ -10,10 +10,20 @@ namespace RendererEngine{
     //     std::bind(&Application::function, this, std::placeholders::_1);
     // }
 
+
+    /**
+     * 
+     * @brief
+     * 
+     * T: class instance (such as the class instance like "this" keyword)
+     * M: is the function we are forwarding a callable object
+     * 
+    */
     template<typename T>
     auto bind_event_function(T* instance, auto M){
         return std::bind(M, instance, std::placeholders::_1);
     }
+
 
     // template<typename T>
     // Window::EventCallbackFn bind_event_function(T x) {
@@ -34,6 +44,10 @@ namespace RendererEngine{
         EventDispatcher dispatcher(event);
 
         // In order for dispatcher to tell which event to execute, this is where that happens
+
+        // NOTE
+        // - Dispatcher checks the incoming type event is the same as the static type in the Dispatch function
+        //  then we execute that specific callback corresponding to that event.
         // dispatcher.Dispatch<WindowCloseEvent>(bind_event_function(onWindowClose));
         dispatcher.Dispatch<WindowCloseEvent>(bind_event_function(this, &Application::onWindowClose));
         coreLogTrace("{}", event);
