@@ -9,9 +9,8 @@ namespace RendererEngine{
 
 
     void Application::Run(){
-        WindowResizeEvent e(1280, 720);
-        coreLogTrace("{}\n", formatCpp::streamed(e));
-        
+        WindowResizeEvent e(1280, 420);
+        coreLogInfo("{}\n", fmt::streamed(e));
         while(true);
     }
 };

@@ -1,7 +1,9 @@
 #pragma once
 #include <memory>
 #include <GameEngine/core.h>
-#include <Logger/core/Logger.h>
+#include <spdlog/spdlog.h>
+#include <spdlog/fmt/ostr.h>
+#include <cstdarg>
 
 namespace RendererEngine{
 
@@ -19,17 +21,19 @@ namespace RendererEngine{
             return (coreLogger == nullptr || clientLogger == nullptr);
         }
 
-        inline static std::shared_ptr<Logger::Log>& GetCoreLogger(){
+        inline static std::shared_ptr<spdlog::logger>& GetCoreLogger(){
             if(EngineLogger::isLoggerInit()){
-                Logger::fatal("EngineLogger::Init() needs to be called!\nEngineLogger::Init() returns a nullptr");
+                // spdlog::fatal("EngineLogger::Init() needs to be called!\nEngineLogger::Init() returns a nullptr");
+                spdlog::log(spdlog::level::critical, "EngineLogger::Init() needs to be called!\n");
                 std::terminate();
             }
             return coreLogger;
         }
 
-        inline static std::shared_ptr<Logger::Log>& GetClientLogger() {
+        inline static std::shared_ptr<spdlog::logger>& GetClientLogger() {
             if(EngineLogger::isLoggerInit()){
-                Logger::fatal("EngineLogger::Init() needs to be called!\n");
+                // Logger::fatal("EngineLogger::Init() needs to be called!\n");
+                spdlog::log(spdlog::level::critical, "EngineLogger::Init() needs to be called!\n");
                 std::terminate();
             }
             
@@ -37,59 +41,70 @@ namespace RendererEngine{
         }
 
     private:
-        static std::shared_ptr<Logger::Log> coreLogger;
-        static std::shared_ptr<Logger::Log> clientLogger;
+        // static std::shared_ptr<Logger::Log> coreLogger;
+        // static std::shared_ptr<Logger::Log> clientLogger;
+        static std::shared_ptr<spdlog::logger> coreLogger;
+        static std::shared_ptr<spdlog::logger> clientLogger;
     };
 };
 
 // ------------ core logs ------------
+
+#define CORE_TRACE(...) RendererEngine::EngineLogger::GetCoreLogger()->trace(__VA_ARGS__);
+
 template<typename... T>
-inline void coreLogTrace(std::string fmt, T&&... args) {
-    RendererEngine::EngineLogger::GetCoreLogger()->trace(fmt, (args)...);
+inline void coreLogTrace2(spdlog::format_string_t<T...> fmt, T&&... args) {
+    RendererEngine::EngineLogger::GetCoreLogger()->trace(fmt, std::forward<T>(args)...);
 }
 
 template<typename... T>
-inline void coreLogInfo(std::string fmt, T&&... args) {
-    RendererEngine::EngineLogger::GetCoreLogger()->info(fmt, (args)...);
+inline void coreLogTrace(spdlog::format_string_t<T...> fmt, T&&... args) {
+    RendererEngine::EngineLogger::GetCoreLogger()->trace(fmt, std::forward<T>(args)...);
 }
 
 template<typename... T>
-inline void coreLogWarn(std::string fmt, T&&... args) {
-    RendererEngine::EngineLogger::GetCoreLogger()->warn(fmt, (args)...);
+inline void coreLogInfo(spdlog::format_string_t<T...> fmt, T&&... args) {
+    RendererEngine::EngineLogger::GetCoreLogger()->info(fmt, std::forward<T>(args)...);
 }
 
 template<typename... T>
-inline void coreLogError(std::string fmt, T&&... args) {
-    RendererEngine::EngineLogger::GetCoreLogger()->error(fmt, (args)...);
+inline void coreLogWarn(spdlog::format_string_t<T...> fmt, T &&...args) {
+    RendererEngine::EngineLogger::GetCoreLogger()->warn(fmt, std::forward<T>(args)...);
 }
 
 template<typename... T>
-inline void coreLogFatal(std::string fmt, T&&... args) {
-    RendererEngine::EngineLogger::GetCoreLogger()->fatal(fmt, (args)...);
+inline void coreLogError(spdlog::format_string_t<T...> fmt, T &&...args) {
+    RendererEngine::EngineLogger::GetCoreLogger()->error(fmt, std::forward<T>(args)...);
+}
+
+template<typename... T>
+inline void coreLogFatal(spdlog::format_string_t<T...> fmt, T &&...args) {
+    // RendererEngine::EngineLogger::GetCoreLogger()->fatal(fmt, std::forward<T>(args)...);
+    RendererEngine::EngineLogger::GetCoreLogger()->critical(fmt, std::forward<T>(args)...);
 }
 
 // ------------ Client logs ------------
 template<typename... T>
-inline void clientLogTrace(std::string fmt, T&&... args) {
-    RendererEngine::EngineLogger::GetClientLogger()->trace(fmt, (args)...);
+inline void clientLogTrace(spdlog::format_string_t<T...> fmt, T &&...args) {
+    RendererEngine::EngineLogger::GetClientLogger()->trace(fmt, std::forward<T>(args)...);
 }
 
 template<typename... T>
-inline void clientLogInfo(std::string fmt, T&&... args) {
-    RendererEngine::EngineLogger::GetClientLogger()->info(fmt, (args)...);
+inline void clientLogInfo(spdlog::format_string_t<T...> fmt, T &&...args) {
+    RendererEngine::EngineLogger::GetClientLogger()->info(fmt, std::forward<T>(args)...);
 }
 
 template<typename... T>
-inline void clientLogWarn(std::string fmt, T&&... args) {
-    RendererEngine::EngineLogger::GetClientLogger()->warn(fmt, (args)...);
+inline void clientLogWarn(spdlog::format_string_t<T...> fmt, T &&...args) {
+    RendererEngine::EngineLogger::GetClientLogger()->warn(fmt, std::forward<T>(args)...);
 }
 
 template<typename... T>
-inline void clientLogError(std::string fmt, T&&... args) {
-    RendererEngine::EngineLogger::GetClientLogger()->error(fmt, (args)...);
+inline void clientLogError(spdlog::format_string_t<T...> fmt, T &&...args) {
+    RendererEngine::EngineLogger::GetClientLogger()->error(fmt, std::forward<T>(args)...);
 }
 
 template<typename... T>
-inline void clientLogFatal(std::string fmt, T&&... args) {
-    RendererEngine::EngineLogger::GetClientLogger()->fatal(fmt, (args)...);
+inline void clientLogFatal(spdlog::format_string_t<T...> fmt, T &&...args) {
+    RendererEngine::EngineLogger::GetClientLogger()->critical(fmt, std::forward<T>(args)...);
 }

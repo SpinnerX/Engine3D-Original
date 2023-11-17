@@ -18,10 +18,9 @@
   extern RendererEngine::Application* RendererEngine::CreateApplication();
 
   int main(int argc, char** argv){
-    RendererEngine::EngineLogger::Init();
-    // RendererEngine::EngineLogger::GetCoreLogger()->warn("Initiating Log!\n");
-    // RendererEngine::EngineLogger::GetClientLogger()->info("Hello!\n");
-    // CORE_LOG_TRACE("Testing!\n");
+    RendererEngine::EngineLogger::Init(); 
+    RendererEngine::EngineLogger::GetCoreLogger()->warn("Initiating Log!\n");
+    RendererEngine::EngineLogger::GetClientLogger()->info("Hello!\n");
 
     coreLogWarn("This is interesting!\n");
     coreLogInfo("This is testing info logging\n");
@@ -39,8 +38,6 @@
     int a = 5;
     clientLogInfo("Value is {}\n", a);
 
-    std::vector<int> test = {24, 1,2,89, 43};
-    clientLogInfo("Array = {}\n", test);
 
 
     auto app = RendererEngine::CreateApplication();

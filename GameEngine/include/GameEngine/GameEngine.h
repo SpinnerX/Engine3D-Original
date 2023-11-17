@@ -12,6 +12,8 @@
 #include <GameEngine/Application.h>
 #include <GameEngine/EngineLogger.h>
 
+#include <GameEngine/EngineLogger.h>
+
 // --------------- Entry Point ---------------
 #include <GameEngine/EntryPoint.h>
 // -------------------------------------------
