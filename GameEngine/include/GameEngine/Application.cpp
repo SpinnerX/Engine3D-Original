@@ -33,7 +33,19 @@ namespace RendererEngine{
         _window = std::unique_ptr<Window>(Window::create());
         // _window.setEventCallback(std::bind(&Application::onEvent, this, std::placeholders::_1));
         // _window->setEventCallback(bind_event_function(onEvent));
-        _window->setEventCallback(bind_event_function(this, &Application::onEvent));
+
+        // _window->setEventCallback(bind_event_function(this, &Application::onEvent));
+        // Instead of using std::bind because of using more ram, and runtime, compile time overhead
+        // using a lambda would be a better way to achhieve this
+        // Usage:
+        // we pass in an instance, and member function
+        // As this lambda will accept that as the parameters
+        auto bind_function = [](auto* instance, auto member_function){
+            return [instance, member_function](auto&& arg1){
+                return (instance->*member_function)(std::forward<decltype(arg1)>(arg1));
+            };
+        };
+        _window->setEventCallback(bind_function(this, &Application::onEvent));
 
         isRunning = true;
     }
@@ -43,13 +55,23 @@ namespace RendererEngine{
     void Application::onEvent(Event& event){
         EventDispatcher dispatcher(event);
 
+        // auto bind_function = [&](){
+        //     onWindowClose();
+        // };
+
         // In order for dispatcher to tell which event to execute, this is where that happens
 
         // NOTE
         // - Dispatcher checks the incoming type event is the same as the static type in the Dispatch function
         //  then we execute that specific callback corresponding to that event.
         // dispatcher.Dispatch<WindowCloseEvent>(bind_event_function(onWindowClose));
-        dispatcher.Dispatch<WindowCloseEvent>(bind_event_function(this, &Application::onWindowClose));
+        // dispatcher.Dispatch<WindowCloseEvent>(bind_event_function(this, &Application::onWindowClose));
+        auto bind_function = [](auto* instance, auto member_function){
+            return [instance, member_function](auto&& arg1){
+                return (instance->*member_function)(std::forward<decltype(arg1)>(arg1));
+            };
+        };
+        dispatcher.Dispatch<WindowCloseEvent>(bind_function(this, &Application::onWindowClose));
         coreLogTrace("{}", event);
 
     }
