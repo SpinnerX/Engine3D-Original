@@ -8,7 +8,7 @@ set(imgui_include /usr/local/include/imgui)
 
 # We want to check before proceeding
 if(EXISTS ${imgui_include})
-    message(STATUS "imgui in /usr/local/include/imgui has been found")
+    message(STATUS "Imgui in /usr/local/include/imgui has been found")
     set(
         imgui_src
         ${imgui_include}/imgui.cpp
@@ -18,7 +18,7 @@ if(EXISTS ${imgui_include})
         ${imgui_include}/imgui_demo.cpp
     )
 else()
-    message(SEND_ERROR "imgui in /usr/local/include has not been found")
+    message(SEND_ERROR "Imgui in /usr/local/include has not been found")
 endif()
 
 # target_include_directories(
