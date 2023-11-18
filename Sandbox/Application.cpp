@@ -1,4 +1,5 @@
 #include <GameEngine/GameEngine.h>
+#include <imgui.h>
 
 // This is just an example on how to make a layer
 class ExampleLayer : public RendererEngine::Layer{
@@ -18,6 +19,7 @@ class Sandbox : public RendererEngine::Application{
 public:
     Sandbox() {
         pushLayer(new ExampleLayer());
+        pushOverlay(new RendererEngine::ImGuiLayer());
     }
 
     ~Sandbox() {}
