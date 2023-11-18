@@ -11,11 +11,11 @@ if(EXISTS ${imgui_include})
     message(STATUS "Imgui in /usr/local/include/imgui has been found")
     set(
         imgui_src
-        ${imgui_include}/imgui.cpp
         ${imgui_include}/imgui_draw.cpp
         ${imgui_include}/imgui_widgets.cpp
         ${imgui_include}/imgui_tables.cpp
         ${imgui_include}/imgui_demo.cpp
+        ${imgui_include}/imgui.cpp
     )
 else()
     message(SEND_ERROR "Imgui in /usr/local/include has not been found")
