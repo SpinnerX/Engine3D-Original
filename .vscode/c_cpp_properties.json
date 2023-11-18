@@ -5,7 +5,8 @@
             "includePath": [
                 "${default}",
                 "${workspaceFolder}/GameEngine/include/GameEngine/**",
-                "${workspaceFolder}/GameEngine/include"
+                "${workspaceFolder}/GameEngine/include",
+                "/usr/local/include/**"
             ],
             "defines": [],
             "macFrameworkPath": [
