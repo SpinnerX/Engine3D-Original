@@ -1,12 +1,11 @@
 // #include <GameEngine/Imgui/ImGuiLayer.h>
 #include "ImGuiLayer.h"
 #include <GameEnginePrecompiledHeader.h>
-#include <imgui/imgui.h>
 #include <GameEngine/platforms/OpenGL/ImGuiOpenGLRenderer.h>
 #include <GameEngine/Application.h>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
-#include <imgui/imconfig.h>
+#include <imgui.h>
 
 namespace RendererEngine{
     ImGuiLayer::ImGuiLayer() : Layer("ImGuiLayer") {
@@ -17,10 +16,10 @@ namespace RendererEngine{
     void ImGuiLayer::onAttach(){
         ImGui::CreateContext();
         ImGui::StyleColorsDark(); // using dark colors
-        clientLogInfo("onAttach() has been called!");
+        clientLogInfo("ImGuiLayer.cpp onAttach() has been called!");
 
         // We are setting imgui flags
-        ImGuiIO& io = ImGui::GetIO(); (void)io;
+        ImGuiIO& io = ImGui::GetIO();
         // Setting back end flags to mouse cursor and mouse positions.
         io.BackendFlags |= ImGuiBackendFlags_HasMouseCursors;
         io.BackendFlags |= ImGuiBackendFlags_HasSetMousePos;
@@ -50,7 +49,7 @@ namespace RendererEngine{
 
 
         // Initializing the OpenGL3
-        ImGui_ImplOpenGL3_Init("#version 410");
+        ImGui_ImplOpenGL3_Init("#version 130");
     }
     
     void ImGuiLayer::onDetach(){
@@ -58,7 +57,7 @@ namespace RendererEngine{
     }
 
     void ImGuiLayer::onUpdate() {
-        ImGuiIO& io = ImGui::GetIO(); (void)io;
+        ImGuiIO& io = ImGui::GetIO();
 
         Application& app = Application::Get();
         io.DisplaySize = ImVec2(app.GetWindow().getWidth(), app.GetWindow().getHeight());
@@ -66,7 +65,7 @@ namespace RendererEngine{
         float time = (float)glfwGetTime();
         io.DeltaTime = _time > 0.0f ? (time - _time) : (1.0f / 60.0f);
         _time = time;
-
+        // ImGui_ImplOpenGL3_Init("#version 130");
         ImGui_ImplOpenGL3_NewFrame();
         ImGui::NewFrame();
 

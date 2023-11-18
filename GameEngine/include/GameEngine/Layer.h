@@ -15,7 +15,10 @@ namespace RendererEngine{
 
         // When pushing onto the Layer Stack we attach it
         // Pop of thhe layer stack is for detaching (like shhutdown)
-        virtual void onAttach() {}
+        virtual void onAttach() {
+            coreLogInfo("Default onAttach() called instead!");
+        }
+
         virtual void onDetach() {}
 
         // Updating the layer is updated when the application calls onUpdate

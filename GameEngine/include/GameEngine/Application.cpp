@@ -68,12 +68,13 @@ namespace RendererEngine{
     Application::~Application(){}
 
     void Application::pushLayer(Layer* layer){
-        layer->onAttach();
         _layerStack.pushLayer(layer);
+        layer->onAttach();
     }
 
-    void Application::pushOverlay(Layer* overlay){
-        _layerStack.pushOverlay(overlay);
+    void Application::pushOverlay(Layer* layer){
+        _layerStack.pushOverlay(layer);
+        layer->onAttach();
     }
 
 

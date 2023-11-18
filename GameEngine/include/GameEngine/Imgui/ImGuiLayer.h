@@ -1,5 +1,6 @@
 #pragma once
 #include <GameEngine/Layer.h>
+#include <imgui/imgui.h>
 
 namespace RendererEngine{
 
@@ -10,14 +11,15 @@ namespace RendererEngine{
         ImGuiLayer();
         ~ImGuiLayer();
 
-        virtual void onAttach() override;
-        virtual void onDetach() override;
+        void onAttach();
+        void onDetach();
 
-        virtual void onUpdate() override;
+        void onUpdate();
 
         virtual void onEvent(Event& event) override;
 
     private:
         float _time=0.f;
+        // ImGuiContext* currentCtx;
     };
 };
