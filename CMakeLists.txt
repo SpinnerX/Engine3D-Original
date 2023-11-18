@@ -7,8 +7,12 @@ project(${PROJECT_NAME})
 set(CMAKE_CXX_STANDARD 20)
 include(cmake/precompiled_headers.cmake)
 
+set(CMAKE_BUILT_TYPE Debug)
+set(THREADS_PREFER_PTHREAD_FLAG ON)
+
 find_package(fmt REQUIRED)
 find_package(spdlog REQUIRED)
+find_package(Threads REQUIRED)
 
 include_directories(
   ${PROJECT_SOURCE_DIR}/GameEngine/include
@@ -21,6 +25,8 @@ set(
   GameEngine/include/GameEngine/Application.cpp
   GameEngine/include/GameEngine/EngineLogger.cpp
   GameEngine/src/GameEngine/platforms/WindowsWindow.cpp
+  GameEngine/include/GameEngine/Layer.cpp
+  GameEngine/include/GameEngine/LayerStack.cpp
 
 )
 
@@ -48,4 +54,4 @@ target_precompile_headers(${PROJECT_NAME} PRIVATE
   "$<$<COMPILE_LANGUAGE:CXX>:${CMAKE_CURRENT_SOURCE_DIR}/GameEngine/include/GameEnginePrecompiledHeader.h>"
 )
 include(cmake/glfw.cmake)
-target_link_libraries(${PROJECT_NAME} fmt::fmt spdlog::spdlog)
+target_link_libraries(${PROJECT_NAME} fmt::fmt spdlog::spdlog Threads::Threads)
