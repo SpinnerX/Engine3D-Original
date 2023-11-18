@@ -1,7 +1,9 @@
-#include <GameEngine/platforms/WindowsWindow.h>
+#include <GameEngine/platforms/Windows/WindowsWindow.h>
 #include <GameEngine/Events//MouseEvent.h>
 #include <GameEngine/Events/KeyEvent.h>
 #include <GameEngine/Events/ApplicationEvent.h>
+#include <glad/glad.h>
+#include <GLFW/glfw3.h>
 
 namespace RendererEngine{
     static bool _glfwInitialized = false;
@@ -35,6 +37,13 @@ namespace RendererEngine{
         // // We should check if GLFW is initialized before proceeding
         if(!_glfwInitialized){
             // TODO: glfwTerminate on system shutfown
+             // Have to specify these on macOS
+            glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+            glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+            glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+            glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
+            // to prevent 1200x800 from becoming 2400x1600
+            glfwWindowHint(GLFW_COCOA_RETINA_FRAMEBUFFER, GLFW_FALSE);
             int success = glfwInit();
             render_core_assert(success, "Could not initialize GLFW!"); // Chhecking if glfw initialized successfully and then set that variable to true
 
@@ -45,6 +54,11 @@ namespace RendererEngine{
 
         _window = glfwCreateWindow((int)props.width, (int)props.height, _data.title.c_str(), nullptr, nullptr);
         glfwMakeContextCurrent(_window); // Basically making this current window our context window
+
+        int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
+
+        render_core_assert(status, "Failed to initialized glad!");
+
         glfwSetWindowUserPointer(_window, &_data);
         setVSync(true);
 

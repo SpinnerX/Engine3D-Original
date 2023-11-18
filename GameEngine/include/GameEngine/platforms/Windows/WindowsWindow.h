@@ -1,6 +1,7 @@
 #pragma once
 #include <GameEngine/Window.h>
-#include <GLFW/glfw3.h>
+
+struct GLFWwindow;
 
 namespace RendererEngine{
     // Windows OS specific Window

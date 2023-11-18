@@ -15,8 +15,8 @@ namespace RendererEngine{
 
         // When pushing onto the Layer Stack we attach it
         // Pop of thhe layer stack is for detaching (like shhutdown)
-        virtual void onAttach(){}
-        virtual void onDetach(){}
+        virtual void onAttach() {}
+        virtual void onDetach() {}
 
         // Updating the layer is updated when the application calls onUpdate
         virtual void onUpdate(){}
@@ -25,6 +25,10 @@ namespace RendererEngine{
         virtual void onEvent(Event& event){}
 
         inline const std::string& getName() const { return _debugName; }
+
+        friend std::ostream& operator<<(std::ostream& outs, const Layer* layer){
+            return outs << layer->_debugName;
+        }
     protected:
         std::string _debugName;
     };

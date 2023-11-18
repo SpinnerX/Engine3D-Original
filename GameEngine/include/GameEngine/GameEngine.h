@@ -16,6 +16,8 @@
 #include <GameEngine/EngineLogger.h>
 // -------------------------------------------
 
+#include <GameEngine/Imgui/ImGuiLayer.h>
+
 // --------------- Entry Point ---------------
 #include <GameEngine/EntryPoint.h>
 // -------------------------------------------

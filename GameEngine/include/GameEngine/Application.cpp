@@ -3,6 +3,10 @@
 #include <unistd.h>
 
 namespace RendererEngine{
+
+
+    Application* Application::_instance = nullptr;
+
     // std::bind is how we tell which Application function we want to bind 
     // #define bind_event_function(x) std::bind(&Application::x, this, std::placeholders::_1)
 
@@ -31,6 +35,8 @@ namespace RendererEngine{
     //     return std::bind(&x, this, std::placeholders::_1);
     // }
     Application::Application(){
+        render_core_assert(!_instance, "Application already exists!");
+        _instance = this;
         _window = std::unique_ptr<Window>(Window::create());
 
         // Reasons not to use std::bind
@@ -62,6 +68,7 @@ namespace RendererEngine{
     Application::~Application(){}
 
     void Application::pushLayer(Layer* layer){
+        layer->onAttach();
         _layerStack.pushLayer(layer);
     }
 

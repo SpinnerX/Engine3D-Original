@@ -18,6 +18,12 @@ namespace RendererEngine{
         void pushLayer(Layer* layer);
         void pushOverlay(Layer* layer);
 
+        // Wherever we are in our codebase, we will want to access the application
+        // since this application contain important informaiton
+        // Therefore why we only create one instance.
+        inline static Application& Get() { return *_instance; }
+        inline Window& GetWindow() { return *_window; }
+
 
     private:
         bool onWindowClose(WindowCloseEvent& e);
@@ -26,6 +32,9 @@ namespace RendererEngine{
         std::unique_ptr<Window> _window; // a unique pointer because this class owns this ptr
         bool isRunning;
         LayerStack _layerStack;
+    private:
+        // Since there really is only going to be one application
+        static Application* _instance; // Getting our current application instance
     };
 
     // To be defined in client.
