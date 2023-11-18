@@ -49,7 +49,10 @@ namespace RendererEngine{
 
 
         // Initializing the OpenGL3
-        ImGui_ImplOpenGL3_Init("#version 130");
+        // ImGui_ImplOpenGL3_Init("#version 410");
+        ImGui_ImplOpenGL3_Init("#version 100");
+        // if(!ImGui_ImplGlfw_InitForOpenGL(Application::Get().GetWindow(), true)) return;
+        // if(!ImGui_ImplOpenGL3_NewFrame(Application::Get().GetWindow(), true)) return;
     }
     
     void ImGuiLayer::onDetach(){
@@ -65,7 +68,7 @@ namespace RendererEngine{
         float time = (float)glfwGetTime();
         io.DeltaTime = _time > 0.0f ? (time - _time) : (1.0f / 60.0f);
         _time = time;
-        // ImGui_ImplOpenGL3_Init("#version 130");
+
         ImGui_ImplOpenGL3_NewFrame();
         ImGui::NewFrame();
 
