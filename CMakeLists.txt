@@ -5,18 +5,25 @@ set(CMAKE_CXX_FLAGS "-std=c++20")
 
 project(${PROJECT_NAME})
 set(CMAKE_CXX_STANDARD 20)
-include(cmake/precompiled_headers.cmake)
-
+set(CMAKE_CXX_FLAGS "-Wno-dev")
+set(CMAKE_CXX_FLAGS "-fno-exceptions" "-fsanitize=address" "-Wall" "-Wextra")
+set(CMAKE_CXX_FLAGS "-std=c++20")
 set(CMAKE_BUILT_TYPE Debug)
 set(THREADS_PREFER_PTHREAD_FLAG ON)
+
+include(cmake/precompiled_headers.cmake)
 
 find_package(fmt REQUIRED)
 find_package(spdlog REQUIRED)
 find_package(Threads REQUIRED)
+include(cmake/imgui.cmake)
+include(cmake/glad.cmake)
 
 include_directories(
   ${PROJECT_SOURCE_DIR}/GameEngine/include
   ${PROJECT_SOURCE_DIR}/GameEngine/include/GameEngine
+  ${imgui_include}
+  ${glad_include}
 )
 
 set(
@@ -27,7 +34,11 @@ set(
   GameEngine/src/GameEngine/platforms/WindowsWindow.cpp
   GameEngine/include/GameEngine/Layer.cpp
   GameEngine/include/GameEngine/LayerStack.cpp
+  ${imgui_src}
+  ${glad_src}
 
+  GameEngine/include/GameEngine/Imgui/ImGuiLayer.cpp
+  GameEngine/include/GameEngine/platforms/OpenGL/ImGuiOpenGLRenderer.cpp
 )
 
 add_precompiled_header(${PROJECT_NAME} include/GameEnginePrecompiledHeader.h FORCEINCLUDE SOURCE_CXX src/GameEnginePrecompiledHeader.cpp)
