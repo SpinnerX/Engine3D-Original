@@ -1,5 +1,6 @@
 #include "Application.h"
 #include <GLFW/glfw3.h>
+#include <unistd.h>
 
 namespace RendererEngine{
     // std::bind is how we tell which Application function we want to bind 
@@ -94,9 +95,10 @@ namespace RendererEngine{
 
         // Iterating backwards thhrough the layer stack and thhen we called onEvent, and if it isn;t handled thhen it breaks 
         // If not a layer and an overlay then we do not continue.
-        for(auto iter = _layerStack.end(); iter != _layerStack.begin(); iter--){
-            // (*--iter)->onEvent(event);
-            (*iter)->onEvent(event);
+        // for(auto iter = _layerStack.end(); iter != _layerStack.begin(); iter--){
+        auto iter = _layerStack.end();
+        while(iter != _layerStack.begin()){
+            (*--iter)->onEvent(event);
 
             if(event._handled) break;
         }
