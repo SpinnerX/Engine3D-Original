@@ -121,6 +121,6 @@ namespace RendererEngine{
 
     bool Application::onWindowClose(WindowCloseEvent& e){
         isRunning = false;
-        return true;   
+        return true;
     }
 };
