@@ -18,6 +18,19 @@ namespace RendererEngine{
 
         virtual void onEvent(Event& event) override;
 
+        std::string toString() const {
+            std::stringstream ss;
+            ss << "Vendor graphic card: " << glGetString(GL_VENDOR) << '\n';
+            ss << "Renderer: " << glGetString(GL_RENDERER) << '\n';
+            ss << "Version GL: " << glGetString(GL_VERSION) << '\n';
+            ss << "Version GLSL: " << glGetString(GL_SHADING_LANGUAGE_VERSION);
+            return ss.str();
+        }
+
+        friend std::ostream& operator<<(std::ostream& outs, ImGuiLayer& layer){
+            return outs << layer.toString();
+        }
+
     private:
         float _time=0.f;
         // ImGuiContext* currentCtx;
