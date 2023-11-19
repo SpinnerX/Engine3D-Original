@@ -3,8 +3,6 @@
 #include <GameEnginePrecompiledHeader.h>
 #include <GameEngine/platforms/OpenGL/ImGuiOpenGLRenderer.h>
 #include <GameEngine/Application.h>
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
 #include <imgui.h>
 
 namespace RendererEngine{
@@ -48,11 +46,8 @@ namespace RendererEngine{
 		io.KeyMap[ImGuiKey_Z] = GLFW_KEY_Z;
 
 
-        // Initializing the OpenGL3
-        // ImGui_ImplOpenGL3_Init("#version 410");
-        ImGui_ImplOpenGL3_Init("#version 100");
-        // if(!ImGui_ImplGlfw_InitForOpenGL(Application::Get().GetWindow(), true)) return;
-        // if(!ImGui_ImplOpenGL3_NewFrame(Application::Get().GetWindow(), true)) return;
+        // Initializing the OpenGL3 ()
+        ImGui_ImplOpenGL3_Init("#version 120");
     }
     
     void ImGuiLayer::onDetach(){
