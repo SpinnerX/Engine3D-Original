@@ -26,3 +26,10 @@
         because Application contains important information, like related to display or things like that.
 
 
+## Errors (Errors that had occurred in thihs phase with initializing ImGui that have been fixed)
+- There are errors when putting in "# version 400", so instead we put 120 and that fixed the error
+    - If we get error unsupported then we should check in ImGuiLayer.cpp and add a version that is \
+        supported.
+- There were segfaults when we tried running ImGUi.
+    - Solution to this was adding ImGui and along with backends directory together whhen putting them \
+        somewhere.
