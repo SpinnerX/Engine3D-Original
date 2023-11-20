@@ -28,6 +28,12 @@ if(EXISTS ${imgui_include})
         # ${imgui_include}/backends/imgui_impl_opengl2.cpp
         ${imgui_include}/backends/imgui_impl_glut.cpp
         ${imgui_include}/backends/imgui_impl_glfw.cpp
+        ${imgui_include}/backends/imgui_impl_opengl3.cpp
+        # ${imgui_include}/backends/imgui_impl_sdl2.cpp
+        # ${imgui_include}/backends/imgui_impl_sdl3.cpp
+        # ${imgui_include}/backends/imgui_impl_sdlrenderer2.cpp
+        # ${imgui_include}/backends/imgui_impl_sdlrenderer3.cpp
+
         # ${imgui_include}/backends/imgui_impl_dx9.cpp
         # ${imgui_include}/backends/imgui_impl_dx12.cpp
         # ${imgui_include}/backends/imgui_impl_dx11.cpp
@@ -35,11 +41,6 @@ if(EXISTS ${imgui_include})
         # ${imgui_include}/backends/imgui_impl_android.cpp
         # ${imgui_include}/backends/imgui_impl_allegro5.cpp
 
-        ${imgui_include}/backends/imgui_impl_opengl3.cpp
-        # ${imgui_include}/backends/imgui_impl_sdl2.cpp
-        # ${imgui_include}/backends/imgui_impl_sdl3.cpp
-        # ${imgui_include}/backends/imgui_impl_sdlrenderer2.cpp
-        # ${imgui_include}/backends/imgui_impl_sdlrenderer3.cpp
         # ${imgui_include}/backends/imgui_impl_vulkan.cpp
         # ${imgui_include}/backends/imgui_impl_wgpu.cpp
         # ${imgui_include}/backends/imgui_impl_win32.cpp
