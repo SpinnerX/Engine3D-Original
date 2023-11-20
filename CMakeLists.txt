@@ -42,6 +42,7 @@ set(
   ${glad_src}
 
   GameEngine/include/GameEngine/Imgui/ImGuiLayer.cpp
+  GameEngine/include/GameEngine/InputPoll.cpp
 )
 
 add_precompiled_header(${PROJECT_NAME} include/GameEnginePrecompiledHeader.h FORCEINCLUDE SOURCE_CXX src/GameEnginePrecompiledHeader.cpp)

@@ -67,4 +67,23 @@ namespace RendererEngine{
         virtual EventType GetEventType() const override { return GetStaticType(); }
         virtual const char* GetName() const override { return "EventType::KeyReleased"; }
     };
+
+    class RENDER_API KeyTypedEvent : public KeyEvent{
+    public:
+        KeyTypedEvent(int keycode) : KeyEvent(keycode) {}
+
+        std::string toString() const override{
+            std::stringstream ss;
+            ss << fmt::format("KeyTypedEvent: {}", _keyCode);
+            return ss.str();
+        }
+
+        // In runtime we want to see what event type this is.
+        static EventType GetStaticType() { return EventType::KeyPressed; }
+
+        // We need another instance of it, so we know what the actual event type it is.
+        virtual EventType GetEventType() const override { return GetStaticType(); }
+        virtual const char* GetName() const override { return "EventType::KeyTyped"; }
+    };
+
 };

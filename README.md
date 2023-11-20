@@ -23,3 +23,7 @@ These are frameworks that are used in the GameEngine.
 `Logger` - Personal Logger framework
 `OpenGL/Glew/Freeglut/GLut` - Rendering library
 `FFMPEG` - Audio processing library
+
+
+## Resources
+`https://icolorpalette.com/color/102669` - Link for medium royal blue colors

@@ -117,6 +117,15 @@ namespace RendererEngine{
             }
         });
 
+        // Callback for the Key Type Event
+        // Essentially for typing text into a text box
+        // NOTE: keycode is the character that we are currently typing
+        glfwSetCharCallback(_window, [](GLFWwindow* window, unsigned int keycode){
+            WindowData& data =  *(WindowData *)glfwGetWindowUserPointer(window);
+            KeyTypedEvent event(keycode);
+            data.callback(event);
+        });
+
         // Setting up our event dispatchers for mouse events (ref to more a descriptive explanation at the top for key events as it applied to mouse events)
         glfwSetMouseButtonCallback(_window, [](GLFWwindow* window, int button, int action, int modes){
             WindowData& data =  *(WindowData *)glfwGetWindowUserPointer(window);

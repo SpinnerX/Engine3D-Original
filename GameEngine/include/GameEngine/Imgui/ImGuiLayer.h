@@ -1,5 +1,8 @@
 #pragma once
 #include <GameEngine/Layer.h>
+
+#include <GameEngine/Events/KeyEvent.h>
+#include <GameEngine/Events/MouseEvent.h>
 #include <imgui/imgui.h>
 
 namespace RendererEngine{
@@ -30,6 +33,27 @@ namespace RendererEngine{
         friend std::ostream& operator<<(std::ostream& outs, ImGuiLayer& layer){
             return outs << layer.toString();
         }
+
+    private:
+        bool onMouseButtonPressedEvent(MouseButtonPressedEvent& e);
+
+        bool onMouseButtonReleasedEvent(MouseButtonReleasedEvent& e);
+
+        bool onMouseMovedEvent(MouseMovedEvent& e);
+
+        bool onMouseButtonScrollEvent(MouseScrolledEvent& e);
+
+        bool onKeyPressedEvent(KeyPressedEvent& e);
+
+        bool onKeyReleasedEvent(KeyReleasedEvent& e);
+
+        // handling when we are actually typing a key character
+        // Useful for essentially typing text into a wordbox
+        bool onKeyTypedEvent(KeyTypedEvent& e);
+
+        bool onWindowResizedEvent(WindowResizeEvent& e);
+        
+
 
     private:
         float _time=0.f;

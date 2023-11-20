@@ -3,34 +3,7 @@
 
 namespace RendererEngine{
     Application* Application::_instance = nullptr;
-
-    // std::bind is how we tell which Application function we want to bind 
-    // #define bind_event_function(x) std::bind(&Application::x, this, std::placeholders::_1)
-
-    // template<typename function>
-    // void bind_event_function(){
-    //     std::bind(&Application::function, this, std::placeholders::_1);
-    // }
-
-
-    /**
-     * 
-     * @brief
-     * 
-     * T: class instance (such as the class instance like "this" keyword)
-     * M: is the function we are forwarding a callable object
-     * NOTE GOING TO USE - overhead in runtime and compile-time
-    */
-    // template<typename T>
-    // auto bind_event_function(T* instance, auto M){
-    //     return std::bind(M, instance, std::placeholders::_1);
-    // }
-
-
-    // template<typename T>
-    // Window::EventCallbackFn bind_event_function(T x) {
-    //     return std::bind(&x, this, std::placeholders::_1);
-    // }
+    
     Application::Application(){
         render_core_assert(!_instance, "Application already exists!");
         _instance = this;
@@ -105,7 +78,8 @@ namespace RendererEngine{
 
     void Application::Run(){
         while(isRunning){
-            glClearColor(1, 0, 1, 1);
+            // glClearColor(1, 0, 1, 1);
+            glClearColor(65,105,225, 1);
             glClear(GL_COLOR_BUFFER_BIT);
 
             for(Layer* layer : _layerStack){

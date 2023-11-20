@@ -83,7 +83,8 @@
         "source_location": "cpp",
         "stack": "cpp",
         "format": "cpp",
-        "semaphore": "cpp"
+        "semaphore": "cpp",
+        "numbers": "cpp"
     },
     "discord.enabled": true,
     "C_Cpp.errorSquiggles": "disabled",
