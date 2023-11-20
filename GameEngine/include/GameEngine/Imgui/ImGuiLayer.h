@@ -11,10 +11,10 @@ namespace RendererEngine{
         ImGuiLayer();
         ~ImGuiLayer();
 
-        void onAttach();
-        void onDetach();
+        void onAttach() override;
+        void onDetach() override;
 
-        void onUpdate();
+        void onUpdate() override;
 
         virtual void onEvent(Event& event) override;
 

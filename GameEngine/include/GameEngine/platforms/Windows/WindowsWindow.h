@@ -18,6 +18,8 @@ namespace RendererEngine{
         inline unsigned int getWidth() const override { return _data.width; }
         inline unsigned int getHeight() const override { return _data.height; }
 
+        GLFWwindow* ptr() const override  { return _window; }
+
         // Window attributes
         void setEventCallback(const EventCallbackFn& callback) override {
             _data.callback = callback;

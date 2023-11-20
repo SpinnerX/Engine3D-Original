@@ -1,9 +1,13 @@
 // #include <GameEngine/Imgui/ImGuiLayer.h>
 #include "ImGuiLayer.h"
 #include <GameEnginePrecompiledHeader.h>
-#include <GameEngine/platforms/OpenGL/ImGuiOpenGLRenderer.h>
+#include <imgui/backends/imgui_impl_opengl3.h>
+#include <imgui/backends/imgui_impl_glfw.h>
 #include <GameEngine/Application.h>
-#include <imgui.h>
+
+// #include <imgui.h>
+// #include <GameEngine/platforms/OpenGL/ImGuiGlfwRenderer.h>
+
 
 namespace RendererEngine{
     ImGuiLayer::ImGuiLayer() : Layer("ImGuiLayer") {
@@ -12,9 +16,9 @@ namespace RendererEngine{
     ImGuiLayer::~ImGuiLayer() {}
 
     void ImGuiLayer::onAttach(){
+        // IMGUI_CHECKVERSION();
         ImGui::CreateContext();
         ImGui::StyleColorsDark(); // using dark colors
-        clientLogInfo("ImGuiLayer.cpp onAttach() has been called!");
 
         // We are setting imgui flags
         ImGuiIO& io = ImGui::GetIO();
@@ -47,7 +51,8 @@ namespace RendererEngine{
 
 
         // Initializing the OpenGL3 ()
-        ImGui_ImplOpenGL3_Init("#version 120");
+        ImGui_ImplGlfw_InitForOpenGL(Application::Get().GetWindow().ptr(), true);
+        ImGui_ImplOpenGL3_Init("#version 120"); // We should check the version of GLSL
     }
     
     void ImGuiLayer::onDetach(){
@@ -64,16 +69,17 @@ namespace RendererEngine{
         io.DeltaTime = _time > 0.0f ? (time - _time) : (1.0f / 60.0f);
         _time = time;
 
+        ImGui_ImplGlfw_NewFrame();
         ImGui_ImplOpenGL3_NewFrame();
         ImGui::NewFrame();
 
-        static bool show = true;
+        bool show = true;
 
         ImGui::ShowDemoWindow(&show);
 
         ImGui::Render();
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-	}
+    }
 
     void ImGuiLayer::onEvent(Event& event) {}
 };
