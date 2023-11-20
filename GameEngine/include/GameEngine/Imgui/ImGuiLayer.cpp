@@ -5,10 +5,6 @@
 #include <imgui/backends/imgui_impl_glfw.h>
 #include <GameEngine/Application.h>
 
-// #include <imgui.h>
-// #include <GameEngine/platforms/OpenGL/ImGuiGlfwRenderer.h>
-
-
 namespace RendererEngine{
     ImGuiLayer::ImGuiLayer() : Layer("ImGuiLayer") {
     }

@@ -1,10 +1,7 @@
 #include "Application.h"
 #include <GLFW/glfw3.h>
-#include <unistd.h>
 
 namespace RendererEngine{
-
-
     Application* Application::_instance = nullptr;
 
     // std::bind is how we tell which Application function we want to bind 
@@ -80,18 +77,11 @@ namespace RendererEngine{
 
     void Application::onEvent(Event& event){
         EventDispatcher dispatcher(event);
-
-        // auto bind_function = [&](){
-        //     onWindowClose();
-        // };
-
         // In order for dispatcher to tell which event to execute, this is where that happens
 
         // NOTE
         // - Dispatcher checks the incoming type event is the same as the static type in the Dispatch function
         //  then we execute that specific callback corresponding to that event.
-        // dispatcher.Dispatch<WindowCloseEvent>(bind_event_function(onWindowClose));
-        // dispatcher.Dispatch<WindowCloseEvent>(bind_event_function(this, &Application::onWindowClose));
         auto bind_function = [](auto* instance, auto member_function){
             return [instance, member_function](auto&& arg1){
                 return (instance->*member_function)(std::forward<decltype(arg1)>(arg1));
