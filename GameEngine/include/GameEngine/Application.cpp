@@ -93,7 +93,6 @@ namespace RendererEngine{
 
         // Iterating backwards thhrough the layer stack and thhen we called onEvent, and if it isn;t handled thhen it breaks 
         // If not a layer and an overlay then we do not continue.
-        // for(auto iter = _layerStack.end(); iter != _layerStack.begin(); iter--){
         auto iter = _layerStack.end();
         while(iter != _layerStack.begin()){
             (*--iter)->onEvent(event);
