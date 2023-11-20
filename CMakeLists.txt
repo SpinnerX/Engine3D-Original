@@ -8,6 +8,10 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_FLAGS "-Wno-dev")
 set(CMAKE_CXX_FLAGS "-fno-exceptions" "-fsanitize=address" "-Wall" "-Wextra")
 set(CMAKE_CXX_FLAGS "-std=c++20")
+
+add_compile_options(-fsanitize=address)
+add_link_options(-fsanitize=address)
+
 set(CMAKE_BUILT_TYPE Debug)
 set(THREADS_PREFER_PTHREAD_FLAG ON)
 
@@ -38,7 +42,6 @@ set(
   ${glad_src}
 
   GameEngine/include/GameEngine/Imgui/ImGuiLayer.cpp
-  GameEngine/include/GameEngine/platforms/OpenGL/ImGuiOpenGLRenderer.cpp
 )
 
 add_precompiled_header(${PROJECT_NAME} include/GameEnginePrecompiledHeader.h FORCEINCLUDE SOURCE_CXX src/GameEnginePrecompiledHeader.cpp)
