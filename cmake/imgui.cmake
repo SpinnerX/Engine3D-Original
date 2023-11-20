@@ -6,6 +6,13 @@ set(imgui_include /usr/local/include/imgui)
 # If that directory is not found then go to the imgui github link and git clone and move those files into /usr/local/include
 # Github Installation Link: https://github.com/ocornut/imgui
 
+# NOTE ** in case you forget **
+# - Uncomment some of the .cpp files if you installed everything correctly, and are having errors
+# - Errors involving opengl2, dx v9, v12, v11, and v10, or using android, allegro and other interfaces
+#   depending on OS and mobile requirements
+
+
+
 # We want to check before proceeding
 if(EXISTS ${imgui_include})
     message(STATUS "Imgui in /usr/local/include/imgui has been found")
