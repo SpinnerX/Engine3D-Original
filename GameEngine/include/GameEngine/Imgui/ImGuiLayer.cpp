@@ -48,7 +48,7 @@ namespace RendererEngine{
 
         // Initializing the OpenGL3 ()
         ImGui_ImplGlfw_InitForOpenGL(Application::Get().GetWindow().ptr(), true);
-        ImGui_ImplOpenGL3_Init("#version 120"); // We should check the version of GLSL
+        ImGui_ImplOpenGL3_Init("#version 120"); // We should check the version of GLSL (if there is an error with this version)
     }
     
     void ImGuiLayer::onDetach(){
