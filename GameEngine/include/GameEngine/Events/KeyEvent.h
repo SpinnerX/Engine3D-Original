@@ -5,7 +5,7 @@ namespace RendererEngine{
     // KeyEvent Base Class
     class RENDER_API KeyEvent : public Event{
     public:
-        inline int GetKeyCode() const {
+        inline virtual int GetKeyCode() const {
             return _keyCode;
         }
 
@@ -79,7 +79,7 @@ namespace RendererEngine{
         }
 
         // In runtime we want to see what event type this is.
-        static EventType GetStaticType() { return EventType::KeyPressed; }
+        static EventType GetStaticType() { return EventType::KeyTyped; }
 
         // We need another instance of it, so we know what the actual event type it is.
         virtual EventType GetEventType() const override { return GetStaticType(); }
