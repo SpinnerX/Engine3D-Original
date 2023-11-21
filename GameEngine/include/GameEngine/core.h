@@ -103,9 +103,9 @@ static bool is_same(){
 
 static auto bind_function = [](auto* instance, auto member_bound_function){
     return [instance, member_bound_function](auto&& arg1){
-        if(std::is_same_v<decltype(member_bound_function), decltype(arg1)> != true){
-            printf("from core.h printing \"Not true!\"\n");
-        }
+        // if(std::is_same_v<decltype(member_bound_function), decltype(arg1)> != true){
+        //     printf("from core.h printing \"Not true!\"\n");
+        // }
         return (instance->*member_bound_function)(std::forward<decltype(arg1)>(arg1));
     };
 };

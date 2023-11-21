@@ -28,6 +28,10 @@ namespace RendererEngine{
         void setVSync(bool enabled) override;
         bool isVSync() const override { return _data.vSync; }
 
+        inline void* getNativeWindow() const override {
+            return _window;
+        }
+
     private:
         virtual void init(const WindowProps& props);
         virtual void shutdown();

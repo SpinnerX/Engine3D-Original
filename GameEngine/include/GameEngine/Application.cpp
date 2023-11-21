@@ -1,5 +1,6 @@
 #include "Application.h"
 #include <GLFW/glfw3.h>
+#include <GameEngine/platforms/Windows/WindowsInput.h>
 
 namespace RendererEngine{
     Application* Application::_instance = nullptr;
@@ -61,8 +62,6 @@ namespace RendererEngine{
             };
         };
         dispatcher.Dispatch<WindowCloseEvent>(bind_function(this, &Application::onWindowClose));
-        coreLogTrace("{}", event);
-
 
         // Iterating backwards thhrough the layer stack and thhen we called onEvent, and if it isn;t handled thhen it breaks 
         // If not a layer and an overlay then we do not continue.

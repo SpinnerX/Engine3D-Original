@@ -33,6 +33,10 @@ namespace RendererEngine{
         virtual void setVSync(bool enabled) = 0;
         virtual bool isVSync() const = 0;
 
+        // This will return a GLFW window
+        // void* is because this could potentially return an HHWindow, GLFWwindow*, etc.
+        virtual void* getNativeWindow() const = 0;
+
         // Create Window function allowing us to create windows that may be platform specific.
         static Window* create(const WindowProps& props = WindowProps());
     };

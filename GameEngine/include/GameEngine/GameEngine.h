@@ -16,6 +16,10 @@
 #include <GameEngine/EngineLogger.h>
 // -------------------------------------------
 
+#include <GameEngine/InputPoll.h>
+#include <GameEngine/KeyCodes.h>
+#include <GameEngine/MouseButtonCodes.h>
+
 #include <GameEngine/Imgui/ImGuiLayer.h>
 
 // --------------- Entry Point ---------------
