@@ -2,7 +2,7 @@
 #include <GameEngine/core.h>
 #include <GameEngine/Window.h>
 #include <GameEngine/LayerStack.h>
-
+#include <GameEngine/Imgui/ImGuiLayer.h>
 
 namespace RendererEngine{
     class RENDER_API Application{
@@ -31,6 +31,7 @@ namespace RendererEngine{
 
     private:
         std::unique_ptr<Window> _window; // a unique pointer because this class owns this ptr
+        ImGuiLayer* _imguiLayer; // ImGuiLayer class (this class owns this ptr)
         bool isRunning;
         LayerStack _layerStack;
     private:

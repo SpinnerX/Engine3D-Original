@@ -26,8 +26,6 @@ namespace RendererEngine{
         virtual unsigned int getWidth() const = 0;
         virtual unsigned int getHeight() const = 0;
 
-        virtual GLFWwindow* ptr() const = 0;
-
         // Window Attributes
         virtual void setEventCallback(const EventCallbackFn& callback) = 0;
         virtual void setVSync(bool enabled) = 0;

@@ -3,7 +3,6 @@
 
 namespace RendererEngine{
     LayerStack::LayerStack(){
-        _layersInsert = _layers.begin(); // using _layersInsert to iterate through the layer stack
     }
 
     LayerStack::~LayerStack(){
@@ -15,7 +14,8 @@ namespace RendererEngine{
     // pushing into the layer stack, and making sure your pushing into the right place
     // Layers get pushed to thhe first half of the list
     void LayerStack::pushLayer(Layer* layer){
-        _layersInsert = _layers.emplace(_layersInsert, layer);
+        _layers.emplace(_layers.begin() + _layersInsertIndex, layer);
+        _layersInsertIndex++;
     }
 
     // Overlays gets pushhed into thhe second half of the list.
@@ -40,7 +40,7 @@ namespace RendererEngine{
 
         if(iter != _layers.end()){
             _layers.erase(iter);
-            _layersInsert--;
+            _layersInsertIndex--;
         }
     }
 

@@ -24,6 +24,8 @@ namespace RendererEngine{
         // Updating the layer is updated when the application calls onUpdate
         virtual void onUpdate(){}
 
+        virtual void onImguiRender(){}
+
         // Whichh is wherever events get sent to the layer, it'll know how to handle that event.
         virtual void onEvent(Event& event){}
 

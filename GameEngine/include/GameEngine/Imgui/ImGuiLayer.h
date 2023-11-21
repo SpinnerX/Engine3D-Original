@@ -14,49 +14,20 @@ namespace RendererEngine{
         ImGuiLayer();
         ~ImGuiLayer();
 
-        void onAttach() override;
-        void onDetach() override;
+        virtual void onAttach() override;
+        virtual void onDetach() override;
+        virtual void onImguiRender() override;
 
-        void onUpdate() override;
+        // - Reason we add these two functions is because we want imgui to be able to start rendering on its own
+        // - All I want this to do is to know when to begin rendering and to end rendering.
+        // So, it could begin a new window, and stuff like that.
+        // - So because we want the layer to enclose with this functionality we are going to need to
+        //  render a new window, or somethihng like that.
 
-        virtual void onEvent(Event& event) override;
-
-        std::string toString() const {
-            std::stringstream ss;
-            ss << "Vendor graphic card: " << glGetString(GL_VENDOR) << '\n';
-            ss << "Renderer: " << glGetString(GL_RENDERER) << '\n';
-            ss << "Version GL: " << glGetString(GL_VERSION) << '\n';
-            ss << "Version GLSL: " << glGetString(GL_SHADING_LANGUAGE_VERSION);
-            return ss.str();
-        }
-
-        friend std::ostream& operator<<(std::ostream& outs, ImGuiLayer& layer){
-            return outs << layer.toString();
-        }
-
-    private:
-        bool onMouseButtonPressedEvent(MouseButtonPressedEvent& e);
-
-        bool onMouseButtonReleasedEvent(MouseButtonReleasedEvent& e);
-
-        bool onMouseMovedEvent(MouseMovedEvent& e);
-
-        bool onMouseButtonScrollEvent(MouseScrolledEvent& e);
-
-        bool onKeyPressedEvent(KeyPressedEvent& e);
-
-        bool onKeyReleasedEvent(KeyReleasedEvent& e);
-
-        // handling when we are actually typing a key character
-        // Useful for essentially typing text into a wordbox
-        bool onKeyTypedEvent(KeyTypedEvent& e);
-
-        bool onWindowResizedEvent(WindowResizeEvent& e);
-        
-
+        void begin();
+        void end();
 
     private:
         float _time=0.f;
-        // ImGuiContext* currentCtx;
     };
 };

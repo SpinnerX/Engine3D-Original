@@ -32,7 +32,9 @@ namespace RendererEngine{
             };
         };
         _window->setEventCallback(bind_function(this, &Application::onEvent));
-
+        _imguiLayer = new ImGuiLayer();
+        pushOverlay(_imguiLayer);
+        
         isRunning = true;
     }
 
@@ -84,6 +86,12 @@ namespace RendererEngine{
             for(Layer* layer : _layerStack){
                 layer->onUpdate();
             }
+
+            _imguiLayer->begin();
+            for(Layer* layer : _layerStack){
+                layer->onImguiRender();
+            }
+            _imguiLayer->end();
 
             _window->onUpdate();
         }

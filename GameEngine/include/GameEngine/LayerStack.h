@@ -24,6 +24,6 @@ namespace RendererEngine{
         std::vector<Layer *>::iterator end() { return _layers.end(); }
     private:
         std::vector<Layer *> _layers;
-        std::vector<Layer *>::iterator _layersInsert;
+       unsigned int _layersInsertIndex = 0;
     };
 };
