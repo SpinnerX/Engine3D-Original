@@ -1,7 +1,7 @@
 ## Game Engine Tutorial
 Name: RendererEngine 
 
-
+### NOTE: There will be a video showcasing the usage of this engine, once the renderer has fully been implemented.
 
 ## Overview
 Learning about game engine development. Of how we can use different data and transform them into various \
