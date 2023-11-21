@@ -23,13 +23,5 @@ specific topics. Where each notes will be numbered on the process it takes when 
     - Basically meaning that they can be used by other shared libraries or objects that are currently linked to the current library or object.
 
 
-## Frameworks 
-These are frameworks that are used in the GameEngine.
-
-`Logger` - Personal Logger framework
-`OpenGL/Glew/Freeglut/GLut` - Rendering library
-`FFMPEG` - Audio processing library
-
-
 ## Resources
 `https://icolorpalette.com/color/102669` - Link for medium royal blue colors
