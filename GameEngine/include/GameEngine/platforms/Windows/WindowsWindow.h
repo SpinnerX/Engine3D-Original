@@ -3,6 +3,8 @@
 
 struct GLFWwindow;
 
+#include <GameEngine/Renderer/GraphicsContext.h>
+
 namespace RendererEngine{
     // Windows OS specific Window
     class WindowsWindow : public Window{
@@ -36,6 +38,8 @@ namespace RendererEngine{
 
     private:
         GLFWwindow* _window;
+        GraphicsContext* _context; // Essentially our GraphicsContext
+
         // Window data
         // For containing all relative information to thhe window
         // This is so we can pass custom user WindowData to GLFW instead of passing in the entire class

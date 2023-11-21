@@ -1,8 +1,7 @@
-#include <GameEngine/Imgui/ImGuiLayer.h>
 #include <GameEnginePrecompiledHeader.h>
 #include <imgui/backends/imgui_impl_opengl3.h>
-#include <imgui/backends/imgui_impl_glut.h>
 #include <imgui/backends/imgui_impl_glfw.h>
+#include <GameEngine/Imgui/ImGuiLayer.h>
 #include <GameEngine/Application.h>
 #include <GameEngine/core.h>
 #include <GameEngine/KeyCodes.h>
@@ -19,6 +18,7 @@ namespace RendererEngine{
         ImGui::StyleColorsDark(); // using dark colors
 
         ImGuiIO& io = ImGui::GetIO(); (void)io;
+        
 		io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;       // Enable Keyboard Controls
 		//io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
 		io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;           // Enable Docking
@@ -72,6 +72,9 @@ namespace RendererEngine{
 
     // This will be set and used between when we make function calls with Begin() and End().
     void ImGuiLayer::onImguiRender(){
+        ImGui::Begin("Test");
+        ImGui::Text("Wooot Wooot!");
+        ImGui::End();
         static bool show = true;
         ImGui::ShowDemoWindow(&show);
     }

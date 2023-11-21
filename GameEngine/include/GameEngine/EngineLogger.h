@@ -3,6 +3,11 @@
 #include <spdlog/spdlog.h>
 #include <spdlog/fmt/ostr.h>
 #include <GameEngine/Events/Event.h>
+// #include <spdlog/sinks/ostream_sink.h>
+// #include <spdlog/sinks/rotating_file_sink.h>
+// #include <spdlog/sinks/stdout_color_sinks.h>
+// #include <spdlog/pattern_formatter.h>
+// using spdlog::memory_buf_t;
 
 namespace RendererEngine{
 
@@ -103,3 +108,17 @@ template<typename... T>
 inline void clientLogFatal(spdlog::format_string_t<T...> fmt, T &&...args) {
     RendererEngine::EngineLogger::GetClientLogger()->critical(fmt, std::forward<T>(args)...);
 }
+
+// log to str and return it
+// template<typename... Args>
+// std::string toStringLog(const std::string msg, spdlog::level::level_enum lvl, const Args &... args){
+//     std::ostringstream oss;
+//     auto oss_sink = std::make_shared<spdlog::sinks::ostream_sink_mt>(oss);
+//     spdlog::logger oss_logger("pattern_tester", oss_sink);
+//     oss_logger.set_level(lvl);
+
+//     oss_logger.set_formatter(std::unique_ptr<spdlog::formatter>(new spdlog::pattern_formatter(args...)));
+
+//     oss_logger.info(msg);
+//     return oss.str();
+// }

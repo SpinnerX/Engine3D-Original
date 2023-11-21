@@ -4,6 +4,7 @@
 #include <GameEngine/Events/ApplicationEvent.h>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include <GameEngine/Renderer/RendererContext.h>
 
 namespace RendererEngine{
     static bool _glfwInitialized = false;
@@ -52,12 +53,17 @@ namespace RendererEngine{
             _glfwInitialized = true;
         }
 
+        // Now the code below, belongs inside that line of code.
         _window = glfwCreateWindow((int)props.width, (int)props.height, _data.title.c_str(), nullptr, nullptr);
-        glfwMakeContextCurrent(_window); // Basically making this current window our context window
 
-        int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
-
-        render_core_assert(status, "Failed to initialized glad!");
+        // This is where we are going to initialize the context
+        // Telling the renderer context is going to be new OpenGL context (or GraphicsContext)
+        // NOTE: Now, thhat this is implemented, this will allow us to if we wanted to get a specific
+        //      platform dependent Renderer Context like D3DContext(), then it could do that
+        // - Meaning we would just need to implement Init() and SwapBuffers(), to support that platform
+        //  and things would work
+        _context = new RendererContext(_window);
+        _context->Init();
 
         glfwSetWindowUserPointer(_window, &_data);
         setVSync(true);
@@ -167,7 +173,7 @@ namespace RendererEngine{
 
     void WindowsWindow::onUpdate(){
         glfwPollEvents();
-        glfwSwapBuffers(_window);
+        _context->swapBuffers(); // The SwapBuffers will handle renderers swap chains
     }
 
     void WindowsWindow::setVSync(bool enabled){
