@@ -4,6 +4,7 @@
 #include <imgui/backends/imgui_impl_glfw.h>
 #include <GameEngine/Application.h>
 #include <GameEngine/core.h>
+#include <GameEngine/KeyCodes.h>
 
 namespace RendererEngine{
     ImGuiLayer::ImGuiLayer() : Layer("ImGuiLayer") {
@@ -17,33 +18,55 @@ namespace RendererEngine{
         ImGui::StyleColorsDark(); // using dark colors
 
         // We are setting imgui flags
-        // ImGuiIO& io = ImGui::GetIO()
+        ImGuiIO& io = ImGui::GetIO();
         // Setting back end flags to mouse cursor and mouse positions.
-        // io.BackendFlags |= ImGuiBackendFlags_HasMouseCursors;
-        // io.BackendFlags |= ImGuiBackendFlags_HasSetMousePos;
+        io.BackendFlags |= ImGuiBackendFlags_HasMouseCursors;
+        io.BackendFlags |= ImGuiBackendFlags_HasSetMousePos;
 
         // // TEMPORARY: should eventually use the Game Engines key codes
-		// io.KeyMap[ImGuiKey_Tab] = GLFW_KEY_TAB;
-		// io.KeyMap[ImGuiKey_LeftArrow] = GLFW_KEY_LEFT;
-		// io.KeyMap[ImGuiKey_RightArrow] = GLFW_KEY_RIGHT;
-		// io.KeyMap[ImGuiKey_UpArrow] = GLFW_KEY_UP;
-		// io.KeyMap[ImGuiKey_DownArrow] = GLFW_KEY_DOWN;
-		// io.KeyMap[ImGuiKey_PageUp] = GLFW_KEY_PAGE_UP;
-		// io.KeyMap[ImGuiKey_PageDown] = GLFW_KEY_PAGE_DOWN;
-		// io.KeyMap[ImGuiKey_Home] = GLFW_KEY_HOME;
-		// io.KeyMap[ImGuiKey_End] = GLFW_KEY_END;
-		// io.KeyMap[ImGuiKey_Insert] = GLFW_KEY_INSERT;
-		// io.KeyMap[ImGuiKey_Delete] = GLFW_KEY_DELETE;
-		// io.KeyMap[ImGuiKey_Backspace] = GLFW_KEY_BACKSPACE;
-		// io.KeyMap[ImGuiKey_Space] = GLFW_KEY_SPACE;
-		// io.KeyMap[ImGuiKey_Enter] = GLFW_KEY_ENTER;
-		// io.KeyMap[ImGuiKey_Escape] = GLFW_KEY_ESCAPE;
-		// io.KeyMap[ImGuiKey_A] = GLFW_KEY_A;
-		// io.KeyMap[ImGuiKey_C] = GLFW_KEY_C;
-		// io.KeyMap[ImGuiKey_V] = GLFW_KEY_V;
-		// io.KeyMap[ImGuiKey_X] = GLFW_KEY_X;
-		// io.KeyMap[ImGuiKey_Y] = GLFW_KEY_Y;
-		// io.KeyMap[ImGuiKey_Z] = GLFW_KEY_Z;
+		// io.KeyMap[ImGuiKey_Tab] = RENDER_KEY_TAB;
+		// io.KeyMap[ImGuiKey_LeftArrow] = RENDER_KEY_LEFT;
+		// io.KeyMap[ImGuiKey_RightArrow] = RENDER_KEY_RIGHT;
+		// io.KeyMap[ImGuiKey_UpArrow] = RENDER_KEY_UP;
+		// io.KeyMap[ImGuiKey_DownArrow] = RENDER_KEY_DOWN;
+		// io.KeyMap[ImGuiKey_PageUp] = RENDER_KEY_PAGE_UP;
+		// io.KeyMap[ImGuiKey_PageDown] = RENDER_KEY_PAGE_DOWN;
+		// io.KeyMap[ImGuiKey_Home] = RENDER_KEY_HOME;
+		// io.KeyMap[ImGuiKey_End] = RENDER_KEY_END;
+		// io.KeyMap[ImGuiKey_Insert] = RENDER_KEY_INSERT;
+		// io.KeyMap[ImGuiKey_Delete] = RENDER_KEY_DELETE;
+		// io.KeyMap[ImGuiKey_Backspace] = RENDER_KEY_BACKSPACE;
+		// io.KeyMap[ImGuiKey_Space] = RENDER_KEY_SPACE;
+		// io.KeyMap[ImGuiKey_Enter] = RENDER_KEY_ENTER;
+		// io.KeyMap[ImGuiKey_Escape] = RENDER_KEY_ESCAPE;
+		// io.KeyMap[ImGuiKey_A] = RENDER_KEY_A;
+		// io.KeyMap[ImGuiKey_C] = RENDER_KEY_C;
+		// io.KeyMap[ImGuiKey_V] = RENDER_KEY_V;
+		// io.KeyMap[ImGuiKey_X] = RENDER_KEY_X;
+		// io.KeyMap[ImGuiKey_Y] = RENDER_KEY_Y;
+		// io.KeyMap[ImGuiKey_Z] = RENDER_KEY_Z;
+
+        io.KeyMap[RENDER_KEY_TAB] = RENDER_KEY_TAB;
+		io.KeyMap[RENDER_KEY_LEFT] = RENDER_KEY_LEFT;
+		io.KeyMap[RENDER_KEY_RIGHT] = RENDER_KEY_RIGHT;
+		io.KeyMap[RENDER_KEY_UP] = RENDER_KEY_UP;
+		io.KeyMap[RENDER_KEY_DOWN] = RENDER_KEY_DOWN;
+		io.KeyMap[RENDER_KEY_PAGE_UP] = RENDER_KEY_PAGE_UP;
+		io.KeyMap[RENDER_KEY_PAGE_DOWN] = RENDER_KEY_PAGE_DOWN;
+		io.KeyMap[RENDER_KEY_HOME] = RENDER_KEY_HOME;
+		io.KeyMap[RENDER_KEY_END] = RENDER_KEY_END;
+		io.KeyMap[RENDER_KEY_INSERT] = RENDER_KEY_INSERT;
+		io.KeyMap[RENDER_KEY_DELETE] = RENDER_KEY_DELETE;
+		io.KeyMap[RENDER_KEY_BACKSPACE] = RENDER_KEY_BACKSPACE;
+		io.KeyMap[RENDER_KEY_SPACE] = RENDER_KEY_SPACE;
+		io.KeyMap[RENDER_KEY_ENTER] = RENDER_KEY_ENTER;
+		io.KeyMap[RENDER_KEY_ESCAPE] = RENDER_KEY_ESCAPE;
+		io.KeyMap[RENDER_KEY_A] = RENDER_KEY_A;
+		io.KeyMap[RENDER_KEY_C] = RENDER_KEY_C;
+		io.KeyMap[RENDER_KEY_V] = RENDER_KEY_V;
+		io.KeyMap[RENDER_KEY_X] = RENDER_KEY_X;
+		io.KeyMap[RENDER_KEY_Y] = RENDER_KEY_Y;
+		io.KeyMap[RENDER_KEY_Z] = RENDER_KEY_Z;
 
 
         // Initializing the OpenGL3 ()
@@ -129,8 +152,11 @@ namespace RendererEngine{
     // Because eventually we may want to create our own key handler and mouse handler stuff as well. (Being from scratch)
     bool ImGuiLayer::onKeyPressedEvent(KeyPressedEvent& e){
         ImGuiIO& io = ImGui::GetIO();
-        // io.KeysDown[e.GetKeyCode()] = true;
-        // io.AddKeyEvent((ImGuiKey)e.GetKeyCode(), true); 
+        // coreLogTrace("KeyCode Pressed (char): {}\n", (char)e.GetKeyCode());
+        // coreLogTrace("KeyCode Pressed (Int val): {}\n", e.GetKeyCode());
+        io.KeysDown[e.GetKeyCode()] = true;
+
+        // io.AddKeyEvent((ImGuiKey)e.GetKeyCode(), true);
         io.KeyCtrl = io.KeysDown[GLFW_KEY_LEFT] || io.KeysDown[GLFW_KEY_RIGHT];
         io.KeyShift = io.KeysDown[GLFW_KEY_LEFT_SHIFT] || io.KeysDown[GLFW_KEY_RIGHT_SHIFT];
         io.KeyAlt = io.KeysDown[GLFW_KEY_LEFT_ALT] || io.KeysDown[GLFW_KEY_RIGHT_ALT];
@@ -140,6 +166,9 @@ namespace RendererEngine{
 
     bool ImGuiLayer::onKeyReleasedEvent(KeyReleasedEvent& e){
         ImGuiIO& io = ImGui::GetIO();
+        // coreLogTrace("KeyCode Released (char): {}\n", io.KeysDown[e.GetKeyCode()]);
+        // coreLogTrace("KeyCode Released (int): {}\n", (char)io.KeysDown[e.GetKeyCode()]);
+
         io.KeysDown[e.GetKeyCode()] = false;
         // io.AddKeyEvent((ImGuiKey)e.GetKeyCode(), false);
         return false;
@@ -150,7 +179,7 @@ namespace RendererEngine{
         int keycode = e.GetKeyCode();
 
         if(keycode > 0 && keycode < 0x10000){
-            io.AddInputCharacter((unsigned short)keycode);
+            io.AddInputCharacter((unsigned int)keycode);
         }
 
         return false;
