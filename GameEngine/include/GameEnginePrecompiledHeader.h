@@ -16,7 +16,6 @@
 // OpenGL includes
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
-
 #include <GameEngine/Events/ApplicationEvent.h>
 
 #include <GameEngine/EngineLogger.h>
