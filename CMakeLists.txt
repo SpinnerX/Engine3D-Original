@@ -70,5 +70,6 @@ target_include_directories(
 target_precompile_headers(${PROJECT_NAME} PRIVATE
   "$<$<COMPILE_LANGUAGE:CXX>:${CMAKE_CURRENT_SOURCE_DIR}/GameEngine/include/GameEnginePrecompiledHeader.h>"
 )
+include(cmake/glm.cmake)
 include(cmake/glfw.cmake)
 target_link_libraries(${PROJECT_NAME} fmt::fmt spdlog::spdlog Threads::Threads)
