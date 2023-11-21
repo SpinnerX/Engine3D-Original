@@ -1,5 +1,4 @@
 #include <GameEngine/GameEngine.h>
-#include <imgui.h>
 
 // This is just an example on how to make a layer
 class ExampleLayer : public RendererEngine::Layer{
@@ -8,10 +7,19 @@ public:
 
     void onUpdate() override {
         clientLogInfo("ExampleLayer::Update");
+
+        if(RendererEngine::InputPoll::isKeyPressed(RENDER_KEY_TAB)){
+            clientLogTrace("Tab key has been pressed!\n");
+        }
     }
 
     void onEvent(RendererEngine::Event& event) override{
         clientLogTrace("{}", event);
+        if(event.GetEventType() == RendererEngine::EventType::KeyPressed){
+            RendererEngine::KeyPressedEvent& e = (RendererEngine::KeyPressedEvent&)event;
+            clientLogTrace("{}\n", (char)e.GetKeyCode());
+            // clientLogTrace("{}", event);
+        }
     }
 };
 

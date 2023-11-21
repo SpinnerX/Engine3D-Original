@@ -4,14 +4,8 @@ set(PROJECT_NAME Sandbox)
 
 project(${PROJECT_NAME})
 
-# find_package(formatCpp REQUIRED)
-# find_package(Logger REQUIRED)
-
-# Allows us to outputfiles into the project instead of the build directory
-# set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/../../build")
-
 # Create the executable
-add_executable(${PROJECT_NAME} Application.cpp)
+add_executable(${PROJECT_NAME} Sandbox.cpp)
 
 # Link the static library from subproject1 using its alias sub::lib1
 # Link the header only library from subproject2 using its alias sub::lib2
@@ -34,27 +28,8 @@ MACRO(ADD_MSVC_PRECOMPILED_HEADER PrecompiledHeader PrecompiledSource SourcesVar
   ENDIF(MSVC)
 ENDMACRO(ADD_MSVC_PRECOMPILED_HEADER)
 
-# ADD_MSVC_PRECOMPILED_HEADER("Application.h" "Application.cpp" MySources)
-# ADD_MSVC_PRECOMPILED_HEADER("core.h" "core.cpp" MySources)
-# ADD_MSVC_PRECOMPILED_HEADER("EngineLogger.h" "EngineLogger.cpp" MySources)
-# ADD_MSVC_PRECOMPILED_HEADER("EntryPoint.h" "EntryPoint.cpp" MySources)
-
-
-# target_precompile_headers(
-#   ${PROJECT_NAME} PRIVATE
-#   "$<$<COMPILE_LANGUAGE:CXX>:GameEngine/Application.h>"
-#   "$<$<COMPILE_LANGUAGE:CXX>:GameEngine/Application.cpp>"
-#   "$<$<COMPILE_LANGUAGE:CXX>:GameEngine/core.h>"
-#   "$<$<COMPILE_LANGUAGE:CXX>:GameEngine/EngineLogger.h>"
-#   "$<$<COMPILE_LANGUAGE:CXX>:GameEngine/EngineLogger.cpp>"
-#   "$<$<COMPILE_LANGUAGE:CXX>:GameEngine/EntryPoint.h>"
-#   "$<$<COMPILE_LANGUAGE:CXX>:GameEngine/GameEngine.h>"
-# )
-
 # Log::Log1 is the alias we made when we created an alias in the Logger CMakeLists.txt file
 target_link_libraries(
     ${PROJECT_NAME}
     Engine::Engine
-    # formatCpp
-    # Logger
 )
