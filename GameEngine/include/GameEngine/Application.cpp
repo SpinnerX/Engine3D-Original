@@ -7,6 +7,7 @@ namespace RendererEngine{
     
     Application::Application(){
         render_core_assert(!_instance, "Application already exists!");
+        isRunning = true;
         _instance = this;
         _window = std::unique_ptr<Window>(Window::create());
 
@@ -34,8 +35,48 @@ namespace RendererEngine{
         _window->setEventCallback(bind_function(this, &Application::onEvent));
         _imguiLayer = new ImGuiLayer();
         pushOverlay(_imguiLayer);
-        
-        isRunning = true;
+
+        // Vertex Array
+        // Vertex Buffer
+        // Index Buffer
+        _vertexArr = 0;
+        _vertexBuffer = 0;
+        _indexBuffer = 0;
+
+        // gen vertex array and bind them
+        glGenVertexArrays(1, &_vertexArr);
+        glBindVertexArray(_vertexArr);
+
+        // gen vertex vertex buffer and bind them
+        glGenBuffers(1, &_vertexBuffer);
+        glBindBuffer(GL_ARRAY_BUFFER, _vertexBuffer);
+        // Now we are populating it with some data
+        // -0.5 is a quarter of the way from left side of the screen
+        // 0.5f is the other (right) side of the window.
+        // {x, y, z}
+        float vertices[3*3] = {
+            -0.5f, -0.5f, 0.0f,
+            0.5f, -0.5f, 0.f,
+            0.0f, 0.5f, 0.0f
+        };
+
+        glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+        // Telling OpenGL the layout of our buffer.
+        glEnableVertexAttribArray(0);
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), nullptr); // provind a vertex a shader
+
+
+        // Creating index buffer
+        // element buffer and index buffers are the same thing people referred to them as element buffer
+        // - Buffer of indices of index into this buffer
+        // - tell what order of where to draw these vertices.
+        // - Kind of like into an index into an array.
+        glGenBuffers(1, &_indexBuffer);
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _indexBuffer);
+
+        unsigned int indices[3] = {0, 1, 2};
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
     }
 
     Application::~Application(){}
@@ -80,8 +121,12 @@ namespace RendererEngine{
     void Application::Run(){
         while(isRunning){
             // glClearColor(1, 0, 1, 1);
-            glClearColor(65,105,225, 1);
+            // glClearColor(65,105,225, 1);
+            glClearColor(0.1f, 0.1f, 0.1f, 1);
             glClear(GL_COLOR_BUFFER_BIT);
+
+            glBindVertexArray(_vertexArr);
+            glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, nullptr); // called DrawElements because we are drawing indices
 
             for(Layer* layer : _layerStack){
                 layer->onUpdate();

@@ -34,6 +34,9 @@ namespace RendererEngine{
         ImGuiLayer* _imguiLayer; // ImGuiLayer class (this class owns this ptr)
         bool isRunning;
         LayerStack _layerStack;
+
+        // These unsigned integers are going to represent the ID's
+        unsigned int _vertexArr, _vertexBuffer, _indexBuffer;
     private:
         // Since there really is only going to be one application
         static Application* _instance; // Getting our current application instance
