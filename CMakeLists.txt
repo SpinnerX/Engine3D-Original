@@ -45,6 +45,7 @@ set(
   GameEngine/include/GameEngine/InputPoll.cpp
 
   GameEngine/src/GameEngine/platforms/WindowsInput.cpp
+  GameEngine/src/GameEngine/Renderer/RendererContext.cpp
 )
 
 add_precompiled_header(${PROJECT_NAME} include/GameEnginePrecompiledHeader.h FORCEINCLUDE SOURCE_CXX src/GameEnginePrecompiledHeader.cpp)
