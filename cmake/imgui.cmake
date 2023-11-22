@@ -1,5 +1,14 @@
-
-set(imgui_include /usr/local/include/imgui)
+# NOTE (May also want to add this in for the other cmake modules as well)
+# Make cmake be more platform specific (including support for Windows, Linux, and Mac)
+# 1.) Setting up the filepath depending on the OS's (like windows)
+# 2.) Checking these filepaths exist
+# 3.) Depending on the OS is going to be how we set thhese filepaths
+# 4.) Once we set them, then thhat is how we are going to link them.
+if(APPLE)
+    set(imgui_include "/usr/local/include/imgui")
+elseif(WIN32)
+    set(imgui_include "C:\\Desktop\\Libraries\\imgui")
+endif(APPLE)
 
 # NOTE
 # We are checking if imgui has been found and moved to folder /usr/local/include as /usr/local/include/imgui
@@ -11,11 +20,15 @@ set(imgui_include /usr/local/include/imgui)
 # - Errors involving opengl2, dx v9, v12, v11, and v10, or using android, allegro and other interfaces
 #   depending on OS and mobile requirements
 
+# If I want to use ImGui's Docking stuff, I need to make sure the branch is changed from mastert to docking branch
+# Branch for dock is called "docking"
+# ** NOTE ** - Pretty weird, imo lol
+# Ref Link: https://stackoverflow.com/questions/72807349/imgui-has-no-member-renderplatformwindowsdefault-error
 
 
 # We want to check before proceeding
 if(EXISTS ${imgui_include})
-    message(STATUS "Imgui in /usr/local/include/imgui has been found")
+    message(STATUS "Imgui in ${imgui_include} has been found")
     set(
         imgui_src
         ${imgui_include}/imgui_draw.cpp
@@ -26,7 +39,7 @@ if(EXISTS ${imgui_include})
 
 
         # ${imgui_include}/backends/imgui_impl_opengl2.cpp
-        ${imgui_include}/backends/imgui_impl_glut.cpp
+        # ${imgui_include}/backends/imgui_impl_glut.cpp
         ${imgui_include}/backends/imgui_impl_glfw.cpp
         ${imgui_include}/backends/imgui_impl_opengl3.cpp
         # ${imgui_include}/backends/imgui_impl_sdl2.cpp
@@ -44,17 +57,9 @@ if(EXISTS ${imgui_include})
         # ${imgui_include}/backends/imgui_impl_vulkan.cpp
         # ${imgui_include}/backends/imgui_impl_wgpu.cpp
         # ${imgui_include}/backends/imgui_impl_win32.cpp
-
-
-
     )
-else()
-    message(SEND_ERROR "Imgui in /usr/local/include has not been found")
-endif()
 
-# target_include_directories(
-#     ${PROJECT_NAME}
-#     PRIVATE
-#     /usr/local/include/imgui
-# )
+else()
+    message(SEND_ERROR "Imgui in ${imgui_include} has not been found")
+endif()
 
