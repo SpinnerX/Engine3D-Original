@@ -10,6 +10,7 @@ namespace RendererEngine{
 
     void RendererContext::Init(){
         glfwMakeContextCurrent(_window); // Basically making this current window our context window
+        gladLoadGL(); // We need this before we use gladLoadGLLoader
         int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
 
         render_core_assert(status, "Failed to initialized glad!");
