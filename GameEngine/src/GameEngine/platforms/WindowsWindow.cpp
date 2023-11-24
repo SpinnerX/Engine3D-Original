@@ -14,8 +14,6 @@ namespace RendererEngine{
     }
 
     Window* Window::create(const WindowProps& props){
-        // return new WindowsWindow(props);
-        // return std::make_unique<WindowsWindow>();
         return new WindowsWindow(props);
     }
 
@@ -38,11 +36,7 @@ namespace RendererEngine{
         // // We should check if GLFW is initialized before proceeding
         if(!_glfwInitialized){
             // TODO: glfwTerminate on system shutfown
-             // Have to specify these on macOS
-            // glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-            // glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-            // glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-            // glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
+            // Have to specify these on macOS
             // to prevent 1200x800 from becoming 2400x1600
             // glfwWindowHint(GLFW_COCOA_RETINA_FRAMEBUFFER, GLFW_FALSE);
             int success = glfwInit();
@@ -52,7 +46,7 @@ namespace RendererEngine{
             _glfwInitialized = true;
         }
 
-        // Now the code below, belongs inside that line of code.
+        // Have to specify this as a requirement before using opengl/glad or else you'll get a segfault
         glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
         glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
         glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
