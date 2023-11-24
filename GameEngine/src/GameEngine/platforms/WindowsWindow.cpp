@@ -39,22 +39,25 @@ namespace RendererEngine{
         if(!_glfwInitialized){
             // TODO: glfwTerminate on system shutfown
              // Have to specify these on macOS
-            glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-            glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-            glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-            glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
+            // glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+            // glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+            // glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+            // glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
             // to prevent 1200x800 from becoming 2400x1600
-            glfwWindowHint(GLFW_COCOA_RETINA_FRAMEBUFFER, GLFW_FALSE);
+            // glfwWindowHint(GLFW_COCOA_RETINA_FRAMEBUFFER, GLFW_FALSE);
             int success = glfwInit();
             render_core_assert(success, "Could not initialize GLFW!"); // Chhecking if glfw initialized successfully and then set that variable to true
-
             // Setting an error callback
             glfwSetErrorCallback(GLFWErrorCallback);
             _glfwInitialized = true;
         }
 
         // Now the code below, belongs inside that line of code.
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+        glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
         _window = glfwCreateWindow((int)props.width, (int)props.height, _data.title.c_str(), nullptr, nullptr);
+        
 
         // This is where we are going to initialize the context
         // Telling the renderer context is going to be new OpenGL context (or GraphicsContext)
