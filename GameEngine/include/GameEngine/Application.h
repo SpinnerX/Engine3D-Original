@@ -1,8 +1,10 @@
 #pragma once
+#include <memory>
 #include <GameEngine/core.h>
 #include <GameEngine/Window.h>
 #include <GameEngine/LayerStack.h>
 #include <GameEngine/Imgui/ImGuiLayer.h>
+#include <GameEngine/Renderer/Shader.h>
 
 namespace RendererEngine{
     class RENDER_API Application{
@@ -37,6 +39,8 @@ namespace RendererEngine{
 
         // These unsigned integers are going to represent the ID's
         unsigned int _vertexArr, _vertexBuffer, _indexBuffer;
+
+        std::unique_ptr<Shader> _shader;
     private:
         // Since there really is only going to be one application
         static Application* _instance; // Getting our current application instance
