@@ -148,8 +148,6 @@ namespace RendererEngine{
             glClearColor(0.1f, 0.1f, 0.1f, 1);
             glClear(GL_COLOR_BUFFER_BIT);
 
-            // glBindVertexArray(_vertexArr);
-            // glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, nullptr); // called DrawElements because we are drawing indices
             _shader->bind();
 			glBindVertexArray(_vertexArr);
 			glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, nullptr);
