@@ -44,8 +44,6 @@ namespace RendererEngine{
         std::unique_ptr<Shader> _shader;
         std::unique_ptr<VertexBuffer> _vertexBuffer;
         std::unique_ptr<IndexBuffer> _indexBuffer;
-
-        unsigned _testVertBuffer, _testIndexBuffer;
     private:
         // Since there really is only going to be one application
         static Application* _instance; // Getting our current application instance
