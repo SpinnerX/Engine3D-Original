@@ -6,6 +6,7 @@
 #include <GameEngine/Imgui/ImGuiLayer.h>
 #include <GameEngine/Renderer/Shader.h>
 #include <GameEngine/Renderer/Buffer.h>
+#include <GameEngine/Renderer/VertexArray.h>
 
 namespace RendererEngine{
     class RENDER_API Application{
@@ -38,12 +39,12 @@ namespace RendererEngine{
         bool isRunning;
         LayerStack _layerStack;
 
-        // These unsigned integers are going to represent the ID's
-        unsigned int _vertexArr;
+        std::shared_ptr<Shader> _shader;
+        std::shared_ptr<VertexArray> _vertexArray;
 
-        std::unique_ptr<Shader> _shader;
-        std::unique_ptr<VertexBuffer> _vertexBuffer;
-        std::unique_ptr<IndexBuffer> _indexBuffer;
+        std::shared_ptr<Shader> _blueShader;
+        std::shared_ptr<VertexArray> _squareVertexArrays;
+
     private:
         // Since there really is only going to be one application
         static Application* _instance; // Getting our current application instance
