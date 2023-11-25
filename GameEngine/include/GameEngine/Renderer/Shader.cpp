@@ -42,7 +42,7 @@ namespace RendererEngine{
             // We don't need the shader anymore.
             glDeleteShader(vertexShader);
 
-            coreLogError("Vertex Shader compilation failure!");
+            coreLogError("Vertex Shader compilation failure! (In Shader.cpp)");
             coreLogError("{}", infoLog.data());
             render_core_assert(false, "Vertex shader compilation error!");
             return;
