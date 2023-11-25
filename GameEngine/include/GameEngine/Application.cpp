@@ -1,9 +1,33 @@
 #include "Application.h"
 #include <GLFW/glfw3.h>
 #include <GameEngine/platforms/Windows/WindowsInput.h>
+#include <iostream>
 
 namespace RendererEngine{
     Application* Application::_instance = nullptr;
+
+
+    static GLenum shaderDatatTypeToOpenGlBaseTypeConversion(ShaderDataType type){
+        switch (type){
+            case ShaderDataType::None: 
+                coreLogInfo("Switch Case: None");
+                return 0;
+            case ShaderDataType::Float:  return GL_FLOAT;
+            case ShaderDataType::Float2: return GL_FLOAT;
+            case ShaderDataType::Float3: return GL_FLOAT;
+            case ShaderDataType::Float4: return GL_FLOAT;
+            case ShaderDataType::Mat3:   return GL_FLOAT;
+            case ShaderDataType::Mat4:   return GL_FLOAT;
+            case ShaderDataType::Int:    return GL_INT;
+            case ShaderDataType::Int2:   return GL_INT;
+            case ShaderDataType::Int3:   return GL_INT;
+            case ShaderDataType::Int4:   return GL_INT;
+            case ShaderDataType::Bool:   return GL_BOOL;
+        }
+
+        render_core_assert(false, "Unknown ShaderDataType!");
+        return 0;
+    }
     
     Application::Application(){
         render_core_assert(!_instance, "Application already exists!");
@@ -33,21 +57,54 @@ namespace RendererEngine{
         // -0.5 is a quarter of the way from left side of the screen
         // 0.5f is the other (right) side of the window.
         // {x, y, z}
-        float vertices[3*3] = {
-            -0.5f, -0.5f, 0.0f,
-            0.5f, -0.5f, 0.f,
-            0.0f, 0.5f, 0.0f
-        };
+        // float vertices[3 * 7] = {
+        //     -0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 1.0f, 1.0f,
+        //     0.5f, -0.5f, 0.f,  0.0f,   0.0f, 1.0f, 1.0f,
+        //     0.0f, 0.5f, 0.0f,  1.0f,   1.0f, 1.0f, 1.0f
+        // };
+        float vertices[3 * 7] = {
+			-0.5f, -0.5f, 0.0f, 0.8f, 0.2f, 0.8f, 1.0f,
+			 0.5f, -0.5f, 0.0f, 0.2f, 0.3f, 0.8f, 1.0f,
+			 0.0f,  0.5f, 0.0f, 0.8f, 0.8f, 0.2f, 1.0f
+		};
 
         // The goal - VertexBuffer::Create returns specific rendering API depending on specic platform dependent rendering API
         // VertexBuffer buffer = Vertex::Buffer(sizeof(vertices), vertices, GL_STATIC_DRAW);
         // buffer.bind();
         _vertexBuffer.reset(VertexBuffer::Create(vertices, sizeof(vertices)));
 
-        // Telling OpenGL the layout of our buffer.
-        glEnableVertexAttribArray(0);
-        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), nullptr); // provind a vertex a shader
+        /*
+            // ShaderType is platform rendering API specific that tells us what type this is
+            // Example: ShaderDataType::Float3 to describe it or something like that.
+            // This is how we would want to setup our layout
+            BufferLayout layout = {
+                {ShaderDataType::Float3, "a_Position"},
+                {ShaderDataType::Float3, "a_Position"},
+                {ShaderDataType::Float3, "a_Position"},
+                {ShaderDataType::Float3, "a_Position", true}
+            }
+        */
 
+       BufferLayout bufLayout = {
+            {ShaderDataType::Float3, "a_Position", true},
+            {ShaderDataType::Float4, "a_Color", true},
+       };
+
+       _vertexBuffer->setLayout(bufLayout);
+
+
+        uint32_t index = 0;
+        const auto& layout = _vertexBuffer->getLayout();
+       for(const auto& element : layout){
+            glEnableVertexAttribArray(index);
+            glVertexAttribPointer(index,
+                                    element.getComponentCount(),
+                                    shaderDatatTypeToOpenGlBaseTypeConversion(element.type),
+                                    element.isNormalized ? GL_TRUE : GL_FALSE,
+                                    _vertexBuffer->getLayout().getStride(),
+                                    (const void*)element.offset); // provind a vertex a shader
+            index++;
+       }
 
         uint32_t indices[3] = {0, 1, 2};
         _indexBuffer.reset(IndexBuffer::Create(indices,  sizeof(indices) / sizeof(uint32_t)));
@@ -56,13 +113,16 @@ namespace RendererEngine{
 			#version 330 core
 			
 			layout(location = 0) in vec3 a_Position;
+			layout(location = 1) in vec4 a_Color;
 
 			out vec3 v_Position;
+			out vec4 v_Color;
 
 			void main()
 			{
 				v_Position = a_Position;
-				gl_Position = vec4(a_Position, 1.0);
+				v_Color = a_Color;
+				gl_Position = vec4(a_Position, 1.0);	
 			}
 		)";
 
@@ -72,10 +132,12 @@ namespace RendererEngine{
 			layout(location = 0) out vec4 color;
 
 			in vec3 v_Position;
+			in vec4 v_Color;
 
 			void main()
 			{
 				color = vec4(v_Position * 0.5 + 0.5, 1.0);
+				color = v_Color;
 			}
 		)";
 
