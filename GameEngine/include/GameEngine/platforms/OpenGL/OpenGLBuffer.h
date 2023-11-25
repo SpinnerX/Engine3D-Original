@@ -11,8 +11,17 @@ namespace RendererEngine{
         virtual void bind() const override;
         virtual void unbind() const override;
 
+        virtual void setLayout(const BufferLayout& layout) override {
+            _layout = layout;
+        }
+
+        virtual const BufferLayout& getLayout() const override {
+            return _layout;
+        }
+
     private:
         uint32_t _rendererID; // Should be stored in the actual implementation and not the actual vertex buffer
+        BufferLayout _layout;
     };
 
 
