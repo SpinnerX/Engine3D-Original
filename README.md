@@ -25,3 +25,4 @@ specific topics. Where each notes will be numbered on the process it takes when 
 
 ## Resources
 `https://icolorpalette.com/color/102669` - Link for medium royal blue colors
+`https://registry.khronos.org/OpenGL/specs/gl/glspec46.core.pdf` - OpenGL 4.6 fundamentals readings.
