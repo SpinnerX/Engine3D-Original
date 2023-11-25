@@ -84,7 +84,8 @@
         "stack": "cpp",
         "format": "cpp",
         "semaphore": "cpp",
-        "numbers": "cpp"
+        "numbers": "cpp",
+        "span": "cpp"
     },
     "discord.enabled": true,
     "C_Cpp.errorSquiggles": "disabled",
