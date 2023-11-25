@@ -47,6 +47,9 @@ set(
   GameEngine/src/GameEngine/platforms/WindowsInput.cpp
   GameEngine/src/GameEngine/Renderer/RendererContext.cpp
   GameEngine/include/GameEngine/Renderer/Shader.cpp
+  GameEngine/include/GameEngine/Renderer/Buffer.cpp
+  GameEngine/include/GameEngine/platforms/OpenGL/OpenGLBuffer.cpp
+  GameEngine/include/GameEngine/Renderer/Renderer.cpp
 )
 
 add_precompiled_header(${PROJECT_NAME} include/GameEnginePrecompiledHeader.h FORCEINCLUDE SOURCE_CXX src/GameEnginePrecompiledHeader.cpp)
