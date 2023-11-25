@@ -31,3 +31,10 @@
     4.1.) Vertex Array
     4.2.) Vertex Buffer
     4.3.) Index Buffer
+
+### Features
+- Implemented Buffer.h that contain VertexBuffer and IndexBuffer interfaces
+    - These interfaces will be used by other rendering API's and allowing the option for users to use \
+        different rendering API's, such as OpenGL, or event DirectX.
+- Implemented OpenGLVertexBuffer and OpenGLIndexBuffer that are implementations specific to the OpenGL rendering API's
+- Then integrating that and using that in our Application class.
