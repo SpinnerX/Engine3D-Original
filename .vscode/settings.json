@@ -85,7 +85,8 @@
         "format": "cpp",
         "semaphore": "cpp",
         "numbers": "cpp",
-        "span": "cpp"
+        "span": "cpp",
+        "cinttypes": "cpp"
     },
     "discord.enabled": true,
     "C_Cpp.errorSquiggles": "disabled",
