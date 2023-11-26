@@ -69,5 +69,21 @@
 - Implemented Renderer
     - Contains beginScene(), endScene(), and submit()
 
+- Pseudo-code idea of we want the code to look like
+    RendererCommand::SetClearColor();
+    RendererCommand::Clear();
+
+    The goal for adding in the Renderer command calls on how we call these functions
+    Renderer::BeginScene(); // Potentially Scene Settings
+    _squareVertexArrays->bind();
+    Renderer::Submit(_squareVA); // Submitting our meshes (or geo meshes)
+    _shader->bind();
+    Renderer::Submit(_vertexArray); // Submitting our meshes (or geo meshes)
+    Renderer:EndScene()
+
+    At some point we flush the renderer
+    Renderer::Flush();
+
+
 ** Process **
     RendererAPI -> RendererCommand -> Renderer 
