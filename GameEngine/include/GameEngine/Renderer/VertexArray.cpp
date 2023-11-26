@@ -4,11 +4,11 @@
 
 namespace RendererEngine{
     VertexArray* VertexArray::Create(){
-        switch (Renderer::getAPI()){
-        case RendererAPI::None:
+        switch (RendererAPI::getAPI()){
+        case RendererAPI::API::None:
             render_core_assert(false, "RenderAPI::None is currently not supported!");
             return nullptr;
-        case RendererAPI::OpenGL:
+        case RendererAPI::API::OpenGL:
             return new OpenGLVertexArray();
         }
 
