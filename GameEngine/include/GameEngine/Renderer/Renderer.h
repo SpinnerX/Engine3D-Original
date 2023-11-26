@@ -1,19 +1,24 @@
 #pragma once
-
+#include <GameEngine/Renderer/RenderCommand.h>
 
 namespace RendererEngine{
-
-    // Should be stored in a static state
-    enum class RendererAPI{
-        None = 0, // if you're running headless, or you just don't want to be running rendering because unit tests dont use rendering
-        OpenGL = 1 //if we only want to run OpenGL rendering API's
-    };
-
+    
+    // Renderer
+    // - The renderer is what allows for bind and unbinding
+    // - Only Renderer abstracts away the bind and unbinding functions.
     class Renderer{
     public:
-        inline static RendererAPI getAPI() { return _rendererAPI; }
+        static void beginScene(); // TODO: 
+
+        static void endScene();
+
+        // Submitted into a renderer queue
+        // Then is evaluated probably in a different thread and will get rendered
+        static void submit(const std::shared_ptr<VertexArray>& vertexArray);
+
+        inline static RendererAPI::API getAPI() { return RendererAPI::getAPI(); }
 
     private:
-        static RendererAPI _rendererAPI;
+        // static RendererAPI::API _rendererAPI;
     };
 };
