@@ -8,11 +8,11 @@ namespace RendererEngine{
     // Now use these functions to decide which renderer API's that we want to use
     // - such as which class to instantiate and utilize.
     VertexBuffer* VertexBuffer::Create(float* vertices, uint32_t size){
-        switch (Renderer::getAPI()){
-        case RendererAPI::None:
+        switch (RendererAPI::getAPI()){
+        case RendererAPI::API::None:
             render_core_assert(false, "RenderAPI::None is currently not supported!");
             return nullptr;
-        case RendererAPI::OpenGL:
+        case RendererAPI::API::OpenGL:
             return new OpenGLVertexBuffer(vertices, size);
         }
         render_core_assert(false, "Unknown renderer API");
@@ -20,11 +20,11 @@ namespace RendererEngine{
     }
 
     IndexBuffer* IndexBuffer::Create(uint32_t* indices, uint32_t size){
-        switch (Renderer::getAPI()){
-        case RendererAPI::None:
+        switch (RendererAPI::getAPI()){
+        case RendererAPI::API::None:
             render_core_assert(false, "RenderAPI::None is currently not supported!");
             return nullptr;
-        case RendererAPI::OpenGL:
+        case RendererAPI::API::OpenGL:
             return new OpenGLIndexBuffer(indices, size);
         }
         render_core_assert(false, "Unknown renderer API");
