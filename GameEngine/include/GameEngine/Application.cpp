@@ -1,7 +1,7 @@
 #include "Application.h"
-#include <GLFW/glfw3.h>
 #include <GameEngine/platforms/Windows/WindowsInput.h>
 #include <GameEngine/platforms/OpenGL/OpenGLVertexArray.h>
+#include <GameEngine/Renderer/Renderer.h>
 
 namespace RendererEngine{
     Application* Application::_instance = nullptr;
@@ -194,17 +194,40 @@ namespace RendererEngine{
     void Application::Run(){
 
         while(isRunning){
-            glClearColor(0.1f, 0.1f, 0.1f, 1);
-            glClear(GL_COLOR_BUFFER_BIT);
+            // glClearColor(0.1f, 0.1f, 0.1f, 1);
+            // glClear(GL_COLOR_BUFFER_BIT);
+            RendererCommand::setClearColor({0.1f, 0.1f, 0.1f, 1});
+            RendererCommand::clear();
+
+            Renderer::beginScene();
+
+
+
+            // RendererCommand::SetClearColor();
+            // RendererCommand::Clear();
+
+            // The goal for adding in the Renderer command calls on how we call these functions
+            // Renderer::BeginScene(); // Potentially Scene Settings
+            // _squareVertexArrays->bind();
+            // Renderer::Submit(_squareVA); // Submitting our meshes (or geo meshes)
+            // _shader->bind();
+            // Renderer::Submit(_vertexArray); // Submitting our meshes (or geo meshes)
+            // Renderer:EndScene()
+
+            // At some point we flush the renderer
+            // Renderer::Flush();
 
             _blueShader->bind();
             _squareVertexArrays->bind();
-            glDrawElements(GL_TRIANGLES, _squareVertexArrays->getIndexBuffer()->getCount(), GL_UNSIGNED_INT, nullptr);
-
+            // glDrawElements(GL_TRIANGLES, _squareVertexArrays->getIndexBuffer()->getCount(), GL_UNSIGNED_INT, nullptr);
+            Renderer::submit(_squareVertexArrays);
 
             _shader->bind();
             _vertexArray->bind();
-			glDrawElements(GL_TRIANGLES, _vertexArray->getIndexBuffer()->getCount(), GL_UNSIGNED_INT, nullptr);
+			// glDrawElements(GL_TRIANGLES, _vertexArray->getIndexBuffer()->getCount(), GL_UNSIGNED_INT, nullptr);
+            Renderer::submit(_vertexArray); // Submitting our  objects or even meshes (or geo meshes)
+
+            Renderer::endScene();
 
             for(Layer* layer : _layerStack){
                 layer->onUpdate();
