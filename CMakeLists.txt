@@ -52,6 +52,9 @@ set(
   GameEngine/include/GameEngine/Renderer/Renderer.cpp
   GameEngine/include/GameEngine/Renderer/VertexArray.cpp
   GameEngine/include/GameEngine/platforms/OpenGL/OpenGLVertexArray.cpp
+  GameEngine/include/GameEngine/Renderer/RendererAPI.cpp
+  GameEngine/include/GameEngine/Renderer/RendererCommand.cpp
+  GameEngine/include/GameEngine/platforms/OpenGL/OpenGLRendererAPI.cpp
 )
 
 add_precompiled_header(${PROJECT_NAME} include/GameEnginePrecompiledHeader.h FORCEINCLUDE SOURCE_CXX src/GameEnginePrecompiledHeader.cpp)
