@@ -7,8 +7,12 @@
 #include <GameEngine/Renderer/Shader.h>
 #include <GameEngine/Renderer/Buffer.h>
 #include <GameEngine/Renderer/VertexArray.h>
+#include <GameEngine/Renderer/Renderer.h>
 
 namespace RendererEngine{
+    // Application
+    // - Pure virtual application class
+    // - Essentially how users will run their own applications
     class RENDER_API Application{
     public:
         Application();
@@ -33,7 +37,7 @@ namespace RendererEngine{
     private:
         bool onWindowClose(WindowCloseEvent& e);
 
-    private:
+    protected:
         std::unique_ptr<Window> _window; // a unique pointer because this class owns this ptr
         ImGuiLayer* _imguiLayer; // ImGuiLayer class (this class owns this ptr)
         bool isRunning;
