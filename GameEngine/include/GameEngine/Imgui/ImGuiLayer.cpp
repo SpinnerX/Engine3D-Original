@@ -37,7 +37,7 @@ namespace RendererEngine{
         GLFWwindow* window = static_cast<GLFWwindow *>(Application::Get().GetWindow().getNativeWindow());
 
         ImGui_ImplGlfw_InitForOpenGL(window, true);
-        ImGui_ImplOpenGL3_Init("#version 330"); // We should check the version of GLSL (if there is an error with this version)
+        ImGui_ImplOpenGL3_Init("#version 410"); // We should check the version of GLSL (if there is an error with this version)
     }
     
     void ImGuiLayer::onDetach(){
