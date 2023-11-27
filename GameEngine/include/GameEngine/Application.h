@@ -4,6 +4,7 @@
 #include <GameEngine/Window.h>
 #include <GameEngine/LayerStack.h>
 #include <GameEngine/Imgui/ImGuiLayer.h>
+#include <GameEngine/Core/Timestep.h>
 
 namespace RendererEngine{
     // Application
@@ -31,12 +32,13 @@ namespace RendererEngine{
     private:
         bool onWindowClose(WindowCloseEvent& e);
 
-    protected:
+    private:
         std::unique_ptr<Window> _window; // a unique pointer because this class owns this ptr
         ImGuiLayer* _imguiLayer; // ImGuiLayer class (this class owns this ptr)
         bool isRunning;
         LayerStack _layerStack;
 
+        float _lastFrameTime = 0.0f; // Time it took to render the last frame
     private:
         // Since there really is only going to be one application
         static Application* _instance; // Getting our current application instance
