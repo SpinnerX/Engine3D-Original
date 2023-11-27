@@ -89,7 +89,11 @@
         "cinttypes": "cpp",
         "forward_list": "cpp",
         "*.ipp": "cpp",
-        "any": "cpp"
+        "any": "cpp",
+        "version": "cpp",
+        "shared_mutex": "cpp",
+        "*.inc": "cpp",
+        "ranges": "cpp"
     },
     "discord.enabled": true,
     "C_Cpp.errorSquiggles": "disabled",
