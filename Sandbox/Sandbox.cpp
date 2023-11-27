@@ -121,33 +121,32 @@ public:
         _blueShader = std::make_shared<RendererEngine::Shader>(blueShaderVertexSrc, blueShaderFragmentSrc);
     }
 
-    virtual void onUpdate() override {
-        // if(RendererEngine::InputPoll::isKeyPressed(RENDER_KEY_D)){ // RIGHT
+    virtual void onUpdate(RendererEngine::Timestep ts) override {
+        float time = ts;
+        
         if(RendererEngine::InputPoll::isKeyPressed(RENDER_KEY_RIGHT)){ // RIGHT
-            _cameraPosition.x -= _cameraMoveSpeed;
+            _cameraPosition.x -= _cameraMoveSpeed * ts;
         }
         else if(RendererEngine::InputPoll::isKeyPressed(RENDER_KEY_LEFT)){ // LEFT
-            _cameraPosition.x += _cameraMoveSpeed;
+            _cameraPosition.x += _cameraMoveSpeed * ts;
         }
-        // if(RendererEngine::InputPoll::isKeyPressed(RENDER_KEY_W)){ // UP
         else if(RendererEngine::InputPoll::isKeyPressed(RENDER_KEY_UP)){ // UP
-            _cameraPosition.y -= _cameraMoveSpeed;
+            _cameraPosition.y -= _cameraMoveSpeed * ts;
         }
-        // if(RendererEngine::InputPoll::isKeyPressed(RENDER_KEY_S)){ // DOWN
         if(RendererEngine::InputPoll::isKeyPressed(RENDER_KEY_DOWN)){ // DOWN
-            _cameraPosition.y += _cameraMoveSpeed;
+            _cameraPosition.y += _cameraMoveSpeed * ts;
         }
 
         if(RendererEngine::InputPoll::isKeyPressed(RENDER_KEY_A)){ // LEFT
-            _cameraRotation += _cameraRotationSpeed;
+            _cameraRotation += _cameraRotationSpeed * ts;
         }
         else if(RendererEngine::InputPoll::isKeyPressed(RENDER_KEY_D)){ // RIGHT
-            _cameraRotation -= _cameraRotationSpeed;
+            _cameraRotation -= _cameraRotationSpeed * ts;
         }
 
         RendererEngine::RendererCommand::setClearColor({0.1f, 0.1f, 0.1f, 1});
         RendererEngine::RendererCommand::clear();
-        // printf("Camera Position: (%f, %f, %f\n", _cameraPosition.x, _cameraPosition.y, _cameraPosition.z);
+
         _camera.setPosition(_cameraPosition); // {x, y, z} (Changing Camera Position)
         _camera.setRotation(_cameraRotation);
 
@@ -176,9 +175,9 @@ private:
 
     RendererEngine::OrthographicCamera _camera;
 
-    float _cameraMoveSpeed = 0.1f;
+    float _cameraMoveSpeed = 5.0f;
     float _cameraRotation = 0.0f;
-    float _cameraRotationSpeed = 2.0f;
+    float _cameraRotationSpeed = 180.0f;
     glm::vec3 _cameraPosition;
 };
 
