@@ -183,7 +183,7 @@ namespace RendererEngine{
             glfwSwapInterval(0);
         }
 
-        _data.vSync = true;
+        _data.vSync = enabled;
     }
 
 };
