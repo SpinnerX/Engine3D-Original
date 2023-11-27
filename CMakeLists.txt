@@ -55,6 +55,7 @@ set(
   GameEngine/include/GameEngine/Renderer/RendererAPI.cpp
   GameEngine/include/GameEngine/Renderer/RendererCommand.cpp
   GameEngine/include/GameEngine/platforms/OpenGL/OpenGLRendererAPI.cpp
+  GameEngine/include/GameEngine/Renderer/OrthographicCamera.cpp
 )
 
 add_precompiled_header(${PROJECT_NAME} include/GameEnginePrecompiledHeader.h FORCEINCLUDE SOURCE_CXX src/GameEnginePrecompiledHeader.cpp)
