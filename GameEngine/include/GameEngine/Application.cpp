@@ -6,7 +6,8 @@
 namespace RendererEngine{
     Application* Application::_instance = nullptr;
     
-    Application::Application(){
+    Application::Application() : _camera(-1.6f, 1.6f, -0.9f, 0.9f){
+
         render_core_assert(!_instance, "Application already exists!");
         isRunning = true;
         _instance = this;
@@ -20,10 +21,6 @@ namespace RendererEngine{
         _window->setEventCallback(bind_function(this, &Application::onEvent));
         _imguiLayer = new ImGuiLayer();
         pushOverlay(_imguiLayer);
-
-        // Vertex Array
-        // Vertex Buffer
-        // Index Buffer
 
         // gen vertex array and bind them
         // glGenVertexArrays(1, &_vertexArr);
@@ -86,11 +83,11 @@ namespace RendererEngine{
         squareIB.reset(IndexBuffer::Create(squareIndices,  sizeof(squareIndices) / sizeof(uint32_t)));
         _squareVertexArrays->setIndexBuffer(squareIB);
 
-
-
         std::string vertexSrc = R"(
 			#version 330 core
 			
+            uniform mat4 u_ViewProjection;
+
 			layout(location = 0) in vec3 a_Position;
 			layout(location = 1) in vec4 a_Color;
 
@@ -101,7 +98,7 @@ namespace RendererEngine{
 			{
 				v_Position = a_Position;
 				v_Color = a_Color;
-				gl_Position = vec4(a_Position, 1.0);	
+				gl_Position = u_ViewProjection * vec4(a_Position, 1.0);
 			}
 		)";
 
@@ -120,11 +117,12 @@ namespace RendererEngine{
 			}
 		)";
 
-        _shader.reset(new Shader(vertexSrc, fragmentSrc));
-
+        _shader  = std::make_shared<Shader>(vertexSrc, fragmentSrc);
         std::string blueShaderVertexSrc = R"(
 			#version 330 core
-			
+
+            uniform mat4 u_ViewProjection;
+
 			layout(location = 0) in vec3 a_Position;
 
 			out vec3 v_Position;
@@ -132,7 +130,7 @@ namespace RendererEngine{
 			void main()
 			{
 				v_Position = a_Position;
-				gl_Position = vec4(a_Position, 1.0);	
+				gl_Position = u_ViewProjection * vec4(a_Position, 1.0);	
 			}
 		)";
 
@@ -149,7 +147,7 @@ namespace RendererEngine{
 			}
 		)";
 
-        _blueShader.reset(new Shader(blueShaderVertexSrc, blueShaderFragmentSrc));
+        _blueShader = std::make_shared<Shader>(blueShaderVertexSrc, blueShaderFragmentSrc);
     }
 
     Application::~Application(){}
@@ -194,40 +192,18 @@ namespace RendererEngine{
     void Application::Run(){
 
         while(isRunning){
-            // glClearColor(0.1f, 0.1f, 0.1f, 1);
-            // glClear(GL_COLOR_BUFFER_BIT);
             RendererCommand::setClearColor({0.1f, 0.1f, 0.1f, 1});
             RendererCommand::clear();
 
-            Renderer::beginScene();
+            _camera.setPosition({1.0f, 1.0f, 0.0f}); // {x, y, z} (Changing Camera Position)
+            _camera.setRotation(45.5f);
 
+            Renderer::beginScene(_camera); // BeginScene
 
+            Renderer::submit(_blueShader, _squareVertexArrays);
+            Renderer::submit(_shader, _vertexArray); // Submitting our  objects or even meshes (or geo meshes)
 
-            RendererCommand::SetClearColor();
-            RendererCommand::Clear();
-
-            The goal for adding in the Renderer command calls on how we call these functions
-            Renderer::BeginScene(); // Potentially Scene Settings
-            _squareVertexArrays->bind();
-            Renderer::Submit(_squareVA); // Submitting our meshes (or geo meshes)
-            _shader->bind();
-            Renderer::Submit(_vertexArray); // Submitting our meshes (or geo meshes)
-            Renderer:EndScene()
-
-            At some point we flush the renderer
-            Renderer::Flush();
-
-            _blueShader->bind();
-            _squareVertexArrays->bind();
-            // glDrawElements(GL_TRIANGLES, _squareVertexArrays->getIndexBuffer()->getCount(), GL_UNSIGNED_INT, nullptr);
-            Renderer::submit(_squareVertexArrays);
-
-            _shader->bind();
-            _vertexArray->bind();
-			// glDrawElements(GL_TRIANGLES, _vertexArray->getIndexBuffer()->getCount(), GL_UNSIGNED_INT, nullptr);
-            Renderer::submit(_vertexArray); // Submitting our  objects or even meshes (or geo meshes)
-
-            Renderer::endScene();
+            Renderer::endScene(); // EndScene
 
             for(Layer* layer : _layerStack){
                 layer->onUpdate();
