@@ -16,6 +16,8 @@
 #include <GameEngine/EngineLogger.h>
 // -------------------------------------------
 
+#include <GameEngine/Core/Timestep.h>
+
 #include <GameEngine/InputPoll.h>
 #include <GameEngine/KeyCodes.h>
 #include <GameEngine/MouseButtonCodes.h>
