@@ -4,17 +4,11 @@
 #include <GameEngine/Window.h>
 #include <GameEngine/LayerStack.h>
 #include <GameEngine/Imgui/ImGuiLayer.h>
-#include <GameEngine/Renderer/Shader.h>
-#include <GameEngine/Renderer/Buffer.h>
-#include <GameEngine/Renderer/VertexArray.h>
-#include <GameEngine/Renderer/Renderer.h>
-#include <GameEngine/Renderer/OrthographicCamera.h>
 
 namespace RendererEngine{
     // Application
-    // - Pure virtual application class
     // - Essentially how users will run their own applications
-    class RENDER_API Application{
+    class Application{
     public:
         Application();
         ~Application();
@@ -34,7 +28,6 @@ namespace RendererEngine{
         inline static Application& Get() { return *_instance; }
         inline Window& GetWindow() { return *_window; }
 
-
     private:
         bool onWindowClose(WindowCloseEvent& e);
 
@@ -43,14 +36,6 @@ namespace RendererEngine{
         ImGuiLayer* _imguiLayer; // ImGuiLayer class (this class owns this ptr)
         bool isRunning;
         LayerStack _layerStack;
-
-        std::shared_ptr<Shader> _shader;
-        std::shared_ptr<VertexArray> _vertexArray;
-
-        std::shared_ptr<Shader> _blueShader;
-        std::shared_ptr<VertexArray> _squareVertexArrays;
-
-        OrthographicCamera _camera;
 
     private:
         // Since there really is only going to be one application
