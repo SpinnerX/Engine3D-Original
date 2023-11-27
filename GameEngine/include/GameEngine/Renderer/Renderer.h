@@ -1,5 +1,7 @@
 #pragma once
 #include <GameEngine/Renderer/RenderCommand.h>
+#include <GameEngine/Renderer/OrthographicCamera.h>
+#include <GameEngine/Renderer/Shader.h>
 
 namespace RendererEngine{
     
@@ -8,17 +10,22 @@ namespace RendererEngine{
     // - Only Renderer abstracts away the bind and unbinding functions.
     class Renderer{
     public:
-        static void beginScene(); // TODO: 
+        static void beginScene(OrthographicCamera& camera);
 
         static void endScene();
 
         // Submitted into a renderer queue
         // Then is evaluated probably in a different thread and will get rendered
-        static void submit(const std::shared_ptr<VertexArray>& vertexArray);
+        static void submit(const std::shared_ptr<Shader>& shader, const std::shared_ptr<VertexArray>& vertexArray);
 
         inline static RendererAPI::API getAPI() { return RendererAPI::getAPI(); }
 
     private:
-        // static RendererAPI::API _rendererAPI;
+        struct SceneData{
+            glm::mat4 viewProjectionMatrix;
+        };
+
+        static SceneData* _sceneData;
+
     };
 };
