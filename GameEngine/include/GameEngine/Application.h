@@ -8,6 +8,7 @@
 #include <GameEngine/Renderer/Buffer.h>
 #include <GameEngine/Renderer/VertexArray.h>
 #include <GameEngine/Renderer/Renderer.h>
+#include <GameEngine/Renderer/OrthographicCamera.h>
 
 namespace RendererEngine{
     // Application
@@ -48,6 +49,8 @@ namespace RendererEngine{
 
         std::shared_ptr<Shader> _blueShader;
         std::shared_ptr<VertexArray> _squareVertexArrays;
+
+        OrthographicCamera _camera;
 
     private:
         // Since there really is only going to be one application
