@@ -1,5 +1,6 @@
 #include <GameEngine/Renderer/Shader.h>
 #include <glad/glad.h>
+#include <glm/gtc/type_ptr.hpp> // for glm::value_ptr
 
 namespace RendererEngine{
     // Read our shaders into the appropriate buffers
@@ -134,4 +135,11 @@ namespace RendererEngine{
     void Shader::unbind() const {
         glUseProgram(0);
     }
+
+    void Shader::uploadUniformMat4(const std::string& name, const glm::mat4& matrix){
+        GLint location = glGetUniformLocation(this->_rendererID, name.c_str()); // validates if this exists
+
+        glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(matrix));
+    }
+
 };
