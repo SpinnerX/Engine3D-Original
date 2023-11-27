@@ -64,9 +64,13 @@ namespace RendererEngine{
     void Application::Run(){
 
         while(isRunning){
+            // Is going to be showing how lonmg this frame current time and the last frame time
+            float time = (float)glfwGetTime(); // Should be in platform::getTime() (containing impl for Mac, Windows, etc.)
+            Timestep timestep = time - _lastFrameTime;
+            _lastFrameTime = time;
 
             for(Layer* layer : _layerStack){
-                layer->onUpdate();
+                layer->onUpdate(timestep);
             }
 
             _imguiLayer->begin();
