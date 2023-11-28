@@ -1,9 +1,10 @@
 #include <GameEngine/GameEngine.h>
+#include <glm/gtc/matrix_transform.hpp>
 
 // This is just an example on how to make a layer
 class ExampleLayer : public RendererEngine::Layer{
 public:
-    ExampleLayer() : Layer("Example"), _camera(-1.6f, 1.6f, -0.9f, 0.9f), _cameraPosition(0.0f, 0.0f, 0.0f){
+    ExampleLayer() : Layer("Example"), _camera(-1.6f, 1.6f, -0.9f, 0.9f), _cameraPosition(0.0f, 0.0f, 0.0f), _squarePos(0.f){
         _vertexArray.reset(RendererEngine::VertexArray::Create());
 
         float vertices[3 * 7] = {
@@ -33,11 +34,18 @@ public:
         // Square Vertex Data //
         //////////////////////////
 
+        // float squareVertices[3 * 4] = {
+		// 	-0.75f, -0.75f, 0.0f,
+		// 	 0.75f, -0.75f, 0.0f,
+		// 	 0.75f,  0.75f, 0.0f,
+        //      -0.75f,  0.75f, 0.0f,
+		// };
+        
         float squareVertices[3 * 4] = {
-			-0.75f, -0.75f, 0.0f,
-			 0.75f, -0.75f, 0.0f,
-			 0.75f,  0.75f, 0.0f,
-             -0.75f,  0.75f, 0.0f,
+			-0.5f, -0.5f, 0.0f,
+			 0.5f, -0.5f, 0.0f,
+			 0.5f,  0.5f, 0.0f,
+             -0.5f,  0.5f, 0.0f,
 		};
 
         _squareVertexArrays.reset(RendererEngine::VertexArray::Create());
@@ -58,6 +66,7 @@ public:
 			#version 330 core
 			
             uniform mat4 u_ViewProjection;
+            uniform mat4 u_Transform;
 
 			layout(location = 0) in vec3 a_Position;
 			layout(location = 1) in vec4 a_Color;
@@ -69,7 +78,7 @@ public:
 			{
 				v_Position = a_Position;
 				v_Color = a_Color;
-				gl_Position = u_ViewProjection * vec4(a_Position, 1.0);
+				gl_Position = u_ViewProjection * u_Transform * vec4(a_Position, 1.0);
 			}
 		)";
 
@@ -93,6 +102,8 @@ public:
 			#version 330 core
 
             uniform mat4 u_ViewProjection;
+            uniform mat4 u_Transform;
+
 
 			layout(location = 0) in vec3 a_Position;
 
@@ -101,7 +112,7 @@ public:
 			void main()
 			{
 				v_Position = a_Position;
-				gl_Position = u_ViewProjection * vec4(a_Position, 1.0);	
+				gl_Position = u_ViewProjection * u_Transform * vec4(a_Position, 1.0);	
 			}
 		)";
 
@@ -122,6 +133,8 @@ public:
     }
 
     virtual void onUpdate(RendererEngine::Timestep ts) override {
+        RendererEngine::RendererCommand::setClearColor({0.1f, 0.1f, 0.1f, 1});
+        RendererEngine::RendererCommand::clear();
         float time = ts;
         
         if(RendererEngine::InputPoll::isKeyPressed(RENDER_KEY_RIGHT)){ // RIGHT
@@ -133,7 +146,7 @@ public:
         else if(RendererEngine::InputPoll::isKeyPressed(RENDER_KEY_UP)){ // UP
             _cameraPosition.y -= _cameraMoveSpeed * ts;
         }
-        if(RendererEngine::InputPoll::isKeyPressed(RENDER_KEY_DOWN)){ // DOWN
+        else if(RendererEngine::InputPoll::isKeyPressed(RENDER_KEY_DOWN)){ // DOWN
             _cameraPosition.y += _cameraMoveSpeed * ts;
         }
 
@@ -144,15 +157,47 @@ public:
             _cameraRotation -= _cameraRotationSpeed * ts;
         }
 
-        RendererEngine::RendererCommand::setClearColor({0.1f, 0.1f, 0.1f, 1});
-        RendererEngine::RendererCommand::clear();
+
+        // Testing transformation matrix
+        // Doing this just to show how we can move the square specifically and not along with the triangle
+        if(RendererEngine::InputPoll::isKeyPressed(RENDER_KEY_L)){ // RIGHT
+            _squarePos.x -= _squareMoveSpeed * ts;
+        }
+        else if(RendererEngine::InputPoll::isKeyPressed(RENDER_KEY_J)){ // LEFT
+            _squarePos += _squareMoveSpeed * ts;
+        }
+        else if(RendererEngine::InputPoll::isKeyPressed(RENDER_KEY_K)){ // DOWN
+            _squarePos.y -= _squareMoveSpeed * ts;
+        }
+        else if(RendererEngine::InputPoll::isKeyPressed(RENDER_KEY_I)){ // UOP
+            _squarePos.y += _squareMoveSpeed * ts;
+        }
 
         _camera.setPosition(_cameraPosition); // {x, y, z} (Changing Camera Position)
         _camera.setRotation(_cameraRotation);
 
-        RendererEngine::Renderer::beginScene(_camera); // BeginScene
+        // Logic Flow
+        // We take in a 4x4 matrix default ot 1.0
+        // Then take a vec3 for the squares position, and then we translate the matrix
+        // This is to get our transformation matrix to change the position of the square.
+        // glm::mat4 transform = glm::translate(glm::mat4(1.0f), _squarePos);
 
-        RendererEngine::Renderer::submit(_blueShader, _squareVertexArrays);
+        // This is how we may scale the squares down to be a specific size
+        glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
+
+        for(int i = 0; i < 20; i++){
+            for(int j = 0; j < 20; j++){
+                // We set the position to these squares, then space them out by 0.11f
+                // Then we translate our matrix with our vec3 position, then to have consistent scaling
+                //  we multiply our translated matrix with the scale.
+                glm::vec3 pos(j * 0.11f, i * 0.11f, 0.0f);
+                glm::mat4 transform = glm::translate(glm::mat4(1.0f), pos) * scale;
+                RendererEngine::Renderer::submit(_blueShader, _squareVertexArrays, transform);
+            }
+        }
+
+        RendererEngine::Renderer::beginScene(_camera); // BeginScene
+        // RendererEngine::Renderer::submit(_blueShader, _squareVertexArrays, transform);
         RendererEngine::Renderer::submit(_shader, _vertexArray); // Submitting our  objects or even meshes (or geo meshes)
 
         RendererEngine::Renderer::endScene(); // EndScene
@@ -179,6 +224,10 @@ private:
     float _cameraRotation = 0.0f;
     float _cameraRotationSpeed = 180.0f;
     glm::vec3 _cameraPosition;
+
+
+    glm::vec3 _squarePos; // for square
+    float _squareMoveSpeed = 1.0f;
 };
 
 class Sandbox : public RendererEngine::Application{
