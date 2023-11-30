@@ -11,11 +11,6 @@ namespace RendererEngine{
         _instance = this;
         _window = std::unique_ptr<Window>(Window::create());
 
-        auto bind_function = [](auto* instance, auto M){
-            return [instance, M](auto&& arg1){
-                return (instance->*M)(std::forward<decltype(arg1)>(arg1));
-            };
-        };
         _window->setEventCallback(bind_function(this, &Application::onEvent));
         _imguiLayer = new ImGuiLayer();
         pushOverlay(_imguiLayer);
@@ -42,11 +37,6 @@ namespace RendererEngine{
         // NOTE
         // - Dispatcher checks the incoming type event is the same as the static type in the Dispatch function
         //  then we execute that specific callback corresponding to that event.
-        auto bind_function = [](auto* instance, auto member_function){
-            return [instance, member_function](auto&& arg1){
-                return (instance->*member_function)(std::forward<decltype(arg1)>(arg1));
-            };
-        };
         dispatcher.Dispatch<WindowCloseEvent>(bind_function(this, &Application::onWindowClose));
 
         // Iterating backwards thhrough the layer stack and thhen we called onEvent, and if it isn;t handled thhen it breaks 
