@@ -19,7 +19,7 @@ namespace RendererEngine{
 
         // A static wrapper for actual implementation
         // Going to dispatch commands from drawIndexed
-        inline static void drawIndexed(const std::shared_ptr<VertexArray>& vertexArray){
+        inline static void drawIndexed(const Ref<VertexArray>& vertexArray){
             _rendererAPI->drawIndexed(vertexArray);
         }
 
