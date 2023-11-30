@@ -72,10 +72,5 @@ namespace RendererEngine{
 
     // This will be set and used between when we make function calls with Begin() and End().
     void ImGuiLayer::onImguiRender(){
-        ImGui::Begin("Test");
-        ImGui::Text("Wooot Wooot!");
-        ImGui::End();
-        static bool show = true;
-        ImGui::ShowDemoWindow(&show);
     }
 };
