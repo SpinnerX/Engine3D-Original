@@ -1,5 +1,7 @@
 #include <GameEngine/GameEngine.h>
 #include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+#include <GameEngine/platforms/OpenGL/OpenGLShader.h>
 
 // This is just an example on how to make a layer
 class ExampleLayer : public RendererEngine::Layer{
@@ -97,7 +99,8 @@ public:
 			}
 		)";
 
-        _shader  = std::make_shared<RendererEngine::Shader>(vertexSrc, fragmentSrc);
+        // _shader  = std::make_shared<RendererEngine::Shader>(vertexSrc, fragmentSrc);
+        _shader.reset(RendererEngine::Shader::CreateShader(vertexSrc, fragmentSrc));
         std::string blueShaderVertexSrc = R"(
 			#version 330 core
 
@@ -116,20 +119,22 @@ public:
 			}
 		)";
 
-		std::string blueShaderFragmentSrc = R"(
+		std::string flatColorShaderFragmentSrc = R"(
 			#version 330 core
 			
 			layout(location = 0) out vec4 color;
 
 			in vec3 v_Position;
 
+            uniform vec3 u_Color;
+
 			void main()
 			{
-				color = vec4(0.2, 0.3, 0.8, 1.0);
+				color = vec4(u_Color, 1.0);
 			}
 		)";
 
-        _blueShader = std::make_shared<RendererEngine::Shader>(blueShaderVertexSrc, blueShaderFragmentSrc);
+        _flatShader.reset(RendererEngine::Shader::CreateShader(blueShaderVertexSrc, flatColorShaderFragmentSrc));
     }
 
     virtual void onUpdate(RendererEngine::Timestep ts) override {
@@ -168,6 +173,15 @@ public:
         // This is how we may scale the squares down to be a specific size
         glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
 
+        // The Idea that we'd want when we load in a material
+        // The logc behind this material
+        // - Is to take in the shader, and all the data corresponding to that specific shader
+        // RendererEngine::MaterialRef material = new RendererEngine::Material(_flatColorShader);
+        // material->set("u_Color", redColor);
+
+        std::dynamic_pointer_cast<RendererEngine::OpenGLShader>(_flatShader)->bind();
+        std::dynamic_pointer_cast<RendererEngine::OpenGLShader>(_flatShader)->uploadUniformFloat3("u_Color", _squareColor);
+
         for(int i = 0; i < 20; i++){
             for(int j = 0; j < 20; j++){
                 // We set the position to these squares, then space them out by 0.11f
@@ -175,13 +189,21 @@ public:
                 //  we multiply our translated matrix with the scale.
                 glm::vec3 pos(j * 0.11f, i * 0.11f, 0.0f);
                 glm::mat4 transform = glm::translate(glm::mat4(1.0f), pos) * scale;
-                RendererEngine::Renderer::submit(_blueShader, _squareVertexArrays, transform);
+
+                RendererEngine::Renderer::submit(_flatShader, _squareVertexArrays, transform);
             }
         }
 
         RendererEngine::Renderer::submit(_shader, _vertexArray); // Submitting our  objects or even meshes (or geo meshes)
 
         RendererEngine::Renderer::endScene(); // EndScene
+    }
+
+    virtual void onImguiRender() override{
+        // Rendering a UI to allow adjust the color through a UI (called settings)
+        ImGui::Begin("Settings");
+        ImGui::ColorEdit3("Square Color", glm::value_ptr(_squareColor));
+        ImGui::End();
     }
 
     virtual void onEvent(RendererEngine::Event& event) override {
@@ -196,7 +218,7 @@ private:
     std::shared_ptr<RendererEngine::Shader> _shader;
     std::shared_ptr<RendererEngine::VertexArray> _vertexArray;
 
-    std::shared_ptr<RendererEngine::Shader> _blueShader;
+    std::shared_ptr<RendererEngine::Shader> _flatShader;
     std::shared_ptr<RendererEngine::VertexArray> _squareVertexArrays;
 
     RendererEngine::OrthographicCamera _camera;
@@ -205,6 +227,9 @@ private:
     float _cameraRotation = 0.0f;
     float _cameraRotationSpeed = 180.0f;
     glm::vec3 _cameraPosition;
+
+
+    glm::vec3 _squareColor = {0.2f, 0.3f, 0.8f};
 };
 
 class Sandbox : public RendererEngine::Application{
