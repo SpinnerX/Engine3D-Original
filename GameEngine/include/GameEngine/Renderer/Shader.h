@@ -1,7 +1,6 @@
 #pragma once
 #include <string>
 #include <glm/glm.hpp>
-
 namespace RendererEngine{
 
     // Creating a Shader class
@@ -9,15 +8,14 @@ namespace RendererEngine{
     // - basically be implemented per API
     class Shader{
     public:
-        // In the future we should take these in as a file.
-        Shader(const std::string& vertexSrc, const std::string& fragmentSrc);
-        ~Shader();
+        virtual ~Shader() = default;
 
-        void bind() const;
+        virtual void bind() const = 0;
 
-        void unbind() const;
+        virtual void unbind() const = 0;
 
-        void uploadUniformMat4(const std::string& name, const glm::mat4& matrix);
+        static Shader* CreateShader(const std::string& vertexSrc, const std::string& fragmentSrc);
+
     private:
         uint32_t _rendererID; // Keeping track uniquely identifying this object
         // static int counter;
