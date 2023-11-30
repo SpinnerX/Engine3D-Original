@@ -35,19 +35,12 @@ public:
         //////////////////////////
         // Square Vertex Data //
         //////////////////////////
-
-        // float squareVertices[3 * 4] = {
-		// 	-0.75f, -0.75f, 0.0f,
-		// 	 0.75f, -0.75f, 0.0f,
-		// 	 0.75f,  0.75f, 0.0f,
-        //      -0.75f,  0.75f, 0.0f,
-		// };
         
-        float squareVertices[3 * 4] = {
-			-0.5f, -0.5f, 0.0f,
-			 0.5f, -0.5f, 0.0f,
-			 0.5f,  0.5f, 0.0f,
-             -0.5f,  0.5f, 0.0f,
+        float squareVertices[5 * 4] = {
+			-0.5f, -0.5f, 0.0f, 0.0f, 0.0f,
+			 0.5f, -0.5f, 0.0f, 1.0f, 0.0f,
+			 0.5f,  0.5f, 0.0f, 1.0f, 1.0f,
+             -0.5f,  0.5f, 0.0f, 0.0f, 1.0f
 		};
 
         _squareVertexArrays.reset(RendererEngine::VertexArray::Create());
@@ -56,6 +49,7 @@ public:
 
         squareVB->setLayout({
             {RendererEngine::ShaderDataType::Float3, "a_Position", true},
+            {RendererEngine::ShaderDataType::Float2, "a_TexCoord", true}
         });
         _squareVertexArrays->addVertexBuffer(squareVB);
 
@@ -135,6 +129,42 @@ public:
 		)";
 
         _flatShader.reset(RendererEngine::Shader::CreateShader(blueShaderVertexSrc, flatColorShaderFragmentSrc));
+
+        std::string textureShaderVertexSrc = R"(
+			#version 330 core
+
+			layout(location = 0) in vec3 a_Position;
+            layout(location = 1) in vec2 a_TexCoord;
+            
+            uniform mat4 u_ViewProjection;
+            uniform mat4 u_Transform;
+
+			out vec2 v_TexCoord;
+
+
+			void main()
+			{
+                v_TexCoord = a_TexCoord;
+				gl_Position = u_ViewProjection * u_Transform * vec4(a_Position, 1.0);	
+			}
+		)";
+
+		std::string textureShaderFragmentSrc = R"(
+			#version 330 core
+			
+			layout(location = 0) out vec4 color;
+
+			in vec2 v_TexCoord;
+
+            uniform vec3 u_Color;
+
+			void main()
+			{
+				color = vec4(v_TexCoord, 0.0, 1.0);
+			}
+		)";
+
+        _textureShader.reset(RendererEngine::Shader::CreateShader(textureShaderVertexSrc, textureShaderFragmentSrc));
     }
 
     virtual void onUpdate(RendererEngine::Timestep ts) override {
@@ -194,7 +224,10 @@ public:
             }
         }
 
-        RendererEngine::Renderer::submit(_shader, _vertexArray); // Submitting our  objects or even meshes (or geo meshes)
+        RendererEngine::Renderer::submit(_textureShader, _squareVertexArrays, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
+
+        // Line to render a triangle
+        // RendererEngine::Renderer::submit(_shader, _vertexArray); // Submitting our  objects or even meshes (or geo meshes)
 
         RendererEngine::Renderer::endScene(); // EndScene
     }
@@ -207,18 +240,13 @@ public:
     }
 
     virtual void onEvent(RendererEngine::Event& event) override {
-        auto bind_function = [](auto* instance, auto member_function){
-            return [instance, member_function](auto&& arg1){
-                return (instance->*member_function)(std::forward<decltype(arg1)>(arg1));
-            };
-        };
     }
 
 private:
     RendererEngine::Ref<RendererEngine::Shader> _shader;
     RendererEngine::Ref<RendererEngine::VertexArray> _vertexArray;
 
-    RendererEngine::Ref<RendererEngine::Shader> _flatShader;
+    RendererEngine::Ref<RendererEngine::Shader> _flatShader, _textureShader;
     RendererEngine::Ref<RendererEngine::VertexArray> _squareVertexArrays;
 
     RendererEngine::OrthographicCamera _camera;
