@@ -22,6 +22,7 @@ find_package(spdlog REQUIRED)
 find_package(Threads REQUIRED)
 include(cmake/imgui.cmake)
 include(cmake/glad.cmake)
+include(cmake/stbi_image.cmake)
 
 include_directories(
   ${PROJECT_SOURCE_DIR}/GameEngine/include
@@ -59,6 +60,7 @@ set(
   GameEngine/include/GameEngine/platforms/OpenGL/OpenGLShader.cpp
   GameEngine/include/GameEngine/Renderer/Texture.cpp
   GameEngine/include/GameEngine/platforms/OpenGL/OpenGLTexture.cpp
+  ${stbi_src}
 )
 
 add_precompiled_header(${PROJECT_NAME} include/GameEnginePrecompiledHeader.h FORCEINCLUDE SOURCE_CXX src/GameEnginePrecompiledHeader.cpp)
@@ -78,6 +80,8 @@ target_include_directories(
   ${PROJECT_SOURCE_DIR}/GameEngine/include
   ${PROJECT_SOURCE_DIR}/GameEngine/include/GameEngine
 )
+
+file(COPY assets DESTINATION ${CMAKE_BINARY_DIR})
 
 # This is how you can have precompiled headers
 # This allows for faster compile time
