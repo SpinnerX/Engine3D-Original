@@ -7,6 +7,8 @@ namespace RendererEngine{
         coreLogInfo("OpenGLTexture2D Create Called!");
         int width, height, channels;
 
+        stbi_set_flip_vertically_on_load(1);
+
         // Loading in our image data
         stbi_uc* data = stbi_load(filepath.c_str(), &width, &height, &channels, 0);
 
@@ -20,33 +22,23 @@ namespace RendererEngine{
         _height = height;
 
         // Uploading data to OpenGL texture
-        
-		// glCreateTextures(GL_TEXTURE_2D, 1, &_rendererID);
-		// glTextureStorage2D(_rendererID, 1, GL_RGB8, _width, _height);
-
-		// glTextureParameteri(_rendererID, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-		// glTextureParameteri(_rendererID, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-
-        // // Now uploading the texture
-        // glTextureSubImage2D(_rendererID, 0, 0, 0, _width, _height, GL_RGB, GL_UNSIGNED_BYTE, data);
-
-
-        // Testing Textures for OpenGL code here!
-        ///////////////////////////////////////////////////////////////////////////
-        ///////////////////////////////////////////////////////////////////////////
-        ///////////////////////////////////////////////////////////////////////////
-        ///////////////////////////////////////////////////////////////////////////
 
         // Testing textures for OpenGL
-        glGenTextures(1, &_rendererID);
+        glGenTextures(1, &_rendererID); // Equivalent to glCreateTexture (but will segfault though)
+        glActiveTexture(GL_TEXTURE_2D);
+        glBindTexture(GL_TEXTURE_2D, _rendererID);
 
-        glActiveTexture(GL_TEXTURE1);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
-        glPixelStorei(GL_UNPACK_ROW_LENGTH, _width);
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, _width, _height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
 
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+        glGenerateMipmap(GL_TEXTURE_2D);
+
 
 		stbi_image_free(data); // free image data stored in CPU
+
+        glBindTexture(GL_TEXTURE_2D, 0);
     }
 
     OpenGLTexture2D::~OpenGLTexture2D(){
@@ -54,9 +46,9 @@ namespace RendererEngine{
     }
 
     // Binding specific slot of this texture
-    void OpenGLTexture2D::bind(uint32_t slot) const {
+    void OpenGLTexture2D::bind(GLenum slot) const {
         // printf("Slot: %i\n", slot);
-        // glBindTextureUnit(0, _rendererID);
-        // glBindTexture(GL_TEXTURE_2D, _rendererID);
+        // glBindTextureUnit(slot, _rendererID); // Equivalent to glBindTexture (but will segfault though)
+        glBindTexture(slot, _rendererID); // Instead of using this we have to use glBindTexture on Mac
     }
 };

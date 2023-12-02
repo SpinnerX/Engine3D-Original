@@ -15,7 +15,7 @@ namespace RendererEngine{
         virtual uint32_t getWidth() const override { return _width; }
         virtual uint32_t getHeight() const override { return _height; }
 
-        virtual void bind(uint32_t bind = 0) const override; 
+        virtual void bind(GLenum bind = GL_TEXTURE_2D) const override; 
 
     private:
         std::string _filepath;
