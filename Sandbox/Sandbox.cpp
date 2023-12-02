@@ -149,22 +149,40 @@ public:
 			}
 		)";
 
-		std::string textureShaderFragmentSrc = R"(
+		// std::string textureShaderFragmentSrc = R"(
+		// 	#version 330 core
+			
+		// 	layout(location = 0) out vec4 color;
+
+		// 	in vec2 v_TexCoord;
+
+        //     uniform sampler2D u_Texture;
+
+		// 	void main()
+		// 	{
+		// 		color = texture(u_Texture, v_TexCoord);
+		// 	}
+		// )";
+        std::string textureShaderFragmentSrc = R"(
 			#version 330 core
 			
 			layout(location = 0) out vec4 color;
 
 			in vec2 v_TexCoord;
-
-            uniform vec3 u_Color;
+			
+			uniform sampler2D u_Texture;
 
 			void main()
 			{
-				color = vec4(v_TexCoord, 0.0, 1.0);
+				color = texture(u_Texture, v_TexCoord);
 			}
 		)";
 
         _textureShader.reset(RendererEngine::Shader::CreateShader(textureShaderVertexSrc, textureShaderFragmentSrc));
+        
+        _texture = RendererEngine::Texture2D::Create("../assets/Checkerboard.png");
+        std::dynamic_pointer_cast<RendererEngine::OpenGLShader>(_textureShader)->bind();
+        std::dynamic_pointer_cast<RendererEngine::OpenGLShader>(_textureShader)->uploadUniformInt("u_Texture", 0);
     }
 
     virtual void onUpdate(RendererEngine::Timestep ts) override {
@@ -224,6 +242,8 @@ public:
             }
         }
 
+        _texture->bind();
+
         RendererEngine::Renderer::submit(_textureShader, _squareVertexArrays, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
 
         // Line to render a triangle
@@ -258,6 +278,8 @@ private:
 
 
     glm::vec3 _squareColor = {0.2f, 0.3f, 0.8f};
+
+    RendererEngine::Ref<RendererEngine::Texture2D> _texture;
 };
 
 class Sandbox : public RendererEngine::Application{
