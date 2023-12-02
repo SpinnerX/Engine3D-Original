@@ -95,7 +95,8 @@
         "*.inc": "cpp",
         "ranges": "cpp",
         "__std_stream": "cpp",
-        "numeric": "cpp"
+        "numeric": "cpp",
+        "regex": "cpp"
     },
     "discord.enabled": true,
     "C_Cpp.errorSquiggles": "disabled",
