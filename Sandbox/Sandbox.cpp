@@ -58,11 +58,11 @@ public:
         squareIB.reset(RendererEngine::IndexBuffer::Create(squareIndices,  sizeof(squareIndices) / sizeof(uint32_t)));
         _squareVertexArrays->setIndexBuffer(squareIB);
 
-        _shader.reset(RendererEngine::Shader::CreateShader("../assets/shaders/texture1.glsl"));
+        _shader.reset(RendererEngine::Shader::CreateShader("../assets/shaders/firstShader.glsl"));
 
-        _flatShader.reset(RendererEngine::Shader::CreateShader("../assets/shaders/texture2.glsl"));
+        _flatShader.reset(RendererEngine::Shader::CreateShader("../assets/shaders/flatShader.glsl"));
 
-        _textureShader.reset(RendererEngine::Shader::CreateShader("../assets/shaders/texture3.glsl"));
+        _textureShader.reset(RendererEngine::Shader::CreateShader("../assets/shaders/textureShader.glsl"));
         
         _texture = RendererEngine::Texture2D::Create("../assets/Checkerboard.png");
         _textureWithAlpha = RendererEngine::Texture2D::Create("../assets/texture2.png");
