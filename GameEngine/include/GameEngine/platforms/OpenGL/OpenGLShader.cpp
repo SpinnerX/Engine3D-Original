@@ -26,12 +26,28 @@ namespace RendererEngine{
 
     OpenGLShader::OpenGLShader(const std::string& filepath){
         std::string src = readFile(filepath);
-
         std::unordered_map<GLenum, std::string> shaderSrc = preProcess(src);
         compile(shaderSrc);
+
+        // Examples Filepath: asets/shaders/Texture.glsl
+        // Essentially how we will extract Texture.glsl from the filepath.
+        auto lastSlash = filepath.find_last_of("/\\");
+        lastSlash = lastSlash == std::string::npos ? 0 : lastSlash + 1;
+
+        auto lastDot = filepath.rfind('.');
+        // If no dot found, then the count is the filepath.size() - lastSlash
+        // Though if there is a dot (.), then we go backwards until we hit our back slash and that'll be our count
+        auto count = lastDot == std::string::npos ? filepath.size() - lastSlash : lastDot - lastSlash;
+
+        // This is how we get our name, when every time we load in our shader
+        // The name of the file is our key, and the actual shader, is our value in unordered map
+        // In Short: Name will be used to get the specific shader, that we're storing
+        _name = filepath.substr(lastSlash, count);
+
+        coreLogTrace("Filepath: {}", _name);
     }
 
-    OpenGLShader::OpenGLShader(const std::string& vertexSrc, const std::string& fragmentSrc){ 
+    OpenGLShader::OpenGLShader(const std::string& name, const std::string& vertexSrc, const std::string& fragmentSrc) : _name(name){
         std::unordered_map<GLenum, std::string> sources;
         sources[GL_VERTEX_SHADER] = vertexSrc;
         sources[GL_FRAGMENT_SHADER] = fragmentSrc;
@@ -87,11 +103,15 @@ namespace RendererEngine{
 
     void OpenGLShader::compile(const std::unordered_map<GLenum, std::string>& shaderSources){
         GLint program = glCreateProgram();
-        std::vector<GLenum> glShaderIDs(shaderSources.size());
+        render_core_assert(shaderSources.size() <= 2, "We only support 2 shaders for now!");
 
-        for(auto& kv : shaderSources){
-            GLenum type = kv.first;
-            const std::string& src = kv.second;
+        std::array<GLenum, 3> glShaderIDs;
+        int glShaderIDIndex = 0; // Keeping track of our shaders
+
+        // Iterating the shader sources to create our shaders
+        for(auto& [id, value] : shaderSources){
+            GLenum type = id;
+            const std::string& src = value;
             GLuint shader = glCreateShader(type);
 
             const GLchar *sourceCStr = src.c_str(); // ID for vertex
@@ -102,6 +122,8 @@ namespace RendererEngine{
             GLint isCompiled = 0;
             glGetShaderiv(shader, GL_COMPILE_STATUS, &isCompiled);
 
+            // Checking if compiling our shaders ended up failing
+            // Then we log that information if it failed.
             if(isCompiled == GL_FALSE){
                 GLint maxLength = 0;
                 glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &maxLength);
@@ -118,7 +140,7 @@ namespace RendererEngine{
             }
 
             glAttachShader(program, shader);
-            glShaderIDs.push_back(shader);
+            glShaderIDs[glShaderIDIndex++] = shader;
         }
 
         // Link our program

@@ -9,12 +9,13 @@ namespace RendererEngine{
     class OpenGLShader : public Shader{
     public:
         OpenGLShader(const std::string& filepath);
-        OpenGLShader(const std::string& vertexSrc, const std::string& fragmentSrc);
+        OpenGLShader(const std::string& name, const std::string& vertexSrc, const std::string& fragmentSrc);
         ~OpenGLShader();
 
         virtual void bind() const override;
-
         virtual void unbind() const override;
+
+        virtual const std::string& getName() const override { return _name; }
 
         void uploadUniformInt(const std::string& name, int values);
         void uploadUniformFloat(const std::string& name, float values);
@@ -31,6 +32,6 @@ namespace RendererEngine{
         void compile(const std::unordered_map<GLenum, std::string>& map);
     private:
         uint32_t _rendererID; // Keeping track uniquely identifying this object
-        // static int counter;
+        std::string _name;
     };
 };
