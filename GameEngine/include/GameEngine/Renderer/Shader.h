@@ -14,6 +14,7 @@ namespace RendererEngine{
 
         virtual void unbind() const = 0;
 
+        static Shader* CreateShader(const std::string& path);
         static Shader* CreateShader(const std::string& vertexSrc, const std::string& fragmentSrc);
 
     private:

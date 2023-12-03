@@ -8,7 +8,7 @@ namespace RendererEngine{
     // - basically be implemented per API
     class OpenGLShader : public Shader{
     public:
-        // In the future we should take these in as a file.
+        OpenGLShader(const std::string& filepath);
         OpenGLShader(const std::string& vertexSrc, const std::string& fragmentSrc);
         ~OpenGLShader();
 
@@ -24,6 +24,11 @@ namespace RendererEngine{
 
         void uploadUniformMat3(const std::string& name, const glm::mat3& matrix);
         void uploadUniformMat4(const std::string& name, const glm::mat4& matrix);
+
+    private:
+        std::string readFile(const std::string& filepath);
+        std::unordered_map<GLenum, std::string> preProcess(const std::string& src);
+        void compile(const std::unordered_map<GLenum, std::string>& map);
     private:
         uint32_t _rendererID; // Keeping track uniquely identifying this object
         // static int counter;
