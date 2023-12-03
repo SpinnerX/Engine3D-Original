@@ -167,6 +167,8 @@ public:
         _textureShader.reset(RendererEngine::Shader::CreateShader(textureShaderVertexSrc, textureShaderFragmentSrc));
         
         _texture = RendererEngine::Texture2D::Create("../assets/Checkerboard.png");
+        _textureWithAlpha = RendererEngine::Texture2D::Create("../assets/texture2.png");
+
         std::dynamic_pointer_cast<RendererEngine::OpenGLShader>(_textureShader)->bind();
         std::dynamic_pointer_cast<RendererEngine::OpenGLShader>(_textureShader)->uploadUniformInt("u_Texture", 0);
     }
@@ -229,7 +231,11 @@ public:
         }
 
         _texture->bind();
+        RendererEngine::Renderer::submit(_textureShader, _squareVertexArrays, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
 
+        _textureWithAlpha->bind();
+        // RendererEngine::Renderer::submit(_textureShader, _squareVertexArrays, 
+        //         glm::translate(glm::mat4(1.0f), glm::vec3(0.25f, -0.25f, 0.0f)) * glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
         RendererEngine::Renderer::submit(_textureShader, _squareVertexArrays, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
 
         // Line to render a triangle
@@ -265,7 +271,7 @@ private:
 
     glm::vec3 _squareColor = {0.2f, 0.3f, 0.8f};
 
-    RendererEngine::Ref<RendererEngine::Texture2D> _texture;
+    RendererEngine::Ref<RendererEngine::Texture2D> _texture, _textureWithAlpha;
 };
 
 class Sandbox : public RendererEngine::Application{
