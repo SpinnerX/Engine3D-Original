@@ -10,6 +10,11 @@ namespace RendererEngine{
     // - Only Renderer abstracts away the bind and unbinding functions.
     class Renderer{
     public:
+
+        // Used to initialize our renderer
+        // Initialing our renderer command, as well
+        static void init();
+
         static void beginScene(OrthographicCamera& camera);
 
         static void endScene();

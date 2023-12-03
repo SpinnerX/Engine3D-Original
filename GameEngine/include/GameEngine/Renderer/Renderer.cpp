@@ -6,6 +6,11 @@
 namespace RendererEngine{
     Renderer::SceneData* Renderer::_sceneData = new Renderer::SceneData;
 
+    void Renderer::init(){
+        RendererCommand::init();
+    }
+
+
     void Renderer::beginScene(OrthographicCamera& camera){
         _sceneData->viewProjectionMatrix = camera.getViewProjectionMatrix();
     }

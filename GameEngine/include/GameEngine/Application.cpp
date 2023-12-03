@@ -1,4 +1,5 @@
 #include "Application.h"
+#include <GameEngine/Renderer/Renderer.h>
 #include <GameEngine/platforms/Windows/WindowsInput.h>
 
 namespace RendererEngine{
@@ -12,6 +13,10 @@ namespace RendererEngine{
         _window = std::unique_ptr<Window>(Window::create());
 
         _window->setEventCallback(bind_function(this, &Application::onEvent));
+
+        // Initializing our renderer
+        Renderer::init();
+
         _imguiLayer = new ImGuiLayer();
         pushOverlay(_imguiLayer);
 

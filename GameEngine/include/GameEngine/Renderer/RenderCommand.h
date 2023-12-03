@@ -8,6 +8,12 @@ namespace RendererEngine{
     // - 1 byte of memory
     class RendererCommand{
     public:
+        
+        // Initializing our rendering draw command
+        // Also initializing our rendering API's
+        inline static void init(){
+            _rendererAPI->init();
+        }
 
         inline static void setClearColor(const glm::vec4& color) {
             _rendererAPI->setClearColor(color);
