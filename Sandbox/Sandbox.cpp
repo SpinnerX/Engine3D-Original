@@ -58,11 +58,16 @@ public:
         squareIB.reset(RendererEngine::IndexBuffer::Create(squareIndices,  sizeof(squareIndices) / sizeof(uint32_t)));
         _squareVertexArrays->setIndexBuffer(squareIB);
 
-        _shader.reset(RendererEngine::Shader::CreateShader("../assets/shaders/firstShader.glsl"));
+        // If we weren't calling Shader::Create(filpeath), then we'd call Shader::Create(vertexSrc, fragmentSrc);
+        // Which would be called: Shader::CreateShader(name, vertexSrc, fragmentSrc);
+        // _shader = RendererEngine::Shader::CreateShader("../assets/shaders/firstShader.glsl");
+        auto _shader = _shaderLibrary.load("../assets/shaders/firstShader.glsl");
 
-        _flatShader.reset(RendererEngine::Shader::CreateShader("../assets/shaders/flatShader.glsl"));
+        // _flatShader = RendererEngine::Shader::CreateShader("../assets/shaders/flatShader.glsl");
+        auto _flatShader = _shaderLibrary.load("../assets/shaders/flatShader.glsl");
 
-        _textureShader.reset(RendererEngine::Shader::CreateShader("../assets/shaders/textureShader.glsl"));
+
+        auto _textureShader = _shaderLibrary.load("../assets/shaders/textureShader.glsl");
         
         _texture = RendererEngine::Texture2D::Create("../assets/Checkerboard.png");
         _textureWithAlpha = RendererEngine::Texture2D::Create("../assets/texture2.png");
@@ -113,8 +118,8 @@ public:
         // RendererEngine::MaterialRef material = new RendererEngine::Material(_flatColorShader);
         // material->set("u_Color", redColor);
 
-        std::dynamic_pointer_cast<RendererEngine::OpenGLShader>(_flatShader)->bind();
-        std::dynamic_pointer_cast<RendererEngine::OpenGLShader>(_flatShader)->uploadUniformFloat3("u_Color", _squareColor);
+        std::dynamic_pointer_cast<RendererEngine::OpenGLShader>(_shaderLibrary.get("flatShader"))->bind();
+        std::dynamic_pointer_cast<RendererEngine::OpenGLShader>(_shaderLibrary.get("flatShader"))->uploadUniformFloat3("u_Color", _squareColor);
 
         for(int i = 0; i < 20; i++){
             for(int j = 0; j < 20; j++){
@@ -124,17 +129,18 @@ public:
                 glm::vec3 pos(j * 0.11f, i * 0.11f, 0.0f);
                 glm::mat4 transform = glm::translate(glm::mat4(1.0f), pos) * scale;
 
-                RendererEngine::Renderer::submit(_flatShader, _squareVertexArrays, transform);
+                RendererEngine::Renderer::submit(_shaderLibrary.get("flatShader"), _squareVertexArrays, transform);
             }
         }
 
+        auto textureShader = _shaderLibrary.get("textureShader");
         _texture->bind();
-        RendererEngine::Renderer::submit(_textureShader, _squareVertexArrays, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
+        RendererEngine::Renderer::submit(textureShader, _squareVertexArrays, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
 
         _textureWithAlpha->bind();
         // RendererEngine::Renderer::submit(_textureShader, _squareVertexArrays, 
         //         glm::translate(glm::mat4(1.0f), glm::vec3(0.25f, -0.25f, 0.0f)) * glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
-        RendererEngine::Renderer::submit(_textureShader, _squareVertexArrays, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
+        RendererEngine::Renderer::submit(textureShader, _squareVertexArrays, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
 
         // Line to render a triangle
         // RendererEngine::Renderer::submit(_shader, _vertexArray); // Submitting our  objects or even meshes (or geo meshes)
@@ -153,10 +159,11 @@ public:
     }
 
 private:
-    RendererEngine::Ref<RendererEngine::Shader> _shader;
+    RendererEngine::ShaderLibrary _shaderLibrary;
+    // RendererEngine::Ref<RendererEngine::Shader> _shader;
     RendererEngine::Ref<RendererEngine::VertexArray> _vertexArray;
 
-    RendererEngine::Ref<RendererEngine::Shader> _flatShader, _textureShader;
+    // RendererEngine::Ref<RendererEngine::Shader> _flatShader;
     RendererEngine::Ref<RendererEngine::VertexArray> _squareVertexArrays;
 
     RendererEngine::OrthographicCamera _camera;
