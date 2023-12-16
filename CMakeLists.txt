@@ -60,6 +60,7 @@ set(
   GameEngine/include/GameEngine/platforms/OpenGL/OpenGLShader.cpp
   GameEngine/include/GameEngine/Renderer/Texture.cpp
   GameEngine/include/GameEngine/platforms/OpenGL/OpenGLTexture.cpp
+  GameEngine/include/GameEngine/OrthographicCameraController.cpp
   ${stbi_src}
 )
 
