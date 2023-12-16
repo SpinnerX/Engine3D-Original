@@ -62,7 +62,14 @@
 
 ** List Features (Components) we want in the 2D renderer  (Ideas) **
 - Batch Renderer (Drawing 100k at 60 fps w/textures)
-    - 
+
+6.) Interaction 
+    - Scripting (lua)
+    - ECS/CSO
+    - Player
+        - Entity
+        - 2D renderer component
+        - Script (like interaction inputs)
 
 ### Features (Things implemented or to be implemented)
 - Eventually wanting the Renderer2D api to look like
