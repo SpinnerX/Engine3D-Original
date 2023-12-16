@@ -13,10 +13,14 @@ namespace RendererEngine{
     //   _rotation as float, potentially
     // - How do we put the projection matrix into the shader
     //  - This is where uniforms come in.
-    //  - Uniform simply is a per draw call value that you can set to your shader.
+    //  - Uniform simply is a per draw call value that you can set to your shader
+	//  ** NOTE **
+	//		- Our representation of  an orthographic camera.
     class OrthographicCamera{
     public:
         OrthographicCamera(float left, float right, float bottom, float top);
+		
+		void setProjection(float left, float right, float bottom, float top);
 
         const glm::vec3 getPosition() const { return _position; }
         float getRotation() const { return _rotation; }

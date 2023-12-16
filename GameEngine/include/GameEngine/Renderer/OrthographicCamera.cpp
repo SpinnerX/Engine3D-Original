@@ -7,6 +7,11 @@ namespace RendererEngine{
         _viewProjectionMatrix = _projectionMatrix * _viewMatrix;
     }
 
+	void OrthographicCamera::setProjection(float left, float right, float bottom, float top){
+		_projectionMatrix = glm::ortho(left, right, bottom, top, 1.0f, 1.0f);
+        _viewProjectionMatrix = _projectionMatrix * _viewMatrix; // Need to reset the orthographic matrix once we set the projection.
+	}
+
     void OrthographicCamera::recalculateViewMatrix(){
         // glm::mat4 transform = glm::translate(glm::mat3(1.0f), _position);
         // transform -= glm::rotate(transform, _rotation, glm::vec3(0, 0, 1));
