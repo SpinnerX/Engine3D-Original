@@ -1,12 +1,16 @@
+#include "Renderer/Buffer.h"
 #include <GameEngine/GameEngine.h>
+#include <cstdint>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include <GameEngine/platforms/OpenGL/OpenGLShader.h>
+#include <sys/types.h>
+
 
 // This is just an example on how to make a layer
 class ExampleLayer : public RendererEngine::Layer{
 public:
-    ExampleLayer() : Layer("Example"), _camera(-1.6f, 1.6f, -0.9f, 0.9f), _cameraPosition(0.0f, 0.0f, 0.0f){
+    ExampleLayer() : Layer("Example"), _cameraController(1280.f/720.f){
         _vertexArray.reset(RendererEngine::VertexArray::Create());
 
         float vertices[3 * 7] = {
@@ -28,9 +32,8 @@ public:
 
         RendererEngine::Ref<RendererEngine::IndexBuffer> _indexBuffer;
         uint32_t indices[3] = {0, 1, 2};
-        _indexBuffer.reset(RendererEngine::IndexBuffer::Create(indices,  sizeof(indices) / sizeof(uint32_t)));
+        _indexBuffer.reset(RendererEngine::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
         _vertexArray->setIndexBuffer(_indexBuffer);
-        
 
         //////////////////////////
         // Square Vertex Data //
@@ -61,49 +64,28 @@ public:
         // If we weren't calling Shader::Create(filpeath), then we'd call Shader::Create(vertexSrc, fragmentSrc);
         // Which would be called: Shader::CreateShader(name, vertexSrc, fragmentSrc);
         // _shader = RendererEngine::Shader::CreateShader("../assets/shaders/firstShader.glsl");
-        auto _shader = _shaderLibrary.load("../assets/shaders/firstShader.glsl");
+        auto _shader = _shaderLibrary.load("assets/shaders/firstShader.glsl");
 
         // _flatShader = RendererEngine::Shader::CreateShader("../assets/shaders/flatShader.glsl");
-        auto _flatShader = _shaderLibrary.load("../assets/shaders/flatShader.glsl");
+        auto _flatShader = _shaderLibrary.load("assets/shaders/flatShader.glsl");
 
 
-        auto _textureShader = _shaderLibrary.load("../assets/shaders/textureShader.glsl");
+        auto _textureShader = _shaderLibrary.load("assets/shaders/textureShader.glsl");
         
-        _texture = RendererEngine::Texture2D::Create("../assets/Checkerboard.png");
-        _textureWithAlpha = RendererEngine::Texture2D::Create("../assets/texture2.png");
+        _texture = RendererEngine::Texture2D::Create("assets/Checkerboard.png");
+        _textureWithAlpha = RendererEngine::Texture2D::Create("assets/texture2.png");
 
         std::dynamic_pointer_cast<RendererEngine::OpenGLShader>(_textureShader)->bind();
         std::dynamic_pointer_cast<RendererEngine::OpenGLShader>(_textureShader)->uploadUniformInt("u_Texture", 0);
     }
 
     virtual void onUpdate(RendererEngine::Timestep ts) override {
+		// onUpdate
+		_cameraController.onUpdate(ts);
         RendererEngine::RendererCommand::setClearColor({0.1f, 0.1f, 0.1f, 1});
         RendererEngine::RendererCommand::clear();
-        float time = ts;
         
-        if(RendererEngine::InputPoll::isKeyPressed(RENDER_KEY_RIGHT)){ // RIGHT
-            _cameraPosition.x -= _cameraMoveSpeed * ts;
-        }
-        else if(RendererEngine::InputPoll::isKeyPressed(RENDER_KEY_LEFT)){ // LEFT
-            _cameraPosition.x += _cameraMoveSpeed * ts;
-        }
-        else if(RendererEngine::InputPoll::isKeyPressed(RENDER_KEY_UP)){ // UP
-            _cameraPosition.y -= _cameraMoveSpeed * ts;
-        }
-        else if(RendererEngine::InputPoll::isKeyPressed(RENDER_KEY_DOWN)){ // DOWN
-            _cameraPosition.y += _cameraMoveSpeed * ts;
-        }
-
-        if(RendererEngine::InputPoll::isKeyPressed(RENDER_KEY_A)){ // LEFT
-            _cameraRotation += _cameraRotationSpeed * ts;
-        }
-        else if(RendererEngine::InputPoll::isKeyPressed(RENDER_KEY_D)){ // RIGHT
-            _cameraRotation -= _cameraRotationSpeed * ts;
-        }
-
-        _camera.setPosition(_cameraPosition); // {x, y, z} (Changing Camera Position)
-        _camera.setRotation(_cameraRotation);
-        RendererEngine::Renderer::beginScene(_camera); // BeginScene
+        RendererEngine::Renderer::beginScene(_cameraController.getCamera());
 
         // Logic Flow
         // We take in a 4x4 matrix default ot 1.0
@@ -156,6 +138,7 @@ public:
     }
 
     virtual void onEvent(RendererEngine::Event& event) override {
+		_cameraController.onEvent(event);
     }
 
 private:
@@ -166,11 +149,7 @@ private:
     // RendererEngine::Ref<RendererEngine::Shader> _flatShader;
     RendererEngine::Ref<RendererEngine::VertexArray> _squareVertexArrays;
 
-    RendererEngine::OrthographicCamera _camera;
-
-    float _cameraMoveSpeed = 5.0f;
-    float _cameraRotation = 0.0f;
-    float _cameraRotationSpeed = 180.0f;
+    RendererEngine::OrthographicCameraController _cameraController;
     glm::vec3 _cameraPosition;
 
 
