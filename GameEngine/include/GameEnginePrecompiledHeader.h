@@ -20,6 +20,7 @@
 #include <GameEngine/Events/ApplicationEvent.h>
 
 #include <GameEngine/EngineLogger.h>
+#include <GameEngine/OrthographicCameraController.h>
 
 #include <fmt/ostream.h>
 #if RENDER_PLATFORM_WINDOWS
