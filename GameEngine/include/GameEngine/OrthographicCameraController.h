@@ -26,12 +26,12 @@ namespace RendererEngine{
 
 	private:
 		float _aspectRatio;
-		float _zoomLevel = 1.f;
+		float _zoomLevel = 1.f; // Higher zoom level is, the further out you zoomed inwards.
 		OrthographicCamera _camera;
 
 		bool _rotation;
 		glm::vec3 _cameraPosition = {0.f, 0.f, 0.f};
 		float _cameraRotation = 0.f;
-		float _cameraTranslationSpeed = 1.0f, _cameraRotationSpeed = 1.0f;
+		float _cameraTranslationSpeed = 5.0f, _cameraRotationSpeed = 180.0f;
 	};
 };
