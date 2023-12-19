@@ -16,13 +16,7 @@ set(CMAKE_BUILT_TYPE Debug)
 set(THREADS_PREFER_PTHREAD_FLAG ON)
 
 include(cmake/precompiled_headers.cmake)
-
-find_package(fmt REQUIRED)
-find_package(spdlog REQUIRED)
-find_package(Threads REQUIRED)
-include(cmake/imgui.cmake)
-include(cmake/glad.cmake)
-include(cmake/stbi_image.cmake)
+include(cmake/localModules.cmake)
 
 include_directories(
   ${PROJECT_SOURCE_DIR}/GameEngine/include
@@ -89,6 +83,13 @@ file(COPY assets DESTINATION ${CMAKE_BINARY_DIR})
 target_precompile_headers(${PROJECT_NAME} PRIVATE
   "$<$<COMPILE_LANGUAGE:CXX>:${CMAKE_CURRENT_SOURCE_DIR}/GameEngine/include/GameEnginePrecompiledHeader.h>"
 )
-include(cmake/glm.cmake)
-include(cmake/glfw.cmake)
-target_link_libraries(${PROJECT_NAME} fmt::fmt spdlog::spdlog Threads::Threads)
+
+if(APPLE) # MacOS Apple Specific
+  include(cmake/macModules.cmake)
+elseif(UNIX AND NOT APPLE) # Linux specific
+  include(cmake/linux.cmake)
+else() # Win32 specific
+  message(WARNING "No windows cmake module added here")
+endif()
+
+include(cmake/fmt.cmake)
