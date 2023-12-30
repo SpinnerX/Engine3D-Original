@@ -53,7 +53,12 @@ find_package(glm REQUIRED)
 ############################################################################
 
 # Finding opengl, glfw, glew, glut, and possibly freetype and even freeglut
-find_package(glfw3 3.4 REQUIRED)
+if(APPLE)
+	find_package(glfw3 3.4 REQUIRED)
+elseif(UNIX AND NOT APPLE) # Since Linux's glfw-x11 does not have 3.4 but 3.3.9-1 then we call this find_package
+	find_package(glfw3 3.3 REQUIRED)
+endif()
+
 find_package(OpenGL REQUIRED)
 find_package(GLEW REQUIRED)
 find_package(GLUT REQUIRED)
