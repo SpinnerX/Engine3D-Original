@@ -108,12 +108,12 @@ if(APPLE)
     )
 endif(APPLE)
 
-if(LINUX)
+if(UNIX AND NOT APPLE) # Linux specific
     target_link_libraries(${PROJECT_NAME}
         glfw
         OpenGL::GL
         GLEW::GLEW
         ${GLUT_LIBRARIES} # NOTE: If you want to use freeglut, then you need this to link freeglut to get working
-		glm::glm
+		glm
     )
-endif(LINUX)
+endif(UNIX AND NOT APPLE)
