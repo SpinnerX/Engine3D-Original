@@ -6,6 +6,8 @@
 # 4.) Once we set them, then thhat is how we are going to link them.
 if(APPLE)
     set(imgui_include "/usr/local/include/imgui")
+elseif(UNIX AND NOT APPLE)
+    set(imgui_include "/usr/local/include/imgui")
 elseif(WIN32)
     set(imgui_include "C:\\Desktop\\Libraries\\imgui")
 endif(APPLE)
