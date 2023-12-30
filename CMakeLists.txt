@@ -65,8 +65,9 @@ set(
   ${stbi_src}
 )
 
-add_precompiled_header(${PROJECT_NAME} include/GameEnginePrecompiledHeader.h FORCEINCLUDE SOURCE_CXX src/GameEnginePrecompiledHeader.cpp)
-
+if(APPLE)
+	add_precompiled_header(${PROJECT_NAME} include/GameEnginePrecompiledHeader.h FORCEINCLUDE SOURCE_CXX src/GameEnginePrecompiledHeader.cpp)
+endif(APPLE)
 
 add_subdirectory(Sandbox)
 
