@@ -16,7 +16,20 @@ set(CMAKE_BUILT_TYPE Debug)
 set(THREADS_PREFER_PTHREAD_FLAG ON)
 
 include(cmake/precompiled_headers.cmake)
-include(cmake/localModules.cmake)
+
+if(APPLE)
+  # include(cmake/unix/imgui.cmake)
+  # include(cmake/unix/glad.cmake)
+  # include(cmake/unix/stbi_image.cmake)
+  include(cmake/unix/locals.cmake)
+elseif(LINUX)
+  # include(cmake/unix/imgui.cmake)
+  # include(cmake/unix/glad.cmake)
+  # include(cmake/unix/stbi_image.cmake)
+  include(cmake/unix/locals.cmake)
+else()
+  message(FATAL_ERROR "Window OS not supported")
+endif()
 
 include_directories(
   ${PROJECT_SOURCE_DIR}/GameEngine/include
@@ -84,12 +97,12 @@ target_precompile_headers(${PROJECT_NAME} PRIVATE
   "$<$<COMPILE_LANGUAGE:CXX>:${CMAKE_CURRENT_SOURCE_DIR}/GameEngine/include/GameEnginePrecompiledHeader.h>"
 )
 
-if(APPLE) # MacOS Apple Specific
-  include(cmake/macModules.cmake)
-elseif(UNIX AND NOT APPLE) # Linux specific
-  include(cmake/linux.cmake)
-else() # Win32 specific
-  message(WARNING "No windows cmake module added here")
+if(APPLE)
+  message(STATUS "Mac OS linking")
+  include(cmake/unix.cmake)
+elseif(LINUX)
+  message(STATUS "Linux linking")
+  include(cmake/unix.cmake)
+else()
+  message(STATUS "Windows OS Cmake not supported, yet")
 endif()
-
-include(cmake/fmt.cmake)
