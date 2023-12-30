@@ -62,4 +62,3 @@ if(EXISTS ${imgui_include})
 else()
     message(SEND_ERROR "Imgui in ${imgui_include} has not been found")
 endif()
-
