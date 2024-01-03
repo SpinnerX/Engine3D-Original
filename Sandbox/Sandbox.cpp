@@ -1,3 +1,5 @@
+#include "Events/ApplicationEvent.h"
+#include "Events/Event.h"
 #include "Renderer/Buffer.h"
 #include <GameEngine/GameEngine.h>
 #include <cstdint>
@@ -139,6 +141,14 @@ public:
 
     virtual void onEvent(RendererEngine::Event& event) override {
 		_cameraController.onEvent(event);
+		
+		// When we resize our window, this essentially would change our zoom level
+		// When resizing the window
+		if(event.GetEventType() == RendererEngine::EventType::WindowResize){
+			auto& re = (RendererEngine::WindowResizeEvent&)event;
+			/* float zoom = (float)re.GetWidth() / 1280.0f; */
+			/* _cameraController.setZoomLevel(zoom); */
+		}
     }
 
 private:
