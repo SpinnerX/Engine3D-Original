@@ -1,6 +1,6 @@
 #pragma once
 #include <ostream>
-#include <GameEngine/core.h>
+#include <GameEngine/Core/core.h>
 
 namespace RendererEngine{
     // Buffer.h

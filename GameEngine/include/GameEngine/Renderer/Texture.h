@@ -1,5 +1,5 @@
 #pragma once
-#include <GameEngine/core.h>
+#include <GameEngine/Core/core.h>
 #include <string>
 
 namespace RendererEngine{
