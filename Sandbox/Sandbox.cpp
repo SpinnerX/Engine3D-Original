@@ -1,7 +1,4 @@
-#include "Events/ApplicationEvent.h"
-#include "Events/Event.h"
-#include "Renderer/Buffer.h"
-#include <GameEngine/GameEngine.h>
+#include <GameEngine/Core/GameEngine.h>
 #include <cstdint>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
