@@ -1,5 +1,5 @@
 #pragma once
-#include <GameEngine/Window.h>
+#include <GameEngine/Core/Window.h>
 #include <GameEngine/Renderer/GraphicsContext.h>
 
 struct GLFWwindow;

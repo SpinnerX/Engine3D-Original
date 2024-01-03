@@ -2,9 +2,9 @@
 #include <imgui/backends/imgui_impl_opengl3.h>
 #include <imgui/backends/imgui_impl_glfw.h>
 #include <GameEngine/Imgui/ImGuiLayer.h>
-#include <GameEngine/Application.h>
-#include <GameEngine/core.h>
-#include <GameEngine/KeyCodes.h>
+#include <GameEngine/Core/Application.h>
+#include <GameEngine/Core/core.h>
+#include <GameEngine/Core/KeyCodes.h>
 
 namespace RendererEngine{
     ImGuiLayer::ImGuiLayer() : Layer("ImGuiLayer") {
