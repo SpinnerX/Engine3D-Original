@@ -98,7 +98,7 @@ namespace RendererEngine{
 
 namespace fmt{
     template<>
-    struct fmt::formatter<RendererEngine::Event> {
+    struct formatter<RendererEngine::Event> {
         template<typename ParseContext>
         constexpr auto parse(ParseContext& ctx) { return ctx.begin(); }
 
