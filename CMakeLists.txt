@@ -35,16 +35,16 @@ include_directories(
 set(
   all_src
   GameEngine/src/GameEngine/core.cpp
-  GameEngine/include/GameEngine/Application.cpp
-  GameEngine/include/GameEngine/EngineLogger.cpp
+  GameEngine/include/GameEngine/Core/Application.cpp
+  GameEngine/include/GameEngine/Core/EngineLogger.cpp
   GameEngine/src/GameEngine/platforms/WindowsWindow.cpp
-  GameEngine/include/GameEngine/Layer.cpp
-  GameEngine/include/GameEngine/LayerStack.cpp
+  GameEngine/include/GameEngine/Core/Layer.cpp
+  GameEngine/include/GameEngine/Core/LayerStack.cpp
   ${imgui_src}
   ${glad_src}
 
   GameEngine/include/GameEngine/Imgui/ImGuiLayer.cpp
-  GameEngine/include/GameEngine/InputPoll.cpp
+  GameEngine/include/GameEngine/Core/InputPoll.cpp
 
   GameEngine/src/GameEngine/platforms/WindowsInput.cpp
   GameEngine/src/GameEngine/Renderer/RendererContext.cpp
@@ -61,7 +61,7 @@ set(
   GameEngine/include/GameEngine/platforms/OpenGL/OpenGLShader.cpp
   GameEngine/include/GameEngine/Renderer/Texture.cpp
   GameEngine/include/GameEngine/platforms/OpenGL/OpenGLTexture.cpp
-  GameEngine/include/GameEngine/OrthographicCameraController.cpp
+  GameEngine/include/GameEngine/Renderer/OrthographicCameraController.cpp
   ${stbi_src}
 )
 
