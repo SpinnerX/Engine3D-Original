@@ -1,4 +1,5 @@
 #pragma once
+#include "Events/ApplicationEvent.h"
 #include <memory>
 #include <GameEngine/core.h>
 #include <GameEngine/Window.h>
@@ -31,11 +32,13 @@ namespace RendererEngine{
 
     private:
         bool onWindowClose(WindowCloseEvent& e);
+        bool onWindowResize(WindowResizeEvent& e);
 
     private:
         std::unique_ptr<Window> _window; // a unique pointer because this class owns this ptr
         ImGuiLayer* _imguiLayer; // ImGuiLayer class (this class owns this ptr)
         bool isRunning;
+		bool isMinimized;
         LayerStack _layerStack;
 
         float _lastFrameTime = 0.0f; // Time it took to render the last frame

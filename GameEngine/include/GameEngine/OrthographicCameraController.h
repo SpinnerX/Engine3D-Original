@@ -19,6 +19,9 @@ namespace RendererEngine{
 
 		OrthographicCamera& getCamera() { return _camera; }
 		OrthographicCamera getCamera() const { return _camera; }
+		
+		float getZoomLevel() const { return _zoomLevel; }
+		void setZoomLevel(float level) { _zoomLevel = level; }
 
 	private:
 		bool onMouseScrolled(MouseScrolledEvent& e);

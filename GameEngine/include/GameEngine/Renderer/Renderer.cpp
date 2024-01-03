@@ -9,7 +9,10 @@ namespace RendererEngine{
     void Renderer::init(){
         RendererCommand::init();
     }
-
+	
+	void Renderer::onWindowResize(uint32_t w, uint32_t h){
+		
+	}
 
     void Renderer::beginScene(OrthographicCamera& camera){
         _sceneData->viewProjectionMatrix = camera.getViewProjectionMatrix();
