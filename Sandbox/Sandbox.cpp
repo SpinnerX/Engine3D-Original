@@ -99,7 +99,8 @@ public:
         // - Is to take in the shader, and all the data corresponding to that specific shader
         // RendererEngine::MaterialRef material = new RendererEngine::Material(_flatColorShader);
         // material->set("u_Color", redColor);
-
+		
+		// TODO: Adding these functions: Shader::SetMat4, and Shader::SetFloat4
         std::dynamic_pointer_cast<RendererEngine::OpenGLShader>(_shaderLibrary.get("flatShader"))->bind();
         std::dynamic_pointer_cast<RendererEngine::OpenGLShader>(_shaderLibrary.get("flatShader"))->uploadUniformFloat3("u_Color", _squareColor);
 
@@ -143,15 +144,12 @@ public:
 
 private:
     RendererEngine::ShaderLibrary _shaderLibrary;
-    // RendererEngine::Ref<RendererEngine::Shader> _shader;
     RendererEngine::Ref<RendererEngine::VertexArray> _vertexArray;
 
-    // RendererEngine::Ref<RendererEngine::Shader> _flatShader;
     RendererEngine::Ref<RendererEngine::VertexArray> _squareVertexArrays;
 
     RendererEngine::OrthographicCameraController _cameraController;
     glm::vec3 _cameraPosition;
-
 
     glm::vec3 _squareColor = {0.2f, 0.3f, 0.8f};
 
