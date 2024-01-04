@@ -37,7 +37,7 @@ namespace RendererEngine{
 
     private:
         GLFWwindow* _window;
-        GraphicsContext* _context; // Essentially our GraphicsContext
+        Scope<GraphicsContext> _context; // Essentially our GraphicsContext
 
         // Window data
         // For containing all relative information to thhe window
