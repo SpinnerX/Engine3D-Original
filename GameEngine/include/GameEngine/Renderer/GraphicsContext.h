@@ -5,6 +5,7 @@ namespace RendererEngine{
     // - Utilized by RendererContext
     class GraphicsContext{
     public:
+		virtual ~GraphicsContext() = default;
         virtual void Init() = 0; // To initialize the renderer
         virtual void swapBuffers() = 0; // Swapbuffers (doing swapchains)
     };
