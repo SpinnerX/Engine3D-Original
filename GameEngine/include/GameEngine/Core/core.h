@@ -69,10 +69,16 @@ namespace RendererEngine{
      * 
      * @note Scope - because std::unique_ptr means that the type we pass will only live in the lifetime of its declaration
      * @tparam T (template) - takes a typename as template arg
+	 *
+	 * NOTE: Using Scope<T> because of potential memory leakages in the codebase
      */
     template<typename T>
     using Scope = std::unique_ptr<T>;
-
+	
+	template<typename T, typename... Args>
+	constexpr Scope<T> CreateScope(Args&&... args){
+		return std::make_unique<T>(std::forward<Args>(args)...);
+	}
 
     /**
      * @brief 
