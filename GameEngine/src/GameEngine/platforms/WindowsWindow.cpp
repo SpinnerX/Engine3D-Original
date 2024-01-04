@@ -1,10 +1,13 @@
+#include "Core/core.h"
+#include "platforms/OpenGL/OpenGLContext.h"
 #include <GameEngine/platforms/Windows/WindowsWindow.h>
 #include <GameEngine/Events//MouseEvent.h>
 #include <GameEngine/Events/KeyEvent.h>
 #include <GameEngine/Events/ApplicationEvent.h>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
-#include <GameEngine/Renderer/RendererContext.h>
+/* #include <GameEngine/Renderer/RendererContext.h> */
+#include <GameEngine/platforms/OpenGL/OpenGLContext.h>
 
 namespace RendererEngine{
     static bool _glfwInitialized = false;
@@ -60,7 +63,8 @@ namespace RendererEngine{
         //      platform dependent Renderer Context like D3DContext(), then it could do that
         // - Meaning we would just need to implement Init() and SwapBuffers(), to support that platform
         //  and things would work
-        _context = new RendererContext(_window);
+        /* _context = new RendererContext(_window); */
+		_context = CreateScope<OpenGLContext>(_window);
         _context->Init();
 
         glfwSetWindowUserPointer(_window, &_data);
