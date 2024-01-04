@@ -47,6 +47,6 @@ namespace RendererEngine{
 
     private:
         // Essentially this is just to pass in data to these functions
-        static InputPoll* _instance;
+        static Scope<InputPoll> _instance;
     };
 };
