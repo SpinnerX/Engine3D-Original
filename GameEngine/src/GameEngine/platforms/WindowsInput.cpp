@@ -5,7 +5,7 @@
 #include <GameEngine/platforms/Windows/WindowsInput.h>
 
 namespace RendererEngine{
-    InputPoll* InputPoll::_instance = new WindowsInput();
+    Scope<InputPoll> InputPoll::_instance = CreateScope<WindowsInput>();
 
     bool WindowsInput::isKeyPressedImpl(int keycode){
         // This will call GLFW and do everything needed when a key has been pressed
