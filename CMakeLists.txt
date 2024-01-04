@@ -63,6 +63,8 @@ set(
   GameEngine/include/GameEngine/Renderer/Texture.cpp
   GameEngine/include/GameEngine/platforms/OpenGL/OpenGLTexture.cpp
   GameEngine/include/GameEngine/Renderer/OrthographicCameraController.cpp
+  GameEngine/include/GameEngine/Renderer/Renderer2D.h
+  GameEngine/include/GameEngine/Renderer/Renderer2D.cpp
   ${stbi_src}
 )
 
