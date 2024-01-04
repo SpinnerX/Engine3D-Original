@@ -1,7 +1,10 @@
+#include "Core/EngineLogger.h"
 #include <GameEnginePrecompiledHeader.h>
 #include <GameEngine/Renderer/Renderer2D.h>
-#include <GameEngine/platforms/OpenGL/OpenGLShader.h>
+#include <GameEngine/Renderer/VertexArray.h>
 #include <GameEngine/Renderer/RenderCommand.h>
+#include <GameEngine/platforms/OpenGL/OpenGLShader.h>
+#include <glm/gtc/matrix_transform.hpp>
 
 namespace RendererEngine{
 
@@ -11,7 +14,7 @@ namespace RendererEngine{
 		Ref<Shader> flatColorShader;
 	};
 
-	static Renderer2DStorage* _data = nullptr; // So this could be unique to this translation unit
+	static Renderer2DStorage* _data; // So this could be unique to this translation unit
 
 	void Renderer2D::Init(){
 		_data = new Renderer2DStorage();
@@ -47,11 +50,12 @@ namespace RendererEngine{
 	}
 
 	void Renderer2D::beginScene(const OrthographicCamera& camera){
-		
+
 		// Simply uploads the camera data
-		std::dynamic_pointer_cast<OpenGLShader>(_data->flatColorShader)->bind();
-		std::dynamic_pointer_cast<RendererEngine::OpenGLShader>(_data->flatColorShader)->uploadUniformMat4("u_ViewProjection", camera.getProjectionMatrix());
-		std::dynamic_pointer_cast<RendererEngine::OpenGLShader>(_data->flatColorShader)->uploadUniformMat4("u_Transform", glm::mat4(1.0f));
+		// upload is more API specific (actual OpenGL to set that uniform)
+		// Where set is just set is a much higher level concept.
+		_data->flatColorShader->bind();
+		_data->flatColorShader->setMat4("u_ViewProjection", camera.getViewProjectionMatrix());
 	}
 
 	void Renderer2D::endScene(){
@@ -63,8 +67,19 @@ namespace RendererEngine{
 	}
 	
 	void Renderer2D::drawQuad(const glm::vec3& pos, const glm::vec2& size, const glm::vec4& color){
-		std::dynamic_pointer_cast<OpenGLShader>(_data->flatColorShader)->bind();
-		std::dynamic_pointer_cast<RendererEngine::OpenGLShader>(_data->flatColorShader)->uploadUniformFloat4("u_Color", color);
+		_data->flatColorShader->bind();
+		_data->flatColorShader->setFloat4("u_Color", color);
+		
+		// This is how we are going to do transformation
+		// Since we aren't doing rotation, we are handling Translation(position) and Scale (size)
+		// Whereas mat4(1.0f) is going to be our identity matrix
+		// Uncomment this to see to see the effect of rotation...
+		/* glm::mat4 transform = glm::translate(glm::mat4(1.0f), pos) * glm::rotate(glm::mat4(1.0f), 180.0f, pos) * */
+		/* 					  glm::scale(glm::mat4(1.0f), {size.x, size.y, 1.0f}); */
+		glm::mat4 transform = glm::translate(glm::mat4(1.0f), pos) *
+							  glm::scale(glm::mat4(1.0f), {size.x, size.y, 1.0f});
+
+		_data->flatColorShader->setMat4("u_Transform", transform);
 
 		// Actual draw call
 		_data->quadVertexArray->bind();
