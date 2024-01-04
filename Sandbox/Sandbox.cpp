@@ -4,13 +4,14 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <GameEngine/platforms/OpenGL/OpenGLShader.h>
 #include <sys/types.h>
-
+#include "Sandbox2D.h"
+#include <GameEngine/Core/EntryPoint.h>
 
 // This is just an example on how to make a layer
 class ExampleLayer : public RendererEngine::Layer{
 public:
     ExampleLayer() : Layer("Example"), _cameraController(1280.f/720.f){
-        _vertexArray.reset(RendererEngine::VertexArray::Create());
+        _vertexArray = RendererEngine::VertexArray::Create();
 
         float vertices[3 * 7] = {
 			-0.5f, -0.5f, 0.0f, 0.8f, 0.2f, 0.8f, 1.0f,
@@ -45,7 +46,7 @@ public:
              -0.5f,  0.5f, 0.0f, 0.0f, 1.0f
 		};
 
-        _squareVertexArrays.reset(RendererEngine::VertexArray::Create());
+        _squareVertexArrays = RendererEngine::VertexArray::Create();
         RendererEngine::Ref<RendererEngine::VertexBuffer> squareVB;
         squareVB.reset(RendererEngine::VertexBuffer::Create(squareVertices, sizeof(squareVertices)));
 
@@ -138,14 +139,6 @@ public:
 
     virtual void onEvent(RendererEngine::Event& event) override {
 		_cameraController.onEvent(event);
-		
-		// When we resize our window, this essentially would change our zoom level
-		// When resizing the window
-		if(event.GetEventType() == RendererEngine::EventType::WindowResize){
-			auto& re = (RendererEngine::WindowResizeEvent&)event;
-			/* float zoom = (float)re.GetWidth() / 1280.0f; */
-			/* _cameraController.setZoomLevel(zoom); */
-		}
     }
 
 private:
@@ -168,7 +161,8 @@ private:
 class Sandbox : public RendererEngine::Application{
 public:
     Sandbox() : RendererEngine::Application() {
-        pushLayer(new ExampleLayer());
+        /* pushLayer(new ExampleLayer()); */
+		pushLayer(new Sandbox2D());
     }
 
     ~Sandbox() {}
