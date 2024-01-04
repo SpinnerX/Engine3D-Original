@@ -48,7 +48,7 @@ set(
   GameEngine/include/GameEngine/Core/InputPoll.cpp
 
   GameEngine/src/GameEngine/platforms/WindowsInput.cpp
-  GameEngine/src/GameEngine/Renderer/RendererContext.cpp
+  GameEngine/include/GameEngine/platforms/OpenGL/OpenGLContext.cpp
   GameEngine/include/GameEngine/Renderer/Shader.cpp
   GameEngine/include/GameEngine/Renderer/Buffer.cpp
   GameEngine/include/GameEngine/platforms/OpenGL/OpenGLBuffer.cpp
