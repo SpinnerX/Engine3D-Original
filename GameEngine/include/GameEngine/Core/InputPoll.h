@@ -11,8 +11,12 @@ namespace RendererEngine{
         float xpos = 0.f;
         float ypos = 0.f;
     };
+
     class RENDER_API InputPoll{
     public:
+		
+		virtual ~InputPoll() = default;
+
         // Taking in a key and checking if it has been pressed
         // creating a singletone called _instance
         // This calls the implementation for Key Pressed that is implemented in WindowsInput
