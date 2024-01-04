@@ -38,6 +38,3 @@
 #include <GameEngine/platforms/OpenGL/OpenGLVertexArray.h>
 #include <GameEngine/platforms/OpenGL/OpenGLBuffer.h>
 
-// --------------- Entry Point ---------------
-#include <GameEngine/Core/EntryPoint.h>
-// -------------------------------------------
