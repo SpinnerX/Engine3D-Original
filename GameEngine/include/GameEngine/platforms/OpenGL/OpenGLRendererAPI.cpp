@@ -8,6 +8,8 @@ namespace RendererEngine{
         // What allows for testing
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+		glEnable(GL_DEPTH_TEST);
     }
 
     void OpenGLRendererAPI::setClearColor(const glm::vec4& color) {
