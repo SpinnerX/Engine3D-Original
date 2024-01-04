@@ -2,7 +2,6 @@
 #include <cstdint>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
-#include <GameEngine/platforms/OpenGL/OpenGLShader.h>
 #include <sys/types.h>
 #include "Sandbox2D.h"
 #include <GameEngine/Core/EntryPoint.h>
