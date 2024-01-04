@@ -34,6 +34,6 @@ namespace RendererEngine{
         }
 
     private:
-        static RendererAPI* _rendererAPI; // ptr should last throughout our entire lifetime of our whole application
+        static Scope<RendererAPI> _rendererAPI; // ptr should last throughout our entire lifetime of our whole application
     };
 };

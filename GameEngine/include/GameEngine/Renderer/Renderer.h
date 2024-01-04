@@ -33,7 +33,7 @@ namespace RendererEngine{
             glm::mat4 viewProjectionMatrix;
         };
 
-        static SceneData* _sceneData;
+        static Scope<Renderer::SceneData> _sceneData;
 
     };
 };

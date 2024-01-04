@@ -1,10 +1,11 @@
+#include "Core/core.h"
 #include <GameEnginePrecompiledHeader.h>
 #include <GameEngine/Renderer/Renderer.h>
 #include <GameEngine/platforms/OpenGL/OpenGLShader.h>
 #include <memory>
 
 namespace RendererEngine{
-    Renderer::SceneData* Renderer::_sceneData = new Renderer::SceneData;
+	Scope<Renderer::SceneData> Renderer::_sceneData = CreateScope<Renderer::SceneData>();
 
     void Renderer::init(){
         RendererCommand::init();
