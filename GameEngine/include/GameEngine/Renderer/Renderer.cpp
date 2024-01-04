@@ -1,4 +1,5 @@
 #include "Core/core.h"
+#include "Renderer/Renderer2D.h"
 #include <GameEnginePrecompiledHeader.h>
 #include <GameEngine/Renderer/Renderer.h>
 #include <GameEngine/platforms/OpenGL/OpenGLShader.h>
@@ -9,6 +10,7 @@ namespace RendererEngine{
 
     void Renderer::init(){
         RendererCommand::init();
+		Renderer2D::Init(); // Need to initialize 2D renderer before anything.
     }
 	
 	void Renderer::onWindowResize(uint32_t w, uint32_t h){
