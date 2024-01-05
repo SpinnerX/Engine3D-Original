@@ -26,6 +26,7 @@ namespace RendererEngine{
 
     void OpenGLRendererAPI::drawIndexed(const Ref<VertexArray>& vertexArr) {
         glDrawElements(GL_TRIANGLES, vertexArr->getIndexBuffer()->getCount(), GL_UNSIGNED_INT, nullptr);
+		glBindTexture(GL_TEXTURE_2D, 0);
     }
 
 };

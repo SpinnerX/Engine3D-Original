@@ -1,8 +1,25 @@
+#include "Core/core.h"
 #include <GameEnginePrecompiledHeader.h>
 #include <GameEngine/platforms/OpenGL/OpenGLTexture.h>
 #include <GameEngine/image/stb_image.h>
 
 namespace RendererEngine{
+	OpenGLTexture2D::OpenGLTexture2D(uint32_t w, uint32_t h) : _width(w), _height(h) {
+		
+        // Uploading data to OpenGL texture
+		// internalData is our internalFormat
+        _internalFormat = GL_RGBA8;
+		_formatData = GL_RGBA;
+
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+		
+		// Since we segfault using glTextureParameteri, we'll use this for now
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+	}
+
     OpenGLTexture2D::OpenGLTexture2D(const std::string& filepath) : _filepath(filepath) {
         coreLogInfo("OpenGLTexture2D Create Called!");
         int width, height, channels;
@@ -34,6 +51,8 @@ namespace RendererEngine{
             formatData = GL_RGB;
         }
 
+		_internalFormat = internalData, _formatData = formatData;
+
         // Testing textures for OpenGL
         glGenTextures(1, &_rendererID); // Equivalent to glCreateTexture (but will segfault though)
         glActiveTexture(GL_TEXTURE_2D);
@@ -49,10 +68,9 @@ namespace RendererEngine{
 		/* glTextureParameteri(_rendererID, GL_TEXTURE_WRAP_S, GL_REPEAT); */
 		/* glTextureParameteri(_rendererID, GL_TEXTURE_WRAP_T, GL_REPEAT); */
 
-        glTexImage2D(GL_TEXTURE_2D, 0, internalData, _width, _height, 0, formatData, GL_UNSIGNED_BYTE, data);
+        glTexImage2D(GL_TEXTURE_2D, 0, internalData, _width, _height, 0, formatData, GL_UNSIGNED_BYTE, data); // same thing as doing: glTextureSubImage2D
 
         glGenerateMipmap(GL_TEXTURE_2D);
-
 
 		stbi_image_free(data); // free image data stored in CPU
 
@@ -62,6 +80,17 @@ namespace RendererEngine{
     OpenGLTexture2D::~OpenGLTexture2D(){
         glDeleteTextures(1, &_rendererID);
     }
+
+
+
+	void OpenGLTexture2D::setData(void* data, uint32_t size){
+		/* glTextureSubImage2D(_rendererID, 0, 0, 0, _width, _height, */ 
+		
+		// bytes per pixel
+		uint32_t bpp = _formatData == GL_RGBA ? 4 : 3;
+		render_core_assert(size == _width * _height * bpp, "Data must be an entire texture"); // Make sure that the textures are fine for rn
+        glTexImage2D(GL_TEXTURE_2D, 0, _internalFormat, _width, _height, 0, _formatData, GL_UNSIGNED_BYTE, data); // same thing as doing: glTextureSubImage2D
+	}
 
     // Binding specific slot of this texture
     void OpenGLTexture2D::bind(GLenum slot) const {
