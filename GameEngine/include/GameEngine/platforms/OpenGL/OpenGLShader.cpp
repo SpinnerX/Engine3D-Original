@@ -197,6 +197,10 @@ namespace RendererEngine{
 		RENDER_PROFILE_FUNCTION();
 		uploadUniformInt(name, value);
 	}
+		
+	void OpenGLShader::setFloat(const std::string& name, float value) {
+		uploadUniformFloat(name, value);
+	}
 	
 	void OpenGLShader::setFloat3(const std::string& name, const glm::vec3& value){
 		RENDER_PROFILE_FUNCTION();
