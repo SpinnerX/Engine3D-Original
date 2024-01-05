@@ -26,19 +26,27 @@ namespace RendererEngine{
     }
 
     OpenGLVertexArray::OpenGLVertexArray(){
+		RENDER_PROFILE_FUNCTION();
+		
         // glCreateVertexArrays(1, &_rendererID);
         glGenVertexArrays(1, &_rendererID);
     }
 
     OpenGLVertexArray::~OpenGLVertexArray(){
+		RENDER_PROFILE_FUNCTION();
+
         glDeleteVertexArrays(1, &_rendererID);
     }
 
     void OpenGLVertexArray::bind() const {
+		RENDER_PROFILE_FUNCTION();
+
         glBindVertexArray(_rendererID);
     }
 
     void OpenGLVertexArray::unbind() const {
+		RENDER_PROFILE_FUNCTION();
+
         glBindVertexArray(0);
     }
 

@@ -9,6 +9,8 @@ namespace RendererEngine{
 	}
 
 	void OpenGLContext::Init(){
+		RENDER_PROFILE_FUNCTION();
+
 		glfwMakeContextCurrent(_window);
 		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
 		render_core_assert(status, "Failed to initialize Glad!");
@@ -20,6 +22,8 @@ namespace RendererEngine{
 	}
 
 	void OpenGLContext::swapBuffers(){
+		RENDER_PROFILE_FUNCTION();
+
 		glfwSwapBuffers(_window);
 	}
 

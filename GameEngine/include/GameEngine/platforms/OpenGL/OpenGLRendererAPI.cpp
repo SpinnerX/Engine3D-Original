@@ -4,7 +4,10 @@
 #include <glad/glad.h>
 
 namespace RendererEngine{
+
     void OpenGLRendererAPI::init() {
+		RENDER_PROFILE_FUNCTION();
+
         // What allows for testing
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);

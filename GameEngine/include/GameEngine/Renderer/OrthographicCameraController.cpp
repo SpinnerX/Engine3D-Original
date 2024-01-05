@@ -9,6 +9,7 @@ namespace RendererEngine{
 
 	// A way to control our cameras
 	void OrthographicCameraController::onUpdate(Timestep ts){
+		RENDER_PROFILE_FUNCTION();
 
         if(InputPoll::isKeyPressed(RENDER_KEY_D)){ // RIGHT
             _cameraPosition.x -= _cameraTranslationSpeed * ts;
@@ -43,6 +44,8 @@ namespace RendererEngine{
 	}
 
 	void OrthographicCameraController::onEvent(Event& e){
+		RENDER_PROFILE_FUNCTION();
+
 		EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<MouseScrolledEvent>(bind_function(this, &OrthographicCameraController::onMouseScrolled));
 		dispatcher.Dispatch<WindowResizeEvent>(bind_function(this, &OrthographicCameraController::onWindowResized));
@@ -50,6 +53,8 @@ namespace RendererEngine{
 
 	
 	bool OrthographicCameraController::onMouseScrolled(MouseScrolledEvent& e){
+		RENDER_PROFILE_FUNCTION();
+
 		_zoomLevel -= e.GetYOffset() * 0.25f; // Modify thihs const offset for window resized event event
 		
 		// NOTE: When zooming too far out or too close, you eventually end up flipping your view upside down.
@@ -59,6 +64,7 @@ namespace RendererEngine{
 	}
 
 	bool OrthographicCameraController::onWindowResized(WindowResizeEvent& e){
+		RENDER_PROFILE_FUNCTION();
 		_aspectRatio = (float)e.GetWidth() / (float)e.GetHeight();
 		_camera.setProjection(-_aspectRatio * _zoomLevel, _aspectRatio * _zoomLevel, -_zoomLevel, _zoomLevel);
 		return false;

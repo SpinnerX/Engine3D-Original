@@ -5,6 +5,7 @@
 
 namespace RendererEngine{
 	OpenGLTexture2D::OpenGLTexture2D(uint32_t w, uint32_t h) : _width(w), _height(h) {
+		RENDER_PROFILE_FUNCTION();
 		
         // Uploading data to OpenGL texture
 		// internalData is our internalFormat
@@ -21,13 +22,18 @@ namespace RendererEngine{
 	}
 
     OpenGLTexture2D::OpenGLTexture2D(const std::string& filepath) : _filepath(filepath) {
+		RENDER_PROFILE_FUNCTION();
+
         coreLogInfo("OpenGLTexture2D Create Called!");
         int width, height, channels;
 
         stbi_set_flip_vertically_on_load(1);
-
+		stbi_uc* data = nullptr;
+		{
+		RENDER_PROFILE_SCOPE("stbi_load - OpenGLTexture2D::OpenGLTexture2D(const std::string&)");
         // Loading in our image data
-        stbi_uc* data = stbi_load(filepath.c_str(), &width, &height, &channels, 0);
+        data = stbi_load(filepath.c_str(), &width, &height, &channels, 0);
+		}
 
         if(data == nullptr){
             coreLogError("Failed to load image as the value was nullptr!");
@@ -78,12 +84,16 @@ namespace RendererEngine{
     }
 
     OpenGLTexture2D::~OpenGLTexture2D(){
+		RENDER_PROFILE_FUNCTION();
+
         glDeleteTextures(1, &_rendererID);
     }
 
 
 
 	void OpenGLTexture2D::setData(void* data, uint32_t size){
+		RENDER_PROFILE_FUNCTION();
+
 		/* glTextureSubImage2D(_rendererID, 0, 0, 0, _width, _height, */ 
 		
 		// bytes per pixel
@@ -94,6 +104,8 @@ namespace RendererEngine{
 
     // Binding specific slot of this texture
     void OpenGLTexture2D::bind(GLenum slot) const {
+		RENDER_PROFILE_FUNCTION();
+
         // printf("Slot: %i\n", slot);
         // glBindTextureUnit(slot, _rendererID); // Equivalent to glBindTexture (but will segfault though)
         glBindTexture(slot, _rendererID); // Instead of using this we have to use glBindTexture on Mac

@@ -19,6 +19,8 @@ namespace RendererEngine{
 	static Renderer2DStorage* _data; // So this could be unique to this translation unit
 
 	void Renderer2D::Init(){
+		RENDER_PROFILE_FUNCTION();
+
 		_data = new Renderer2DStorage();
 		_data->quadVertexArray = VertexArray::Create();
 
@@ -54,10 +56,12 @@ namespace RendererEngine{
 	}
 
 	void Renderer2D::Shutdown(){
+		RENDER_PROFILE_FUNCTION();
 		delete _data; // dont want to automatically delete this (ref to using smart ptrs), because we want them deleted when the 2D renderer shuts down.
 	}
 
 	void Renderer2D::beginScene(const OrthographicCamera& camera){
+		RENDER_PROFILE_FUNCTION();
 
 		// Simply uploads the camera data
 		// upload is more API specific (actual OpenGL to set that uniform)
@@ -75,6 +79,7 @@ namespace RendererEngine{
 	}
 	
 	void Renderer2D::drawQuad(const glm::vec3& pos, const glm::vec2& size, const glm::vec4& color){
+		RENDER_PROFILE_FUNCTION();
 		_data->textureShader->setFloat4("u_Color", color);
 
 		// Bind white texture here
@@ -100,6 +105,7 @@ namespace RendererEngine{
 	}
 
 	void Renderer2D::drawQuad(const glm::vec3& pos, const glm::vec2& size, const Ref<Texture2D>& texture){
+		RENDER_PROFILE_FUNCTION();
 		// This is how we are going to be drawing the texture onto the objects
 		// - By first binding that texture, then when we bind that texture to that shader.
 		/* _data->textureShader->setFloat4("u_Color", glm::vec4(1.0f)); */

@@ -48,6 +48,8 @@ namespace RendererEngine{
     }
 
     OpenGLShader::OpenGLShader(const std::string& name, const std::string& vertexSrc, const std::string& fragmentSrc) : _name(name){
+		RENDER_PROFILE_FUNCTION();
+
         std::unordered_map<GLenum, std::string> sources;
         sources[GL_VERTEX_SHADER] = vertexSrc;
         sources[GL_FRAGMENT_SHADER] = fragmentSrc;
@@ -57,10 +59,12 @@ namespace RendererEngine{
     }
 
     OpenGLShader::~OpenGLShader(){
+		RENDER_PROFILE_FUNCTION();
         glDeleteProgram(_rendererID);
     }
 
     std::string OpenGLShader::readFile(const std::string& filepath){
+		RENDER_PROFILE_FUNCTION();
         std::ifstream ins(filepath, std::ios::in | std::ios::binary);
         std::string result = "";
 
@@ -80,6 +84,7 @@ namespace RendererEngine{
     }
 
     std::unordered_map<GLenum, std::string> OpenGLShader::preProcess(const std::string& src){
+		RENDER_PROFILE_FUNCTION();
         std::unordered_map<GLenum, std::string> shaderSources;
         const char* typeToken = "#type";
         size_t typeTokenLength = strlen(typeToken);
@@ -102,6 +107,7 @@ namespace RendererEngine{
     }
 
     void OpenGLShader::compile(const std::unordered_map<GLenum, std::string>& shaderSources){
+		RENDER_PROFILE_FUNCTION();
         GLint program = glCreateProgram();
         render_core_assert(shaderSources.size() <= 2, "We only support 2 shaders for now!");
 
@@ -178,6 +184,7 @@ namespace RendererEngine{
     }
 
     void OpenGLShader::bind() const {
+		RENDER_PROFILE_FUNCTION();
         glUseProgram(_rendererID);
     }
 
@@ -187,18 +194,22 @@ namespace RendererEngine{
 
 
 	void OpenGLShader::setInt(const std::string& name, int value){
+		RENDER_PROFILE_FUNCTION();
 		uploadUniformInt(name, value);
 	}
 	
 	void OpenGLShader::setFloat3(const std::string& name, const glm::vec3& value){
+		RENDER_PROFILE_FUNCTION();
 		uploadUniformFloat3(name, value);
 	}
 
 	void OpenGLShader::setFloat4(const std::string& name, const glm::vec4& value){
+		RENDER_PROFILE_FUNCTION();
 		uploadUniformFloat4(name, value);
 	}
 
 	void OpenGLShader::setMat4(const std::string& name, const glm::mat4& value){
+		RENDER_PROFILE_FUNCTION();
 		uploadUniformMat4(name, value);
 	}
 

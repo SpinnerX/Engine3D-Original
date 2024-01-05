@@ -8,6 +8,7 @@ namespace RendererEngine{
     Application* Application::_instance = nullptr;
     
     Application::Application(){
+		RENDER_PROFILE_FUNCTION();
 
         render_core_assert(!_instance, "Application already exists!");
         isRunning = true;
@@ -25,20 +26,26 @@ namespace RendererEngine{
 
     }
 
-    Application::~Application(){}
+    Application::~Application(){
+		RENDER_PROFILE_FUNCTION();
+		// Renderer::shutdown(); // Add this	
+	}
 
     void Application::pushLayer(Layer* layer){
+		RENDER_PROFILE_FUNCTION();
         _layerStack.pushLayer(layer);
         layer->onAttach();
     }
 
     void Application::pushOverlay(Layer* layer){
+		RENDER_PROFILE_FUNCTION();
         _layerStack.pushOverlay(layer);
         layer->onAttach();
     }
 
 
     void Application::onEvent(Event& event){
+		RENDER_PROFILE_FUNCTION();
         EventDispatcher dispatcher(event);
         // In order for dispatcher to tell which event to execute, this is where that happens
 
@@ -61,21 +68,29 @@ namespace RendererEngine{
 
 
     void Application::Run(){
+		RENDER_PROFILE_SCOPE("Runloop");
 
         while(isRunning){
+			RENDER_PROFILE_SCOPE("Run Mainloop");
             // Is going to be showing how lonmg this frame current time and the last frame time
             float time = (float)glfwGetTime(); // Should be in platform::getTime() (containing impl for Mac, Windows, etc.)
             Timestep timestep = time - _lastFrameTime;
             _lastFrameTime = time;
 			
 			if(!isMinimized){
+				{
+				RENDER_PROFILE_SCOPE("LayerStack onUpdate in run");
 				for(Layer* layer : _layerStack){
 				    layer->onUpdate(timestep);
 				}
+				}
 
 				_imguiLayer->begin();
+				{
+				RENDER_PROFILE_SCOPE("LayerStack onImguiRender in Application::run()");
 				for(Layer* layer : _layerStack){
 				    layer->onImguiRender();
+				}
 				}
 				_imguiLayer->end();
 			}
@@ -90,6 +105,7 @@ namespace RendererEngine{
     }
 
 	bool Application::onWindowResize(WindowResizeEvent& e){
+			RENDER_PROFILE_FUNCTION();
 		if(e.GetWidth() == 0 || e.GetHeight() == 0){
 			isMinimized = true;
 			coreLogInfo("True said here!");

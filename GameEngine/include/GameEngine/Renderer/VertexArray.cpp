@@ -3,6 +3,7 @@
 #include <GameEngine/platforms/OpenGL/OpenGLVertexArray.h>
 
 namespace RendererEngine{
+
     Ref<VertexArray> VertexArray::Create(){
         switch (RendererAPI::getAPI()){
         case RendererAPI::API::None:

@@ -9,12 +9,14 @@ namespace RendererEngine{
 	Scope<Renderer::SceneData> Renderer::_sceneData = CreateScope<Renderer::SceneData>();
 
     void Renderer::init(){
+		RENDER_PROFILE_FUNCTION();
+
         RendererCommand::init();
 		Renderer2D::Init(); // Need to initialize 2D renderer before anything.
     }
 	
 	void Renderer::onWindowResize(uint32_t w, uint32_t h){
-		
+		RendererCommand::setViewport(0, 0, w, h);
 	}
 
     void Renderer::beginScene(OrthographicCamera& camera){

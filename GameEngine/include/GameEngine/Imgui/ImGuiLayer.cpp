@@ -1,3 +1,4 @@
+#include "imgui.h"
 #include <GameEnginePrecompiledHeader.h>
 #include <imgui/backends/imgui_impl_opengl3.h>
 #include <imgui/backends/imgui_impl_glfw.h>
@@ -13,6 +14,8 @@ namespace RendererEngine{
     ImGuiLayer::~ImGuiLayer() {}
 
     void ImGuiLayer::onAttach(){
+		RENDER_PROFILE_FUNCTION();
+
         // IMGUI_CHECKVERSION();
         ImGui::CreateContext();
         ImGui::StyleColorsDark(); // using dark colors
@@ -41,16 +44,24 @@ namespace RendererEngine{
     }
     
     void ImGuiLayer::onDetach(){
+		RENDER_PROFILE_FUNCTION();
 
+		ImGui_ImplOpenGL3_Shutdown();
+		ImGui_ImplGlfw_Shutdown();
+		ImGui::DestroyContext();
     }
 
     void ImGuiLayer::begin(){
+		RENDER_PROFILE_FUNCTION();
+
         ImGui_ImplGlfw_NewFrame();
         ImGui_ImplOpenGL3_NewFrame();
         ImGui::NewFrame();
     }
 
     void ImGuiLayer::end(){
+		RENDER_PROFILE_FUNCTION();
+
         ImGuiIO& io = ImGui::GetIO();
 
         Application& app = Application::Get();
