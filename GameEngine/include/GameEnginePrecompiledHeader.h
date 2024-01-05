@@ -21,6 +21,7 @@
 
 #include <GameEngine/Core/EngineLogger.h>
 #include <GameEngine/Renderer/OrthographicCameraController.h>
+#include <GameEngine/Debug/Instrumentor.h>
 
 #include <fmt/ostream.h>
 #if RENDER_PLATFORM_WINDOWS
