@@ -1,6 +1,5 @@
 build
 image/image.h
-Debug
 imgui.ini
 .cache
 EngineProfile-Runtime.json
