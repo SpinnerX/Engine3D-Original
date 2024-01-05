@@ -1,5 +1,6 @@
 #pragma once
 #include "Renderer/OrthographicCamera.h"
+#include "Renderer/Texture.h"
 
 namespace RendererEngine{
 
@@ -17,6 +18,8 @@ namespace RendererEngine{
 		//		 Setting that z values
 		static void drawQuad(const glm::vec2& pos, const glm::vec2& size, const glm::vec4& color);
 		static void drawQuad(const glm::vec3& pos, const glm::vec2& size, const glm::vec4& color);
+		static void drawQuad(const glm::vec2& pos, const glm::vec2& size, const Ref<Texture2D>& texture);
+		static void drawQuad(const glm::vec3& pos, const glm::vec2& size, const Ref<Texture2D>& texture);
 	};
 
 };

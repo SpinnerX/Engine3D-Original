@@ -1,4 +1,5 @@
-#include "Core/EngineLogger.h"
+#include "Renderer/Buffer.h"
+#include "Renderer/Texture.h"
 #include <GameEnginePrecompiledHeader.h>
 #include <GameEngine/Renderer/Renderer2D.h>
 #include <GameEngine/Renderer/VertexArray.h>
@@ -12,6 +13,7 @@ namespace RendererEngine{
 	struct Renderer2DStorage{
 		Ref<VertexArray> quadVertexArray;
 		Ref<Shader> flatColorShader;
+		Ref<Shader> textureShader;
 	};
 
 	static Renderer2DStorage* _data; // So this could be unique to this translation unit
@@ -21,17 +23,18 @@ namespace RendererEngine{
 		_data->quadVertexArray = VertexArray::Create();
 
 		float squareVertices[5 * 4] = {
-			-0.5f, -0.5f, 0.0f,
-			0.5f, -0.5f, 0.0f,
-			0.5f,  0.5f, 0.0f,
-			-0.5f,  0.5f, 0.0f
+			-0.5f, -0.5f, 0.0f, 0.0f, 0.0f,
+			0.5f, -0.5f, 0.0f, 1.0f, 0.0f,
+			0.5f,  0.5f, 0.0f, 1.0f, 1.0f,
+			-0.5f,  0.5f, 0.0f, 0.0f, 1.0f
 		};
 
 		Ref<VertexBuffer> squareVB;
 		squareVB.reset(VertexBuffer::Create(squareVertices, sizeof(squareVertices)));
 		
 		squareVB->setLayout({
-			{ ShaderDataType::Float3, "a_Position" }
+			{ ShaderDataType::Float3, "a_Position" },
+			{ ShaderDataType::Float2, "a_TexCoord" }
 		});
 
 		_data->quadVertexArray->addVertexBuffer(squareVB);
@@ -43,6 +46,8 @@ namespace RendererEngine{
 
 		/* _flatColorShader = Shader::Create("assets/shaders/FlatColor.glsl"); */
 		_data->flatColorShader = Shader::CreateShader("assets/sandbox2DShaders/FlatColor.glsl");
+		_data->textureShader = Shader::CreateShader("assets/shaders/texture.glsl");
+		_data->textureShader->setInt("u_Texture", 0);
 	}
 
 	void Renderer2D::Shutdown(){
@@ -56,6 +61,8 @@ namespace RendererEngine{
 		// Where set is just set is a much higher level concept.
 		_data->flatColorShader->bind();
 		_data->flatColorShader->setMat4("u_ViewProjection", camera.getViewProjectionMatrix());
+		_data->textureShader->bind();
+		_data->textureShader->setMat4("u_ViewProjection", camera.getViewProjectionMatrix());
 	}
 
 	void Renderer2D::endScene(){
@@ -84,7 +91,25 @@ namespace RendererEngine{
 		// Actual draw call
 		_data->quadVertexArray->bind();
 		RendererCommand::drawIndexed(_data->quadVertexArray);
-
 	}
+	
+	void Renderer2D::drawQuad(const glm::vec2& pos, const glm::vec2& size, const Ref<Texture2D>& texture){
+		drawQuad({pos.x, pos.y, 0.0f}, size, texture);
+	}
+
+	void Renderer2D::drawQuad(const glm::vec3& pos, const glm::vec2& size, const Ref<Texture2D>& texture){
+		// This is how we are going to be drawing the texture onto the objects
+		// - By first binding that texture, then when we bind that texture to that shader.
+		_data->textureShader->bind();
 		
+		glm::mat4 transform = glm::translate(glm::mat4(1.0f), pos) * glm::scale(glm::mat4(1.0f), {size.x, size.y, 1.0f});
+		
+		texture->bind();
+		_data->textureShader->setMat4("u_Transform", transform);
+
+		// Actual draw call
+		_data->quadVertexArray->bind();
+		RendererCommand::drawIndexed(_data->quadVertexArray);
+	}
+	
 };
