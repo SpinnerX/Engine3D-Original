@@ -11,8 +11,7 @@ uniform mat4 u_Transform;
 
 out vec2 v_TexCoord;
 
-void main()
-{
+void main(){
 	v_TexCoord = a_TexCoord;
 	gl_Position = u_ViewProjection * u_Transform * vec4(a_Position, 1.0);
 }
@@ -24,10 +23,10 @@ layout(location = 0) out vec4 color;
 
 in vec2 v_TexCoord;
 
+uniform vec4 u_Color;
 uniform sampler2D u_Texture;
 
-void main()
-{
-	color = texture(u_Texture, v_TexCoord * 10.0) * vec4(1.0, 0.8, 0.8, 1.0);
+void main(){
+	color = texture(u_Texture, v_TexCoord * 10.0) * u_Color;
 }
 
