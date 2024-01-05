@@ -21,14 +21,20 @@ namespace RendererEngine{
     }
 
     WindowsWindow::WindowsWindow(const WindowProps& props){
+		RENDER_PROFILE_FUNCTION();
+
         init(props);
     }
 
     WindowsWindow::~WindowsWindow(){
+		RENDER_PROFILE_FUNCTION();
+
         shutdown();
     }
 
     void WindowsWindow::init(const WindowProps& props){
+		RENDER_PROFILE_FUNCTION();
+
         _data.title = props.title;
         _data.width = props.width;
         _data.height = props.height;
@@ -38,6 +44,7 @@ namespace RendererEngine{
 
         // // We should check if GLFW is initialized before proceeding
         if(!_glfwInitialized){
+			RENDER_PROFILE_SCOPE("glfwInit");
             // TODO: glfwTerminate on system shutfown
             // Have to specify these on macOS
             // to prevent 1200x800 from becoming 2400x1600
@@ -54,8 +61,11 @@ namespace RendererEngine{
         glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
         glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
         glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, true);
+		
+		{
+		RENDER_PROFILE_SCOPE("glfwCreateWindow");
         _window = glfwCreateWindow((int)props.width, (int)props.height, _data.title.c_str(), nullptr, nullptr);
-        
+		}
 
         // This is where we are going to initialize the context
         // Telling the renderer context is going to be new OpenGL context (or GraphicsContext)
@@ -170,15 +180,21 @@ namespace RendererEngine{
     }
 
     void WindowsWindow::shutdown(){
+		RENDER_PROFILE_FUNCTION();
+
         glfwDestroyWindow(_window);
     }
 
     void WindowsWindow::onUpdate(){
+		RENDER_PROFILE_FUNCTION();
+
         glfwPollEvents();
         _context->swapBuffers(); // The SwapBuffers will handle renderers swap chains
     }
 
     void WindowsWindow::setVSync(bool enabled){
+		RENDER_PROFILE_FUNCTION();
+
         // we are chhecking if we'd like to enable vsync.
         if(enabled){
             glfwSwapInterval(1);
