@@ -81,6 +81,7 @@ namespace RendererEngine{
 	void Renderer2D::drawQuad(const glm::vec3& pos, const glm::vec2& size, const glm::vec4& color){
 		RENDER_PROFILE_FUNCTION();
 		_data->textureShader->setFloat4("u_Color", color);
+		_data->textureShader->setFloat("u_TilingFactor", 1.0f);
 
 		// Bind white texture here
 		_data->whiteTexture->bind();
@@ -100,16 +101,17 @@ namespace RendererEngine{
 		RendererCommand::drawIndexed(_data->quadVertexArray);
 	}
 	
-	void Renderer2D::drawQuad(const glm::vec2& pos, const glm::vec2& size, const Ref<Texture2D>& texture){
-		drawQuad({pos.x, pos.y, 0.0f}, size, texture);
+	void Renderer2D::drawQuad(const glm::vec2& pos, const glm::vec2& size, const Ref<Texture2D>& texture, float tilingFactor, const glm::vec4& tintColor){
+		drawQuad({pos.x, pos.y, 0.0f}, size, texture, tilingFactor, tintColor);
 	}
 
-	void Renderer2D::drawQuad(const glm::vec3& pos, const glm::vec2& size, const Ref<Texture2D>& texture){
+	void Renderer2D::drawQuad(const glm::vec3& pos, const glm::vec2& size, const Ref<Texture2D>& texture, float tilingFactor, const glm::vec4& tintColor){
 		RENDER_PROFILE_FUNCTION();
 		// This is how we are going to be drawing the texture onto the objects
 		// - By first binding that texture, then when we bind that texture to that shader.
 		/* _data->textureShader->setFloat4("u_Color", glm::vec4(1.0f)); */
-		_data->textureShader->setFloat4("u_Color", {0.2f, 0.3f, 0.8, 0.5f});
+		_data->textureShader->setFloat4("u_Color", tintColor);
+		_data->textureShader->setFloat("u_TilingFactor", tilingFactor);
 		texture->bind();
 		
 		glm::mat4 transform = glm::translate(glm::mat4(1.0f), pos) * glm::scale(glm::mat4(1.0f), {size.x, size.y, 1.0f});
@@ -121,4 +123,53 @@ namespace RendererEngine{
 		RendererCommand::drawIndexed(_data->quadVertexArray);
 	}
 	
+	void Renderer2D::drawRotatedQuad(const glm::vec2& pos, const glm::vec2& size, float rotation, const glm::vec4& color){
+		drawRotatedQuad({pos.x, pos.y, 0.0f}, size, rotation, color);
+	}
+	
+	void Renderer2D::drawRotatedQuad(const glm::vec3& pos, const glm::vec2& size, float rotation, const glm::vec4& color){
+		RENDER_PROFILE_FUNCTION();
+		_data->textureShader->setFloat4("u_Color", color);
+		_data->textureShader->setFloat("u_TilingFactor", 1.0f);
+
+		// Bind white texture here
+		_data->whiteTexture->bind();
+		
+		// This is how we are going to do transformation
+		// Since we aren't doing rotation, we are handling Translation(position) and Scale (size)
+		// Whereas mat4(1.0f) is going to be our identity matrix
+		glm::mat4 transform = glm::translate(glm::mat4(1.0f), pos) 
+							  * glm::rotate(glm::mat4(1.0f), rotation, {0.0f, 0.0f, 1.0f})
+							  * glm::scale(glm::mat4(1.0f), {size.x, size.y, 1.0f});
+
+		_data->textureShader->setMat4("u_Transform", transform);
+
+		_data->quadVertexArray->bind();
+		RendererCommand::drawIndexed(_data->quadVertexArray);
+	}
+
+	void Renderer2D::drawRotatedQuad(const glm::vec2& pos, const glm::vec2& size, float rotation, const Ref<Texture2D>& texture, float tilingFactor, const glm::vec4& tintColor){
+		drawRotatedQuad({pos.x, pos.y, 0.0f}, size, rotation, texture, tilingFactor, tintColor);
+	}
+
+	void Renderer2D::drawRotatedQuad(const glm::vec3& pos, const glm::vec2& size, float rotation, const Ref<Texture2D>& texture, float tilingFactor, const glm::vec4& tintColor){
+		RENDER_PROFILE_FUNCTION();
+		_data->textureShader->setFloat4("u_Color", tintColor);
+		_data->textureShader->setFloat("u_TilingFactor", tilingFactor);
+
+		// Bind texture here
+		texture->bind();
+		
+		// This is how we are going to do transformation
+		// Since we aren't doing rotation, we are handling Translation(position) and Scale (size)
+		// Whereas mat4(1.0f) is going to be our identity matrix
+		glm::mat4 transform = glm::translate(glm::mat4(1.0f), pos) 
+							  * glm::rotate(glm::mat4(1.0f), rotation, {0.0f, 0.0f, 1.0f})
+							  * glm::scale(glm::mat4(1.0f), {size.x, size.y, 1.0f});
+
+		_data->textureShader->setMat4("u_Transform", transform);
+
+		_data->quadVertexArray->bind();
+		RendererCommand::drawIndexed(_data->quadVertexArray);
+	}
 };
