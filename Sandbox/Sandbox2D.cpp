@@ -9,10 +9,12 @@ Sandbox2D::Sandbox2D() : Layer("Sandbox2D"), _cameraController(1280.0f / 720.0f)
 }
 
 void Sandbox2D::onAttach(){
+	RENDER_PROFILE_FUNCTION();
 	_checkerboardTexture = RendererEngine::Texture2D::Create("assets/Checkerboard.png");
 }
 
 void Sandbox2D::onDetach(){
+	RENDER_PROFILE_FUNCTION();
 }
 
 void Sandbox2D::onUpdate(RendererEngine::Timestep ts){
@@ -20,11 +22,8 @@ void Sandbox2D::onUpdate(RendererEngine::Timestep ts){
 	RENDER_PROFILE_FUNCTION();
 	
 	// Update
-	{
-		/* Timer timer("CameraController::onUpdate", [&](auto profileResult) { _profileResults.push_back(profileResult); }); */
-		RENDER_PROFILE_FUNCTION();
-		_cameraController.onUpdate(ts);
-	}
+	/* Timer timer("CameraController::onUpdate", [&](auto profileResult) { _profileResults.push_back(profileResult); }); */
+	_cameraController.onUpdate(ts);
 
 	// Render
 	{
@@ -46,15 +45,13 @@ void Sandbox2D::onUpdate(RendererEngine::Timestep ts){
 	}
 }
 
-void Sandbox2D::onImguiRender()
-{
+void Sandbox2D::onImguiRender(){
 	ImGui::Begin("Settings");
 	ImGui::ColorEdit4("Square Color", glm::value_ptr(_squareColor));
 	ImGui::End();
 }
 
-void Sandbox2D::onEvent(RendererEngine::Event& e)
-{
+void Sandbox2D::onEvent(RendererEngine::Event& e){
 	_cameraController.onEvent(e);
 }
 
