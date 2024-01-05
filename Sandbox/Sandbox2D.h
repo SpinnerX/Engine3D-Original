@@ -31,5 +31,7 @@ private:
 	RendererEngine::Ref<RendererEngine::VertexArray> _squareVertexArrays;
 	RendererEngine::Ref<RendererEngine::Shader> _flatColorShader;
 
+	RendererEngine::Ref<RendererEngine::Texture2D> _checkerboardTexture;
+
 	glm::vec4 _squareColor = {0.2f, 0.3f, 0.8, 1.0f};
 };
