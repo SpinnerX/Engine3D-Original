@@ -22,7 +22,7 @@ namespace RendererEngine{
         _height = height;
 
         // Uploading data to OpenGL texture
-
+		// internalData is our internalFormat
         GLenum internalData = 0, formatData = 0;
 
         if(channels == 4){
@@ -41,6 +41,13 @@ namespace RendererEngine{
 
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+		
+		// Since we segfault using glTextureParameteri, we'll use this for now
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+		/* glTextureParameteri(_rendererID, GL_TEXTURE_WRAP_S, GL_REPEAT); */
+		/* glTextureParameteri(_rendererID, GL_TEXTURE_WRAP_T, GL_REPEAT); */
 
         glTexImage2D(GL_TEXTURE_2D, 0, internalData, _width, _height, 0, formatData, GL_UNSIGNED_BYTE, data);
 
