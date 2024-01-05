@@ -33,13 +33,5 @@ private:
 
 	RendererEngine::Ref<RendererEngine::Texture2D> _checkerboardTexture;
 
-	// Act as our result of different profiles that we want to manage
-	struct ProfileResult{
-		const char* name;
-		float time;
-	};
-
-	std::vector<ProfileResult> _profileResults;
-
 	glm::vec4 _squareColor = {0.2f, 0.3f, 0.8, 1.0f};
 };
