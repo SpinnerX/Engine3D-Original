@@ -1,6 +1,4 @@
 #pragma once
-#include <bitset>
-#include <functional>
 #include <type_traits>
 #include <memory>
 
@@ -90,4 +88,9 @@ namespace RendererEngine{
 
     template<typename T>
     using Ref = std::shared_ptr<T>;
+
+	template<typename T, typename... Args>
+	constexpr Ref<T> CreateRef(Args&&... args){
+		return std::make_shared<T>(std::forward<Args>(args)...);
+	}
 };
