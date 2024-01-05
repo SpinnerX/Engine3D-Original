@@ -12,8 +12,8 @@ namespace RendererEngine{
 	// This data wont get deleted unless we delete this manually.
 	struct Renderer2DStorage{
 		Ref<VertexArray> quadVertexArray;
-		Ref<Shader> flatColorShader;
 		Ref<Shader> textureShader;
+		Ref<Texture2D> whiteTexture;
 	};
 
 	static Renderer2DStorage* _data; // So this could be unique to this translation unit
@@ -43,9 +43,12 @@ namespace RendererEngine{
 		Ref<IndexBuffer> squareIB;
 		squareIB.reset(IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(uint32_t)));
 		_data->quadVertexArray->setIndexBuffer(squareIB);
+		
+		_data->whiteTexture = Texture2D::Create(1,1);
+		uint32_t whiteTextureData = 0xffffffff; // four f's for every channel
+		_data->whiteTexture->setData(&whiteTextureData, sizeof(uint32_t));
 
 		/* _flatColorShader = Shader::Create("assets/shaders/FlatColor.glsl"); */
-		_data->flatColorShader = Shader::CreateShader("assets/sandbox2DShaders/FlatColor.glsl");
 		_data->textureShader = Shader::CreateShader("assets/shaders/texture.glsl");
 		_data->textureShader->setInt("u_Texture", 0);
 	}
@@ -59,8 +62,6 @@ namespace RendererEngine{
 		// Simply uploads the camera data
 		// upload is more API specific (actual OpenGL to set that uniform)
 		// Where set is just set is a much higher level concept.
-		_data->flatColorShader->bind();
-		_data->flatColorShader->setMat4("u_ViewProjection", camera.getViewProjectionMatrix());
 		_data->textureShader->bind();
 		_data->textureShader->setMat4("u_ViewProjection", camera.getViewProjectionMatrix());
 	}
@@ -74,8 +75,10 @@ namespace RendererEngine{
 	}
 	
 	void Renderer2D::drawQuad(const glm::vec3& pos, const glm::vec2& size, const glm::vec4& color){
-		_data->flatColorShader->bind();
-		_data->flatColorShader->setFloat4("u_Color", color);
+		_data->textureShader->setFloat4("u_Color", color);
+
+		// Bind white texture here
+		_data->whiteTexture->bind();
 		
 		// This is how we are going to do transformation
 		// Since we aren't doing rotation, we are handling Translation(position) and Scale (size)
@@ -86,9 +89,8 @@ namespace RendererEngine{
 		glm::mat4 transform = glm::translate(glm::mat4(1.0f), pos) *
 							  glm::scale(glm::mat4(1.0f), {size.x, size.y, 1.0f});
 
-		_data->flatColorShader->setMat4("u_Transform", transform);
+		_data->textureShader->setMat4("u_Transform", transform);
 
-		// Actual draw call
 		_data->quadVertexArray->bind();
 		RendererCommand::drawIndexed(_data->quadVertexArray);
 	}
@@ -100,11 +102,12 @@ namespace RendererEngine{
 	void Renderer2D::drawQuad(const glm::vec3& pos, const glm::vec2& size, const Ref<Texture2D>& texture){
 		// This is how we are going to be drawing the texture onto the objects
 		// - By first binding that texture, then when we bind that texture to that shader.
-		_data->textureShader->bind();
+		/* _data->textureShader->setFloat4("u_Color", glm::vec4(1.0f)); */
+		_data->textureShader->setFloat4("u_Color", {0.2f, 0.3f, 0.8, 0.5f});
+		texture->bind();
 		
 		glm::mat4 transform = glm::translate(glm::mat4(1.0f), pos) * glm::scale(glm::mat4(1.0f), {size.x, size.y, 1.0f});
 		
-		texture->bind();
 		_data->textureShader->setMat4("u_Transform", transform);
 
 		// Actual draw call

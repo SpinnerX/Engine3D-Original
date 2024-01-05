@@ -10,7 +10,7 @@ namespace RendererEngine{
             case RendererAPI::API::None:
                 render_core_assert(false, "RenderAPI::None is currently not supported!");
                 return nullptr;
-            case RendererAPI::API::OpenGL: return make_shared<OpenGLShader>(filepath);
+            case RendererAPI::API::OpenGL: return CreateRef<OpenGLShader>(filepath);
         }
 
         render_core_assert(false, "Unknown renderer API");
@@ -24,7 +24,7 @@ namespace RendererEngine{
                 render_core_assert(false, "RenderAPI::None is currently not supported!");
                 return nullptr;
             case RendererAPI::API::OpenGL:
-                return make_shared<OpenGLShader>(name, vertexSrc, fragmentSrc);
+                return CreateRef<OpenGLShader>(name, vertexSrc, fragmentSrc);
         }
 
         render_core_assert(false, "Unknown renderer API");
