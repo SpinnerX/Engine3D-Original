@@ -16,7 +16,6 @@ namespace RendererEngine{
 
         virtual void onAttach() override;
         virtual void onDetach() override;
-        virtual void onImguiRender() override;
 
         // - Reason we add these two functions is because we want imgui to be able to start rendering on its own
         // - All I want this to do is to know when to begin rendering and to end rendering.

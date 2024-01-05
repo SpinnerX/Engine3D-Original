@@ -69,8 +69,4 @@ namespace RendererEngine{
             glfwMakeContextCurrent(backup_current_ctx);
         }
     }
-
-    // This will be set and used between when we make function calls with Begin() and End().
-    void ImGuiLayer::onImguiRender(){
-    }
 };
