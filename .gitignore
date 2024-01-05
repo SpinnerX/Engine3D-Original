@@ -3,3 +3,6 @@ image/image.h
 Debug
 imgui.ini
 .cache
+EngineProfile-Runtime.json
+EngineProfile-Shutdown.json
+EngineProfile-Startup.json
