@@ -51,7 +51,8 @@ namespace RendererEngine{
 		_data->whiteTexture->setData(&whiteTextureData, sizeof(uint32_t));
 
 		/* _flatColorShader = Shader::Create("assets/shaders/FlatColor.glsl"); */
-		_data->textureShader = Shader::CreateShader("assets/shaders/texture.glsl");
+		/* _data->textureShader = Shader::CreateShader("assets/shaders/texture.glsl"); */
+		_data->textureShader = Shader::CreateShader("assets/RocketGameAssets/Texture.glsl");
 		_data->textureShader->setInt("u_Texture", 0);
 	}
 
