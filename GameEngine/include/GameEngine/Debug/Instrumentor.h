@@ -1,5 +1,4 @@
 #pragma once
-#include "Core/EngineLogger.h"
 #include <mutex>
 #include <string>
 #include <chrono>
