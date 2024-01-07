@@ -1,4 +1,3 @@
-#include "Core/core.h"
 #include <GameEnginePrecompiledHeader.h>
 #include <GameEngine/platforms/OpenGL/OpenGLTexture.h>
 #include <GameEngine/image/stb_image.h>

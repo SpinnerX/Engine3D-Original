@@ -2,7 +2,6 @@
 #include <GameEngine/Core/Application.h>
 #include <GameEngine/platforms/Windows/WindowsInput.h>
 #include <GLFW/glfw3.h>
-#include <GameEngine/platforms/Windows/WindowsInput.h>
 
 namespace RendererEngine{
     Scope<InputPoll> InputPoll::_instance = CreateScope<WindowsInput>();

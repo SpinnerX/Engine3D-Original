@@ -1,9 +1,7 @@
-#include "Core/core.h"
-#include "Renderer/Renderer2D.h"
 #include <GameEnginePrecompiledHeader.h>
 #include <GameEngine/Renderer/Renderer.h>
 #include <GameEngine/platforms/OpenGL/OpenGLShader.h>
-#include <memory>
+#include <GameEngine/Renderer/Renderer2D.h>
 
 namespace RendererEngine{
 	Scope<Renderer::SceneData> Renderer::_sceneData = CreateScope<Renderer::SceneData>();

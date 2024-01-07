@@ -1,4 +1,3 @@
-#include "Core/core.h"
 #include <GameEnginePrecompiledHeader.h>
 #include <GameEngine/Renderer/Texture.h>
 #include <GameEngine/Renderer/Renderer.h>

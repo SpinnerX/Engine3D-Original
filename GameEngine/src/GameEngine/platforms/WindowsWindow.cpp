@@ -6,7 +6,6 @@
 #include <GameEngine/Events/ApplicationEvent.h>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
-/* #include <GameEngine/Renderer/RendererContext.h> */
 #include <GameEngine/platforms/OpenGL/OpenGLContext.h>
 
 namespace RendererEngine{
