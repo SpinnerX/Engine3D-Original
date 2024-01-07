@@ -1,5 +1,3 @@
-#include "Renderer/Buffer.h"
-#include "Renderer/Texture.h"
 #include <GameEnginePrecompiledHeader.h>
 #include <GameEngine/Renderer/Renderer2D.h>
 #include <GameEngine/Renderer/VertexArray.h>

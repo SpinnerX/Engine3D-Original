@@ -1,5 +1,3 @@
-#include "Core/EngineLogger.h"
-#include "Core/core.h"
 #include <GLFW/glfw3.h>
 #include <GameEngine/platforms/OpenGL/OpenGLContext.h>
 
