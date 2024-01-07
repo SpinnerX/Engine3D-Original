@@ -92,7 +92,7 @@ file(COPY assets DESTINATION ${CMAKE_BINARY_DIR})
 
 # This is how you can have precompiled headers
 # This allows for faster compile time
-target_precompile_headers(${PROJECT_NAME} PRIVATE
+target_precompile_headers(${PROJECT_NAME} PUBLIC
   "$<$<COMPILE_LANGUAGE:CXX>:${CMAKE_CURRENT_SOURCE_DIR}/GameEngine/include/GameEnginePrecompiledHeader.h>"
 )
 
