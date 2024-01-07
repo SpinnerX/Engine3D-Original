@@ -167,7 +167,7 @@ bool Level::collisionTest(){
 	glm::vec4 pillarVertices[4] = {
 		{-0.5f + 0.1f, -0.5f + 0.1f, 0.0f, 1.0f},
 		{0.5f - 0.1f, -0.5f + 0.1f, 0.0f, 1.0f},
-		{0.5 + 0.0f, 0.5f - 0.1f, 0.0f, 1.0f},
+		{0.0 + 0.0f, 0.5f - 0.1f, 0.0f, 1.0f},
 	};
 	
 	for(auto& p : _pillars){
