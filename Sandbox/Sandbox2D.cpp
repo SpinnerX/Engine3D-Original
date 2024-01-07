@@ -1,6 +1,4 @@
 #include "Sandbox2D.h"
-#include "Debug/Instrumentor.h"
-#include "Renderer/Renderer2D.h"
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include <GameEngine/platforms/OpenGL/OpenGLShader.h>
