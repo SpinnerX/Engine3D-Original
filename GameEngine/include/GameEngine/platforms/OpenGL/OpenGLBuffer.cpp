@@ -6,11 +6,22 @@ namespace RendererEngine{
     /// -------------------------------------------------
     /// --------------- [ Vertex Buffer] ----------------
     /// -------------------------------------------------
+	
+	// Making our Vertex buffer dynamic
+    OpenGLVertexBuffer::OpenGLVertexBuffer(uint32_t size){
+		RENDER_PROFILE_FUNCTION();
+		
+        glGenBuffers(1, &_rendererID);
+		// glCreateBuffers(1, &_rendererID); // For some reason glCreateBuffer segfaults on Mac...
+		glBindBuffer(GL_ARRAY_BUFFER, _rendererID);
+		glBufferData(GL_ARRAY_BUFFER, size, nullptr, GL_DYNAMIC_DRAW); // GL_DYNAMIC_DRAW is the hint we give to OpenGL on how we are using this data. 
+	}
+
     OpenGLVertexBuffer::OpenGLVertexBuffer(float* vertices, uint32_t size) {
 		RENDER_PROFILE_FUNCTION();
 
         glGenBuffers(1, &_rendererID);
-        // glCreateBuffers(1, &_rendererID); // For some reason does not work but glGenBuffers does
+        // glCreateBuffers(1, &_rendererID); // For some reason does not work but glGenBuffers does (Meaning for some reason glCreateBuffer segfaults on Mac!
         glBindBuffer(GL_ARRAY_BUFFER, _rendererID);
 		glBufferData(GL_ARRAY_BUFFER, size, vertices, GL_STATIC_DRAW);
     }
@@ -26,6 +37,11 @@ namespace RendererEngine{
 
         glBindBuffer(GL_ARRAY_BUFFER, _rendererID);
     }
+	
+	void OpenGLVertexBuffer::setData(const void* data,  uint32_t size){
+		glBindBuffer(GL_ARRAY_BUFFER, _rendererID);
+		glBufferSubData(GL_ARRAY_BUFFER, 0, size, data);
+	}
 
     void OpenGLVertexBuffer::unbind() const {
 		RENDER_PROFILE_FUNCTION();
