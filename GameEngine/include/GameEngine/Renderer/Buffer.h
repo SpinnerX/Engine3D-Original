@@ -181,11 +181,16 @@ namespace RendererEngine{
 
         virtual void setLayout(const BufferLayout& layout) = 0;
         virtual const BufferLayout& getLayout() const = 0;
+		
+		virtual void setData(const void* data,  uint32_t size) = 0;
 
-        static VertexBuffer* Create(float* vertices, uint32_t size);
+		static Ref<VertexBuffer> Create(uint32_t size);
+        static Ref<VertexBuffer> Create(float* vertices, uint32_t size);
+
 
     };
-
+	
+	// Currently the Engine only supports 32-bit index buffers.
     class IndexBuffer{
     public:
         virtual ~IndexBuffer(){}
@@ -194,6 +199,6 @@ namespace RendererEngine{
 
         virtual uint32_t getCount() const = 0;
 
-        static IndexBuffer* Create(uint32_t* vertices, uint32_t size);
+        static Ref<IndexBuffer> Create(uint32_t* vertices, uint32_t size);
     };
 };
