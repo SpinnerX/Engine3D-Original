@@ -10,7 +10,9 @@ namespace RendererEngine{
 		static void Shutdown();
 
 		static void beginScene(const OrthographicCamera& camera);
-		static void endScene();
+		static void endScene(); // ending the scene is where all the rendering is going to happen at.
+
+		static void flush();
 
 		/*
 		 * Small NOTE: These are drawQuads for colors and textures.
