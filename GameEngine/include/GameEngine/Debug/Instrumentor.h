@@ -264,6 +264,7 @@ namespace RendererEngine{
 
 
 // NOTE: May change this later on.. since this is temporary
+// NOTE: Was thinking probable have a profiler counter that is static, that'll be used for each thread ID of some sort...
 #define RENDER_PROFILE 1
 
 #if RENDER_PROFILE
