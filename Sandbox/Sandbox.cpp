@@ -18,8 +18,7 @@ public:
 			 0.0f,  0.5f, 0.0f, 0.8f, 0.8f, 0.2f, 1.0f
 		};
 
-        RendererEngine::Ref<RendererEngine::VertexBuffer> _vertexBuffer;
-        _vertexBuffer.reset(RendererEngine::VertexBuffer::Create(vertices, sizeof(vertices)));
+        RendererEngine::Ref<RendererEngine::VertexBuffer> _vertexBuffer = RendererEngine::VertexBuffer::Create(vertices, sizeof(vertices));
 
        RendererEngine::BufferLayout bufLayout = {
             {RendererEngine::ShaderDataType::Float3, "a_Position", true},
@@ -29,9 +28,8 @@ public:
        _vertexBuffer->setLayout(bufLayout);
        _vertexArray->addVertexBuffer(_vertexBuffer);
 
-        RendererEngine::Ref<RendererEngine::IndexBuffer> _indexBuffer;
         uint32_t indices[3] = {0, 1, 2};
-        _indexBuffer.reset(RendererEngine::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
+        RendererEngine::Ref<RendererEngine::IndexBuffer> _indexBuffer = RendererEngine::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t));
         _vertexArray->setIndexBuffer(_indexBuffer);
 
         //////////////////////////
@@ -46,8 +44,7 @@ public:
 		};
 
         _squareVertexArrays = RendererEngine::VertexArray::Create();
-        RendererEngine::Ref<RendererEngine::VertexBuffer> squareVB;
-        squareVB.reset(RendererEngine::VertexBuffer::Create(squareVertices, sizeof(squareVertices)));
+        RendererEngine::Ref<RendererEngine::VertexBuffer> squareVB = RendererEngine::VertexBuffer::Create(squareVertices, sizeof(squareVertices));
 
         squareVB->setLayout({
             {RendererEngine::ShaderDataType::Float3, "a_Position", true},
@@ -56,8 +53,7 @@ public:
         _squareVertexArrays->addVertexBuffer(squareVB);
 
         uint32_t squareIndices[6] = {0, 1, 2, 2, 3, 0};
-        RendererEngine::Ref<RendererEngine::IndexBuffer> squareIB;
-        squareIB.reset(RendererEngine::IndexBuffer::Create(squareIndices,  sizeof(squareIndices) / sizeof(uint32_t)));
+        RendererEngine::Ref<RendererEngine::IndexBuffer> squareIB = RendererEngine::IndexBuffer::Create(squareIndices,  sizeof(squareIndices) / sizeof(uint32_t));
         _squareVertexArrays->setIndexBuffer(squareIB);
 
         // If we weren't calling Shader::Create(filpeath), then we'd call Shader::Create(vertexSrc, fragmentSrc);

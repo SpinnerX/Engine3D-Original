@@ -35,9 +35,10 @@ void Sandbox2D::onUpdate(RendererEngine::Timestep ts){
 		RendererEngine::Renderer2D::beginScene(_cameraController.getCamera());
 	
 		// Our draw quads, for drawing our rectangles.
-		RendererEngine::Renderer2D::drawRotatedQuad({-1.0f, 0.0f}, {0.8f, 0.8f}, glm::radians(-45.0f), {0.8f, 0.2f, 0.3f, 1.0f}); // Red shape
+		/* RendererEngine::Renderer2D::drawRotatedQuad({-1.0f, 0.0f}, {0.8f, 0.8f}, glm::radians(-45.0f), {0.8f, 0.2f, 0.3f, 1.0f}); // Red shape */
+		RendererEngine::Renderer2D::drawQuad({-1.0f, 0.0f}, {0.8f, 0.8f}, {0.8f, 0.2f, 0.3f, 1.0f}); // Red shape
 		RendererEngine::Renderer2D::drawQuad({0.5f, -0.5f}, {0.5f, 0.75f}, {0.2f, 0.3f, 0.8f, 1.0f}); // blue shape
-		RendererEngine::Renderer2D::drawQuad({0.0f, 0.0f, -0.1f}, {10.0f, 10.0f}, _checkerboardTexture, 10.0f, glm::vec4(1.0f, 0.9f, 0.9f, 1.0f)); // checkerboard texture shape
+		/* RendererEngine::Renderer2D::drawQuad({0.0f, 0.0f, -0.1f}, {10.0f, 10.0f}, _checkerboardTexture, 10.0f, glm::vec4(1.0f, 0.9f, 0.9f, 1.0f)); // checkerboard texture shape */
 	
 		RendererEngine::Renderer2D::endScene();
 	}
