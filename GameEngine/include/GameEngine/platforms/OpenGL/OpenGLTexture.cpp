@@ -105,8 +105,11 @@ namespace RendererEngine{
     void OpenGLTexture2D::bind(GLenum slot) const {
 		RENDER_PROFILE_FUNCTION();
 
-        // printf("Slot: %i\n", slot);
-        // glBindTextureUnit(slot, _rendererID); // Equivalent to glBindTexture (but will segfault though)
-        glBindTexture(slot, _rendererID); // Instead of using this we have to use glBindTexture on Mac
+        /* glBindTextureUnit(slot, _rendererID); // Equivalent to glBindTexture (but will segfault though) */
+
+		// Since we are using OpenGL 4.5 or lower, and cannot use glBindTextureUnit, we have to do the following two lines below
+		// Essentially how textures are working with the batch renderer system, now.
+		glActiveTexture(GL_TEXTURE0 + slot);
+        glBindTexture(GL_TEXTURE_2D, _rendererID); // Instead of using this we have to use glBindTexture on Mac
     }
 };

@@ -197,6 +197,11 @@ namespace RendererEngine{
 		RENDER_PROFILE_FUNCTION();
 		uploadUniformInt(name, value);
 	}
+
+
+	void OpenGLShader::setIntArray(const std::string& name, int* values, uint32_t count){
+		uploadIntArray(name, values, count);
+	}
 		
 	void OpenGLShader::setFloat(const std::string& name, float value) {
 		uploadUniformFloat(name, value);
@@ -221,6 +226,12 @@ namespace RendererEngine{
         GLint location = glGetUniformLocation(_rendererID, name.c_str());
         glUniform1i(location, value);
     }
+	
+	void OpenGLShader::uploadIntArray(const std::string& name, int* values, uint32_t count){
+        GLint location = glGetUniformLocation(_rendererID, name.c_str());
+        glUniform1iv(location, count, values);
+		
+	}
 
     void OpenGLShader::uploadUniformFloat(const std::string& name, float value){
         GLint location = glGetUniformLocation(_rendererID, name.c_str());

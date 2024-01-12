@@ -22,6 +22,8 @@ namespace RendererEngine{
 		virtual void setData(void* data, uint32_t size) = 0;
 
         virtual void bind(GLenum slot=GL_TEXTURE_2D) const = 0;
+
+		virtual bool operator==(const Texture& other) const = 0;
     };
 
 

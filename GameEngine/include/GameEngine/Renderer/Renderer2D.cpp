@@ -7,9 +7,11 @@
 
 namespace RendererEngine{
 	struct quadVertex{
-		glm::vec3 pos;
-		glm::vec4 color;
+		glm::vec3 pos; // contains position of the texture
+		glm::vec4 color; // color the texture contains
 		glm::vec2 texCoord;
+		float texIndex; // containing whatever texture we have (if zero then it'll sample from white texture and draw nothing)
+		float tilingFactor;
 	};
 
 	// This data wont get deleted unless we delete this manually.
@@ -17,6 +19,7 @@ namespace RendererEngine{
 		const uint32_t maxQuads = 10000; // max for how many quads we can Render
 		const uint32_t maxVertices = maxQuads * 4; // max of vertices we can have every single draw quad
 		const uint32_t maxIndices = maxQuads * 6; // Since we have around 6 indices per quad
+		static const uint32_t maxTextureSlots = 16; // Mac = 16, Windows maybe = 32.
 		Ref<VertexArray> quadVertexArray;
 		Ref<VertexBuffer> quadVertexBuffer;
 		Ref<Shader> textureShader;
@@ -24,13 +27,15 @@ namespace RendererEngine{
 		uint32_t quadIndexCount = 0;
 		quadVertex* quadVertexBufferBase = nullptr;
 		quadVertex* quadVertexBufferPtr = nullptr;
+
+		std::array<Ref<Texture2D>, maxTextureSlots> textureSlots;
+		uint32_t textureSlotIndex = 1; // 0 - white texture
 	};
 
 	static Renderer2DData _data; // So this could be unique to this translation unit
 
 	void Renderer2D::Init(){
 		RENDER_PROFILE_FUNCTION();
-		coreLogInfo("Segfault Debug Point #1");
 		_data.quadVertexArray = VertexArray::Create();
 
 		/* float squareVertices[5 * 4] = { */
@@ -40,15 +45,17 @@ namespace RendererEngine{
 		/* 	-0.5f,  0.5f, 0.0f, 0.0f, 1.0f */
 		/* }; */
 
-		/* Ref<VertexBuffer> quadVB = VertexBuffer::Create(squareVertices, sizeof(squareVertices)); */
+		/* Ref<VertexBuffer> quadVB = VertexBuffer::Create(squareVertices, sizeof(squareVertices)); // NOTE: Old vers*/
 		_data.quadVertexBuffer = VertexBuffer::Create(_data.maxVertices * sizeof(quadVertex));
-		/* quadVB.reset(VertexBuffer::Create(squareVertices, sizeof(squareVertices))); */
-		/* quadVB.reset(VertexBuffer::Create(sizeof(squareVertices))); */
+		/* quadVB.reset(VertexBuffer::Create(squareVertices, sizeof(squareVertices))); // Segfaults does not work */
+		/* quadVB.reset(VertexBuffer::Create(sizeof(squareVertices))); // OLD VERS */
 		
 		_data.quadVertexBuffer->setLayout({
 			{ ShaderDataType::Float3, "a_Position" },
 			{ ShaderDataType::Float4, "a_Color" },
-			{ ShaderDataType::Float2, "a_TexCoord" }
+			{ ShaderDataType::Float2, "a_TexCoord" },
+			{ ShaderDataType::Float, "a_TexIndex" },
+			{ ShaderDataType::Float, "a_TilingFactor" }
 		});
 
 		_data.quadVertexArray->addVertexBuffer(_data.quadVertexBuffer);
@@ -57,9 +64,6 @@ namespace RendererEngine{
 
 		_data.quadVertexBufferBase = new quadVertex[_data.maxVertices * sizeof(quadVertex)];
 
-
-
-		coreLogInfo("Segfault Debug Point #2");
 
 		uint32_t* quadIndices = new uint32_t[_data.maxIndices];
 		
@@ -86,8 +90,16 @@ namespace RendererEngine{
 		uint32_t whiteTextureData = 0xffffffff; // four f's for every channel
 		_data.whiteTexture->setData(&whiteTextureData, sizeof(uint32_t));
 
+		int32_t samplers[_data.maxTextureSlots];
+		for(uint32_t i = 0; i < _data.maxTextureSlots; i++)
+			samplers[i] = i;
+
 		_data.textureShader = Shader::CreateShader("assets/shaders/texture.glsl");
-		_data.textureShader->setInt("u_Texture", 0);
+		_data.textureShader->bind();
+		_data.textureShader->setIntArray("u_Textures", samplers, _data.maxTextureSlots);
+
+		// Texture slot at 0 to white texture
+		_data.textureSlots[0] = _data.whiteTexture;
 	}
 
 	void Renderer2D::Shutdown(){
@@ -101,11 +113,12 @@ namespace RendererEngine{
 		// Simply uploads the camera data
 		// upload is more API specific (actual OpenGL to set that uniform)
 		// Where set is just set is a much higher level concept.
-		_data.textureShader->bind();
 		_data.textureShader->setMat4("u_ViewProjection", camera.getViewProjectionMatrix());
 		
 		_data.quadIndexCount = 0;
-		_data.quadVertexBufferPtr = _data.quadVertexBufferBase; // Keeping track of our base memory allocations
+		_data.quadVertexBufferPtr = _data.quadVertexBufferBase; // Keeping track o our base memory allocations
+		
+		_data.textureSlotIndex = 1;
 	}
 
 	void Renderer2D::endScene(){
@@ -122,6 +135,11 @@ namespace RendererEngine{
 	void Renderer2D::flush(){
 		RENDER_PROFILE_FUNCTION();
 
+		// Iterating based on whatever textures we've submitted
+		// Binding the correct textures
+		for(uint32_t i = 0; i < _data.textureSlotIndex; i++)
+			_data.textureSlots[i]->bind(i);
+		
 		RendererCommand::drawIndexed(_data.quadVertexArray, _data.quadIndexCount);
 
 	}
@@ -132,16 +150,23 @@ namespace RendererEngine{
 	
 	void Renderer2D::drawQuad(const glm::vec3& pos, const glm::vec2& size, const glm::vec4& color){
 		RENDER_PROFILE_FUNCTION();
+		
+		const float textureIndex = 0.0f; // Being our white texture
+		const float tilingFactor = 1.0f;
 
 		_data.quadVertexBufferPtr->pos = pos;
 		_data.quadVertexBufferPtr->color = color;
 		_data.quadVertexBufferPtr->texCoord = {0.0f, 0.0f};
+		_data.quadVertexBufferPtr->texIndex = textureIndex;
+		_data.quadVertexBufferPtr->tilingFactor = tilingFactor;
 		_data.quadVertexBufferPtr++;
 
 
 		_data.quadVertexBufferPtr->pos = {pos.x + size.x, pos.y, 0.0f};
 		_data.quadVertexBufferPtr->color = color;
 		_data.quadVertexBufferPtr->texCoord = {1.0f, 0.0f};
+		_data.quadVertexBufferPtr->texIndex = textureIndex;
+		_data.quadVertexBufferPtr->tilingFactor = tilingFactor;
 		_data.quadVertexBufferPtr++;
 
 
@@ -149,12 +174,16 @@ namespace RendererEngine{
 		_data.quadVertexBufferPtr->pos = {pos.x+size.x, pos.y+size.y, 0.0f};
 		_data.quadVertexBufferPtr->color = color;
 		_data.quadVertexBufferPtr->texCoord = {1.0f, 1.0f};
+		_data.quadVertexBufferPtr->texIndex = textureIndex;
+		_data.quadVertexBufferPtr->tilingFactor = tilingFactor;
 		_data.quadVertexBufferPtr++;
 
 
 		_data.quadVertexBufferPtr->pos = {pos.x, pos.y + size.y, 0.0f};
 		_data.quadVertexBufferPtr->color = color;
 		_data.quadVertexBufferPtr->texCoord = {0.0f, 1.0f};
+		_data.quadVertexBufferPtr->texIndex = textureIndex;
+		_data.quadVertexBufferPtr->tilingFactor = tilingFactor;
 		_data.quadVertexBufferPtr++;
 
 
@@ -183,18 +212,78 @@ namespace RendererEngine{
 		RENDER_PROFILE_FUNCTION();
 		// This is how we are going to be drawing the texture onto the objects
 		// - By first binding that texture, then when we bind that texture to that shader.
-		/* _data.textureShader->setFloat4("u_Color", glm::vec4(1.0f)); */
+		
+		constexpr glm::vec4 color = {1.0f, 1.0f, 1.0f, 1.0f};
+
+
+		float textureIndex = 0.0f;
+		// Searching for texture index in our array.
+		for(uint32_t i = 1; i < _data.textureSlotIndex; i++){
+			if(*_data.textureSlots[i].get() == *texture.get()){
+				textureIndex = (float)i;
+				break;
+			}
+		}
+
+		if(textureIndex == 0.0f){
+			textureIndex = (float)_data.textureSlotIndex; // assign to next available texture slot. Should be 1
+			_data.textureSlots[_data.textureSlotIndex] = texture;
+			_data.textureSlotIndex++;
+		}
+
+		_data.quadVertexBufferPtr->pos = pos;
+		_data.quadVertexBufferPtr->color = color;
+		_data.quadVertexBufferPtr->texCoord = {0.0f, 0.0f};
+		_data.quadVertexBufferPtr->texIndex = textureIndex;
+		_data.quadVertexBufferPtr->tilingFactor = tilingFactor;
+		_data.quadVertexBufferPtr++;
+
+		_data.quadVertexBufferPtr->pos = {pos.x + size.x, pos.y, 0.0f};
+		_data.quadVertexBufferPtr->color = color;
+		_data.quadVertexBufferPtr->texCoord = {1.0f, 0.0f};
+		_data.quadVertexBufferPtr->texIndex = textureIndex;
+		_data.quadVertexBufferPtr->tilingFactor = tilingFactor;
+		_data.quadVertexBufferPtr++;
+
+
+
+		_data.quadVertexBufferPtr->pos = {pos.x+size.x, pos.y+size.y, 0.0f};
+		_data.quadVertexBufferPtr->color = color;
+		_data.quadVertexBufferPtr->texCoord = {1.0f, 1.0f};
+		_data.quadVertexBufferPtr->texIndex = textureIndex;
+		_data.quadVertexBufferPtr->tilingFactor = tilingFactor;
+		_data.quadVertexBufferPtr++;
+
+
+		_data.quadVertexBufferPtr->pos = {pos.x, pos.y + size.y, 0.0f};
+		_data.quadVertexBufferPtr->color = color;
+		_data.quadVertexBufferPtr->texCoord = {0.0f, 1.0f};
+		_data.quadVertexBufferPtr->texIndex = textureIndex;
+		_data.quadVertexBufferPtr->tilingFactor = tilingFactor;
+		_data.quadVertexBufferPtr++;
+
+
+		_data.quadIndexCount += 6;
+
+
+
+
+
+
+
+
+
+
+
+		/*
 		_data.textureShader->setFloat4("u_Color", tintColor);
 		_data.textureShader->setFloat("u_TilingFactor", tilingFactor);
 		texture->bind();
-		
 		glm::mat4 transform = glm::translate(glm::mat4(1.0f), pos) * glm::scale(glm::mat4(1.0f), {size.x, size.y, 1.0f});
-		
 		_data.textureShader->setMat4("u_Transform", transform);
-
-		// Actual draw call
 		_data.quadVertexArray->bind();
 		RendererCommand::drawIndexed(_data.quadVertexArray);
+		*/
 	}
 	
 	void Renderer2D::drawRotatedQuad(const glm::vec2& pos, const glm::vec2& size, float rotation, const glm::vec4& color){

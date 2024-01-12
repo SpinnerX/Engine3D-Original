@@ -19,7 +19,11 @@ namespace RendererEngine{
 
 		virtual void setData(void* data, uint32_t size) override;
 
-        virtual void bind(GLenum bind = GL_TEXTURE_2D) const override; 
+        virtual void bind(GLenum bind = GL_TEXTURE_2D) const override;
+
+		virtual bool operator==(const Texture& other) const override{
+			return _rendererID == ((OpenGLTexture2D &)other)._rendererID;
+		}
 
     private:
         std::string _filepath;
