@@ -12,6 +12,8 @@ namespace RendererEngine{
 		static void beginScene(const OrthographicCamera& camera);
 		static void endScene();
 
+		static void flush();
+
 		/*
 		 * Small NOTE: These are drawQuads for colors and textures.
 		 * drawQuad

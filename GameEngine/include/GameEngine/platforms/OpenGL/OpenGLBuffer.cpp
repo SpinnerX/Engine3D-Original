@@ -14,6 +14,14 @@ namespace RendererEngine{
         glBindBuffer(GL_ARRAY_BUFFER, _rendererID);
 		glBufferData(GL_ARRAY_BUFFER, size, vertices, GL_STATIC_DRAW);
     }
+	
+	OpenGLVertexBuffer::OpenGLVertexBuffer(uint32_t size){
+		RENDER_PROFILE_FUNCTION();
+
+		glGenBuffers(1, &_rendererID);
+		glBindBuffer(GL_ARRAY_BUFFER, _rendererID);
+		glBufferData(GL_ARRAY_BUFFER, size, nullptr, GL_DYNAMIC_DRAW); // Going to work because we know the data is going to be dynamic
+	}
 
     OpenGLVertexBuffer::~OpenGLVertexBuffer() {
 		RENDER_PROFILE_FUNCTION();
@@ -32,6 +40,10 @@ namespace RendererEngine{
 
         glBindBuffer(GL_ARRAY_BUFFER, 0);
     }
+	void OpenGLVertexBuffer::setData(const void* data, uint32_t size){
+		glBindBuffer(GL_ARRAY_BUFFER, _rendererID);
+		glBufferSubData(GL_ARRAY_BUFFER, 0, size, data);
+	}
 
     /// -------------------------------------------------
     /// ---------------- [ Index Buffer] ----------------
