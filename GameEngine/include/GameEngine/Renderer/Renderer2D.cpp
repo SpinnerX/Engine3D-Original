@@ -16,9 +16,9 @@ namespace RendererEngine{
 
 	// This data wont get deleted unless we delete this manually.
 	struct Renderer2DData{
-		const uint32_t maxQuads = 10000; // max for how many quads we can Render
-		const uint32_t maxVertices = maxQuads * 4; // max of vertices we can have every single draw quad
-		const uint32_t maxIndices = maxQuads * 6; // Since we have around 6 indices per quad
+		static const uint32_t maxQuads = 10000; // max for how many quads we can Render
+		static const uint32_t maxVertices = maxQuads * 4; // max of vertices we can have every single draw quad
+		static const uint32_t maxIndices = maxQuads * 6; // Since we have around 6 indices per quad
 		static const uint32_t maxTextureSlots = 16; // Mac = 16, Windows maybe = 32.
 		Ref<VertexArray> quadVertexArray;
 		Ref<VertexBuffer> quadVertexBuffer;
@@ -31,6 +31,8 @@ namespace RendererEngine{
 		std::array<Ref<Texture2D>, maxTextureSlots> textureSlots;
 		uint32_t textureSlotIndex = 1; // 0 - white texture
 		glm::vec4 quadVertexPositions[4];
+
+		Renderer2D::Statistics stats;
 	};
 
 	static Renderer2DData _data; // So this could be unique to this translation unit
@@ -146,7 +148,16 @@ namespace RendererEngine{
 			_data.textureSlots[i]->bind(i);
 		
 		RendererCommand::drawIndexed(_data.quadVertexArray, _data.quadIndexCount);
+		_data.stats.drawCalls++;
+	}
 
+	void Renderer2D::flushAndReset(){
+		endScene();
+		_data.quadIndexCount = 0;
+		_data.quadVertexBufferPtr = _data.quadVertexBufferBase; // Keeping track o our base memory allocations
+		
+		_data.textureSlotIndex = 1;
+		
 	}
 
 	void Renderer2D::drawQuad(const glm::vec2& pos, const glm::vec2& size, const glm::vec4& color){
@@ -155,6 +166,11 @@ namespace RendererEngine{
 	
 	void Renderer2D::drawQuad(const glm::vec3& pos, const glm::vec2& size, const glm::vec4& color){
 		RENDER_PROFILE_FUNCTION();
+		
+		// To prevent overflow.
+		if(_data.quadIndexCount >= Renderer2DData::maxIndices){
+			flushAndReset();
+		}
 		
 		const float textureIndex = 0.0f; // Being our white texture
 		const float tilingFactor = 1.0f;
@@ -196,19 +212,7 @@ namespace RendererEngine{
 
 		_data.quadIndexCount += 6;
 
-		/*_data.textureShader->setFloat4("u_Color", color);
-		_data.textureShader->setFloat("u_TilingFactor", 1.0f);
-		// Bind white texture here
-		_data.whiteTexture->bind();
-		*/
-		
-		// Uncomment this to see to see the effect of rotation...
-		/*glm::mat4 transform = glm::translate(glm::mat4(1.0f), pos) *
-							  glm::scale(glm::mat4(1.0f), {size.x, size.y, 1.0f});
-		_data.textureShader->setMat4("u_Transform", transform);
-		_data.quadVertexArray->bind();
-		RendererCommand::drawIndexed(_data.quadVertexArray);
-		*/
+		_data.stats.quadCount++;
 	}
 	
 	void Renderer2D::drawQuad(const glm::vec2& pos, const glm::vec2& size, const Ref<Texture2D>& texture, float tilingFactor, const glm::vec4& tintColor){
@@ -217,8 +221,10 @@ namespace RendererEngine{
 
 	void Renderer2D::drawQuad(const glm::vec3& pos, const glm::vec2& size, const Ref<Texture2D>& texture, float tilingFactor, const glm::vec4& tintColor){
 		RENDER_PROFILE_FUNCTION();
-		// This is how we are going to be drawing the texture onto the objects
-		// - By first binding that texture, then when we bind that texture to that shader.
+		// To prevent overflow.
+		if(_data.quadIndexCount >= Renderer2DData::maxIndices){
+			flushAndReset();
+		}
 		
 		constexpr glm::vec4 color = {1.0f, 1.0f, 1.0f, 1.0f};
 
@@ -278,6 +284,7 @@ namespace RendererEngine{
 
 
 
+		_data.stats.quadCount++;
 
 
 
@@ -293,6 +300,10 @@ namespace RendererEngine{
 	
 	void Renderer2D::drawRotatedQuad(const glm::vec3& pos, const glm::vec2& size, float rotation, const glm::vec4& color){
 		RENDER_PROFILE_FUNCTION();
+		// To prevent overflow.
+		if(_data.quadIndexCount >= Renderer2DData::maxIndices){
+			flushAndReset();
+		}
 
 		const float textureIndex = 0.0f; // Being our white texture
 		const float tilingFactor = 1.0f;
@@ -339,28 +350,12 @@ namespace RendererEngine{
 
 
 
+		_data.stats.quadCount++;
 
 
 
 
 
-
-		/*
-		_data.textureShader->setFloat4("u_Color", color);
-		_data.textureShader->setFloat("u_TilingFactor", 1.0f);
-		// Bind white texture here
-		_data.whiteTexture->bind();
-		// This is how we are going to do transformation
-		// Since we aren't doing rotation, we are handling Translation(position) and Scale (size)
-		// Whereas mat4(1.0f) is going to be our identity matrix
-		glm::mat4 transform = glm::translate(glm::mat4(1.0f), pos) 
-							  * glm::rotate(glm::mat4(1.0f), rotation, {0.0f, 0.0f, 1.0f})
-							  * glm::scale(glm::mat4(1.0f), {size.x, size.y, 1.0f});
-		_data.textureShader->setMat4("u_Transform", transform);
-
-		_data.quadVertexArray->bind();
-		RendererCommand::drawIndexed(_data.quadVertexArray);
-		*/
 	}
 
 	void Renderer2D::drawRotatedQuad(const glm::vec2& pos, const glm::vec2& size, float rotation, const Ref<Texture2D>& texture, float tilingFactor, const glm::vec4& tintColor){
@@ -369,6 +364,10 @@ namespace RendererEngine{
 
 	void Renderer2D::drawRotatedQuad(const glm::vec3& pos, const glm::vec2& size, float rotation, const Ref<Texture2D>& texture, float tilingFactor, const glm::vec4& tintColor){
 		RENDER_PROFILE_FUNCTION();
+		// To prevent overflow.
+		if(_data.quadIndexCount >= Renderer2DData::maxIndices){
+			flushAndReset();
+		}
 
 
 
@@ -433,6 +432,7 @@ namespace RendererEngine{
 
 
 
+		_data.stats.quadCount++;
 
 
 
@@ -442,21 +442,11 @@ namespace RendererEngine{
 
 
 
+	}
 
-		/*_data.textureShader->setFloat4("u_Color", tintColor);
-		_data.textureShader->setFloat("u_TilingFactor", tilingFactor);
-		// Bind texture here
-		texture->bind();
-		// This is how we are going to do transformation
-		// Since we aren't doing rotation, we are handling Translation(position) and Scale (size)
-		// Whereas mat4(1.0f) is going to be our identity matrix
-		glm::mat4 transform = glm::translate(glm::mat4(1.0f), pos) 
-							  * glm::rotate(glm::mat4(1.0f), rotation, {0.0f, 0.0f, 1.0f})
-							  * glm::scale(glm::mat4(1.0f), {size.x, size.y, 1.0f});
-		_data.textureShader->setMat4("u_Transform", transform);
+	Renderer2D::Statistics Renderer2D::getStats(){ return _data.stats; }
 
-		_data.quadVertexArray->bind();
-		RendererCommand::drawIndexed(_data.quadVertexArray);
-		*/
+	void Renderer2D::resetStats(){
+		memset(&_data.stats, 0, sizeof(Statistics));
 	}
 };
