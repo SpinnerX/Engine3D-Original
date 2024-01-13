@@ -6,6 +6,7 @@ GameLayer::GameLayer() : Layer("GameLayer"), _cameraController(1280.0f / 720.0f)
 void GameLayer::onAttach() {
 	RENDER_PROFILE_FUNCTION();
 	_checkerboardTexture = RendererEngine::Texture2D::Create("assets/Checkerboard.png");
+	_spriteSheet = RendererEngine::Texture2D::Create("assets/textures/RPGpack_sheet_2X.png");
 		
 	_particle.colorBegin = { 254 / 255.0f, 212 / 255.0f, 123 / 255.0f, 1.0f };
 	_particle.colorEnd = { 254 / 255.0f, 109 / 255.0f, 41 / 255.0f, 1.0f };
@@ -31,7 +32,7 @@ void GameLayer::onUpdate(RendererEngine::Timestep ts) {
 	}
 
 
-	
+#if 0	
 	{
 		static float rotation = 0.0f;
 		rotation += ts * 50.0f;
@@ -60,7 +61,7 @@ void GameLayer::onUpdate(RendererEngine::Timestep ts) {
 	}
 
 	RendererEngine::Renderer2D::endScene();
-
+#endif
 
 
 
@@ -80,9 +81,14 @@ void GameLayer::onUpdate(RendererEngine::Timestep ts) {
 			_particleSystem.emit(_particle);
 	}
 
+
 	_particleSystem.onUpdate(ts);
 	_particleSystem.onRender(_cameraController.getCamera());
+	RendererEngine::Renderer2D::beginScene(_cameraController.getCamera());
 
+	RendererEngine::Renderer2D::drawQuad({0.0f, 0.0f, 0.5f}, {1.0f, 1.0f}, _spriteSheet); // checkerboard texture shape
+
+	RendererEngine::Renderer2D::endScene();
 }
 
 void GameLayer::onImguiRender(){
