@@ -12,7 +12,7 @@ namespace RendererEngine{
     static bool _glfwInitialized = false;
 
     static void GLFWErrorCallback(int error, const char* description){
-        coreLogError("GLFW Error ({}): {}", error, description);
+        coreLogError("GLFWErrorCallback MSG --- (Error Code -> {}): {}", error, description);
     }
 
     Window* Window::create(const WindowProps& props){
@@ -47,7 +47,6 @@ namespace RendererEngine{
             // TODO: glfwTerminate on system shutfown
             // Have to specify these on macOS
             // to prevent 1200x800 from becoming 2400x1600
-            // glfwWindowHint(GLFW_COCOA_RETINA_FRAMEBUFFER, GLFW_FALSE);
             int success = glfwInit();
             render_core_assert(success, "Could not initialize GLFW!"); // Chhecking if glfw initialized successfully and then set that variable to true
             // Setting an error callback
@@ -72,7 +71,6 @@ namespace RendererEngine{
         //      platform dependent Renderer Context like D3DContext(), then it could do that
         // - Meaning we would just need to implement Init() and SwapBuffers(), to support that platform
         //  and things would work
-        /* _context = new RendererContext(_window); */
 		_context = CreateScope<OpenGLContext>(_window);
         _context->Init();
 
@@ -115,19 +113,19 @@ namespace RendererEngine{
             switch(action){
                 case GLFW_PRESS:
                 {
-                    KeyPressedEvent event(key, 0);
+                    KeyPressedEvent event(static_cast<KeyCode>(key), 0);
                     data.callback(event);
                     break;
                 }
                 case GLFW_RELEASE:
                 {
-                    KeyReleasedEvent event(key);
+                    KeyReleasedEvent event(static_cast<KeyCode>(key));
                     data.callback(event);
                     break;
                 }
                 case GLFW_REPEAT:
                 {
-                    KeyPressedEvent event(key, 1);
+                    KeyPressedEvent event(static_cast<KeyCode>(key), 1);
                     data.callback(event);
                     break;
                 }
@@ -139,7 +137,7 @@ namespace RendererEngine{
         // NOTE: keycode is the character that we are currently typing
         glfwSetCharCallback(_window, [](GLFWwindow* window, unsigned int keycode){
             WindowData& data =  *(WindowData *)glfwGetWindowUserPointer(window);
-            KeyTypedEvent event(keycode);
+            KeyTypedEvent event(static_cast<KeyCode>(keycode));
             data.callback(event);
         });
 
@@ -150,13 +148,13 @@ namespace RendererEngine{
             switch(action){
                 case GLFW_PRESS:
                 {
-                    MouseButtonPressedEvent event(button);
+                    MouseButtonPressedEvent event(static_cast<MouseCode>(button));
                     data.callback(event);
                     break;
                 }
                 case GLFW_RELEASE:
                 {
-                    MouseButtonReleasedEvent event(button);
+                    MouseButtonReleasedEvent event(static_cast<MouseCode>(button));
                     data.callback(event);
                     break;
                 }
