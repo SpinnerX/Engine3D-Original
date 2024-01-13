@@ -4,7 +4,11 @@
 #include <GameEngine/Core/KeyCodes.h>
 
 namespace RendererEngine{
-	OrthographicCameraController::OrthographicCameraController(float aspectRatio, bool rotation) : _aspectRatio(aspectRatio), _camera(-_aspectRatio * _zoomLevel, _aspectRatio * _zoomLevel, -_zoomLevel, _zoomLevel), _rotation(rotation) {
+	
+	// Quick NOTE: Redundant and should probably change how we initialize, because for some reason _bounds keeps getting considered uninitialized when initializing  with constructor using : _bounds(...) 
+	OrthographicCameraController::OrthographicCameraController(float aspectRatio, bool rotation) : _aspectRatio(aspectRatio), _rotation(rotation), _camera(-_aspectRatio * _zoomLevel, _aspectRatio * _zoomLevel, -_zoomLevel, _zoomLevel){
+        _bounds = OrthographicCameraBounds(-_aspectRatio * _zoomLevel, _aspectRatio * _zoomLevel, -_zoomLevel, _zoomLevel);
+        _camera = OrthographicCamera(_bounds.left, _bounds.right, _bounds.bottom, _bounds.top);
 	}
 
 	// A way to control our cameras
@@ -12,16 +16,20 @@ namespace RendererEngine{
 		RENDER_PROFILE_FUNCTION();
 
         if(InputPoll::isKeyPressed(RENDER_KEY_D)){ // RIGHT
-            _cameraPosition.x -= _cameraTranslationSpeed * ts;
+			_cameraPosition.x -= std::cos(glm::radians(_cameraRotation)) * _cameraTranslationSpeed * ts;
+			_cameraPosition.y -= std::sin(glm::radians(_cameraRotation)) * _cameraTranslationSpeed * ts;
         }
         else if(InputPoll::isKeyPressed(RENDER_KEY_A)){ // LEFT
-            _cameraPosition.x += _cameraTranslationSpeed * ts;
+			_cameraPosition.x += std::cos(glm::radians(_cameraRotation)) * _cameraTranslationSpeed * ts;
+			_cameraPosition.y += std::sin(glm::radians(_cameraRotation)) * _cameraTranslationSpeed * ts;
         }
         else if(InputPoll::isKeyPressed(RENDER_KEY_W)){ // UP
-            _cameraPosition.y -= _cameraTranslationSpeed * ts;
+			_cameraPosition.x += -std::sin(glm::radians(_cameraRotation)) * _cameraTranslationSpeed * ts;
+			_cameraPosition.y += std::cos(glm::radians(_cameraRotation)) * _cameraTranslationSpeed * ts;
         }
         else if(InputPoll::isKeyPressed(RENDER_KEY_S)){ // DOWN
-            _cameraPosition.y += _cameraTranslationSpeed * ts;
+			_cameraPosition.x -= -std::sin(glm::radians(_cameraRotation)) * _cameraTranslationSpeed * ts;
+			_cameraPosition.y -= std::cos(glm::radians(_cameraRotation)) * _cameraTranslationSpeed * ts;
         }
 		
 		// Checking if we set the rotation speed
@@ -35,6 +43,11 @@ namespace RendererEngine{
 				_cameraRotation += _cameraRotationSpeed * ts;
 			}
 			
+			if(_cameraRotation > 180.0f)
+				_cameraRotation -= 360.0f;
+			else if(_cameraRotation <= -180.0f)
+				_cameraRotation += 360.0f;
+
 			// Then we set the camera rotation
 			_camera.setRotation(_cameraRotation);
 		}
@@ -57,16 +70,17 @@ namespace RendererEngine{
 
 		_zoomLevel -= e.GetYOffset() * 0.25f; // Modify thihs const offset for window resized event event
 		
-		// NOTE: When zooming too far out or too close, you eventually end up flipping your view upside down.
 		_zoomLevel = std::max(_zoomLevel, 0.25f); // This allows us to control our offsets for our zooming level, making sure we don't zoom too far our or zooming in too close.
-		_camera.setProjection(-_aspectRatio * _zoomLevel, _aspectRatio * _zoomLevel, -_zoomLevel, _zoomLevel);
+		_bounds = { -_aspectRatio * _zoomLevel, _aspectRatio * _zoomLevel, -_zoomLevel, _zoomLevel };
+		_camera.setProjection(_bounds.left, _bounds.right, _bounds.bottom, _bounds.top);
 		return false;
 	}
 
 	bool OrthographicCameraController::onWindowResized(WindowResizeEvent& e){
 		RENDER_PROFILE_FUNCTION();
 		_aspectRatio = (float)e.GetWidth() / (float)e.GetHeight();
-		_camera.setProjection(-_aspectRatio * _zoomLevel, _aspectRatio * _zoomLevel, -_zoomLevel, _zoomLevel);
+		_bounds = { -_aspectRatio * _zoomLevel, _aspectRatio * _zoomLevel, -_zoomLevel, _zoomLevel };
+		_camera.setProjection(_bounds.left, _bounds.right, _bounds.bottom, _bounds.top);
 		return false;
 	}
 };

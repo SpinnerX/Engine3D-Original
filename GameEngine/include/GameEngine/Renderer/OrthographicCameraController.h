@@ -7,6 +7,19 @@
 
 
 namespace RendererEngine{
+	// Knowing bounds of the camera itself.	
+	struct OrthographicCameraBounds{
+		OrthographicCameraBounds() = default;
+		OrthographicCameraBounds(float _left, float _right, float _bottom, float _top) : left(_left), right(_right), bottom(_bottom), top(_top) {}
+
+		float left;
+		float right;
+		float bottom;
+		float top;
+
+		float getWidth() { return right - left; }
+		float getHeight() { return top - bottom; }
+	};
 
 	class OrthographicCameraController{
 	public:	
@@ -19,6 +32,8 @@ namespace RendererEngine{
 
 		OrthographicCamera& getCamera() { return _camera; }
 		OrthographicCamera getCamera() const { return _camera; }
+
+		const OrthographicCameraBounds& getBounds() const { return _bounds; }
 		
 		float getZoomLevel() const { return _zoomLevel; }
 		void setZoomLevel(float level) { _zoomLevel = level; }
@@ -31,6 +46,7 @@ namespace RendererEngine{
 		float _aspectRatio;
 		float _zoomLevel = 1.f; // Higher zoom level is, the further out you zoomed inwards.
 		OrthographicCamera _camera;
+		OrthographicCameraBounds _bounds;
 
 		bool _rotation;
 		glm::vec3 _cameraPosition = {0.f, 0.f, 0.f};
