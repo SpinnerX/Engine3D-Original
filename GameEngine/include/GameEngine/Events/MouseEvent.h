@@ -1,5 +1,6 @@
 #pragma once
 #include <GameEngine/Events/Event.h>
+#include <GameEngine/Core/InputPoll.h>
 
 namespace RendererEngine{
     // MouseMovedEvent
@@ -73,7 +74,7 @@ namespace RendererEngine{
     // Since this is just a base class for MouseButtonPressed and MouseButtonReleased
     class RENDER_API MouseButtonEvent : public Event{
     public:
-        inline int GetMouseButton() const { return _button; }
+        inline MouseCode GetMouseButton() const { return _button; }
 
         // We want to set by default that whenever we are pressing/releasing the category is that this is
         // mouse and grabbing input
@@ -84,19 +85,19 @@ namespace RendererEngine{
     protected:
         // protected because we shouldn't be allowed to create this MouseButtonEvent.
         // Only MouseButtonPressed and MouseButtonReleased can use this.
-        MouseButtonEvent(int button) : _button(button) {}
+        MouseButtonEvent(MouseCode button) : _button(button) {}
 
-        int _button; // containing our button hhere
+        MouseCode _button; // containing our button hhere
     };
 
     class RENDER_API MouseButtonPressedEvent : public MouseButtonEvent {
     public:
-        MouseButtonPressedEvent(int button) : MouseButtonEvent(button) {}
+        MouseButtonPressedEvent(MouseCode button) : MouseButtonEvent(button) {}
 
         std::string toString() const override {
             // return formatCpp::format("MouseButtonPressedEvent: {}", _button);
             std::stringstream ss;
-            ss << fmt::format("MouseButtonPressedEvent: {}", _button);
+            ss << fmt::format("MouseButtonPressedEvent: {}", static_cast<int32_t>(_button));
             return ss.str();
         }
 
@@ -110,12 +111,11 @@ namespace RendererEngine{
 
     class RENDER_API MouseButtonReleasedEvent : public MouseButtonEvent {
     public:
-        MouseButtonReleasedEvent(int button) : MouseButtonEvent(button) {}
+        MouseButtonReleasedEvent(MouseCode button) : MouseButtonEvent(button) {}
 
         std::string toString() const override {
-            // return formatCpp::format("MouseButtonReleasedEvent: {}", _button);
             std::stringstream ss;
-            ss << fmt::format("MouseButtonReleasedEvent: {}", _button);
+            ss << fmt::format("MouseButtonReleasedEvent: {}", static_cast<int32_t>(_button));
             return ss.str();
         }
 

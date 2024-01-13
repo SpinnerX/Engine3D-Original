@@ -1,11 +1,12 @@
 #pragma once
 #include <GameEngine/Events/Event.h>
+#include <GameEngine/Core/InputPoll.h>
 
 namespace RendererEngine{
     // KeyEvent Base Class
     class RENDER_API KeyEvent : public Event{
     public:
-        inline virtual int GetKeyCode() const {
+        inline virtual KeyCode GetKeyCode() const {
             return _keyCode;
         }
 
@@ -16,9 +17,9 @@ namespace RendererEngine{
     protected:
         // Have this protected constructor
         // Because you shouldn't be able to create a KeyEvent, essentially
-        KeyEvent(int keycode) : _keyCode(keycode) {}
+        KeyEvent(KeyCode keycode) : _keyCode(keycode) {}
 
-        int _keyCode;
+       KeyCode  _keyCode;
     };
 
     // Handling when a key event has been pressed.  (It is a type of KeyEvent)
@@ -26,15 +27,13 @@ namespace RendererEngine{
     // Thinking of hhaving repeatCount.
     class RENDER_API KeyPressedEvent : public KeyEvent{
     public:
-        KeyPressedEvent(int keycode, int repeatCount) : KeyEvent(keycode), _repeatCount(repeatCount) {}
+        KeyPressedEvent(KeyCode keycode, int repeatCount) : KeyEvent(keycode), _repeatCount(repeatCount) {}
 
         inline int GetRepeatCount() const { return _repeatCount; }
 
         std::string toString() const override{
             std::stringstream ss;
-            // ss << formatCpp::format("KeyPressed Event: {} ({} repeats)",  _keyCode, _repeatCount);
-            // return formatCpp::format("KeyPressed Event: {} ({} repeats)",  _keyCode, _repeatCount);
-            ss << fmt::format("KeyPressedEvent: {} ({} repeats)", _keyCode, _repeatCount);
+            ss << fmt::format("KeyPressedEvent: {} ({} repeats)", static_cast<int32_t>(_keyCode), _repeatCount);
             return ss.str();
         }
 
@@ -51,12 +50,11 @@ namespace RendererEngine{
 
     class  RENDER_API KeyReleasedEvent : public KeyEvent{
     public:
-        KeyReleasedEvent(int keycode) : KeyEvent(keycode){}
+        KeyReleasedEvent(KeyCode keycode) : KeyEvent(keycode){}
 
         std::string toString() const override {
-            // return formatCpp::format("KeyReleasedEvent: {}", _keyCode);
             std::stringstream ss;
-            ss << fmt::format("KeyReleasedEvent: {}", _keyCode);
+            ss << fmt::format("KeyReleasedEvent: {}", static_cast<int32_t>(_keyCode));
             return ss.str();
         }
 
@@ -70,11 +68,11 @@ namespace RendererEngine{
 
     class RENDER_API KeyTypedEvent : public KeyEvent{
     public:
-        KeyTypedEvent(int keycode) : KeyEvent(keycode) {}
+        KeyTypedEvent(KeyCode keycode) : KeyEvent(keycode) {}
 
         std::string toString() const override{
             std::stringstream ss;
-            ss << fmt::format("KeyTypedEvent: {}", _keyCode);
+            ss << fmt::format("KeyTypedEvent: {}", static_cast<int32_t>(_keyCode));
             return ss.str();
         }
 
