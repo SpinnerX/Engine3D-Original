@@ -10,7 +10,7 @@ void GameLayer::onAttach() {
 	_particle.colorBegin = { 254 / 255.0f, 212 / 255.0f, 123 / 255.0f, 1.0f };
 	_particle.colorEnd = { 254 / 255.0f, 109 / 255.0f, 41 / 255.0f, 1.0f };
 	_particle.sizeBegin = 0.5f, _particle.sizeVariation = 0.3f, _particle.sizeEnd = 0.0f;
-	_particle.lifetime = 5.0f;
+	_particle.lifetime = 1.0f;
 	_particle.velocity = { 0.0f, 0.0f };
 	_particle.velocityVariation = { 3.0f, 1.0f };
 	_particle.pos = { 0.0f, 0.0f };
