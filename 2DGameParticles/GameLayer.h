@@ -22,6 +22,7 @@ private:
 	RendererEngine::Ref<RendererEngine::Shader> _flatColotShader;
 
 	RendererEngine::Ref<RendererEngine::Texture2D> _checkerboardTexture;
+	RendererEngine::Ref<RendererEngine::Texture2D> _spriteSheet;
 
 	glm::vec4 color = {0.2f, 0.3f, 0.8f, 1.0f};
 
