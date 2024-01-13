@@ -4,9 +4,9 @@
 namespace RendererEngine{
     class WindowsInput : public InputPoll{
     protected:
-        bool isKeyPressedImpl(int keycode) override;
+        bool isKeyPressedImpl(KeyCode keycode) override;
 
-        bool isMouseButtonPressedImpl(int button) override;
+        bool isMouseButtonPressedImpl(MouseCode button) override;
 
         float getMouseXImpl() override;
         float getMouseYImpl() override;
