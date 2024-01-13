@@ -74,6 +74,7 @@ endif(APPLE)
 
 add_subdirectory(Sandbox)
 add_subdirectory(RocketGame)
+add_subdirectory(2DGame)
 
 add_library(${PROJECT_NAME} SHARED ${all_src})
 add_library(Engine::Engine ALIAS ${PROJECT_NAME}) # Allows to alias the library
