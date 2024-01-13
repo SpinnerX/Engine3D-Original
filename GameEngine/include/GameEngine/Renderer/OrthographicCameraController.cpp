@@ -15,11 +15,11 @@ namespace RendererEngine{
 	void OrthographicCameraController::onUpdate(Timestep ts){
 		RENDER_PROFILE_FUNCTION();
 
-        if(InputPoll::isKeyPressed(RENDER_KEY_D)){ // RIGHT
+        if(InputPoll::isKeyPressed(RENDER_KEY_A)){ // RIGHT
 			_cameraPosition.x -= std::cos(glm::radians(_cameraRotation)) * _cameraTranslationSpeed * ts;
 			_cameraPosition.y -= std::sin(glm::radians(_cameraRotation)) * _cameraTranslationSpeed * ts;
         }
-        else if(InputPoll::isKeyPressed(RENDER_KEY_A)){ // LEFT
+        else if(InputPoll::isKeyPressed(RENDER_KEY_D)){ // LEFT
 			_cameraPosition.x += std::cos(glm::radians(_cameraRotation)) * _cameraTranslationSpeed * ts;
 			_cameraPosition.y += std::sin(glm::radians(_cameraRotation)) * _cameraTranslationSpeed * ts;
         }
