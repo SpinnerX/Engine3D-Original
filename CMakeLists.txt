@@ -89,7 +89,8 @@ target_include_directories(
   ${PROJECT_SOURCE_DIR}/GameEngine/include/GameEngine
 )
 
-file(COPY assets DESTINATION ${CMAKE_BINARY_DIR})
+# file(COPY assets DESTINATION ${CMAKE_BINARY_DIR})
+file(COPY Sandbox/assets DESTINATION ${CMAKE_BINARY_DIR})
 
 # This is how you can have precompiled headers
 # This allows for faster compile time
