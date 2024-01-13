@@ -41,17 +41,7 @@ namespace RendererEngine{
 		RENDER_PROFILE_FUNCTION();
 		_data.quadVertexArray = VertexArray::Create();
 
-		/* float squareVertices[5 * 4] = { */
-		/* 	-0.5f, -0.5f, 0.0f, 0.0f, 0.0f, */
-		/* 	0.5f, -0.5f, 0.0f, 1.0f, 0.0f, */
-		/* 	0.5f,  0.5f, 0.0f, 1.0f, 1.0f, */
-		/* 	-0.5f,  0.5f, 0.0f, 0.0f, 1.0f */
-		/* }; */
-
-		/* Ref<VertexBuffer> quadVB = VertexBuffer::Create(squareVertices, sizeof(squareVertices)); // NOTE: Old vers*/
 		_data.quadVertexBuffer = VertexBuffer::Create(_data.maxVertices * sizeof(quadVertex));
-		/* quadVB.reset(VertexBuffer::Create(squareVertices, sizeof(squareVertices))); // Segfaults does not work */
-		/* quadVB.reset(VertexBuffer::Create(sizeof(squareVertices))); // OLD VERS */
 		
 		_data.quadVertexBuffer->setLayout({
 			{ ShaderDataType::Float3, "a_Position" },
@@ -63,8 +53,6 @@ namespace RendererEngine{
 
 		_data.quadVertexArray->addVertexBuffer(_data.quadVertexBuffer);
 		
-
-
 		_data.quadVertexBufferBase = new quadVertex[_data.maxVertices * sizeof(quadVertex)];
 
 
@@ -111,7 +99,6 @@ namespace RendererEngine{
 
 	void Renderer2D::Shutdown(){
 		RENDER_PROFILE_FUNCTION();
-		/* delete _data; // dont want to automatically delete this (ref to using smart ptrs), because we want them deleted when the 2D renderer shuts down. */
 	}
 
 	void Renderer2D::beginScene(const OrthographicCamera& camera){
@@ -209,7 +196,6 @@ namespace RendererEngine{
 		_data.quadVertexBufferPtr->tilingFactor = tilingFactor;
 		_data.quadVertexBufferPtr++;
 
-
 		_data.quadIndexCount += 6;
 
 		_data.stats.quadCount++;
@@ -278,20 +264,9 @@ namespace RendererEngine{
 		_data.quadVertexBufferPtr->tilingFactor = tilingFactor;
 		_data.quadVertexBufferPtr++;
 
-
 		_data.quadIndexCount += 6;
 
-
-
-
 		_data.stats.quadCount++;
-
-
-
-
-
-
-
 	}
 	
 	void Renderer2D::drawRotatedQuad(const glm::vec2& pos, const glm::vec2& size, float rotation, const glm::vec4& color){
@@ -309,7 +284,7 @@ namespace RendererEngine{
 		const float tilingFactor = 1.0f;
 
 		glm::mat4 transform = glm::translate(glm::mat4(1.0f), pos)
-							  * glm::rotate(glm::mat4(1.0f), glm::radians(rotation), {0.0f, 0.0f, 1.0f})
+							  * glm::rotate(glm::mat4(1.0f), rotation, {0.0f, 0.0f, 1.0f})
 							  * glm::scale(glm::mat4(1.0f), {size.x, size.y, 1.0f});
 
 		_data.quadVertexBufferPtr->pos = transform * _data.quadVertexPositions[0];
@@ -326,15 +301,12 @@ namespace RendererEngine{
 		_data.quadVertexBufferPtr->tilingFactor = tilingFactor;
 		_data.quadVertexBufferPtr++;
 
-
-
 		_data.quadVertexBufferPtr->pos = transform * _data.quadVertexPositions[2];
 		_data.quadVertexBufferPtr->color = color;
 		_data.quadVertexBufferPtr->texCoord = {1.0f, 1.0f};
 		_data.quadVertexBufferPtr->texIndex = textureIndex;
 		_data.quadVertexBufferPtr->tilingFactor = tilingFactor;
 		_data.quadVertexBufferPtr++;
-
 
 		_data.quadVertexBufferPtr->pos = transform * _data.quadVertexPositions[3];
 		_data.quadVertexBufferPtr->color = color;
@@ -343,18 +315,9 @@ namespace RendererEngine{
 		_data.quadVertexBufferPtr->tilingFactor = tilingFactor;
 		_data.quadVertexBufferPtr++;
 
-
 		_data.quadIndexCount += 6;
 
-
-
-
-
 		_data.stats.quadCount++;
-
-
-
-
 
 	}
 
@@ -369,10 +332,7 @@ namespace RendererEngine{
 			flushAndReset();
 		}
 
-
-
 		constexpr glm::vec4 color = {1.0f, 1.0f, 1.0f, 1.0f};
-
 
 		float textureIndex = 0.0f;
 		// Searching for texture index in our array.
@@ -389,9 +349,8 @@ namespace RendererEngine{
 			_data.textureSlotIndex++;
 		}
 
-
 		glm::mat4 transform = glm::translate(glm::mat4(1.0f), pos)
-							  * glm::rotate(glm::mat4(1.0f), glm::radians(rotation), {0.0f, 0.0f, 1.0f})
+							  * glm::rotate(glm::mat4(1.0f), rotation, {0.0f, 0.0f, 1.0f})
 							  * glm::scale(glm::mat4(1.0f), {size.x, size.y, 1.0f});
 
 		_data.quadVertexBufferPtr->pos = transform * _data.quadVertexPositions[0];
@@ -408,15 +367,12 @@ namespace RendererEngine{
 		_data.quadVertexBufferPtr->tilingFactor = tilingFactor;
 		_data.quadVertexBufferPtr++;
 
-
-
 		_data.quadVertexBufferPtr->pos = transform * _data.quadVertexPositions[2];
 		_data.quadVertexBufferPtr->color = color;
 		_data.quadVertexBufferPtr->texCoord = {1.0f, 1.0f};
 		_data.quadVertexBufferPtr->texIndex = textureIndex;
 		_data.quadVertexBufferPtr->tilingFactor = tilingFactor;
 		_data.quadVertexBufferPtr++;
-
 
 		_data.quadVertexBufferPtr->pos = transform * _data.quadVertexPositions[3];
 		_data.quadVertexBufferPtr->color = color;
@@ -425,23 +381,9 @@ namespace RendererEngine{
 		_data.quadVertexBufferPtr->tilingFactor = tilingFactor;
 		_data.quadVertexBufferPtr++;
 
-
 		_data.quadIndexCount += 6;
 
-
-
-
-
 		_data.stats.quadCount++;
-
-
-
-
-
-
-
-
-
 	}
 
 	Renderer2D::Statistics Renderer2D::getStats(){ return _data.stats; }

@@ -25,6 +25,9 @@ namespace RendererEngine{
 		 * @tilingFactor = is the offset for how many tiles can be rendered via GPU
 		 * @tintColor = sets the rgba channels value for specifying the color to tint that object
 		 *
+		 *
+		 * QUICK NOTE: Rotations is in radians.
+		 *
 		*/
 		static void drawQuad(const glm::vec2& pos, const glm::vec2& size, const glm::vec4& color);
 		static void drawQuad(const glm::vec3& pos, const glm::vec2& size, const glm::vec4& color);
