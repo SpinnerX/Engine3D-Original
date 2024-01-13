@@ -1,5 +1,7 @@
 #pragma once
 #include <GameEngine/Core/core.h>
+#include <GameEngine/Core/KeyCodes.h>
+#include <GameEngine/Core/MouseButtonCodes.h>
 
 // InputPoll is going to be static
 // - Where in a sense that there is going to be only one global input kind of manager
@@ -20,7 +22,7 @@ namespace RendererEngine{
         // Taking in a key and checking if it has been pressed
         // creating a singletone called _instance
         // This calls the implementation for Key Pressed that is implemented in WindowsInput
-        inline static bool isKeyPressed(int keycode){
+        inline static bool isKeyPressed(KeyCode keycode){
             return _instance->isKeyPressedImpl(keycode);
         }
 
@@ -28,7 +30,7 @@ namespace RendererEngine{
             return _instance->getMousePositionImpl();
         }
 
-        inline static bool isMouseButtonPressed(int button){
+        inline static bool isMouseButtonPressed(MouseCode button){
             return _instance->isMouseButtonPressedImpl(button);
         }
 
@@ -42,8 +44,8 @@ namespace RendererEngine{
 
     protected:
         // This will be implemented by your interface
-        virtual bool isKeyPressedImpl(int keycode) = 0;
-        virtual bool isMouseButtonPressedImpl(int button) = 0;
+        virtual bool isKeyPressedImpl(KeyCode keycode) = 0;
+        virtual bool isMouseButtonPressedImpl(MouseCode button) = 0;
 
         virtual MousePosition getMousePositionImpl() = 0;
         virtual float getMouseXImpl() = 0;
