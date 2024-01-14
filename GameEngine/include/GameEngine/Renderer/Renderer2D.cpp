@@ -237,6 +237,55 @@ namespace RendererEngine{
 
 		_data.stats.quadCount++;
 	}
+
+	void Renderer2D::drawQuad(const glm::vec2& pos, const glm::vec2& size, const Ref<SubTexture2D>& subTexture, float tilingFactor, const glm::vec4& tintColor){
+		drawQuad({pos.x, pos.y, 0.0f}, size, subTexture, tilingFactor, tintColor);
+	}
+
+	void Renderer2D::drawQuad(const glm::vec3& pos, const glm::vec2& size, const Ref<SubTexture2D>& subTexture, float tilingFactor, const glm::vec4& tintColor){
+		RENDER_PROFILE_FUNCTION();
+		// To prevent overflow.
+		if(_data.quadIndexCount >= Renderer2DData::maxIndices){
+			flushAndReset();
+		}
+		
+		constexpr size_t quadVertexCount = 4;
+		const glm::vec2* textureCoords = subTexture->getTexCoords();
+		const Ref<Texture2D> texture = subTexture->getTexture();
+
+		constexpr glm::vec4 color = {1.0f, 1.0f, 1.0f, 1.0f};
+
+		float textureIndex = 0.0f;
+		// Searching for texture index in our array.
+		for(uint32_t i = 1; i < _data.textureSlotIndex; i++){
+			if(*_data.textureSlots[i].get() == *texture.get()){
+				textureIndex = (float)i;
+				break;
+			}
+		}
+
+		if(textureIndex == 0.0f){
+			textureIndex = (float)_data.textureSlotIndex; // assign to next available texture slot. Should be 1
+			_data.textureSlots[_data.textureSlotIndex] = texture;
+			_data.textureSlotIndex++;
+		}
+
+		glm::mat4 transform = glm::translate(glm::mat4(1.0f), pos)
+							  * glm::scale(glm::mat4(1.0f), {size.x, size.y, 1.0f});
+	
+		for(size_t i = 0; i < quadVertexCount; i++){
+			_data.quadVertexBufferPtr->pos = transform * _data.quadVertexPositions[i];
+			_data.quadVertexBufferPtr->color = color;
+			_data.quadVertexBufferPtr->texCoord = textureCoords[i];
+			_data.quadVertexBufferPtr->texIndex = textureIndex;
+			_data.quadVertexBufferPtr->tilingFactor = tilingFactor;
+			_data.quadVertexBufferPtr++;
+		}
+
+		_data.quadIndexCount += 6;
+
+		_data.stats.quadCount++;
+	}
 	
 	void Renderer2D::drawRotatedQuad(const glm::vec2& pos, const glm::vec2& size, float rotation, const glm::vec4& color){
 		drawRotatedQuad({pos.x, pos.y, 0.0f}, size, rotation, color);
@@ -287,6 +336,56 @@ namespace RendererEngine{
 		
 		constexpr size_t quadVertexCount = 4;
 		constexpr glm::vec2 textureCoords[] = { {0.0f, 0.0f}, {1.0f, 0.0f}, {1.0f, 1.0f}, {0.0f, 1.0f}};
+
+		constexpr glm::vec4 color = {1.0f, 1.0f, 1.0f, 1.0f};
+
+		float textureIndex = 0.0f;
+		// Searching for texture index in our array.
+		for(uint32_t i = 1; i < _data.textureSlotIndex; i++){
+			if(*_data.textureSlots[i].get() == *texture.get()){
+				textureIndex = (float)i;
+				break;
+			}
+		}
+
+		if(textureIndex == 0.0f){
+			textureIndex = (float)_data.textureSlotIndex; // assign to next available texture slot. Should be 1
+			_data.textureSlots[_data.textureSlotIndex] = texture;
+			_data.textureSlotIndex++;
+		}
+
+		glm::mat4 transform = glm::translate(glm::mat4(1.0f), pos)
+							  * glm::rotate(glm::mat4(1.0f), rotation, {0.0f, 0.0f, 1.0f})
+							  * glm::scale(glm::mat4(1.0f), {size.x, size.y, 1.0f});
+	
+		for(size_t i = 0; i < quadVertexCount; i++){
+			_data.quadVertexBufferPtr->pos = transform * _data.quadVertexPositions[i];
+			_data.quadVertexBufferPtr->color = color;
+			_data.quadVertexBufferPtr->texCoord = textureCoords[i];
+			_data.quadVertexBufferPtr->texIndex = textureIndex;
+			_data.quadVertexBufferPtr->tilingFactor = tilingFactor;
+			_data.quadVertexBufferPtr++;
+		}
+
+		_data.quadIndexCount += 6;
+
+		_data.stats.quadCount++;
+	}
+	
+	void Renderer2D::drawRotatedQuad(const glm::vec2& pos, const glm::vec2& size, float rotation, const Ref<SubTexture2D>& subTexture, float tilingFactor, const glm::vec4& tintColor){
+		drawRotatedQuad({pos.x, pos.y, 0.0f}, size, rotation, subTexture, tilingFactor, tintColor);
+	}
+
+	void Renderer2D::drawRotatedQuad(const glm::vec3& pos, const glm::vec2& size, float rotation, const Ref<SubTexture2D>& subTexture, float tilingFactor, const glm::vec4& tintColor){
+		RENDER_PROFILE_FUNCTION();
+		// To prevent overflow.
+		if(_data.quadIndexCount >= Renderer2DData::maxIndices){
+			flushAndReset();
+		}
+		
+		constexpr size_t quadVertexCount = 4;
+		const glm::vec2* textureCoords = subTexture->getTexCoords();
+		const Ref<Texture2D> texture = subTexture->getTexture();
 
 		constexpr glm::vec4 color = {1.0f, 1.0f, 1.0f, 1.0f};
 
