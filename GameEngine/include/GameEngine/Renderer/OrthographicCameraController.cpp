@@ -63,6 +63,11 @@ namespace RendererEngine{
 		dispatcher.Dispatch<MouseScrolledEvent>(bind_function(this, &OrthographicCameraController::onMouseScrolled));
 		dispatcher.Dispatch<WindowResizeEvent>(bind_function(this, &OrthographicCameraController::onWindowResized));
 	}
+		
+	void OrthographicCameraController::calculateView(){
+		_bounds = { -_aspectRatio * _zoomLevel, _aspectRatio * _zoomLevel, -_zoomLevel, _zoomLevel };
+		_camera.setProjection(_bounds.left, _bounds.right, _bounds.bottom, _bounds.top);
+	}
 
 	
 	bool OrthographicCameraController::onMouseScrolled(MouseScrolledEvent& e){
@@ -71,16 +76,14 @@ namespace RendererEngine{
 		_zoomLevel -= e.GetYOffset() * 0.25f; // Modify thihs const offset for window resized event event
 		
 		_zoomLevel = std::max(_zoomLevel, 0.25f); // This allows us to control our offsets for our zooming level, making sure we don't zoom too far our or zooming in too close.
-		_bounds = { -_aspectRatio * _zoomLevel, _aspectRatio * _zoomLevel, -_zoomLevel, _zoomLevel };
-		_camera.setProjection(_bounds.left, _bounds.right, _bounds.bottom, _bounds.top);
+		calculateView();
 		return false;
 	}
 
 	bool OrthographicCameraController::onWindowResized(WindowResizeEvent& e){
 		RENDER_PROFILE_FUNCTION();
 		_aspectRatio = (float)e.GetWidth() / (float)e.GetHeight();
-		_bounds = { -_aspectRatio * _zoomLevel, _aspectRatio * _zoomLevel, -_zoomLevel, _zoomLevel };
-		_camera.setProjection(_bounds.left, _bounds.right, _bounds.bottom, _bounds.top);
+		calculateView();
 		return false;
 	}
 };
