@@ -36,9 +36,13 @@ namespace RendererEngine{
 		const OrthographicCameraBounds& getBounds() const { return _bounds; }
 		
 		float getZoomLevel() const { return _zoomLevel; }
-		void setZoomLevel(float level) { _zoomLevel = level; }
+		void setZoomLevel(float level) {
+			_zoomLevel = level;
+			calculateView();
+		}
 
 	private:
+		void calculateView();
 		bool onMouseScrolled(MouseScrolledEvent& e);
 		bool onWindowResized(WindowResizeEvent& e);
 
