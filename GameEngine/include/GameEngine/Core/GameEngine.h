@@ -31,6 +31,7 @@
 
 #include <GameEngine/Renderer/Buffer.h>
 #include <GameEngine/Renderer/Shader.h>
+#include <GameEngine/Renderer/Framebuffer.h>
 #include <GameEngine/platforms/OpenGL/OpenGLShader.h> // May delete this later, as is not needed...
 #include <GameEngine/Renderer/Texture.h>
 #include <GameEngine/Renderer/SubTexture2D.h>
