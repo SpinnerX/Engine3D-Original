@@ -7,6 +7,9 @@ void GameLayer::onAttach() {
 	RENDER_PROFILE_FUNCTION();
 	_checkerboardTexture = RendererEngine::Texture2D::Create("assets/Checkerboard.png");
 	_spriteSheet = RendererEngine::Texture2D::Create("assets/textures/RPGpack_sheet_2X.png");
+	_textureStairs = RendererEngine::SubTexture2D::createFromCoords(_spriteSheet, {7, 6}, {128, 128});
+	_textureBarrel = RendererEngine::SubTexture2D::createFromCoords(_spriteSheet, {8, 2}, {128, 128});
+	_textureTree = RendererEngine::SubTexture2D::createFromCoords(_spriteSheet, {2, 1}, {128, 128}, {1, 2});
 		
 	_particle.colorBegin = { 254 / 255.0f, 212 / 255.0f, 123 / 255.0f, 1.0f };
 	_particle.colorEnd = { 254 / 255.0f, 109 / 255.0f, 41 / 255.0f, 1.0f };
@@ -86,7 +89,9 @@ void GameLayer::onUpdate(RendererEngine::Timestep ts) {
 	_particleSystem.onRender(_cameraController.getCamera());
 	RendererEngine::Renderer2D::beginScene(_cameraController.getCamera());
 
-	RendererEngine::Renderer2D::drawQuad({0.0f, 0.0f, 0.5f}, {1.0f, 1.0f}, _spriteSheet); // checkerboard texture shape
+	RendererEngine::Renderer2D::drawQuad({0.0f, 0.0f, 0.5f}, {1.0f, 1.0f}, _textureStairs); // stairs texture shape
+	RendererEngine::Renderer2D::drawQuad({1.0f, 0.0f, 0.5f}, {1.0f, 1.0f}, _textureBarrel); // barrel texture shape
+	RendererEngine::Renderer2D::drawQuad({-1.0f, 0.0f, 0.5f}, {1.0f, 2.0f}, _textureTree); //  tree texture shape
 
 	RendererEngine::Renderer2D::endScene();
 }

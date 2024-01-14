@@ -23,6 +23,9 @@ private:
 
 	RendererEngine::Ref<RendererEngine::Texture2D> _checkerboardTexture;
 	RendererEngine::Ref<RendererEngine::Texture2D> _spriteSheet;
+	RendererEngine::Ref<RendererEngine::SubTexture2D> _textureStairs;
+	RendererEngine::Ref<RendererEngine::SubTexture2D> _textureBarrel;
+	RendererEngine::Ref<RendererEngine::SubTexture2D> _textureTree;
 
 	glm::vec4 color = {0.2f, 0.3f, 0.8f, 1.0f};
 
