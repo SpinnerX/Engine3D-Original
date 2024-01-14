@@ -1,5 +1,25 @@
 #include "GameLayer.h"
 
+static const uint32_t mapWidth = 24;
+static const char* _mapTiles =
+"WWWWWWWWWWWWWWWWWWWWWWWW"
+"WWWWWWWWWWWWWWWWWWWWWWAW"
+"WWWWWWWDDDDDDDWWWWWWWWWW"
+"WWWWWWDDDDDDDDDDWWWWWWWW"
+"WWWWWDDDDDDDDDDDDWWWWWWW"
+"WWWWWDDDDWWDDDDDDDWWWWWW"
+"WWWWWDDDDWWDDDDDDDWWWWWW"
+"WWWWWDDDDDDDDDDDDDWWWWWW"
+"WWWWWDDDDDDDDDDDDDWWWWWW"
+"WWWWWDDDDDDDDDDDDDWWWWWW"
+"WWWWWWDDDDDDDDDDDDWWWWWW"
+"WWWWWWWDDDDDDDDDDWWWWWWW"
+"WWWWWWWWDDDDDDDDWWWWWWWW"
+"WWWWWWWWWDDDDDDDWWWWWWWW"
+"WWWWWWWWWWWWWWWWWWWWWWWW"
+"WWWWWWWWWWWWWWWWWWWWWWWW";
+
+
 GameLayer::GameLayer() : Layer("GameLayer"), _cameraController(1280.0f / 720.0f){
 }
 
@@ -7,9 +27,15 @@ void GameLayer::onAttach() {
 	RENDER_PROFILE_FUNCTION();
 	_checkerboardTexture = RendererEngine::Texture2D::Create("assets/Checkerboard.png");
 	_spriteSheet = RendererEngine::Texture2D::Create("assets/textures/RPGpack_sheet_2X.png");
-	_textureStairs = RendererEngine::SubTexture2D::createFromCoords(_spriteSheet, {7, 6}, {128, 128});
-	_textureBarrel = RendererEngine::SubTexture2D::createFromCoords(_spriteSheet, {8, 2}, {128, 128});
+
+	_textureStairs = RendererEngine::SubTexture2D::createFromCoords(_spriteSheet, {0, 11}, {128, 128});
 	_textureTree = RendererEngine::SubTexture2D::createFromCoords(_spriteSheet, {2, 1}, {128, 128}, {1, 2});
+	
+	_mapWidth = mapWidth;
+	_mapHeight = strlen(_mapTiles) / _mapWidth;
+
+	_textureMap['D'] = RendererEngine::SubTexture2D::createFromCoords(_spriteSheet, {6, 11}, {128, 128}); // Dirt
+	_textureMap['W'] = RendererEngine::SubTexture2D::createFromCoords(_spriteSheet, {11, 11}, {128, 128}); // Water
 		
 	_particle.colorBegin = { 254 / 255.0f, 212 / 255.0f, 123 / 255.0f, 1.0f };
 	_particle.colorEnd = { 254 / 255.0f, 109 / 255.0f, 41 / 255.0f, 1.0f };
@@ -18,6 +44,8 @@ void GameLayer::onAttach() {
 	_particle.velocity = { 0.0f, 0.0f };
 	_particle.velocityVariation = { 3.0f, 1.0f };
 	_particle.pos = { 0.0f, 0.0f };
+
+	_cameraController.setZoomLevel(5.0f);
 }
 
 void GameLayer::onDetach() {
@@ -88,10 +116,23 @@ void GameLayer::onUpdate(RendererEngine::Timestep ts) {
 	_particleSystem.onUpdate(ts);
 	_particleSystem.onRender(_cameraController.getCamera());
 	RendererEngine::Renderer2D::beginScene(_cameraController.getCamera());
+	for(uint32_t y = 0; y < _mapHeight; y++){
+		for(uint32_t x = 0; x < _mapWidth; x++){
+			
+			char tileType = _mapTiles[x + y * _mapWidth];
+			RendererEngine::Ref<RendererEngine::SubTexture2D> texture = RendererEngine::SubTexture2D::createFromCoords(_spriteSheet, {11, 1}, {128, 128});
 
-	RendererEngine::Renderer2D::drawQuad({0.0f, 0.0f, 0.5f}, {1.0f, 1.0f}, _textureStairs); // stairs texture shape
-	RendererEngine::Renderer2D::drawQuad({1.0f, 0.0f, 0.5f}, {1.0f, 1.0f}, _textureBarrel); // barrel texture shape
-	RendererEngine::Renderer2D::drawQuad({-1.0f, 0.0f, 0.5f}, {1.0f, 2.0f}, _textureTree); //  tree texture shape
+			if(_textureMap.contains(tileType)){
+				texture = _textureMap[tileType];
+			}
+
+			RendererEngine::Renderer2D::drawQuad({ x - _mapWidth / 2.0f, _mapHeight - y-_mapHeight/2.0f, 0.5f}, {1.0f, 1.0f}, texture);
+		}
+	}
+
+	/* RendererEngine::Renderer2D::drawQuad({0.0f, 0.0f, 0.5f}, {1.0f, 1.0f}, _textureStairs); // stairs texture shape */
+	/* RendererEngine::Renderer2D::drawQuad({1.0f, 0.0f, 0.5f}, {1.0f, 1.0f}, _textureBarrel); // barrel texture shape */
+	/* RendererEngine::Renderer2D::drawQuad({-1.0f, 0.0f, 0.5f}, {1.0f, 2.0f}, _textureTree); //  tree texture shape */
 
 	RendererEngine::Renderer2D::endScene();
 }
