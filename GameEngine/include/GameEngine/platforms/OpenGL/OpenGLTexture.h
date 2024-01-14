@@ -13,6 +13,8 @@ namespace RendererEngine{
         OpenGLTexture2D(const std::string& filepath);
 
         virtual ~OpenGLTexture2D();
+		
+		virtual uint32_t getRendererID() const override { return _rendererID; }
 
         virtual uint32_t getWidth() const override { return _width; }
         virtual uint32_t getHeight() const override { return _height; }
