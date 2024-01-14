@@ -1,6 +1,7 @@
 #pragma once
 #include <GameEngine/Renderer/OrthographicCamera.h>
 #include <GameEngine/Renderer/Texture.h>
+#include <GameEngine/Renderer/SubTexture2D.h>
 
 namespace RendererEngine{
 
@@ -33,11 +34,17 @@ namespace RendererEngine{
 		static void drawQuad(const glm::vec3& pos, const glm::vec2& size, const glm::vec4& color);
 		static void drawQuad(const glm::vec2& pos, const glm::vec2& size, const Ref<Texture2D>& texture, float tilingFactor=1.0f, const glm::vec4& tintColor=glm::vec4(1.0f));
 		static void drawQuad(const glm::vec3& pos, const glm::vec2& size, const Ref<Texture2D>& texture, float tilingFactor=1.0f, const glm::vec4& tintColor = glm::vec4(1.0f));
+		
+		static void drawQuad(const glm::vec2& pos, const glm::vec2& size, const Ref<SubTexture2D>& texture, float tilingFactor=1.0f, const glm::vec4& tintColor=glm::vec4(1.0f));
+		static void drawQuad(const glm::vec3& pos, const glm::vec2& size, const Ref<SubTexture2D>& texture, float tilingFactor=1.0f, const glm::vec4& tintColor = glm::vec4(1.0f));
 
 		static void drawRotatedQuad(const glm::vec2& pos, const glm::vec2& size, float rotation, const glm::vec4& color);
 		static void drawRotatedQuad(const glm::vec3& pos, const glm::vec2& size, float rotation, const glm::vec4& color);
 		static void drawRotatedQuad(const glm::vec2& pos, const glm::vec2& size, float rotation, const Ref<Texture2D>& texture, float tilingFactor=1.0f, const glm::vec4& tintColor = glm::vec4(1.0f));
 		static void drawRotatedQuad(const glm::vec3& pos, const glm::vec2& size, float rotation, const Ref<Texture2D>& texture, float tilingFactor=1.0f, const glm::vec4& tintColor = glm::vec4(1.0f));
+		
+		static void drawRotatedQuad(const glm::vec2& pos, const glm::vec2& size, float rotation, const Ref<SubTexture2D>& texture, float tilingFactor=1.0f, const glm::vec4& tintColor = glm::vec4(1.0f));
+		static void drawRotatedQuad(const glm::vec3& pos, const glm::vec2& size, float rotation, const Ref<SubTexture2D>& texture, float tilingFactor=1.0f, const glm::vec4& tintColor = glm::vec4(1.0f));
 
 		// Allowing to control with our constant values
 		// Such as allowing to modify in real time with these constant values.

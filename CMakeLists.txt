@@ -65,6 +65,7 @@ set(
   GameEngine/include/GameEngine/Renderer/OrthographicCameraController.cpp
   GameEngine/include/GameEngine/Renderer/Renderer2D.h
   GameEngine/include/GameEngine/Renderer/Renderer2D.cpp
+  GameEngine/include/GameEngine/Renderer/SubTexture2D.cpp
   ${stbi_src}
 )
 
