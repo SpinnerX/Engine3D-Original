@@ -32,6 +32,6 @@ private:
 	RendererEngine::Ref<RendererEngine::Shader> _flatColorShader;
 
 	RendererEngine::Ref<RendererEngine::Texture2D> _checkerboardTexture;
-
+	RendererEngine::Ref<RendererEngine::FrameBuffer> _framebuffers;
 	glm::vec4 _squareColor = {0.2f, 0.3f, 0.8, 1.0f};
 };
