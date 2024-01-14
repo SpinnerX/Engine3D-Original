@@ -66,6 +66,8 @@ set(
   GameEngine/include/GameEngine/Renderer/Renderer2D.h
   GameEngine/include/GameEngine/Renderer/Renderer2D.cpp
   GameEngine/include/GameEngine/Renderer/SubTexture2D.cpp
+  GameEngine/include/GameEngine/Renderer/Framebuffer.cpp
+  GameEngine/include/GameEngine/platforms/OpenGL/OpenGLFramebuffer.cpp
   ${stbi_src}
 )
 
