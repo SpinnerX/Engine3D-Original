@@ -22,6 +22,8 @@ namespace RendererEngine{
 
         void pushLayer(Layer* layer);
         void pushOverlay(Layer* layer);
+		
+		void close();
 
         // Wherever we are in our codebase, we will want to access the application
         // since this application contain important informaiton

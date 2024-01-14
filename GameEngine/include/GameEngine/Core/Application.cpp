@@ -98,6 +98,10 @@ namespace RendererEngine{
             _window->onUpdate();
         }
     }
+	
+	void Application::close(){
+		isRunning = false;
+	}
 
     bool Application::onWindowClose(WindowCloseEvent& e){
         isRunning = false;
