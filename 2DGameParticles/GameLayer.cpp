@@ -2,22 +2,22 @@
 
 static const uint32_t mapWidth = 24;
 static const char* _mapTiles =
-"WWWWWWWWWWWWWWWWWWWWWWWW"
-"WWWWWWWWWWWWWWWWWWWWWWAW"
-"WWWWWWWDDDDDDDWWWWWWWWWW"
-"WWWWWWDDDDDDDDDDWWWWWWWW"
-"WWWWWDDDDDDDDDDDDWWWWWWW"
-"WWWWWDDDDWWDDDDDDDWWWWWW"
-"WWWWWDDDDWWDDDDDDDWWWWWW"
-"WWWWWDDDDDDDDDDDDDWWWWWW"
-"WWWWWDDDDDDDDDDDDDWWWWWW"
-"WWWWWDDDDDDDDDDDDDWWWWWW"
-"WWWWWWDDDDDDDDDDDDWWWWWW"
-"WWWWWWWDDDDDDDDDDWWWWWWW"
-"WWWWWWWWDDDDDDDDWWWWWWWW"
-"WWWWWWWWWDDDDDDDWWWWWWWW"
-"WWWWWWWWWWWWWWWWWWWWWWWW"
-"WWWWWWWWWWWWWWWWWWWWWWWW";
+"GGGGGGGGGGGGGGGGGGGGGGGG"
+"GGGGGGGGGGGGGGGGGGGGGGGG"
+"GGGGGGGDDDDDDDGGGGWWWGGG"
+"GGGGGGDDDDDDDDDDGGWWWGGG"
+"GGGGGDDDDDDDDDDDDGWWGGGG"
+"GGGGGDDDDGGDDDDDDDGGGGGG"
+"GGGGGDDDDGGDDDDDDDGGGGGG"
+"GGGGGDDDDDDDDDDDDDGGGGGG"
+"GGGGGDDDDDDDDDDDDDGGGGGG"
+"GGGGGDDDDDDDDDDDDDGGGGGG"
+"GGGGGGDDDDDDDDDDDDGGGGGG"
+"GGGGGGGDDDDDDDDDDGGGGWWW"
+"WWWGGGGGDDDDDDDDGGGGWWWW"
+"GGGGGGGGGDDDDDDDGGGGGGGG"
+"GGGGGGGGGGGGGGGGGGGGGGGG"
+"GGGGGGGGGGGGGGGGGGGGGGGG";
 
 
 GameLayer::GameLayer() : Layer("GameLayer"), _cameraController(1280.0f / 720.0f){
@@ -30,13 +30,15 @@ void GameLayer::onAttach() {
 
 	_textureStairs = RendererEngine::SubTexture2D::createFromCoords(_spriteSheet, {0, 11}, {128, 128});
 	_textureTree = RendererEngine::SubTexture2D::createFromCoords(_spriteSheet, {2, 1}, {128, 128}, {1, 2});
-	
+	_textureGrass = RendererEngine::SubTexture2D::createFromCoords(_spriteSheet, {1, 5}, {128, 128});
+
 	_mapWidth = mapWidth;
 	_mapHeight = strlen(_mapTiles) / _mapWidth;
 
 	_textureMap['D'] = RendererEngine::SubTexture2D::createFromCoords(_spriteSheet, {6, 11}, {128, 128}); // Dirt
 	_textureMap['W'] = RendererEngine::SubTexture2D::createFromCoords(_spriteSheet, {11, 11}, {128, 128}); // Water
-		
+	_textureMap['G'] = RendererEngine::SubTexture2D::createFromCoords(_spriteSheet, {3, 10}, {128, 128}); // Grass
+
 	_particle.colorBegin = { 254 / 255.0f, 212 / 255.0f, 123 / 255.0f, 1.0f };
 	_particle.colorEnd = { 254 / 255.0f, 109 / 255.0f, 41 / 255.0f, 1.0f };
 	_particle.sizeBegin = 0.5f, _particle.sizeVariation = 0.3f, _particle.sizeEnd = 0.0f;

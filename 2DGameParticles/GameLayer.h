@@ -26,6 +26,7 @@ private:
 	RendererEngine::Ref<RendererEngine::SubTexture2D> _textureStairs;
 	RendererEngine::Ref<RendererEngine::SubTexture2D> _textureBarrel;
 	RendererEngine::Ref<RendererEngine::SubTexture2D> _textureTree;
+	RendererEngine::Ref<RendererEngine::SubTexture2D> _textureGrass;
 
 	glm::vec4 color = {0.2f, 0.3f, 0.8f, 1.0f};
 
