@@ -30,6 +30,8 @@ namespace RendererEngine{
 		void onUpdate(Timestep ts);
 		void onEvent(Event& e);
 
+		void onResize(float width, float height);
+
 		OrthographicCamera& getCamera() { return _camera; }
 		OrthographicCamera getCamera() const { return _camera; }
 

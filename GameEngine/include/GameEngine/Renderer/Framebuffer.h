@@ -26,6 +26,9 @@ namespace RendererEngine{
 		
 		virtual void bind() = 0;
 		virtual void unbind() = 0;
+		
+		// Used for when we want to resize this buffer when running in another scene.
+		virtual void resize(uint32_t w, uint32_t h) = 0;
 
 		virtual uint32_t getColorAttachmentRendererID() const = 0;
 		

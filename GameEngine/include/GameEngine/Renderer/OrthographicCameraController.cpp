@@ -63,12 +63,17 @@ namespace RendererEngine{
 		dispatcher.Dispatch<MouseScrolledEvent>(bind_function(this, &OrthographicCameraController::onMouseScrolled));
 		dispatcher.Dispatch<WindowResizeEvent>(bind_function(this, &OrthographicCameraController::onWindowResized));
 	}
+	
+	void OrthographicCameraController::onResize(float width, float height){
+		_aspectRatio = width / height;
+		this->calculateView(); // recalculates the view when we change and resize the camera controller's w and h.
+	}
 		
 	void OrthographicCameraController::calculateView(){
 		_bounds = { -_aspectRatio * _zoomLevel, _aspectRatio * _zoomLevel, -_zoomLevel, _zoomLevel };
 		_camera.setProjection(_bounds.left, _bounds.right, _bounds.bottom, _bounds.top);
 	}
-
+	
 	
 	bool OrthographicCameraController::onMouseScrolled(MouseScrolledEvent& e){
 		RENDER_PROFILE_FUNCTION();
@@ -82,8 +87,7 @@ namespace RendererEngine{
 
 	bool OrthographicCameraController::onWindowResized(WindowResizeEvent& e){
 		RENDER_PROFILE_FUNCTION();
-		_aspectRatio = (float)e.GetWidth() / (float)e.GetHeight();
-		calculateView();
+		this->onResize((float)e.GetWidth(), (float)e.GetHeight());
 		return false;
 	}
 };
