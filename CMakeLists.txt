@@ -71,6 +71,7 @@ set(
   GameEngine/include/GameEngine/Renderer/Framebuffer.cpp
   GameEngine/include/GameEngine/platforms/OpenGL/OpenGLFramebuffer.cpp
   GameEngine/include/GameEngine/Scene/Scene.cpp
+  GameEngine/include/GameEngine/Scene/Entity.cpp
   ${stbi_src}
 )
 
