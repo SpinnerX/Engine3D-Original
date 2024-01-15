@@ -28,6 +28,14 @@ namespace RendererEngine{
 		square.addComponent<SpriteRendererComponent>(glm::vec4{0.0f, 1.0f, 0.0f, 1.0f});
 		_squareEntity = square;
 
+		// Creating our camera component.
+		_cameraEntity = _activeScene->createEntity("Camera Entity");
+		_cameraEntity.addComponent<CameraComponent>(glm::ortho(-16.0f, 16.0f, -9.0f, 9.0f, -1.0f, 1.0f));
+		
+		_cameraSecond = _activeScene->createEntity("Second Camera Entity");
+		auto& cc = _cameraSecond.addComponent<CameraComponent>(glm::ortho(-1.0f, 1.0f, -1.0f, 1.0f, -1.0f, 1.0f));
+		cc.isPrimary = false;
+		
 
 	}
 
@@ -37,7 +45,13 @@ namespace RendererEngine{
 
 	void EditorLayer::onUpdate(Timestep ts){
 		RENDER_PROFILE_FUNCTION();
-	
+		
+		if(FrameBufferSpecifications spec = _framebuffers->getSpecifications();
+				_viewportSize.x > 0.0f && _viewportSize.y > 0.f && (spec.width != _viewportSize.x || spec.height  != _viewportSize.y)){
+			_framebuffers->resize((uint32_t)_viewportSize.x, (uint32_t)_viewportSize.y);
+			_cameraController.onResize(_viewportSize.x, _viewportSize.y);
+		}
+
 		// Update (if mouse cursor is focused in window.)
 		if(_isViewportFocused)
 			_cameraController.onUpdate(ts);
@@ -48,13 +62,7 @@ namespace RendererEngine{
 		RendererCommand::setClearColor({ 0.1f, 0.1f, 0.1f, 1 });
 		RendererCommand::clear();
 
-
-	
-		Renderer2D::beginScene(_cameraController.getCamera());
-		// Updating scene
 		_activeScene->onUpdate(ts);
-		
-		Renderer2D::endScene();
 
 		_framebuffers->unbind();
 	}
@@ -139,16 +147,25 @@ namespace RendererEngine{
 		ImGui::Text("Indices: %d", stats.getTotalIndexCount());
 
 
-		
-		ImGui::Separator();
-		auto& tag = _squareEntity.getComponent<TagComponent>().tag;
-		ImGui::Text("%s", tag.c_str());
+		if(_squareEntity){	
+			ImGui::Separator();
+			auto& tag = _squareEntity.getComponent<TagComponent>().tag;
+			ImGui::Text("%s", tag.c_str());
 
-		auto& squareColor = _squareEntity.getComponent<SpriteRendererComponent>().color;
-		ImGui::ColorEdit4("Square Color", glm::value_ptr(squareColor));
+			auto& squareColor = _squareEntity.getComponent<SpriteRendererComponent>().color;
+			ImGui::ColorEdit4("Square Color", glm::value_ptr(squareColor));
 		
-		ImGui::Separator();
+			ImGui::Separator();
+		}
 
+		ImGui::DragFloat3("Camera Transform", glm::value_ptr(_cameraEntity.getComponent<TransformComponent>().transform[3]));
+		
+
+		// Switch Between cameras 
+		if(ImGui::Checkbox("Camera A", &isPrimaryCamera)){
+			_cameraEntity.getComponent<CameraComponent>().isPrimary = isPrimaryCamera;
+			_cameraSecond.getComponent<CameraComponent>().isPrimary = !isPrimaryCamera;
+		}
 
 
 

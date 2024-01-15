@@ -32,6 +32,9 @@ namespace RendererEngine{
 
 		Ref<Scene> _activeScene;
 		Entity _squareEntity;
+		Entity _cameraEntity;
+		Entity _cameraSecond;
+		bool isPrimaryCamera = true;
 
 		glm::vec2 _viewportSize = {0, 0};
 		glm::vec4 _squareColor = {0.2f, 0.3f, 0.8, 1.0f};
