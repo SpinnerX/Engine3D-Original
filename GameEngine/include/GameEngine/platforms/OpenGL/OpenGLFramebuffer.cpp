@@ -4,6 +4,7 @@
 #include <glad/glad.h>
 
 namespace RendererEngine{
+	static const uint32_t maxFrameBufferSize = 8192;
 
 	OpenGLFrameBuffer::OpenGLFrameBuffer(const FrameBufferSpecifications& specs) : _specifications(specs){
 		invalidate();
@@ -70,6 +71,11 @@ namespace RendererEngine{
 	}
 
 	void OpenGLFrameBuffer::resize(uint32_t w, uint32_t h){
+		if(w == 0 || h == 0 || w > maxFrameBufferSize || h > maxFrameBufferSize){
+			coreLogError("Attempted to resize frame buffer to (w={}, h={})", w, h);
+			return;
+		}
+
 		_specifications.width = w;
 		_specifications.height = h;
 		this->invalidate();
