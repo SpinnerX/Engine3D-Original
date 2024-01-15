@@ -23,6 +23,8 @@
 #include <GameEngine/Core/MouseButtonCodes.h>
 
 #include <GameEngine/Imgui/ImGuiLayer.h>
+#include <GameEngine/Scene/Scene.h>
+#include <GameEngine/Scene/Components.h>
 
 // Renderer-related stuff (virtual interfaces, impl's, etc)
 #include <GameEngine/Renderer/Renderer.h>
