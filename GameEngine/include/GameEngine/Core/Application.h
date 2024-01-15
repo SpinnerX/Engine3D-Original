@@ -11,7 +11,7 @@ namespace RendererEngine{
     // - Essentially how users will run their own applications
     class Application{
     public:
-        Application();
+        Application(const std::string& name="Game Engine");
         ~Application();
 
         void Run();

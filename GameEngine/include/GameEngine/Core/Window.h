@@ -6,11 +6,11 @@
 namespace RendererEngine{
     struct WindowProps{
 
-        WindowProps(const std::string& t="Game Engine", unsigned int w = 1280, unsigned int h = 720) : title(t), width(w), height(h) {}
+        WindowProps(const std::string& t="Game Engine", uint32_t w = 1280, uint32_t h = 720) : title(t), width(w), height(h) {}
 
         std::string  title;
-        unsigned int width;
-        unsigned int height;
+        uint32_t width;
+        uint32_t height;
     };
 
     // Window interface that represents a desktop system based window.
@@ -23,8 +23,8 @@ namespace RendererEngine{
 
         virtual void onUpdate() = 0;
 
-        virtual unsigned int getWidth() const = 0;
-        virtual unsigned int getHeight() const = 0;
+        virtual uint32_t getWidth() const = 0;
+        virtual uint32_t getHeight() const = 0;
 
         // Window Attributes
         virtual void setEventCallback(const EventCallbackFn& callback) = 0;

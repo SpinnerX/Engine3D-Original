@@ -7,14 +7,14 @@
 namespace RendererEngine{
     Application* Application::_instance = nullptr;
     
-    Application::Application(){
+    Application::Application(const std::string& name){
 		RENDER_PROFILE_FUNCTION();
 
         render_core_assert(!_instance, "Application already exists!");
         isRunning = true;
 		isMinimized = false;
         _instance = this;
-        _window = std::unique_ptr<Window>(Window::create());
+        _window = std::unique_ptr<Window>(Window::create(name));
 
         _window->setEventCallback(bind_function(this, &Application::onEvent));
 
