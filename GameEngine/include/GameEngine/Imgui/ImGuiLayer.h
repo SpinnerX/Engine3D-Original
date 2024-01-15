@@ -25,7 +25,10 @@ namespace RendererEngine{
         void begin();
         void end();
 
+		void setBlockEvents(bool blocks) { _isBlockingEvents = blocks; }
+
     private:
+		bool _isBlockingEvents = true;
         float _time=0.f;
     };
 };

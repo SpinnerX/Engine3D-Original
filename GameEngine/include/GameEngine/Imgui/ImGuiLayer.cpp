@@ -44,10 +44,13 @@ namespace RendererEngine{
     
     void ImGuiLayer::onDetach(){
 		RENDER_PROFILE_FUNCTION();
-
-		ImGui_ImplOpenGL3_Shutdown();
-		ImGui_ImplGlfw_Shutdown();
-		ImGui::DestroyContext();
+		
+		// Checking if viewport is not focused to block events.
+		if(_isBlockingEvents){
+			ImGui_ImplOpenGL3_Shutdown();
+			ImGui_ImplGlfw_Shutdown();
+			ImGui::DestroyContext();
+		}
     }
 
     void ImGuiLayer::begin(){
