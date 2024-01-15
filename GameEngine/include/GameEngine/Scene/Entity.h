@@ -7,7 +7,6 @@ namespace RendererEngine{
 	 * Entity
 	 * @param id - the ID of the entity itself
 	 * @note actual wrapper for entity for ECS
-	 *
 	 * */
 	class Entity{
 	public:
@@ -26,6 +25,7 @@ namespace RendererEngine{
 			if(!this->hasComponent<T>()){
 				coreLogError("Entity does not have component!");
 			}
+
 			return _scene->_registry.get<T>(_entityHandler);
 		}
 		
@@ -39,15 +39,20 @@ namespace RendererEngine{
 		template<typename T>
 		void removeComponent(){
 			// Checking if the component exists
-			if(!this->hasComponent<T>()){
+			if(this->hasComponent<T>()){
 				coreLogError("Entity does not have component!");
 				return;
 			}
+			
+			render_core_assert(hasComponent<T>(), "Entity does not have component");
+
 			_scene->_registry.remove<T>(_entityHandler);
 		}
 
+		operator bool() const  { return _entityHandler != entt::null; }
+
 	private:
-		entt::entity _entityHandler{0};
+		entt::entity _entityHandler{entt::null};
 		Scene* _scene = nullptr; // 12 bytes
 	};
 };

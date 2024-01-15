@@ -1,16 +1,25 @@
 #pragma once
 #include <GameEngine/Renderer/OrthographicCamera.h>
+#include <GameEngine/Renderer/Camera.h> // TODO: May need to remove this..
 #include <GameEngine/Renderer/Texture.h>
 #include <GameEngine/Renderer/SubTexture2D.h>
 
 namespace RendererEngine{
 
 	class Renderer2D{
-	public:	
+	public:
+
+		struct RenderCamera{
+			glm::mat4 projection;
+			glm::mat4 view;
+		};
+
 		static void Init();
 		static void Shutdown();
 
+		static void beginScene(const Camera& camera, const glm::mat4& transform); // TODO: Remove
 		static void beginScene(const OrthographicCamera& camera);
+
 		static void endScene();
 
 		static void flush();

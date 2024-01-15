@@ -1,4 +1,6 @@
 #pragma once
+#include <GameEngine/Renderer/OrthographicCamera.h>
+#include <GameEngine/Renderer/Camera.h>
 
 namespace RendererEngine{
 	
@@ -29,6 +31,23 @@ namespace RendererEngine{
 		SpriteRendererComponent(const SpriteRendererComponent&) = default;
 		SpriteRendererComponent(const glm::vec4& color) : color(color){}
 	};
+	
+	/*
+	 * Camera Component
+	 * - Editor would not have a component itself.
+	 * - Rather that the camera would be a component with an entity.
+	 *
+	 *
+	 * */
+	struct CameraComponent{
 
+		Camera camera;
 
+		// TODOL moving to scene.
+		bool isPrimary = true; // this allows to see if this current camera is your primary camera.
+
+		CameraComponent() = default;
+		CameraComponent(const CameraComponent&) = default;
+		CameraComponent(const glm::mat4& projecMat) : camera(projecMat){}
+	};
 };

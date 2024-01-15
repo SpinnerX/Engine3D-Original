@@ -6,28 +6,6 @@
 
 namespace RendererEngine{
 	Scene::Scene(){
-/* #if EXAMPLE_CODE */
-		/* entt::entity entity = _registry.create(); */
-
-		/* _registry.emplace<TransformComponent>(entity, glm::mat4(1.0f)); */
-
-		/* TransformComponent& component = _registry.get<TransformComponent>(entity); */
-		
-		/* /1* if(_registry.has<TransformComponent>(entity)){} *1/ */
-
-		/* auto view = _registry.view<TransformComponent>(); */
-		/* for(auto entity : view){ */
-			/* TransformComponent& transform = view.get<TransformComponent>(entity); */
-		/* } */
-
-		/* auto group = _registry.group<TransformComponent>(entt::get<MeshComponent>); */
-		
-		/* for(auto& entity : group){ */
-		/* 	auto[transform, mesh] = group.get<TransformComponent, MeshComponent>(entity); */
-		/* } */
-		/* _registry.on_construct<TransformComponent>().connect<&onTransformConstruct>(); */
-/* #endif */
-
 	}
 
 	Scene::~Scene(){}
@@ -42,12 +20,40 @@ namespace RendererEngine{
 	}
 	
 	void Scene::onUpdate(Timestep ts){
-		auto group = _registry.group<TransformComponent>(entt::get<SpriteRendererComponent>);
+		// Rendering 2D
+		Camera* mainCamera = nullptr;
+		glm::mat4* cameraTransform = nullptr;
+
+		{
+		auto group = _registry.view<TransformComponent, CameraComponent>();
 
 		for(auto entity : group){
-			auto[transform, sprite] = group.get<TransformComponent, SpriteRendererComponent>(entity);
+			auto[transform, camera] = group.get<TransformComponent, CameraComponent>(entity);
 
-			Renderer2D::drawQuad(transform, sprite.color);
+			if(camera.isPrimary){
+				mainCamera = &camera.camera;
+				cameraTransform = &transform.transform;
+				break;
+			}
 		}
+		}
+		
+		// Checking mainCamera exists, then if the scene does not contain camera then do not render camera.
+		if(mainCamera){
+			Renderer2D::beginScene(mainCamera->getProjection(), *cameraTransform);
+			auto group = _registry.group<TransformComponent>(entt::get<SpriteRendererComponent>);
+
+			for(auto entity : group){
+				auto[transform, sprite] = group.get<TransformComponent, SpriteRendererComponent>(entity);
+
+				Renderer2D::drawQuad(transform, sprite.color);
+			}
+
+			Renderer2D::endScene();
+			
+		}
+		else coreLogError("Main Camera does not exist");
+
+
 	}
 };

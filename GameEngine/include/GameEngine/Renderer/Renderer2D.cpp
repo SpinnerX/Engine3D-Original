@@ -100,6 +100,22 @@ namespace RendererEngine{
 	void Renderer2D::Shutdown(){
 		RENDER_PROFILE_FUNCTION();
 	}
+	
+	void Renderer2D::beginScene(const Camera& camera, const glm::mat4& transform){
+		RENDER_PROFILE_FUNCTION();
+
+		glm::mat4 viewProj = camera.getProjection() * glm::inverse(transform);
+		
+		
+		_data.textureShader->bind();
+		_data.textureShader->setMat4("u_ViewProjection", viewProj);
+		
+		_data.quadIndexCount = 0;
+		_data.quadVertexBufferPtr = _data.quadVertexBufferBase; // Keeping track o our base memory allocations
+		
+		_data.textureSlotIndex = 1;
+		
+	}
 
 	void Renderer2D::beginScene(const OrthographicCamera& camera){
 		RENDER_PROFILE_FUNCTION();
@@ -107,6 +123,7 @@ namespace RendererEngine{
 		// Simply uploads the camera data
 		// upload is more API specific (actual OpenGL to set that uniform)
 		// Where set is just set is a much higher level concept.
+		_data.textureShader->bind();
 		_data.textureShader->setMat4("u_ViewProjection", camera.getViewProjectionMatrix());
 		
 		_data.quadIndexCount = 0;
