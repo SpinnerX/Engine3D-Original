@@ -31,7 +31,7 @@ namespace RendererEngine{
 		Ref<FrameBuffer> _framebuffers;
 
 		Ref<Scene> _activeScene;
-		entt::entity _squareEntity;
+		Entity _squareEntity;
 
 		glm::vec2 _viewportSize = {0, 0};
 		glm::vec4 _squareColor = {0.2f, 0.3f, 0.8, 1.0f};

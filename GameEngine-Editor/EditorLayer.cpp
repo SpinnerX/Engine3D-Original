@@ -20,12 +20,12 @@ namespace RendererEngine{
 	
 		_framebuffers = FrameBuffer::Create(frameBufSpecs); // Creating out frame buffer
 		_activeScene = CreateRef<Scene>();
+		
+
 
 		// Creating an entity in the scene.
-		auto square = _activeScene->createEntity();
-		_activeScene->reg().emplace<TransformComponent>(square);
-		_activeScene->reg().emplace<SpriteRendererComponent>(square, glm::vec4{0.0f, 1.0f, 0.0f, 1.0f});
-		
+		auto square = _activeScene->createEntity("Green Square");
+		square.addComponent<SpriteRendererComponent>(glm::vec4{0.0f, 1.0f, 0.0f, 1.0f});
 		_squareEntity = square;
 
 
@@ -137,10 +137,22 @@ namespace RendererEngine{
 		ImGui::Text("Quads: %d", stats.quadCount);
 		ImGui::Text("Vertices: %d", stats.getTotalVertexCount());
 		ImGui::Text("Indices: %d", stats.getTotalIndexCount());
-		
-		auto& squareColor = _activeScene->reg().get<SpriteRendererComponent>(_squareEntity)._color;
 
+
+		
+		ImGui::Separator();
+		auto& tag = _squareEntity.getComponent<TagComponent>().tag;
+		ImGui::Text("%s", tag.c_str());
+
+		auto& squareColor = _squareEntity.getComponent<SpriteRendererComponent>().color;
 		ImGui::ColorEdit4("Square Color", glm::value_ptr(squareColor));
+		
+		ImGui::Separator();
+
+
+
+
+
 	
 		// Starting the viewports
 		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2{0, 0});
