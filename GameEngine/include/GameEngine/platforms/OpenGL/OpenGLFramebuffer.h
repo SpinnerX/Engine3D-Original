@@ -11,6 +11,8 @@ namespace RendererEngine{
 		void bind() override;
 		void unbind() override;
 		
+		virtual void resize(uint32_t w, uint32_t h) override;
+		
 		virtual const FrameBufferSpecifications& getSpecifications() const override { return _specifications; }
 		virtual uint32_t getColorAttachmentRendererID() const override { return _colorAttachments; }
 
@@ -18,8 +20,8 @@ namespace RendererEngine{
 
 	private:
 		uint32_t _rendererID;
-		uint32_t _colorAttachments;
-		uint32_t _depthAttachments;
+		uint32_t _colorAttachments = 0;
+		uint32_t _depthAttachments = 0;
 		FrameBufferSpecifications _specifications;
 	};
 };

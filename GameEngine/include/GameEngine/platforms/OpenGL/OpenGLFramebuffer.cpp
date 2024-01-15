@@ -11,9 +11,19 @@ namespace RendererEngine{
 
 	OpenGLFrameBuffer::~OpenGLFrameBuffer(){
 		glDeleteFramebuffers(1, &_rendererID);
+		glDeleteTextures(1, &_colorAttachments);
+		glDeleteTextures(1, &_depthAttachments);
 	}
 
 	void OpenGLFrameBuffer::invalidate(){
+		
+		// Validating if the renderer ID has already been set.
+		if(!_rendererID){
+			glDeleteFramebuffers(1, &_rendererID);
+			glDeleteTextures(1, &_colorAttachments);
+			glDeleteTextures(1, &_depthAttachments);
+		}
+
 		// Quick NOTE: glCreateFramebuffers and glCreateTextures work on OpenGL 4.5 and versions afterwards
 		/* glCreateFramebuffers(1, &_rendererID); */
 		glGenFramebuffers(1, &_rendererID);
@@ -52,10 +62,17 @@ namespace RendererEngine{
 
 	void OpenGLFrameBuffer::bind() {
 		glBindFramebuffer(GL_FRAMEBUFFER, _rendererID);	
+		glViewport(0, 0, _specifications.width, _specifications.height);
 	}
 
 	void OpenGLFrameBuffer::unbind() {
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	}
+
+	void OpenGLFrameBuffer::resize(uint32_t w, uint32_t h){
+		_specifications.width = w;
+		_specifications.height = h;
+		this->invalidate();
 	}
 
 };
