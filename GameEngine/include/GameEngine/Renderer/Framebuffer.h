@@ -22,6 +22,7 @@ namespace RendererEngine{
 
 	class FrameBuffer{
 	public:
+		virtual ~FrameBuffer() = default;
 		static Ref<FrameBuffer> Create(const FrameBufferSpecifications& specs);
 		
 		virtual void bind() = 0;
