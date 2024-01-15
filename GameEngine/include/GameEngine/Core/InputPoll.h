@@ -16,43 +16,13 @@ namespace RendererEngine{
 
     class RENDER_API InputPoll{
     public:
-		
-		virtual ~InputPoll() = default;
-
         // Taking in a key and checking if it has been pressed
         // creating a singletone called _instance
         // This calls the implementation for Key Pressed that is implemented in WindowsInput
-        inline static bool isKeyPressed(KeyCode keycode){
-            return _instance->isKeyPressedImpl(keycode);
-        }
-
-        inline static MousePosition getMousePosition() {
-            return _instance->getMousePositionImpl();
-        }
-
-        inline static bool isMouseButtonPressed(MouseCode button){
-            return _instance->isMouseButtonPressedImpl(button);
-        }
-
-        inline static float getMouseX(){
-            return _instance->getMouseXImpl();
-        }
-
-        inline static float getMouseY(){
-            return _instance->getMouseYImpl();
-        }
-
-    protected:
-        // This will be implemented by your interface
-        virtual bool isKeyPressedImpl(KeyCode keycode) = 0;
-        virtual bool isMouseButtonPressedImpl(MouseCode button) = 0;
-
-        virtual MousePosition getMousePositionImpl() = 0;
-        virtual float getMouseXImpl() = 0;
-        virtual float getMouseYImpl() = 0;
-
-    private:
-        // Essentially this is just to pass in data to these functions
-        static Scope<InputPoll> _instance;
+        static bool isKeyPressed(KeyCode keycode);
+        static bool isMouseButtonPressed(MouseCode button);
+        static MousePosition getMousePosition();
+        inline static float getMouseX();
+        inline static float getMouseY();
     };
 };
