@@ -1,13 +1,12 @@
 #include <GameEnginePrecompiledHeader.h>
 #include <GameEngine/Core/Application.h>
-#include <GameEngine/platforms/Windows/WindowsInput.h>
+#include <GameEngine/Core/InputPoll.h>
 #include <GLFW/glfw3.h>
 #include <GameEngine/Core/MouseButtonCodes.h>
 
 namespace RendererEngine{
-    Scope<InputPoll> InputPoll::_instance = CreateScope<WindowsInput>();
 
-    bool WindowsInput::isKeyPressedImpl(KeyCode keycode){
+    bool InputPoll::isKeyPressed(KeyCode keycode){
         // This will call GLFW and do everything needed when a key has been pressed
         auto window = static_cast<GLFWwindow *>(Application::Get().GetWindow().getNativeWindow());
 		auto state = glfwGetKey(window, static_cast<int32_t>(keycode));
@@ -17,26 +16,26 @@ namespace RendererEngine{
 
     // Handling mouse pressing events
     // and handling mouse cursor location
-    bool WindowsInput::isMouseButtonPressedImpl(MouseCode button) {
+    bool InputPoll::isMouseButtonPressed(MouseCode button) {
         auto window = static_cast<GLFWwindow *>(Application::Get().GetWindow().getNativeWindow());
 		auto state = glfwGetMouseButton(window, static_cast<int32_t>(button));
 
         return state == GLFW_PRESS;
     }
 
-    float WindowsInput::getMouseXImpl() {
-        auto[x, y] = getMousePositionImpl();
+    float InputPoll::getMouseX() {
+        auto[x, y] = getMousePosition();
 
         return x;
     }
 
-    float WindowsInput::getMouseYImpl() {
-        auto[x, y] = getMousePositionImpl();
+    float InputPoll::getMouseY() {
+        auto[x, y] = getMousePosition();
 
         return y;
     }
 
-    MousePosition RendererEngine::WindowsInput::getMousePositionImpl(){
+    MousePosition InputPoll::getMousePosition(){
         auto window = static_cast<GLFWwindow *>(Application::Get().GetWindow().getNativeWindow());
         double xpos, ypos;
         glfwGetCursorPos(window, &xpos, &ypos);
