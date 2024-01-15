@@ -2,6 +2,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include <GameEngine/platforms/OpenGL/OpenGLShader.h>
+#include <GameEngine/Entt/entt.h>
 
 namespace RendererEngine{
 	EditorLayer::EditorLayer() : Layer("Sandbox2D"), _cameraController(1280.0f / 720.0f){
@@ -9,67 +10,53 @@ namespace RendererEngine{
 
 	void EditorLayer::onAttach(){
 		RENDER_PROFILE_FUNCTION();
-		_checkerboardTexture = RendererEngine::Texture2D::Create("assets/Checkerboard.png");
+		_checkerboardTexture = Texture2D::Create("assets/Checkerboard.png");
 		_cameraController.setZoomLevel(3.0f);
 
-		RendererEngine::FrameBufferSpecifications frameBufSpecs;
+		FrameBufferSpecifications frameBufSpecs;
 		frameBufSpecs.width = 1280;
 		frameBufSpecs.height = 720;
 
 	
-		_framebuffers = RendererEngine::FrameBuffer::Create(frameBufSpecs); // Creating out frame buffer
+		_framebuffers = FrameBuffer::Create(frameBufSpecs); // Creating out frame buffer
+		_activeScene = CreateRef<Scene>();
+
+		// Creating an entity in the scene.
+		auto square = _activeScene->createEntity();
+		_activeScene->reg().emplace<TransformComponent>(square);
+		_activeScene->reg().emplace<SpriteRendererComponent>(square, glm::vec4{0.0f, 1.0f, 0.0f, 1.0f});
+		
+		_squareEntity = square;
+
+
 	}
 
 	void EditorLayer::onDetach(){
 		RENDER_PROFILE_FUNCTION();
 	}
 
-	void EditorLayer::onUpdate(RendererEngine::Timestep ts){
+	void EditorLayer::onUpdate(Timestep ts){
 		RENDER_PROFILE_FUNCTION();
 	
 		// Update (if mouse cursor is focused in window.)
 		if(_isViewportFocused)
 			_cameraController.onUpdate(ts);
+		
+		// Render	
+		Renderer2D::resetStats();
+		_framebuffers->bind();
+		RendererCommand::setClearColor({ 0.1f, 0.1f, 0.1f, 1 });
+		RendererCommand::clear();
+
+
 	
-		RendererEngine::Renderer2D::resetStats();
+		Renderer2D::beginScene(_cameraController.getCamera());
+		// Updating scene
+		_activeScene->onUpdate(ts);
+		
+		Renderer2D::endScene();
 
-		// Render
-		{
-			RENDER_PROFILE_FUNCTION();
-			_framebuffers->bind();
-			RendererEngine::RendererCommand::setClearColor({ 0.1f, 0.1f, 0.1f, 1 });
-			RendererEngine::RendererCommand::clear();
-		}
-	
-		{
-			RENDER_PROFILE_FUNCTION();
-			RendererEngine::Renderer2D::beginScene(_cameraController.getCamera());
-			static float rotation = 0.0f;
-			rotation += ts * 50.0f;
-
-
-			// Our draw quads, for drawing our rectangles.
-			RendererEngine::Renderer2D::drawRotatedQuad({1.0f, 0.0f}, {0.8f, 0.8f}, glm::radians(-45.0f), {0.8f, 0.2f, 0.3f, 1.0f}); // Red shape
-			RendererEngine::Renderer2D::drawQuad({-1.0f, 0.0f}, {0.8f, 0.8f}, {0.8f, 0.2f, 0.3f, 1.0f}); // Red shape
-			RendererEngine::Renderer2D::drawQuad({0.5f, -0.5f}, {0.5f, 0.75f}, {0.2f, 0.3f, 0.8f, 1.0f}); // blue shape
-			RendererEngine::Renderer2D::drawQuad({0.0f, 0.0f, -0.1f}, {20.0f, 20.0f}, _checkerboardTexture, 10.0f); // checkerboard texture shape
-			RendererEngine::Renderer2D::drawRotatedQuad({ -2.0f, 0.0f, 0.0f}, {1.0f, 1.0f}, glm::radians(rotation), _checkerboardTexture, 20.0f); // checkerboard texture shape
-	
-			RendererEngine::Renderer2D::endScene();
-
-			RendererEngine::Renderer2D::beginScene(_cameraController.getCamera());
-
-			for(float y = -5.0f; y < 5.0f; y += 0.5f){
-				for(float x = -5.0f; x < 5.0f; x += 0.5f){
-					glm::vec4 color = { (x + 0.5f) / 10.f, 0.4f, (y + 5.0f) / 10.0f, 0.7f};
-					RendererEngine::Renderer2D::drawQuad({x, y}, {0.45f, 0.45f}, color);
-				}
-			
-			}
-
-			RendererEngine::Renderer2D::endScene();
-			_framebuffers->unbind();
-		}
+		_framebuffers->unbind();
 	}
 
 	void EditorLayer::onImguiRender(){
@@ -132,7 +119,7 @@ namespace RendererEngine{
 		if (ImGui::BeginMenuBar()){
 			if (ImGui::BeginMenu("File")){
 
-				if(ImGui::MenuItem("Exit")) RendererEngine::Application::Get().close();
+				if(ImGui::MenuItem("Exit")) Application::Get().close();
 
 				ImGui::EndMenu();
 			}
@@ -144,14 +131,16 @@ namespace RendererEngine{
 
 		ImGui::Begin("Settings");
 
-		auto stats = RendererEngine::Renderer2D::getStats();
+		auto stats = Renderer2D::getStats();
 		ImGui::Text("Renderer2D Stats");
 		ImGui::Text("Draw Calls %d", stats.drawCalls);
 		ImGui::Text("Quads: %d", stats.quadCount);
 		ImGui::Text("Vertices: %d", stats.getTotalVertexCount());
 		ImGui::Text("Indices: %d", stats.getTotalIndexCount());
+		
+		auto& squareColor = _activeScene->reg().get<SpriteRendererComponent>(_squareEntity)._color;
 
-		ImGui::ColorEdit4("Square Color", glm::value_ptr(_squareColor));
+		ImGui::ColorEdit4("Square Color", glm::value_ptr(squareColor));
 	
 		// Starting the viewports
 		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2{0, 0});
@@ -186,7 +175,7 @@ namespace RendererEngine{
 
 	}
 
-	void EditorLayer::onEvent(RendererEngine::Event& e){
+	void EditorLayer::onEvent(Event& e){
 		_cameraController.onEvent(e);
 	}
 };
