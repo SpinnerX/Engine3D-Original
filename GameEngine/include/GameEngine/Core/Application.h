@@ -24,6 +24,8 @@ namespace RendererEngine{
         void pushOverlay(Layer* layer);
 		
 		void close();
+		
+		ImGuiLayer* getImGuiLayer() { return _imguiLayer; }
 
         // Wherever we are in our codebase, we will want to access the application
         // since this application contain important informaiton

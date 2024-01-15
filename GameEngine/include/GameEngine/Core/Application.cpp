@@ -59,9 +59,11 @@ namespace RendererEngine{
         // If not a layer and an overlay then we do not continue.
         auto iter = _layerStack.end();
         while(iter != _layerStack.begin()){
+            if(event._handled)
+				break;
+
             (*--iter)->onEvent(event);
 
-            if(event._handled) break;
         }
 
     }
