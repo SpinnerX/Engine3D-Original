@@ -45,9 +45,9 @@ set(
   ${glad_src}
 
   GameEngine/include/GameEngine/Imgui/ImGuiLayer.cpp
-  GameEngine/include/GameEngine/Core/InputPoll.cpp
+  # GameEngine/include/GameEngine/Core/InputPoll.cpp
 
-  GameEngine/src/GameEngine/platforms/WindowsInput.cpp
+  # GameEngine/src/GameEngine/platforms/WindowsInput.cpp
   GameEngine/include/GameEngine/platforms/OpenGL/OpenGLContext.cpp
   GameEngine/include/GameEngine/Renderer/Shader.cpp
   GameEngine/include/GameEngine/Renderer/Buffer.cpp
@@ -63,6 +63,8 @@ set(
   GameEngine/include/GameEngine/Renderer/Texture.cpp
   GameEngine/include/GameEngine/platforms/OpenGL/OpenGLTexture.cpp
   GameEngine/include/GameEngine/Renderer/OrthographicCameraController.cpp
+  
+  GameEngine/src/GameEngine/platforms/WindowsInput.cpp
   GameEngine/include/GameEngine/Renderer/Renderer2D.h
   GameEngine/include/GameEngine/Renderer/Renderer2D.cpp
   GameEngine/include/GameEngine/Renderer/SubTexture2D.cpp
