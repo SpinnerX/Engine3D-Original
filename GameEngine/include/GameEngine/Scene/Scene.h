@@ -12,13 +12,14 @@ namespace RendererEngine{
 	 *
 	 *
 	 * */
+	class Entity;
 	class Scene{
 	public:
 		Scene();
 		~Scene();
 		
 		// We should be able to create an entity into our screen.
-		entt::entity createEntity();
+		Entity createEntity(const std::string& name=std::string());
 
 		// temporary
 		entt::registry& reg() { return _registry; }
@@ -27,5 +28,6 @@ namespace RendererEngine{
 
 	private:
 		entt::registry _registry; // entity used to determine which components belong together. registry contain the actual data.
+		friend class Entity;
 	};
 };
