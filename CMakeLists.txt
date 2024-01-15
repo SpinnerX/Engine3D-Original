@@ -70,6 +70,7 @@ set(
   GameEngine/include/GameEngine/Renderer/SubTexture2D.cpp
   GameEngine/include/GameEngine/Renderer/Framebuffer.cpp
   GameEngine/include/GameEngine/platforms/OpenGL/OpenGLFramebuffer.cpp
+  GameEngine/include/GameEngine/Scene/Scene.cpp
   ${stbi_src}
 )
 
