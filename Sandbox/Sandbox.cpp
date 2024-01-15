@@ -3,7 +3,7 @@
 
 class Sandbox : public RendererEngine::Application{
 public:
-    Sandbox() : RendererEngine::Application() {
+    Sandbox() : RendererEngine::Application("Some Game Engine") {
 		pushLayer(new Sandbox2D());
     }
 
