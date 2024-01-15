@@ -23,6 +23,9 @@ namespace RendererEngine{
 		// This'll be temporary only!
 		Ref<VertexArray> _squareVertexArrays;
 		Ref<Shader> _flatColorShader;
+		
+		bool _isViewportFocused = false;
+		bool _isViewportHovered = false;
 
 		Ref<Texture2D> _checkerboardTexture;
 		Ref<FrameBuffer> _framebuffers;

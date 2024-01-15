@@ -27,8 +27,9 @@ namespace RendererEngine{
 	void EditorLayer::onUpdate(RendererEngine::Timestep ts){
 		RENDER_PROFILE_FUNCTION();
 	
-		// Update
-		_cameraController.onUpdate(ts);
+		// Update (if mouse cursor is focused in window.)
+		if(_isViewportFocused)
+			_cameraController.onUpdate(ts);
 	
 		RendererEngine::Renderer2D::resetStats();
 
@@ -154,6 +155,15 @@ namespace RendererEngine{
 		// Starting the viewports
 		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2{0, 0});
 		ImGui::Begin("Viewport");
+		
+		// Checking if window is focused, then to not block incoming events
+		_isViewportFocused = ImGui::IsWindowFocused(); // If viewport is focused then we don't want to block incoming events.
+		_isViewportHovered = ImGui::IsWindowHovered();
+
+		Application::Get().getImGuiLayer()->setBlockEvents(!_isViewportFocused || !_isViewportHovered); // if either out of focused or hovered
+
+
+
 
 		ImVec2 viewportPanelSize = ImGui::GetContentRegionAvail();
 
