@@ -26,6 +26,7 @@ namespace RendererEngine{
 
 		Ref<Texture2D> _checkerboardTexture;
 		Ref<FrameBuffer> _framebuffers;
+		glm::vec2 _viewportSize = {0, 0};
 		glm::vec4 _squareColor = {0.2f, 0.3f, 0.8, 1.0f};
 	};
 };
