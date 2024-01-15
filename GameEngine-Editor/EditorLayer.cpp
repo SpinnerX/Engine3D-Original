@@ -107,6 +107,7 @@ namespace RendererEngine{
 		// any change of dockspace/settings would lead to windows being stuck in limbo and never being visible.
 		if (!opt_padding)
 			ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
+
 		ImGui::Begin("DockSpace Demo", &dockSpaceOpened, window_flags);
 		if (!opt_padding)
 			ImGui::PopStyleVar();
@@ -162,13 +163,10 @@ namespace RendererEngine{
 
 		Application::Get().getImGuiLayer()->setBlockEvents(!_isViewportFocused || !_isViewportHovered); // if either out of focused or hovered
 
-
-
-
 		ImVec2 viewportPanelSize = ImGui::GetContentRegionAvail();
 
 		// Assuming the viewPortPanelSize is this type.
-		if(_viewportSize != *((glm::vec2 *)&viewportPanelSize)){
+		if(_viewportSize != *((glm::vec2 *)&viewportPanelSize) && viewportPanelSize.x > 0 && viewportPanelSize.y > 0){
 			// Recreating the frame buffer.
 			_framebuffers->resize((uint32_t)viewportPanelSize.x, (uint32_t)viewportPanelSize.y);
 			_viewportSize = {viewportPanelSize.x, viewportPanelSize.y};
