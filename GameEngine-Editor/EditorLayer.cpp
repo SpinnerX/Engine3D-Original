@@ -5,7 +5,7 @@
 #include <GameEngine/Entt/entt.h>
 
 namespace RendererEngine{
-	EditorLayer::EditorLayer() : Layer("Sandbox2D"), _cameraController(1280.0f / 720.0f){
+	EditorLayer::EditorLayer() : Layer("Sandbox2D"), _cameraController(1280.0f / 720.0f), _squareColor({ 0.2f, 0.3f, 0.8f, 1.0f }){
 	}
 
 	void EditorLayer::onAttach(){
@@ -30,13 +30,11 @@ namespace RendererEngine{
 
 		// Creating our camera component.
 		_cameraEntity = _activeScene->createEntity("Camera Entity");
-		_cameraEntity.addComponent<CameraComponent>(glm::ortho(-16.0f, 16.0f, -9.0f, 9.0f, -1.0f, 1.0f));
+		_cameraEntity.addComponent<CameraComponent>();
 		
 		_cameraSecond = _activeScene->createEntity("Second Camera Entity");
-		auto& cc = _cameraSecond.addComponent<CameraComponent>(glm::ortho(-1.0f, 1.0f, -1.0f, 1.0f, -1.0f, 1.0f));
+		auto& cc = _cameraSecond.addComponent<CameraComponent>();
 		cc.isPrimary = false;
-		
-
 	}
 
 	void EditorLayer::onDetach(){
@@ -46,17 +44,14 @@ namespace RendererEngine{
 	void EditorLayer::onUpdate(Timestep ts){
 		RENDER_PROFILE_FUNCTION();
 		
-		if(FrameBufferSpecifications spec = _framebuffers->getSpecifications();
-				_viewportSize.x > 0.0f && _viewportSize.y > 0.f && (spec.width != _viewportSize.x || spec.height  != _viewportSize.y)){
-			_framebuffers->resize((uint32_t)_viewportSize.x, (uint32_t)_viewportSize.y);
-			_cameraController.onResize(_viewportSize.x, _viewportSize.y);
-		}
-
+		_activeScene->onViewportResize(_viewportSize.x, _viewportSize.y); // viewport resizing every time the window size is changed
+		
+		
 		// Update (if mouse cursor is focused in window.)
 		if(_isViewportFocused)
 			_cameraController.onUpdate(ts);
 		
-		// Render	
+		// Render
 		Renderer2D::resetStats();
 		_framebuffers->bind();
 		RendererCommand::setClearColor({ 0.1f, 0.1f, 0.1f, 1 });
@@ -78,8 +73,8 @@ namespace RendererEngine{
 		ImGuiWindowFlags window_flags = ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoDocking;
 		if (opt_fullscreen){
 			const ImGuiViewport* viewport = ImGui::GetMainViewport();
-			ImGui::SetNextWindowPos(viewport->WorkPos);
-			ImGui::SetNextWindowSize(viewport->WorkSize);
+			ImGui::SetNextWindowPos(viewport->Pos);
+			ImGui::SetNextWindowSize(viewport->Size);
 			ImGui::SetNextWindowViewport(viewport->ID);
 			ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, 0.0f);
 			ImGui::PushStyleVar(ImGuiStyleVar_WindowBorderSize, 0.0f);
@@ -94,20 +89,12 @@ namespace RendererEngine{
 		// and handle the pass-thru hole, so we ask Begin() to not render a background.
 		if (dockspace_flags & ImGuiDockNodeFlags_PassthruCentralNode)
 			window_flags |= ImGuiWindowFlags_NoBackground;
-
-		// Important: note that we proceed even if Begin() returns false (aka window is collapsed).
-		// This is because we want to keep our DockSpace() active. If a DockSpace() is inactive,
-		// all active windows docked into it will lose their parent and become undocked.
-		// We cannot preserve the docking relationship between an active window and an inactive docking, otherwise
-		// any change of dockspace/settings would lead to windows being stuck in limbo and never being visible.
-		if (!opt_padding)
-			ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
-
+		
+		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
 		ImGui::Begin("DockSpace Demo", &dockSpaceOpened, window_flags);
-		if (!opt_padding)
-			ImGui::PopStyleVar();
+		ImGui::PopStyleVar();
 
-		if (opt_fullscreen)
+		if(opt_fullscreen)
 			ImGui::PopStyleVar(2);
 
 		// Submit the DockSpace
@@ -117,13 +104,6 @@ namespace RendererEngine{
 			ImGui::DockSpace(dockspace_id, ImVec2(0.0f, 0.0f), dockspace_flags);
 		}
 	
-		/*
-		*
-		* ImGui::BeginMenuBar()
-		* @note this is how you can add items to the menu bar at the top of the window.
-		*
-		*
-		* */
 		if (ImGui::BeginMenuBar()){
 			if (ImGui::BeginMenu("File")){
 
@@ -133,8 +113,6 @@ namespace RendererEngine{
 			}
 			ImGui::EndMenuBar();
 		}
-
-		ImGui::End();
 
 
 		ImGui::Begin("Settings");
@@ -166,9 +144,17 @@ namespace RendererEngine{
 			_cameraEntity.getComponent<CameraComponent>().isPrimary = isPrimaryCamera;
 			_cameraSecond.getComponent<CameraComponent>().isPrimary = !isPrimaryCamera;
 		}
-
-
-
+		
+		
+		auto& camera = _cameraSecond.getComponent<CameraComponent>().camera;
+		float orthoSize = camera.getOrthographicSize();
+		coreLogInfo("Ortho Size #1 == {}", orthoSize);
+		if(ImGui::DragFloat("Second Camera Ortho Size", &orthoSize)){
+			camera.setOrthographicSize(orthoSize);
+		}
+		
+		ImGui::End();
+		
 
 	
 		// Starting the viewports
@@ -182,13 +168,12 @@ namespace RendererEngine{
 		Application::Get().getImGuiLayer()->setBlockEvents(!_isViewportFocused || !_isViewportHovered); // if either out of focused or hovered
 
 		ImVec2 viewportPanelSize = ImGui::GetContentRegionAvail();
-
+		_viewportSize = {_viewportSize.x, _viewportSize.y};
 		// Assuming the viewPortPanelSize is this type.
 		if(_viewportSize != *((glm::vec2 *)&viewportPanelSize) && viewportPanelSize.x > 0 && viewportPanelSize.y > 0){
 			// Recreating the frame buffer.
 			_framebuffers->resize((uint32_t)viewportPanelSize.x, (uint32_t)viewportPanelSize.y);
 			_viewportSize = {viewportPanelSize.x, viewportPanelSize.y};
-
 			_cameraController.onResize(_viewportSize.x, _viewportSize.y);
 		}
 
