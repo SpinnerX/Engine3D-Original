@@ -20,6 +20,21 @@ namespace RendererEngine{
 	}
 	
 	void Scene::onUpdate(Timestep ts){
+		{
+			_registry.view<NativeScriptComponent>().each([=](auto entity, auto& nativeScriptComponent){
+				// Checking for valid instance.
+				// @note At beginning of each scene onUpdate()
+				// @note Any entity that has NativeScriptComponent will have onCreate and onUpdate function called.
+				if(!nativeScriptComponent.instance){
+					nativeScriptComponent.instantiateFun();
+					nativeScriptComponent.onCreateFun(nativeScriptComponent.instance);
+				}
+
+				// Every frame
+				nativeScriptComponent.onUpdateFun(nativeScriptComponent.instance, ts);
+			});
+		}
+
 		// Rendering 2D
 		Camera* mainCamera = nullptr;
 		glm::mat4* cameraTransform = nullptr;

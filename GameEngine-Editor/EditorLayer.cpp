@@ -35,6 +35,31 @@ namespace RendererEngine{
 		_cameraSecond = _activeScene->createEntity("Second Camera Entity");
 		auto& cc = _cameraSecond.addComponent<CameraComponent>();
 		cc.isPrimary = false;
+
+		// Standard script 
+		class CameraController : public ScriptableEntity{
+		public:
+
+			// Function gets called when entity gets created.
+			// We need onCreate instance.
+			void onCreate(){
+				/* getComponent<TransformComponent>(); */
+				coreLogInfo("CameraComponentController::onCreate() called!\n");
+			}
+			
+			// Where the scenes get updated
+			void onUpdate(Timestep ts){
+				coreLogInfo("CameraComponentController::onUpdate() called!\n");
+			}
+			
+			// To destroy entities, collision callbacks, etc.
+			void onDestroy(){
+				coreLogInfo("CameraComponentController::onDestroy() called!\n");
+			}
+		};
+		
+		// Idea in API usage.
+		_cameraSecond.addComponent<NativeScriptComponent>().bind<CameraController>();
 	}
 
 	void EditorLayer::onDetach(){
@@ -44,6 +69,10 @@ namespace RendererEngine{
 	void EditorLayer::onUpdate(Timestep ts){
 		RENDER_PROFILE_FUNCTION();
 		
+		// Updating scripts
+		// Iterate all entities in ScriptableEntity
+
+
 		_activeScene->onViewportResize(_viewportSize.x, _viewportSize.y); // viewport resizing every time the window size is changed
 		
 		
@@ -148,7 +177,6 @@ namespace RendererEngine{
 		
 		auto& camera = _cameraSecond.getComponent<CameraComponent>().camera;
 		float orthoSize = camera.getOrthographicSize();
-		coreLogInfo("Ortho Size #1 == {}", orthoSize);
 		if(ImGui::DragFloat("Second Camera Ortho Size", &orthoSize)){
 			camera.setOrthographicSize(orthoSize);
 		}

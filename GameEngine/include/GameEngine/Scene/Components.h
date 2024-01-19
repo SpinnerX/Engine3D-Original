@@ -1,6 +1,7 @@
 #pragma once
 #include <GameEngine/Renderer/OrthographicCamera.h>
 #include <GameEngine/Scene/SceneCamera.h>
+#include <GameEngine/Scene/ScriptableEntity.h>
 
 namespace RendererEngine{
 	
@@ -58,5 +59,28 @@ namespace RendererEngine{
 
 		CameraComponent() = default;
 		CameraComponent(const CameraComponent&) = default;
+	};
+
+	struct NativeScriptComponent{
+		ScriptableEntity* instance = nullptr;
+		
+		std::function<void()> instantiateFun; // Usage: Just instantiates to the type we are binding
+		std::function<void()> destroyInstanceFun; // Usage: Destroys instance we are binding.
+
+		std::function<void(ScriptableEntity*)> onCreateFun; // Usage: Just instantiates to the type we are binding
+		std::function<void(ScriptableEntity*)> onDestroy; // Usage: Destroys instance we are binding.
+		std::function<void(ScriptableEntity*, Timestep)> onUpdateFun;
+		template<typename T>
+		void bind(){
+			instantiateFun = [&]() { instance = new T(); };
+			destroyInstanceFun = [&]() { delete (T *)instance; };
+
+			// converting this onCreate into the specific types instance.
+			// Gets instantiated, by setting up that instance
+			onCreateFun = [](ScriptableEntity* instance){ ((T *)instance)->onCreate(); };
+			onDestroy = [](ScriptableEntity* instance){ ((T *)instance)->onDestroy(); };
+			onUpdateFun = [](ScriptableEntity* instance, Timestep ts){ ((T *)instance)->onUpdate(ts); };
+		}
+
 	};
 };
