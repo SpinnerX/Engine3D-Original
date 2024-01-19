@@ -72,6 +72,7 @@ set(
   GameEngine/include/GameEngine/platforms/OpenGL/OpenGLFramebuffer.cpp
   GameEngine/include/GameEngine/Scene/Scene.cpp
   GameEngine/include/GameEngine/Scene/Entity.cpp
+  GameEngine/include/GameEngine/Scene/SceneCamera.cpp
   ${stbi_src}
 )
 
