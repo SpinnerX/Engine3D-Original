@@ -7,8 +7,9 @@ namespace RendererEngine{
 	/*
 	 *
 	 * Scene
-	 * - Essentially a container that contains our entities.
-	 *
+	 * @note Essentially a container that contains our entities.
+	 * @note Setting the size before rendering.
+	 * @note Make sure when adding new camera to scene, it gets that effect.
 	 *
 	 *
 	 * */
@@ -26,8 +27,11 @@ namespace RendererEngine{
 
 		void onUpdate(Timestep ts);
 
+		void onViewportResize(uint32_t width, uint32_t height);
+
 	private:
 		entt::registry _registry; // entity used to determine which components belong together. registry contain the actual data.
+		uint32_t _viewportWidth=0, _viewportHeight=0;
 		friend class Entity;
 	};
 };

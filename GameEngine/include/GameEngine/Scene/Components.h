@@ -1,6 +1,6 @@
 #pragma once
 #include <GameEngine/Renderer/OrthographicCamera.h>
-#include <GameEngine/Renderer/Camera.h>
+#include <GameEngine/Scene/SceneCamera.h>
 
 namespace RendererEngine{
 	
@@ -37,17 +37,26 @@ namespace RendererEngine{
 	 * - Editor would not have a component itself.
 	 * - Rather that the camera would be a component with an entity.
 	 *
+	 * Quick NOTE
+	 * - There are two types of camera in your scenes.
+	 * - During game runtime, you can divide cams in two different cameras.
+	 *		0.) Cameras that essentially should be rendering some kind of view of the scene, directly tied to render output to our viewport.
+	 *			- Like making a 1920x1080, you want the camera to fill your screen.
+	 *			- Minimizing, making the window smaller, or somewhat modifying the window.
+	 *		1.) Fixed aspect ratio
+	 *		2.) non-fixed aspect ratio
+	 *			- Main camera 
 	 *
 	 * */
 	struct CameraComponent{
 
-		Camera camera;
+		SceneCamera camera;
 
 		// TODOL moving to scene.
 		bool isPrimary = true; // this allows to see if this current camera is your primary camera.
+		bool fixedAspectRatio = false; // Can check if true in editor meaning that the aspect ratio is fixedd. (Meaning the aspect ratio wont be changed)
 
 		CameraComponent() = default;
 		CameraComponent(const CameraComponent&) = default;
-		CameraComponent(const glm::mat4& projecMat) : camera(projecMat){}
 	};
 };

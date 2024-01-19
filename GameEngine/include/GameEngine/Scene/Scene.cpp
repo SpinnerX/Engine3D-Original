@@ -25,10 +25,10 @@ namespace RendererEngine{
 		glm::mat4* cameraTransform = nullptr;
 
 		{
-		auto group = _registry.view<TransformComponent, CameraComponent>();
+		auto view = _registry.view<TransformComponent, CameraComponent>();
 
-		for(auto entity : group){
-			auto[transform, camera] = group.get<TransformComponent, CameraComponent>(entity);
+		for(auto entity : view){
+			auto[transform, camera] = view.get<TransformComponent, CameraComponent>(entity);
 
 			if(camera.isPrimary){
 				mainCamera = &camera.camera;
@@ -52,8 +52,25 @@ namespace RendererEngine{
 			Renderer2D::endScene();
 			
 		}
-		else coreLogError("Main Camera does not exist");
 
+	}
+	
+	void Scene::onViewportResize(uint32_t width, uint32_t height){
+		_viewportWidth = width;
+		_viewportHeight = height;
 
+		// Going through all entities that have the CameraComponent
+		auto view = _registry.view<CameraComponent>();
+
+		for(auto entity: view){
+			auto& cameraComponent = view.get<CameraComponent>(entity);
+			
+			// resizing non fixed aspect ratio cameras.
+			// Checking if the user through the editor wants to change the fixed aspect ratio (resizing)
+			// @note probably the only time this wouldn't work is if adding a new camera component just after the scenes resize.
+			if(!cameraComponent.fixedAspectRatio){
+				cameraComponent.camera.setViewportSize(_viewportWidth, _viewportHeight);
+			}
+		}
 	}
 };

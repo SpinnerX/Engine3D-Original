@@ -13,11 +13,13 @@ namespace RendererEngine{
 	 * */
 	class Camera{
 	public:
+		Camera() = default;
 		Camera(const glm::mat4& projecMat) : _projectionMatrix(projecMat) {}
+		virtual ~Camera() = default;
 
 		const glm::mat4& getProjection() const { return _projectionMatrix; }
 
-	private:
-		glm::mat4 _projectionMatrix;
+	protected:
+		glm::mat4 _projectionMatrix = glm::mat4(1.0f);
 	};
 };
