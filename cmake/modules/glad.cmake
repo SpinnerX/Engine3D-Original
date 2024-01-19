@@ -11,6 +11,7 @@ set(glad_include /usr/local/include/glad)
 # NOTE: Or if you just want to install it without doing that for just easiness then click the link below
 # Glad Installation Link: https://glad.dav1d.de/generated/tmptmea9cbvglad/
 # We want to check if this directory exists if not then we proceed
+
 if(EXISTS ${glad_include})
     message(STATUS "Glad in /usr/local/include/glad has been found")
     include_directories(

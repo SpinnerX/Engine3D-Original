@@ -5,11 +5,14 @@
 # 3.) Depending on the OS is going to be how we set thhese filepaths
 # 4.) Once we set them, then thhat is how we are going to link them.
 if(APPLE)
+    message(STATUS "Mac searching for /usr/local/include/imgui")
     set(imgui_include "/usr/local/include/imgui")
 elseif(UNIX AND NOT APPLE)
+    message(STATUS "Linux searching for /usr/local/include/imgui")
     set(imgui_include "/usr/local/include/imgui")
 elseif(WIN32)
-    set(imgui_include "C:\\Desktop\\Libraries\\imgui")
+    # set(imgui_include "C:\\Desktop\\Libraries\\imgui")
+    message(SEND_ERROR "Windows OS not supported")
 endif(APPLE)
 
 # NOTE
