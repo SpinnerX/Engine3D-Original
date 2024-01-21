@@ -32,38 +32,37 @@ endif(APPLE)
 
 
 # We want to check before proceeding
-if(EXISTS ${imgui_include})
-    message(STATUS "Imgui in ${imgui_include} has been found")
-    set(
-        imgui_src
-        ${imgui_include}/imgui_draw.cpp
-        ${imgui_include}/imgui_widgets.cpp
-        ${imgui_include}/imgui_tables.cpp
-        ${imgui_include}/imgui_demo.cpp
-        ${imgui_include}/imgui.cpp
-
-
-        # ${imgui_include}/backends/imgui_impl_opengl2.cpp
-        # ${imgui_include}/backends/imgui_impl_glut.cpp
-        ${imgui_include}/backends/imgui_impl_glfw.cpp
-        ${imgui_include}/backends/imgui_impl_opengl3.cpp
-        # ${imgui_include}/backends/imgui_impl_sdl2.cpp
-        # ${imgui_include}/backends/imgui_impl_sdl3.cpp
-        # ${imgui_include}/backends/imgui_impl_sdlrenderer2.cpp
-        # ${imgui_include}/backends/imgui_impl_sdlrenderer3.cpp
-
-        # ${imgui_include}/backends/imgui_impl_dx9.cpp
-        # ${imgui_include}/backends/imgui_impl_dx12.cpp
-        # ${imgui_include}/backends/imgui_impl_dx11.cpp
-        # ${imgui_include}/backends/imgui_impl_dx10.cpp
-        # ${imgui_include}/backends/imgui_impl_android.cpp
-        # ${imgui_include}/backends/imgui_impl_allegro5.cpp
-
-        # ${imgui_include}/backends/imgui_impl_vulkan.cpp
-        # ${imgui_include}/backends/imgui_impl_wgpu.cpp
-        # ${imgui_include}/backends/imgui_impl_win32.cpp
-    )
-
-else()
+if(NOT EXISTS ${imgui_include})
     message(SEND_ERROR "Imgui in ${imgui_include} has not been found")
 endif()
+
+message(STATUS "Imgui in ${imgui_include} has been found")
+set(
+    imgui_src
+    ${imgui_include}/imgui_draw.cpp
+    ${imgui_include}/imgui_widgets.cpp
+    ${imgui_include}/imgui_tables.cpp
+    ${imgui_include}/imgui_demo.cpp
+    ${imgui_include}/imgui.cpp
+
+
+    # ${imgui_include}/backends/imgui_impl_opengl2.cpp
+    # ${imgui_include}/backends/imgui_impl_glut.cpp
+    ${imgui_include}/backends/imgui_impl_glfw.cpp
+    ${imgui_include}/backends/imgui_impl_opengl3.cpp
+    # ${imgui_include}/backends/imgui_impl_sdl2.cpp
+    # ${imgui_include}/backends/imgui_impl_sdl3.cpp
+    # ${imgui_include}/backends/imgui_impl_sdlrenderer2.cpp
+    # ${imgui_include}/backends/imgui_impl_sdlrenderer3.cpp
+
+    # ${imgui_include}/backends/imgui_impl_dx9.cpp
+    # ${imgui_include}/backends/imgui_impl_dx12.cpp
+    # ${imgui_include}/backends/imgui_impl_dx11.cpp
+    # ${imgui_include}/backends/imgui_impl_dx10.cpp
+    # ${imgui_include}/backends/imgui_impl_android.cpp
+    # ${imgui_include}/backends/imgui_impl_allegro5.cpp
+
+    # ${imgui_include}/backends/imgui_impl_vulkan.cpp
+    # ${imgui_include}/backends/imgui_impl_wgpu.cpp
+    # ${imgui_include}/backends/imgui_impl_win32.cpp
+)

@@ -12,13 +12,13 @@ set(glad_include /usr/local/include/glad)
 # Glad Installation Link: https://glad.dav1d.de/generated/tmptmea9cbvglad/
 # We want to check if this directory exists if not then we proceed
 
-if(EXISTS ${glad_include})
-    message(STATUS "Glad in /usr/local/include/glad has been found")
-    include_directories(
-        ${glad_include}/include
-        ${glad_include}/include/glad
-    )
-    set(glad_src ${glad_include}/src/glad.c)
-else()
+if(NOT EXISTS ${glad_include})
     message(SEND_ERROR "Glad in /usr/local/include/glad was not found")
 endif()
+
+message(STATUS "Glad in /usr/local/include/glad has been found")
+include_directories(
+    ${glad_include}/include
+    ${glad_include}/include/glad
+)
+set(glad_src ${glad_include}/src/glad.c)
