@@ -1,3 +1,4 @@
+#include <GameEnginePrecompiledHeader.h>
 #include "EditorLayer.h"
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
@@ -44,17 +45,32 @@ namespace RendererEngine{
 			// We need onCreate instance.
 			void onCreate(){
 				/* getComponent<TransformComponent>(); */
-				coreLogInfo("CameraComponentController::onCreate() called!\n");
+				/* coreLogInfo("CameraComponentController::onCreate() called!\n"); */
 			}
 			
 			// Where the scenes get updated
 			void onUpdate(Timestep ts){
-				coreLogInfo("CameraComponentController::onUpdate() called!\n");
+				/* coreLogInfo("CameraComponentController::onUpdate() TimeStep = {} has been called!\n", fmt::streamed(ts)); */
+				auto& transform = getComponent<TransformComponent>();
+				float speed = 5.f;
+				if(InputPoll::isKeyPressed(KeyCode::A)){
+					transform.transform[3][0] -= speed * ts;
+				}
+				else if(InputPoll::isKeyPressed(KeyCode::D)){
+					transform.transform[3][0] += speed * ts;
+				}
+				else if(InputPoll::isKeyPressed(KeyCode::W)){
+					transform.transform[3][1] += speed * ts;
+				}
+				else if(InputPoll::isKeyPressed(KeyCode::S)){
+					transform.transform[3][1] -= speed * ts;
+				}
+				
 			}
 			
 			// To destroy entities, collision callbacks, etc.
 			void onDestroy(){
-				coreLogInfo("CameraComponentController::onDestroy() called!\n");
+				/* coreLogInfo("CameraComponentController::onDestroy() called!\n"); */
 			}
 		};
 		
