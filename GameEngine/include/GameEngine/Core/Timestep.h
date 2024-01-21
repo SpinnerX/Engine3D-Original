@@ -15,7 +15,10 @@ namespace RendererEngine{
         // This just returns a _time that is converted into a float
         // Basically allowing to use this as a float
         operator float() { return _time; }
-
+		
+		friend std::ostream& operator<<(std::ostream& outs, const Timestep& step){
+			return outs << step._time;
+		}
 
     private:
         float _time;

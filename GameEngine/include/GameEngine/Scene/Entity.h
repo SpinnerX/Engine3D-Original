@@ -41,7 +41,6 @@ namespace RendererEngine{
 			// Checking if the component exists
 			if(this->hasComponent<T>()){
 				coreLogError("Entity does not have component!");
-				return;
 			}
 			
 			render_core_assert(hasComponent<T>(), "Entity does not have component");

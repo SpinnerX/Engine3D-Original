@@ -22,7 +22,7 @@ namespace RendererEngine{
         virtual void onDetach() {}
 
         // Updating the layer is updated when the application calls onUpdate
-        virtual void onUpdate(Timestep ts){}
+        [[maybe_unused]] virtual void onUpdate(Timestep ts){}
 
         virtual void onImguiRender(){}
 

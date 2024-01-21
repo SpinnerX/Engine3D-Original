@@ -21,8 +21,7 @@ namespace RendererEngine{
 			
 		operator glm::mat4&() { return transform; }
 		operator const glm::mat4&() const { return transform; }
-
-
+		
 	};
 
 	struct SpriteRendererComponent{

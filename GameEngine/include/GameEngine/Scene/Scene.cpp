@@ -21,17 +21,27 @@ namespace RendererEngine{
 	
 	void Scene::onUpdate(Timestep ts){
 		{
-			_registry.view<NativeScriptComponent>().each([=](auto entity, auto& nativeScriptComponent){
+			/*
+			 *
+			 * @note instead of doing [=] has been deprecated, so doing [=, this]
+			 * @note [=, this] means that we are not making a copy of entity.
+			 * */
+			_registry.view<NativeScriptComponent>().each([=, this](auto entity, auto& nativeScriptComponent){
 				// Checking for valid instance.
 				// @note At beginning of each scene onUpdate()
 				// @note Any entity that has NativeScriptComponent will have onCreate and onUpdate function called.
 				if(!nativeScriptComponent.instance){
 					nativeScriptComponent.instantiateFun();
-					nativeScriptComponent.onCreateFun(nativeScriptComponent.instance);
+					nativeScriptComponent.instance->_entity = {entity, this};
+
+					// Checking if onCreateFunction has been created.
+					if(nativeScriptComponent.onCreateFun)
+						nativeScriptComponent.onCreateFun(nativeScriptComponent.instance);
 				}
 
 				// Every frame
-				nativeScriptComponent.onUpdateFun(nativeScriptComponent.instance, ts);
+				if(nativeScriptComponent.onUpdateFun)
+					nativeScriptComponent.onUpdateFun(nativeScriptComponent.instance, ts);
 			});
 		}
 
