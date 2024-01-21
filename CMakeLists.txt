@@ -58,9 +58,6 @@ set(
   ${stbi_src}
 )
 
-if(APPLE)
-endif(APPLE)
-
 add_subdirectory(Sandbox)
 add_subdirectory(RocketGame)
 add_subdirectory(2DGameParticles)
