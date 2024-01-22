@@ -46,6 +46,8 @@ namespace RendererEngine{
 			void onCreate(){
 				/* getComponent<TransformComponent>(); */
 				/* coreLogInfo("CameraComponentController::onCreate() called!\n"); */
+				auto& transform = getComponent<TransformComponent>();
+				transform.transform[3][0] = rand() % 10 - 5.0f;
 			}
 			
 			// Where the scenes get updated
@@ -76,6 +78,7 @@ namespace RendererEngine{
 		
 		// Idea in API usage.
 		_cameraSecond.addComponent<NativeScriptComponent>().bind<CameraController>();
+		_cameraEntity.addComponent<NativeScriptComponent>().bind<CameraController>();
 	}
 
 	void EditorLayer::onDetach(){
