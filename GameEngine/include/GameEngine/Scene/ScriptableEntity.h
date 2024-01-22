@@ -10,6 +10,10 @@ namespace RendererEngine{
 	 * */
 	class ScriptableEntity{
 	public:
+		
+		// @note When deleting pointer to this destructor we can delete that point in memory as a ScriptableEntity.
+		virtual ~ScriptableEntity(){}
+
 		template<typename  T>
 		T& getComponent(){
 			if(!_entity.hasComponent<T>()){
@@ -18,8 +22,12 @@ namespace RendererEngine{
 
 			return _entity.getComponent<T>();
 		}
+		
+		virtual void onCreate(){}
 
-
+		virtual void onUpdate(Timestep ts){}
+		
+		virtual void onDestroy(){}
 
 	private:
 		Entity _entity;

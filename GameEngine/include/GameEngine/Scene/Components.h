@@ -63,23 +63,25 @@ namespace RendererEngine{
 	struct NativeScriptComponent{
 		ScriptableEntity* instance = nullptr;
 		
-		std::function<void()> instantiateFun; // Usage: Just instantiates to the type we are binding
-		std::function<void()> destroyInstanceFun; // Usage: Destroys instance we are binding.
-
-		std::function<void(ScriptableEntity*)> onCreateFun; // Usage: Just instantiates to the type we are binding
-		std::function<void(ScriptableEntity*)> onDestroy; // Usage: Destroys instance we are binding.
-		std::function<void(ScriptableEntity*, Timestep)> onUpdateFun;
+		ScriptableEntity*(*instantiateScript)(); // Usage: Just instantiates to the type we are binding (equivalent to doing std::function<void(ScriptableEntity *)>; called instantiateScript.)
+		
+		/*
+		 *
+		 *
+		 *	@note takes a ptr to itself.
+		 *
+		 * */
+		void (*destroyScript)(NativeScriptComponent *); // Usage: Destroys instance we are binding.
+		
+		/*
+		 *
+		 * @note Create new instance of this particular passed being passed.
+		 * @note Deletes that instance, setting it to nullptr.
+		 */
 		template<typename T>
 		void bind(){
-			instantiateFun = [&]() { instance = new T(); };
-			destroyInstanceFun = [&]() { delete (T *)instance; };
-
-			// converting this onCreate into the specific types instance.
-			// Gets instantiated, by setting up that instance
-			onCreateFun = [](ScriptableEntity* instance){ ((T *)instance)->onCreate(); };
-			onDestroy = [](ScriptableEntity* instance){ ((T *)instance)->onDestroy(); };
-			onUpdateFun = [](ScriptableEntity* instance, Timestep ts){ ((T *)instance)->onUpdate(ts); };
+			instantiateScript = []() { return static_cast<ScriptableEntity *>(new T()); };
+			destroyScript = [](NativeScriptComponent* nsc) { delete nsc; nsc=nullptr; };
 		}
-
 	};
 };

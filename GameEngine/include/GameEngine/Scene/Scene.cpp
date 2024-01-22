@@ -25,23 +25,21 @@ namespace RendererEngine{
 			 *
 			 * @note instead of doing [=] has been deprecated, so doing [=, this]
 			 * @note [=, this] means that we are not making a copy of entity.
+			 *
+			 * @note TODO: Move to ScrenePlay::onScrenePlay
 			 * */
 			_registry.view<NativeScriptComponent>().each([=, this](auto entity, auto& nativeScriptComponent){
 				// Checking for valid instance.
 				// @note At beginning of each scene onUpdate()
 				// @note Any entity that has NativeScriptComponent will have onCreate and onUpdate function called.
 				if(!nativeScriptComponent.instance){
-					nativeScriptComponent.instantiateFun();
+					nativeScriptComponent.instance = nativeScriptComponent.instantiateScript();
 					nativeScriptComponent.instance->_entity = {entity, this};
 
-					// Checking if onCreateFunction has been created.
-					if(nativeScriptComponent.onCreateFun)
-						nativeScriptComponent.onCreateFun(nativeScriptComponent.instance);
+					nativeScriptComponent.instance->onCreate();
 				}
 
-				// Every frame
-				if(nativeScriptComponent.onUpdateFun)
-					nativeScriptComponent.onUpdateFun(nativeScriptComponent.instance, ts);
+				nativeScriptComponent.instance->onUpdate(ts); // TODO: Should be called in onSceneStop.
 			});
 		}
 
