@@ -50,6 +50,12 @@ namespace RendererEngine{
 
 		operator bool() const  { return _entityHandler != entt::null; }
 
+		operator uint32_t() const { return (uint32_t)_entityHandler; }
+		
+		bool operator==(const Entity& other) const { return _entityHandler == other._entityHandler and _scene == other._scene; }
+		
+		bool operator!=(const Entity& other) const { return !(*this == other); }
+
 	private:
 		entt::entity _entityHandler{entt::null};
 		Scene* _scene = nullptr; // 12 bytes

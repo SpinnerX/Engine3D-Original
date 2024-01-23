@@ -33,5 +33,6 @@ namespace RendererEngine{
 		entt::registry _registry; // entity used to determine which components belong together. registry contain the actual data.
 		uint32_t _viewportWidth=0, _viewportHeight=0;
 		friend class Entity;
+		friend class SceneHeirachyPanel;
 	};
 };
