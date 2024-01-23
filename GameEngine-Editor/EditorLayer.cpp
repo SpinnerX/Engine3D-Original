@@ -5,6 +5,7 @@
 #include <GameEngine/platforms/OpenGL/OpenGLShader.h>
 #include <GameEngine/Entt/entt.h>
 
+
 namespace RendererEngine{
 	EditorLayer::EditorLayer() : Layer("Sandbox2D"), _cameraController(1280.0f / 720.0f), _squareColor({ 0.2f, 0.3f, 0.8f, 1.0f }){
 	}
@@ -79,6 +80,7 @@ namespace RendererEngine{
 		// Idea in API usage.
 		_cameraSecond.addComponent<NativeScriptComponent>().bind<CameraController>();
 		_cameraEntity.addComponent<NativeScriptComponent>().bind<CameraController>();
+		_sceneHeirarchyPanel.setContext(_activeScene);
 	}
 
 	void EditorLayer::onDetach(){
@@ -161,7 +163,8 @@ namespace RendererEngine{
 			}
 			ImGui::EndMenuBar();
 		}
-
+		
+		_sceneHeirarchyPanel.onImguiRender();
 
 		ImGui::Begin("Settings");
 

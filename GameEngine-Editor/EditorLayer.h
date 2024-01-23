@@ -1,10 +1,11 @@
 #pragma once
 #include <GameEngine/Core/GameEngine.h>
+#include "Panels/SceneHeirarchyPanel.h"
 
 namespace RendererEngine{
 	class EditorLayer : public Layer{
 	public:
-		EditorLayer();
+EditorLayer();
 	
 		virtual ~EditorLayer() = default;
 
@@ -29,6 +30,8 @@ namespace RendererEngine{
 
 		Ref<Texture2D> _checkerboardTexture;
 		Ref<FrameBuffer> _framebuffers;
+
+		SceneHeirachyPanel _sceneHeirarchyPanel;
 
 		Ref<Scene> _activeScene;
 		Entity _squareEntity;
