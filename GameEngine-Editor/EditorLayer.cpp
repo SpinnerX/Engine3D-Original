@@ -170,7 +170,7 @@ namespace RendererEngine{
 		
 		_sceneHeirarchyPanel.onImguiRender();
 
-		ImGui::Begin("Settings");
+		ImGui::Begin("Stats");
 
 		auto stats = Renderer2D::getStats();
 		ImGui::Text("Renderer2D Stats");
@@ -179,37 +179,7 @@ namespace RendererEngine{
 		ImGui::Text("Vertices: %d", stats.getTotalVertexCount());
 		ImGui::Text("Indices: %d", stats.getTotalIndexCount());
 
-
-		if(_squareEntity){	
-			ImGui::Separator();
-			auto& tag = _squareEntity.getComponent<TagComponent>().tag;
-			ImGui::Text("%s", tag.c_str());
-
-			auto& squareColor = _squareEntity.getComponent<SpriteRendererComponent>().color;
-			ImGui::ColorEdit4("Square Color", glm::value_ptr(squareColor));
-		
-			ImGui::Separator();
-		}
-
-		ImGui::DragFloat3("Camera Transform", glm::value_ptr(_cameraEntity.getComponent<TransformComponent>().transform[3]));
-		
-
-		// Switch Between cameras 
-		if(ImGui::Checkbox("Camera A", &isPrimaryCamera)){
-			_cameraEntity.getComponent<CameraComponent>().isPrimary = isPrimaryCamera;
-			_cameraSecond.getComponent<CameraComponent>().isPrimary = !isPrimaryCamera;
-		}
-		
-		
-		auto& camera = _cameraSecond.getComponent<CameraComponent>().camera;
-		float orthoSize = camera.getOrthographicSize();
-		if(ImGui::DragFloat("Second Camera Ortho Size", &orthoSize)){
-			camera.setOrthographicSize(orthoSize);
-		}
-		
 		ImGui::End();
-		
-
 	
 		// Starting the viewports
 		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2{0, 0});

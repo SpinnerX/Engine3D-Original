@@ -91,6 +91,14 @@ namespace RendererEngine{
 		
 		// @params translation, rotation, scale.
 		// @note handling those controls the transformation of entities.
+		// @note TODO probably change the api call to the following below for entity and components retrieval.
+		/*
+		 drawComponent<CameraComponent>("Camera"), [](){
+			auto& src = entity.getComponent<SpriteRendererComponent>();
+			ImGui::ColorEdit4("Color", glm::value_ptr(src.color));
+		 });
+
+		 * */
 		if(entity.hasComponent<TransformComponent>()){
 			
 			// Creating our headers.
@@ -167,6 +175,14 @@ namespace RendererEngine{
 					ImGui::Checkbox("Fixed Aspect Ratio", &cameraComponent.fixedAspectRatio);
 				}
 
+				ImGui::TreePop();
+			}
+		}
+
+		if(entity.hasComponent<SpriteRendererComponent>()){
+			if(ImGui::TreeNodeEx((void *)typeid(SpriteRendererComponent).hash_code(), ImGuiTreeNodeFlags_DefaultOpen, "Sprite Renderer")){
+				auto& spriteRenderComponent = entity.getComponent<SpriteRendererComponent>();
+				ImGui::ColorEdit4("Color", glm::value_ptr(spriteRenderComponent.color));
 				ImGui::TreePop();
 			}
 		}
