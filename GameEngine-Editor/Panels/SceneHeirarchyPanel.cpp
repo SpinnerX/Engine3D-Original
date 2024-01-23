@@ -101,5 +101,74 @@ namespace RendererEngine{
 				ImGui::TreePop();
 			}
 		}
+
+		if(entity.hasComponent<CameraComponent>()){
+			if(ImGui::TreeNodeEx((void *)typeid(CameraComponent).hash_code(), ImGuiTreeNodeFlags_DefaultOpen, "Camera")){
+				auto& cameraComponent = entity.getComponent<CameraComponent>();
+				auto& camera = cameraComponent.camera;
+				
+				ImGui::Checkbox("Primary", &cameraComponent.isPrimary);
+
+
+				const char* projectionTypeStrings[] = {"Perspective", "Orthographic"};
+				const char* currentProjectionTypeString = projectionTypeStrings[(int)cameraComponent.camera.getProjectionType()];
+
+				// @note if BeginCombo has started.
+				if(ImGui::BeginCombo("Projection", currentProjectionTypeString)){
+					
+					// @note seeing what currently selected projection type is. 
+					for(int i = 0; i < 2; i++){
+
+						// @note handling if the projection type selected is valid and selected
+						bool isSelected = (currentProjectionTypeString == projectionTypeStrings[i]);
+						if(ImGui::Selectable(projectionTypeStrings[i], isSelected)){
+							currentProjectionTypeString = projectionTypeStrings[i];
+							camera.setProjectionType((SceneCamera::ProjectionType)i);
+						}
+						
+						// @note checking if already selected then setting the default focus.
+						if(isSelected){
+							ImGui::SetItemDefaultFocus();
+						}
+					}
+
+					ImGui::EndCombo();
+				}
+				
+				// @note checking if the camera component is orthographic.
+				if(cameraComponent.camera.getProjectionType() == SceneCamera::ProjectionType::Perspective){
+					float verticalFov = glm::degrees(camera.getPerspectiveVerticalFOV());
+
+					if(ImGui::DragFloat("FOV", &verticalFov))
+						camera.setPerspectiveVerticalFOV(glm::radians(verticalFov));
+
+					float perspNearClip = camera.getPerspectiveNearClip();
+					if(ImGui::DragFloat("Near", &perspNearClip))
+						camera.setPerspectiveNearClip(perspNearClip);
+					
+					float perspFarClip = camera.getPerspectiveFarClip();
+					if(ImGui::DragFloat("Far", &perspFarClip))
+						camera.setPerspectiveFarClip(perspFarClip);
+				}
+				
+				if(cameraComponent.camera.getProjectionType() == SceneCamera::ProjectionType::Orthographic){
+					float orthoSize = camera.getOrthographicSize();
+
+					if(ImGui::DragFloat("Size", &orthoSize))
+						camera.setOrthographicSize(orthoSize);
+
+					float nearClip = camera.getOrthoNearClip();
+					if(ImGui::DragFloat("Near", &nearClip))
+						camera.setOrthoNearClip(nearClip);
+					
+					float farClip = camera.getOrthoFarClip();
+					if(ImGui::DragFloat("Far", &farClip))
+						camera.setOrthoNearClip(farClip);
+					ImGui::Checkbox("Fixed Aspect Ratio", &cameraComponent.fixedAspectRatio);
+				}
+
+				ImGui::TreePop();
+			}
+		}
 	}
 };

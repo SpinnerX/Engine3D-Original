@@ -28,6 +28,10 @@ namespace RendererEngine{
 		// Creating an entity in the scene.
 		auto square = _activeScene->createEntity("Green Square");
 		square.addComponent<SpriteRendererComponent>(glm::vec4{0.0f, 1.0f, 0.0f, 1.0f});
+
+		auto redSquare = _activeScene->createEntity("Red Square");
+		redSquare.addComponent<SpriteRendererComponent>(glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
+		
 		_squareEntity = square;
 
 		// Creating our camera component.
