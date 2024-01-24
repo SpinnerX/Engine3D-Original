@@ -6,7 +6,7 @@
 namespace RendererEngine{
     struct WindowProps{
 
-        WindowProps(const std::string& t="Game Engine", uint32_t w = 1280, uint32_t h = 720) : title(t), width(w), height(h) {}
+        WindowProps(const std::string& t="Game Engine", uint32_t w = 1600, uint32_t h = 900) : title(t), width(w), height(h) {}
 
         std::string  title;
         uint32_t width;

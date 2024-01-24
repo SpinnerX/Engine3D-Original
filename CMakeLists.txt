@@ -82,6 +82,7 @@ target_include_directories(
 )
 
 file(COPY Sandbox/assets DESTINATION ${CMAKE_BINARY_DIR})
+file(COPY GameEngine-Editor/assets DESTINATION ${CMAKE_BINARY_DIR})
 
 target_precompile_headers(${PROJECT_NAME} PUBLIC
   "$<$<COMPILE_LANGUAGE:CXX>:${CMAKE_CURRENT_SOURCE_DIR}/GameEngine/include/GameEnginePrecompiledHeader.h>"

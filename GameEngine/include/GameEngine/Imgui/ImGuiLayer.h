@@ -26,6 +26,8 @@ namespace RendererEngine{
         void end();
 
 		void setBlockEvents(bool blocks) { _isBlockingEvents = blocks; }
+		
+		void setDarkThemeColors();
 
     private:
 		bool _isBlockingEvents = true;

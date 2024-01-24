@@ -28,6 +28,8 @@ MACRO(ADD_MSVC_PRECOMPILED_HEADER PrecompiledHeader PrecompiledSource SourcesVar
   ENDIF(MSVC)
 ENDMACRO(ADD_MSVC_PRECOMPILED_HEADER)
 
+file(COPY assets DESTINATION ${CMAKE_BINARY_DIR})
+
 # Log::Log1 is the alias we made when we created an alias in the Logger CMakeLists.txt file
 target_link_libraries(
     ${PROJECT_NAME}

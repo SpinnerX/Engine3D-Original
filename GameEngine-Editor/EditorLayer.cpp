@@ -158,10 +158,16 @@ namespace RendererEngine{
 
 		// Submit the DockSpace
 		ImGuiIO& io = ImGui::GetIO();
+		float minWinSizeX = 370.0f;
+		ImGuiStyle& style = ImGui::GetStyle();
+		style.WindowMinSize.x = 370.0f;
+		
+
 		if (io.ConfigFlags & ImGuiConfigFlags_DockingEnable){
 			ImGuiID dockspace_id = ImGui::GetID("MyDockSpace");
 			ImGui::DockSpace(dockspace_id, ImVec2(0.0f, 0.0f), dockspace_flags);
 		}
+		style.WindowMinSize.x = minWinSizeX;
 	
 		if (ImGui::BeginMenuBar()){
 			if (ImGui::BeginMenu("File")){
