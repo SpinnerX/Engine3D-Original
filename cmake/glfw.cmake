@@ -67,15 +67,28 @@ endif()
 
 # Linking the libraries for Cocoa, OpenGL, IOKit for APPLE OSX
 if(APPLE)
-    target_link_libraries(${PROJECT_NAME} "-framework Cocoa")
-    target_link_libraries(${PROJECT_NAME} "-framework OpenGL")
-    target_link_libraries(${PROJECT_NAME} "-framework IOKit")
+    # target_link_libraries(${PROJECT_NAME} "-framework Cocoa")
+    # target_link_libraries(${PROJECT_NAME} "-framework OpenGL")
+    # target_link_libraries(${PROJECT_NAME} "-framework IOKit")
+	target_link_libraries(
+		${PROJECT_NAME}
+		"-framework Cocoa"
+		"-framework OpenGL"
+		"-framework IOKit"
+		glfw
+		OpenGL::GL
+		GLEW::GLEW
+		${GLUT_LIBRARIES} # NOTE: If you want to use freeglut, then you need this to link freeglut to get working
+		glm::glm
+	)
 endif(APPLE)
 
-target_link_libraries(${PROJECT_NAME}
-    glfw
-    OpenGL::GL
-    GLEW::GLEW
-    ${GLUT_LIBRARIES} # NOTE: If you want to use freeglut, then you need this to link freeglut to get working
-    glm::glm
-)
+if(UNIX AND NOT APPLE)
+	target_link_libraries(${PROJECT_NAME} PRIVATE
+		glfw
+		OpenGL::GL
+		GLEW::GLEW
+		${GLUT_LIBRARIES} # NOTE: If you want to use freeglut, then you need this to link freeglut to get working
+		glm::glm
+	)
+endif(UNIX AND NOT APPLE)

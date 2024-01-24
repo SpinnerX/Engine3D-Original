@@ -3,7 +3,7 @@ set(PROJECT_NAME GameEngine)
 
 project(${PROJECT_NAME})
 set(CMAKE_CXX_STANDARD 20)
-set(CMAKE_CXX_FLAGS "-std=c++20 -fno-exceptions -fsanitize=address")
+set(CMAKE_CXX_FLAGS "-std=c++20 -fsanitize=address")
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON CACHE INTERNAL "") # works (in creating the compile_commands.json file)
 
 add_compile_options(-fsanitize=address)
@@ -55,6 +55,7 @@ set(
   GameEngine/include/GameEngine/Scene/Scene.cpp
   GameEngine/include/GameEngine/Scene/Entity.cpp
   GameEngine/include/GameEngine/Scene/SceneCamera.cpp
+  GameEngine/include/GameEngine/Scene/SceneSerializer.cpp
   ${stbi_src}
 )
 
@@ -81,12 +82,15 @@ target_include_directories(
   ${glad_include}
 )
 
-file(COPY Sandbox/assets DESTINATION ${CMAKE_BINARY_DIR})
-file(COPY GameEngine-Editor/assets DESTINATION ${CMAKE_BINARY_DIR})
+file(COPY Sandbox/assets DESTINATION ${CMAKE_BINARY_DIR}/Sandbox/assets)
+file(COPY GameEngine-Editor/assets DESTINATION ${CMAKE_BINARY_DIR}/GameEngine-Editor/assets)
 
 target_precompile_headers(${PROJECT_NAME} PUBLIC
   "$<$<COMPILE_LANGUAGE:CXX>:${CMAKE_CURRENT_SOURCE_DIR}/GameEngine/include/GameEnginePrecompiledHeader.h>"
 )
 
+
 include(cmake/glfw.cmake)
+include(cmake/yaml.cmake)
 include(cmake/fmt.cmake)
+

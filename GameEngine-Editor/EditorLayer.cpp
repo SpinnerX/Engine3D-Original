@@ -4,7 +4,7 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <GameEngine/platforms/OpenGL/OpenGLShader.h>
 #include <GameEngine/Entt/entt.h>
-
+#include <GameEngine/Scene/SceneSerializer.h>
 
 namespace RendererEngine{
 	EditorLayer::EditorLayer() : Layer("Sandbox2D"), _cameraController(1280.0f / 720.0f), _squareColor({ 0.2f, 0.3f, 0.8f, 1.0f }){
@@ -24,7 +24,7 @@ namespace RendererEngine{
 		_activeScene = CreateRef<Scene>();
 		
 
-
+#if 0
 		// Creating an entity in the scene.
 		auto square = _activeScene->createEntity("Green Square");
 		square.addComponent<SpriteRendererComponent>(glm::vec4{0.0f, 1.0f, 0.0f, 1.0f});
@@ -35,10 +35,10 @@ namespace RendererEngine{
 		_squareEntity = square;
 
 		// Creating our camera component.
-		_cameraEntity = _activeScene->createEntity("Camera Entity");
+		_cameraEntity = _activeScene->createEntity("Camera A");
 		_cameraEntity.addComponent<CameraComponent>();
 		
-		_cameraSecond = _activeScene->createEntity("Second Camera Entity");
+		_cameraSecond = _activeScene->createEntity("Camera B");
 		auto& cc = _cameraSecond.addComponent<CameraComponent>();
 		cc.isPrimary = false;
 
@@ -89,7 +89,11 @@ namespace RendererEngine{
 		// Idea in API usage.
 		_cameraSecond.addComponent<NativeScriptComponent>().bind<CameraController>();
 		_cameraEntity.addComponent<NativeScriptComponent>().bind<CameraController>();
+
+#endif
 		_sceneHeirarchyPanel.setContext(_activeScene);
+
+		/* serializer.serializer("assets/scene/Example.engine"); */
 	}
 
 	void EditorLayer::onDetach(){
@@ -171,6 +175,16 @@ namespace RendererEngine{
 	
 		if (ImGui::BeginMenuBar()){
 			if (ImGui::BeginMenu("File")){
+				
+				if(ImGui::MenuItem("Serialize")){
+					SceneSerializer serializer(_activeScene);
+					serializer.serializer("assets/scene/Example.engine");
+				}
+
+				if(ImGui::MenuItem("Deserialize")){
+					SceneSerializer serializer(_activeScene);
+					serializer.deserialize("assets/scene/Example.engine");
+				}
 
 				if(ImGui::MenuItem("Exit")) Application::Get().close();
 
