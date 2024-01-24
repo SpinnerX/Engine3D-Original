@@ -19,6 +19,10 @@ namespace RendererEngine{
 		return entity;
 	}
 	
+	void Scene::destroyEntity(Entity entity){
+		_registry.destroy(entity);
+	}
+
 	void Scene::onUpdate(Timestep ts){
 		{
 			/*
@@ -88,12 +92,36 @@ namespace RendererEngine{
 		for(auto entity: view){
 			auto& cameraComponent = view.get<CameraComponent>(entity);
 			
-			// resizing non fixed aspect ratio cameras.
-			// Checking if the user through the editor wants to change the fixed aspect ratio (resizing)
+			// @note resizing non fixed aspect ratio cameras.
+			// @note Checking if the user through the editor wants to change the fixed aspect ratio (resizing)
 			// @note probably the only time this wouldn't work is if adding a new camera component just after the scenes resize.
+			// @note viewport able to now modify based on current added camera component.
 			if(!cameraComponent.fixedAspectRatio){
 				cameraComponent.camera.setViewportSize(_viewportWidth, _viewportHeight);
 			}
+			
 		}
+	}
+
+	template<>
+	void Scene::onComponentAdded<TransformComponent>(Entity entity, TransformComponent& component){}
+	
+	template<>
+	void Scene::onComponentAdded<CameraComponent>(Entity entity, CameraComponent& component){
+		component.camera.setViewportSize(_viewportWidth, _viewportHeight);
+	}
+
+	template<>
+	void Scene::onComponentAdded<SpriteRendererComponent>(Entity entity, SpriteRendererComponent& component){
+	}
+
+	template<>
+	void Scene::onComponentAdded<TagComponent>(Entity entity, TagComponent& component){
+
+	}
+
+	template<>
+	void Scene::onComponentAdded<NativeScriptComponent>(Entity entity, NativeScriptComponent& component){
+
 	}
 };

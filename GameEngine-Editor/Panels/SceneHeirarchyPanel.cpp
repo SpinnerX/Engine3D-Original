@@ -6,6 +6,9 @@
 #include <imgui/imgui_internal.h>
 
 namespace RendererEngine{
+	// Since BeginPopupContextWindow(const char*, ImGuiMouseButton, bool) is obsolete in ImGui, just recreated that function call through here.
+    static inline bool BeginPopupContextWindow(const char* str_id, ImGuiMouseButton mb, bool over_items) { return ImGui::BeginPopupContextWindow(str_id, mb | (over_items ? 0 : ImGuiPopupFlags_NoOpenOverItems)); }
+
 	SceneHeirachyPanel::SceneHeirachyPanel(const Ref<Scene>& scene){
 		setContext(scene);
 	}
@@ -30,6 +33,17 @@ namespace RendererEngine{
 		// @note Left-click on a non entity panel will deselect the selected panels
 		if(ImGui::IsMouseDown(0) && ImGui::IsWindowHovered())
 			_selectionContext = {};
+		
+		// @note right click on blank space
+		// @param string_id
+		// @param popup_flags - will be the mouse flag (0=right, 1=left)
+		if(BeginPopupContextWindow(0, 1, false)){
+			if(ImGui::MenuItem("Create Empty Entity"))
+				_context->createEntity("Empty Entity");
+
+			ImGui::EndPopup();
+		}
+
 
 		ImGui::End();
 
@@ -38,6 +52,26 @@ namespace RendererEngine{
 		// Checking if there is any selected context scene is valid
 		if(_selectionContext){
 			drawComponents(_selectionContext);
+
+			// Drawing Components
+			if(ImGui::Button("Add Component")){
+				ImGui::OpenPopup("Add Component");
+			}
+
+			if(ImGui::BeginPopup("Add Component")){
+				if(ImGui::MenuItem("Camera")){
+					_selectionContext.addComponent<CameraComponent>();
+					ImGui::CloseCurrentPopup();
+				}
+
+				if(ImGui::MenuItem("Sprite Renderer")){
+					_selectionContext.addComponent<SpriteRendererComponent>();
+					ImGui::CloseCurrentPopup();
+				}
+				ImGui::EndPopup();
+			}
+
+
 		}
 
 		ImGui::End();
@@ -58,6 +92,18 @@ namespace RendererEngine{
 			_selectionContext = entity;
 		}
 		
+		// @note  popup button for deleting an entity.
+		bool isEntityDeleted = false;
+
+		// @param string_id
+		// @param popup_flags - will be the mouse flag (0=right, 1=left)
+		if(ImGui::BeginPopupContextItem()){
+			if(ImGui::MenuItem("Delete Entity"))
+				isEntityDeleted = true;
+
+			ImGui::EndPopup();
+		}
+
 		// @note if child entities, recursively open those entities.
 		if(opened){
 			bool opened2 = ImGui::TreeNodeEx((void *)(uint64_t)((uint32_t)entity + 1000), flags, tc.c_str());
@@ -69,6 +115,14 @@ namespace RendererEngine{
 		}
 
 		/* ImGui::Text("%s", tc.tag.c_str()); */
+
+		// @note deferring when an entity is deleted or else bad things will happen.
+		if(isEntityDeleted){
+			_context->destroyEntity(entity);
+			if(_selectionContext == entity)
+				_selectionContext = {};
+		}
+
 	}
 	
 	/*
@@ -169,12 +223,31 @@ namespace RendererEngine{
 			auto& src = entity.getComponent<SpriteRendererComponent>();
 			ImGui::ColorEdit4("Color", glm::value_ptr(src.color));
 		 });
-
 		 * */
+		
+		const ImGuiTreeNodeFlags treeNodeFlags = ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_AllowItemOverlap;
+
 		if(entity.hasComponent<TransformComponent>()){
-			
 			// Creating our headers.
-			if(ImGui::TreeNodeEx((void *)typeid(TransformComponent).hash_code(), ImGuiTreeNodeFlags_DefaultOpen, "Transform")){
+			bool opened = ImGui::TreeNodeEx((void *)typeid(TransformComponent).hash_code(), treeNodeFlags, "Transform");
+			ImGui::SameLine();
+			
+			if(ImGui::Button("+")){
+				ImGui::OpenPopup("ComponentSettings");
+			}
+			
+			// @note contain menu items for the components.
+			bool isRemovedComponent = false; // @note for deferring when to delete component.
+			if(ImGui::BeginPopup("ComponentSettings")){
+				if(ImGui::MenuItem("Remove Component"))
+					isRemovedComponent = true;
+
+				ImGui::EndPopup();
+			}
+
+			
+
+			if(opened){
 				auto& tc = entity.getComponent<TransformComponent>();
 				glm::vec3 rotation = glm::degrees(tc.rotation);
 
@@ -186,19 +259,23 @@ namespace RendererEngine{
 
 				ImGui::TreePop();
 			}
+
+			if(isRemovedComponent)
+				entity.removeComponent<TransformComponent>();
 		}
 
 		if(entity.hasComponent<CameraComponent>()){
-			if(ImGui::TreeNodeEx((void *)typeid(CameraComponent).hash_code(), ImGuiTreeNodeFlags_DefaultOpen, "Camera")){
-				auto& cameraComponent = entity.getComponent<CameraComponent>();
-				auto& camera = cameraComponent.camera;
+
+			auto& cameraComponent = entity.getComponent<CameraComponent>();
+			auto& camera = cameraComponent.camera;
 				
-				ImGui::Checkbox("Primary", &cameraComponent.isPrimary);
+			ImGui::Checkbox("Primary", &cameraComponent.isPrimary);
 
 
-				const char* projectionTypeStrings[] = {"Perspective", "Orthographic"};
-				const char* currentProjectionTypeString = projectionTypeStrings[(int)cameraComponent.camera.getProjectionType()];
+			const char* projectionTypeStrings[] = {"Perspective", "Orthographic"};
+			const char* currentProjectionTypeString = projectionTypeStrings[(int)cameraComponent.camera.getProjectionType()];
 
+			if(ImGui::TreeNodeEx((void *)typeid(CameraComponent).hash_code(), treeNodeFlags, "Camera")){
 				// @note if BeginCombo has started.
 				if(ImGui::BeginCombo("Projection", currentProjectionTypeString)){
 					
@@ -258,11 +335,32 @@ namespace RendererEngine{
 		}
 
 		if(entity.hasComponent<SpriteRendererComponent>()){
-			if(ImGui::TreeNodeEx((void *)typeid(SpriteRendererComponent).hash_code(), ImGuiTreeNodeFlags_DefaultOpen, "Sprite Renderer")){
+			ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2{ 4, 4 });
+			bool opened = ImGui::TreeNodeEx((void *)typeid(SpriteRendererComponent).hash_code(), treeNodeFlags, "Sprite Renderer");
+			ImGui::SameLine(ImGui::GetWindowWidth() - 25.0f);
+			
+			if(ImGui::Button("+", ImVec2{20, 20})){
+				ImGui::OpenPopup("ComponentSettings");
+			}
+			ImGui::PopStyleVar();
+			
+			// @note contain menu items for the components.
+			bool isRemovedComponent = false; // @note for deferring when to delete component.
+			if(ImGui::BeginPopup("ComponentSettings")){
+				if(ImGui::MenuItem("Remove Component"))
+					isRemovedComponent = true;
+
+				ImGui::EndPopup();
+			}
+
+			if(opened){
 				auto& spriteRenderComponent = entity.getComponent<SpriteRendererComponent>();
 				ImGui::ColorEdit4("Color", glm::value_ptr(spriteRenderComponent.color));
 				ImGui::TreePop();
 			}
+			
+			if(isRemovedComponent)
+				entity.removeComponent<SpriteRendererComponent>();
 		}
 	}
 };

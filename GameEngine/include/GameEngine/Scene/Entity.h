@@ -16,7 +16,12 @@ namespace RendererEngine{
 
 		template<typename T, typename... Args>
 		T& addComponent(Args&&... args){
-			return _scene->_registry.emplace<T>(_entityHandler, std::forward<Args>(args)...);
+			// @note when adding component, will be a callback to scene that will handle particular event that could happen if adding a component
+			T& component = _scene->_registry.emplace<T>(_entityHandler, std::forward<Args>(args)...);
+
+			// @note meaning that adding a particular component to the scene and handling it (specifically entity)
+			_scene->onComponentAdded<T>(*this, component);
+			return component;
 		}
 
 		template<typename T>
@@ -40,7 +45,7 @@ namespace RendererEngine{
 		void removeComponent(){
 			// Checking if the component exists
 			if(this->hasComponent<T>()){
-				coreLogError("Entity does not have component!");
+				coreLogWarn("Entity does not have component!");
 			}
 			
 			render_core_assert(hasComponent<T>(), "Entity does not have component");
@@ -49,6 +54,8 @@ namespace RendererEngine{
 		}
 
 		operator bool() const  { return _entityHandler != entt::null; }
+
+		operator entt::entity() const { return _entityHandler; }
 
 		operator uint32_t() const { return (uint32_t)_entityHandler; }
 		

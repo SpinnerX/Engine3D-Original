@@ -21,6 +21,7 @@ namespace RendererEngine{
 		
 		// We should be able to create an entity into our screen.
 		Entity createEntity(const std::string& name=std::string());
+		void destroyEntity(Entity entity);
 
 		// temporary
 		entt::registry& reg() { return _registry; }
@@ -29,6 +30,9 @@ namespace RendererEngine{
 
 		void onViewportResize(uint32_t width, uint32_t height);
 
+	private:
+		template<typename T>
+		void onComponentAdded(Entity entity, T& component);
 	private:
 		entt::registry _registry; // entity used to determine which components belong together. registry contain the actual data.
 		uint32_t _viewportWidth=0, _viewportHeight=0;
