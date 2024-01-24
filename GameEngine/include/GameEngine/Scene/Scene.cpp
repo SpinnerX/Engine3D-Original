@@ -45,7 +45,7 @@ namespace RendererEngine{
 
 		// Rendering 2D
 		Camera* mainCamera = nullptr;
-		glm::mat4* cameraTransform = nullptr;
+		glm::mat4 cameraTransform;
 
 		{
 		auto view = _registry.view<TransformComponent, CameraComponent>();
@@ -55,7 +55,7 @@ namespace RendererEngine{
 
 			if(camera.isPrimary){
 				mainCamera = &camera.camera;
-				cameraTransform = &transform.transform;
+				cameraTransform = transform.getTransform();
 				break;
 			}
 		}
@@ -63,13 +63,13 @@ namespace RendererEngine{
 		
 		// Checking mainCamera exists, then if the scene does not contain camera then do not render camera.
 		if(mainCamera){
-			Renderer2D::beginScene(mainCamera->getProjection(), *cameraTransform);
+			Renderer2D::beginScene(mainCamera->getProjection(), cameraTransform);
 			auto group = _registry.group<TransformComponent>(entt::get<SpriteRendererComponent>);
 
 			for(auto entity : group){
 				auto[transform, sprite] = group.get<TransformComponent, SpriteRendererComponent>(entity);
 
-				Renderer2D::drawQuad(transform, sprite.color);
+				Renderer2D::drawQuad(transform.getTransform(), sprite.color);
 			}
 
 			Renderer2D::endScene();

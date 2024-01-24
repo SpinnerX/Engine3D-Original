@@ -3,6 +3,7 @@
 #include <GameEngine/Scene/Scene.h>
 #include <GameEngine/Scene/Components.h>
 #include <glm/gtc/type_ptr.hpp>
+#include <imgui/imgui_internal.h>
 
 namespace RendererEngine{
 	SceneHeirachyPanel::SceneHeirachyPanel(const Ref<Scene>& scene){
@@ -70,6 +71,77 @@ namespace RendererEngine{
 		/* ImGui::Text("%s", tc.tag.c_str()); */
 	}
 	
+	/*
+	 *
+	 * @param label - labeling of this specific ui.
+	 * @param values - transform values
+	 * @param resetVal - values to reset translation back to zero
+	 * @param columnWidth - width of the labels.
+	 * */
+	static void drawVec3Control(const std::string& label, glm::vec3& values, float resetVal=0.0f, float columnWidth=100.0f){
+		ImGui::PushID(label.c_str()); // Meaning that specific group of ID's are pushed have a unique label
+
+		ImGui::Columns(2); // two columns, one for the labels
+		
+		ImGui::SetColumnWidth(0, columnWidth);
+		ImGui::Text(label.c_str());
+		ImGui::NextColumn();
+		
+		ImGui::PushMultiItemsWidths(3, ImGui::CalcItemWidth());
+		ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2{0, 0});
+		
+		// This calculates the height 
+		float lineHeight = GImGui->Font->FontSize + GImGui->Style.FramePadding.y * 2.0f;
+		ImVec2 buttonSize = { lineHeight + 3.0f, lineHeight };
+
+		ImGui::PushStyleColor(ImGuiCol_Button, ImVec4{0.8, 0.1f, 0.15f, 1.0f});
+		ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4{0.9f, 0.2f, 0.2f, 1.0f});
+		ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4{0.8, 0.1f, 0.15f, 1.0f});
+
+		// Setting up the buttons
+		
+		// Setting up for the Y button
+		if(ImGui::Button("X", buttonSize))
+			values.x = resetVal;
+		ImGui::PopStyleColor(3);
+
+		ImGui::SameLine();
+		ImGui::DragFloat("##X", &values.x, 0.1f, 0.0f, 0.0f, "%.2f");
+		ImGui::PopItemWidth();
+		ImGui::SameLine();
+
+
+		// Setting up for the Y button
+		ImGui::PushStyleColor(ImGuiCol_Button, ImVec4{0.2, 0.7f, 0.2f, 1.0f});
+		ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4{0.3f, 0.8f, 0.3f, 1.0f});
+		ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4{0.2, 0.1f, 0.2f, 1.0f});
+
+		if(ImGui::Button("Y", buttonSize))
+			values.y = resetVal;
+
+		ImGui::PopStyleColor(3);
+		ImGui::SameLine();
+		ImGui::DragFloat("##Y", &values.y, 0.1f, 0.0f, 0.0f, "%.2f");
+		ImGui::PopItemWidth();
+		ImGui::SameLine();
+
+		// Setting up for the Z button
+		ImGui::PushStyleColor(ImGuiCol_Button, ImVec4{0.1, 0.25f, 0.8f, 1.0f});
+		ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4{0.2f, 0.35f, 0.9f, 1.0f});
+		ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4{0.8, 0.1f, 0.15f, 1.0f});
+		if(ImGui::Button("Z", buttonSize))
+			values.z = resetVal;
+
+		ImGui::PopStyleColor(3);
+		ImGui::SameLine();
+		ImGui::DragFloat("##Z", &values.z, 0.1f, 0.0f, 0.0f, "%.2f");
+		ImGui::PopItemWidth();
+		
+		ImGui::PopStyleVar();
+		ImGui::PopID();
+		ImGui::Columns(1);
+	}
+	
 	void SceneHeirachyPanel::drawComponents(Entity entity){
 		// checking if entity has components.
 		if(entity.hasComponent<TagComponent>()){
@@ -103,8 +175,14 @@ namespace RendererEngine{
 			
 			// Creating our headers.
 			if(ImGui::TreeNodeEx((void *)typeid(TransformComponent).hash_code(), ImGuiTreeNodeFlags_DefaultOpen, "Transform")){
-				auto& transform = entity.getComponent<TransformComponent>().transform;
-				ImGui::DragFloat3("Position", glm::value_ptr(transform[3]), 0.5f);
+				auto& tc = entity.getComponent<TransformComponent>();
+				glm::vec3 rotation = glm::degrees(tc.rotation);
+
+				/* ImGui::DragFloat3("Position", glm::value_ptr(tc.translation), 0.5f); */
+				drawVec3Control("Translation", tc.translation);
+				drawVec3Control("Rotation", rotation);
+				tc.rotation = glm::radians(rotation);
+				drawVec3Control("Scale", tc.scale, 1.0f);
 
 				ImGui::TreePop();
 			}

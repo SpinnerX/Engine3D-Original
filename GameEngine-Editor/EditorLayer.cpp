@@ -51,26 +51,31 @@ namespace RendererEngine{
 			void onCreate(){
 				/* getComponent<TransformComponent>(); */
 				/* coreLogInfo("CameraComponentController::onCreate() called!\n"); */
-				auto& transform = getComponent<TransformComponent>();
-				transform.transform[3][0] = rand() % 10 - 5.0f;
+				auto& translation = getComponent<TransformComponent>().translation;
+				translation.x = rand() % 10 - 5.0f;
+				/* transform.transform[3][0] = rand() % 10 - 5.0f; */
 			}
 			
 			// Where the scenes get updated
 			void onUpdate(Timestep ts){
 				/* coreLogInfo("CameraComponentController::onUpdate() TimeStep = {} has been called!\n", fmt::streamed(ts)); */
-				auto& transform = getComponent<TransformComponent>();
+				auto& translation = getComponent<TransformComponent>().translation;
 				float speed = 5.f;
 				if(InputPoll::isKeyPressed(KeyCode::A)){
-					transform.transform[3][0] -= speed * ts;
+					/* transform.transform[3][0] -= speed * ts; */
+					translation.x -= speed * ts;
 				}
 				else if(InputPoll::isKeyPressed(KeyCode::D)){
-					transform.transform[3][0] += speed * ts;
+					/* transform.transform[3][0] += speed * ts; */
+					translation.x += speed * ts;
 				}
 				else if(InputPoll::isKeyPressed(KeyCode::W)){
-					transform.transform[3][1] += speed * ts;
+					/* transform.transform[3][1] += speed * ts; */
+					translation.y += speed * ts;
 				}
 				else if(InputPoll::isKeyPressed(KeyCode::S)){
-					transform.transform[3][1] -= speed * ts;
+					/* transform.transform[3][1] -= speed * ts; */
+					translation.y -= speed * ts;
 				}
 				
 			}
