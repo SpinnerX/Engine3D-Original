@@ -7,6 +7,7 @@
 if(APPLE)
     message(STATUS "Mac searching for /usr/local/include/imgui")
     set(imgui_include "/usr/local/include/imgui")
+	set(imguizmo_include "/usr/local/include/ImGuizmo")
 elseif(UNIX AND NOT APPLE)
     message(STATUS "Linux searching for /usr/local/include/imgui")
     set(imgui_include "/usr/local/include/imgui")
@@ -36,7 +37,15 @@ if(NOT EXISTS ${imgui_include})
     message(SEND_ERROR "Imgui in ${imgui_include} has not been found")
 endif()
 
+if(NOT EXISTS ${imguizmo_include})
+    message(SEND_ERROR "Imgui in ${imguizmo_include} has not been found")
+endif()
+
 message(STATUS "Imgui in ${imgui_include} has been found")
+message(STATUS "ImGuizmo in ${imguizmo_include} has been found")
+
+
+
 set(
     imgui_src
     ${imgui_include}/imgui_draw.cpp
@@ -65,4 +74,8 @@ set(
     # ${imgui_include}/backends/imgui_impl_vulkan.cpp
     # ${imgui_include}/backends/imgui_impl_wgpu.cpp
     # ${imgui_include}/backends/imgui_impl_win32.cpp
+	GameEngine/include/GameEngine/Imgui/ImGuizmo/ImCurveEdit.cpp
+	GameEngine/include/GameEngine/Imgui/ImGuizmo/ImGradient.cpp
+	GameEngine/include/GameEngine/Imgui/ImGuizmo/ImGuizmo.cpp
+	GameEngine/include/GameEngine/Imgui/ImGuizmo/ImSequencer.cpp
 )

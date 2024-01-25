@@ -1,6 +1,5 @@
 #pragma once
 #include <GameEngine/Core/core.h>
-#include <imgui/imgui.h>
 #include <GameEngine/Scene/Scene.h>
 #include <GameEngine/Scene/Entity.h>
 
@@ -20,7 +19,8 @@ namespace RendererEngine{
 		void setContext(const Ref<Scene>& scene);
 
 		void onImguiRender();
-
+		
+		Entity getSelectedEntity() const { return _selectionContext; }
 	private:
 		void drawEntityNode(Entity entity);
 		void drawComponents(Entity entity);

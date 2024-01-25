@@ -46,6 +46,8 @@ EditorLayer();
 		Entity _cameraEntity;
 		Entity _cameraSecond;
 		bool isPrimaryCamera = true;
+		
+		int _gizmoType = -1; // @note this is going to be the type of operationt he gizmal is going to be.
 
 		glm::vec2 _viewportSize = {0, 0};
 		glm::vec4 _squareColor;

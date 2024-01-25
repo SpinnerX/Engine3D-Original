@@ -124,4 +124,17 @@ namespace RendererEngine{
 	void Scene::onComponentAdded<NativeScriptComponent>(Entity entity, NativeScriptComponent& component){
 
 	}
+
+	Entity Scene::getPrimaryCamera(){
+		auto view = _registry.view<CameraComponent>();
+		for(auto entity : view){
+			const auto& camera = view.get<CameraComponent>(entity);
+
+			if(camera.isPrimary){
+				return Entity{entity, this};
+			}
+		}
+
+		return {};
+	}
 };

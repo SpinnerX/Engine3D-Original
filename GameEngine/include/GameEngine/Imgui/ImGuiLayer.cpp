@@ -6,6 +6,7 @@
 #include <GameEngine/Core/core.h>
 #include <GameEngine/Core/KeyCodes.h>
 
+#include <ImGuizmo/ImGuizmo.h>
 namespace RendererEngine{
     ImGuiLayer::ImGuiLayer() : Layer("ImGuiLayer") {
     }
@@ -65,6 +66,7 @@ namespace RendererEngine{
         ImGui_ImplGlfw_NewFrame();
         ImGui_ImplOpenGL3_NewFrame();
         ImGui::NewFrame();
+		ImGuizmo::BeginFrame();
     }
 
     void ImGuiLayer::end(){

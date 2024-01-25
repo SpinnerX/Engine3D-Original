@@ -59,6 +59,7 @@ set(
   GameEngine/include/GameEngine/Scene/SceneSerializer.cpp
   ${SOURCE_FILES}
   GameEngine/src/GameEngine/platforms/WindowsPlatformUtils.cpp
+  GameEngine/include/GameEngine/Math/Math.cpp
   ${stbi_src}
 
 )

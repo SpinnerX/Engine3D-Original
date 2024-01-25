@@ -6,6 +6,8 @@
 #include <GameEngine/Entt/entt.h>
 #include <GameEngine/Scene/SceneSerializer.h>
 #include <GameEngine/Utils/PlatformUtils.h>
+#include <ImGuizmo/ImGuizmo.h>
+#include <GameEngine/Math/Math.h>
 
 namespace RendererEngine{
 	EditorLayer::EditorLayer() : Layer("Sandbox2D"), _cameraController(1280.0f / 720.0f), _squareColor({ 0.2f, 0.3f, 0.8f, 1.0f }){
@@ -177,27 +179,23 @@ namespace RendererEngine{
 		if (ImGui::BeginMenuBar()){
 			if (ImGui::BeginMenu("File")){
 				
-				/* if(ImGui::MenuItem("Serialize")){ */
-				/* 	SceneSerializer serializer(_activeScene); */
-				/* 	serializer.serializer("assets/scene/Example.engine"); */
-				/* } */
-
-				/* if(ImGui::MenuItem("Deserialize")){ */
-				/* 	SceneSerializer serializer(_activeScene); */
-				/* 	serializer.deserialize("assets/scene/Example.engine"); */
-				/* } */
-				
 				if(ImGui::MenuItem("New", "Ctrl+N")){
 					newScene();
 				}
 
+				ImGui::Separator();
+
 				if(ImGui::MenuItem("Open", "Ctrl+O")){
 					openScene();
 				}
+				
+				ImGui::Separator();
 
 				if(ImGui::MenuItem("Save as", "Ctrl+Shift+s")){
 					saveAs();
 				}
+				
+				ImGui::Separator();
 
 
 				if(ImGui::MenuItem("Exit")) Application::Get().close();
@@ -228,7 +226,7 @@ namespace RendererEngine{
 		_isViewportFocused = ImGui::IsWindowFocused(); // If viewport is focused then we don't want to block incoming events.
 		_isViewportHovered = ImGui::IsWindowHovered();
 
-		Application::Get().getImGuiLayer()->setBlockEvents(!_isViewportFocused || !_isViewportHovered); // if either out of focused or hovered
+		Application::Get().getImGuiLayer()->setBlockEvents(!_isViewportFocused && !_isViewportHovered); // if either out of focused or hovered
 
 		ImVec2 viewportPanelSize = ImGui::GetContentRegionAvail();
 		_viewportSize = {_viewportSize.x, _viewportSize.y};
@@ -243,6 +241,60 @@ namespace RendererEngine{
 		// By passing this renderer ID, this gives us the ID of the texture that we want to render.
 		uint32_t textureID = _framebuffers->getColorAttachmentRendererID(); // Getting color buffer from frame buffer
 		ImGui::Image(reinterpret_cast<void *>(textureID), ImVec2{_viewportSize.x, _viewportSize.y}, ImVec2{0, 1}, ImVec2{1, 0});
+
+		
+		// Gizmos
+		Entity selectedEntity = _sceneHeirarchyPanel.getSelectedEntity();
+		
+		// @note only wanting to select the gizmo only when selected an entity and the type isn't -1 (unknown)
+		if(selectedEntity && _gizmoType != -1){
+			ImGuizmo::SetOrthographic(false);
+			ImGuizmo::SetDrawlist();
+			
+			float windowWidth = (float)ImGui::GetWindowWidth();
+			float windowHeight = (float)ImGui::GetWindowHeight();
+
+			ImGuizmo::SetRect(ImGui::GetWindowPos().x, ImGui::GetWindowPos().y, windowWidth, windowHeight); // Setting the rectangle.
+
+			// Drawing the gismo (and figuring out where the camera is.
+			// @note Getting the camera information
+			auto cameraEntity = _activeScene->getPrimaryCamera();
+			const auto& camera = cameraEntity.getComponent<CameraComponent>().camera;
+
+			const glm::mat4& cameraProjection = camera.getProjection();
+
+			// Snapping
+			bool isSnap = InputPoll::isKeyPressed(KeyCode::LeftControl);
+			float snapValue = 0.5f;
+
+			if(_gizmoType == ImGuizmo::OPERATION::ROTATE)
+				snapValue = 45.0f;
+
+			float snapValues[3] = {snapValue, snapValue, snapValue};
+
+			glm::mat4 cameraView = glm::inverse(cameraEntity.getComponent<TransformComponent>().getTransform());
+			
+			// Enttiy Transform
+			auto& tc = selectedEntity.getComponent<TransformComponent>();
+			glm::mat4 transform = tc.getTransform();
+
+
+			ImGuizmo::Manipulate(glm::value_ptr(cameraView), glm::value_ptr(cameraProjection), (ImGuizmo::OPERATION)_gizmoType, ImGuizmo::LOCAL, glm::value_ptr(transform), nullptr, isSnap ? snapValues : nullptr);
+			
+			// @note checking if gizmo is selected.
+			if(ImGuizmo::IsUsing()){
+				glm::vec3 translation, rotation, scale;
+				Math::decomposeTransform(transform, translation, rotation, scale);	
+				glm::vec3 deltaRotation = rotation - tc.rotation;
+				tc.translation = translation;
+				tc.rotation += deltaRotation; // @note preventing gimbal lock
+				tc.scale = scale;
+			}
+		}
+
+
+
+
 		ImGui::End();
 		ImGui::PopStyleVar();
 
@@ -292,9 +344,24 @@ namespace RendererEngine{
 			}
 		}
 			break;
+			// Gizmos controls
+		case KeyCode::Q: // Selection
+			_gizmoType = -1;
+			break;
+		case  KeyCode::W:
+			_gizmoType = ImGuizmo::OPERATION::TRANSLATE;
+			break;
+		case KeyCode::E:
+			_gizmoType = ImGuizmo::OPERATION::ROTATE;
+			break;
+		case KeyCode::R:
+			_gizmoType = ImGuizmo::OPERATION::SCALE;
+			break;
 		default:
 			break;
 		}
+
+		return false;
 	}
 	void EditorLayer::newScene(){
 		_activeScene = CreateRef<Scene>();
