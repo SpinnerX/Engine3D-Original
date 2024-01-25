@@ -7,4 +7,4 @@ EngineProfile-Shutdown.json
 EngineProfile-Startup.json
 .DS_Store
 assets/scene/*.engine
-.vscode/settings.json
+*.json
