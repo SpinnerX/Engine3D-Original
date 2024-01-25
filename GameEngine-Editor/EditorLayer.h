@@ -17,6 +17,13 @@ EditorLayer();
 		virtual void onImguiRender() override;
 
 		virtual void onEvent(Event& e) override;
+	
+	private:
+		bool onKeyPressed(KeyPressedEvent& e);
+
+		void newScene();
+		void openScene();
+		void saveAs();
 
 	private:
 		OrthographicCameraController _cameraController;

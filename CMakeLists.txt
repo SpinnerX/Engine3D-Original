@@ -16,6 +16,7 @@ include(cmake/precompiled_headers.cmake)
 include(cmake/modules/glad.cmake)
 include(cmake/modules/imgui.cmake)
 include(cmake/modules/stbi_image.cmake)
+include(cmake/nfd.cmake)
 
 set(
   all_src
@@ -56,7 +57,10 @@ set(
   GameEngine/include/GameEngine/Scene/Entity.cpp
   GameEngine/include/GameEngine/Scene/SceneCamera.cpp
   GameEngine/include/GameEngine/Scene/SceneSerializer.cpp
+  ${SOURCE_FILES}
+  GameEngine/src/GameEngine/platforms/WindowsPlatformUtils.cpp
   ${stbi_src}
+
 )
 
 add_subdirectory(Sandbox)
@@ -78,6 +82,8 @@ target_include_directories(
   PUBLIC
   ${PROJECT_SOURCE_DIR}/GameEngine/include
   ${PROJECT_SOURCE_DIR}/GameEngine/include/GameEngine
+  ${PROJECT_SOURCE_DIR}/GameEngine/include/GameEngine/Utils
+  ${PROJECT_SOURCE_DIR}/GameEngine/include/GameEngine/Utils/Mac
   ${imgui_include}
   ${glad_include}
 )
@@ -90,7 +96,10 @@ target_precompile_headers(${PROJECT_NAME} PUBLIC
 )
 
 
+
 include(cmake/glfw.cmake)
 include(cmake/yaml.cmake)
 include(cmake/fmt.cmake)
+# include(cmake/nfd.cmake)
+
 

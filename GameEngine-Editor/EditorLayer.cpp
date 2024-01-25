@@ -5,6 +5,7 @@
 #include <GameEngine/platforms/OpenGL/OpenGLShader.h>
 #include <GameEngine/Entt/entt.h>
 #include <GameEngine/Scene/SceneSerializer.h>
+#include <GameEngine/Utils/PlatformUtils.h>
 
 namespace RendererEngine{
 	EditorLayer::EditorLayer() : Layer("Sandbox2D"), _cameraController(1280.0f / 720.0f), _squareColor({ 0.2f, 0.3f, 0.8f, 1.0f }){
@@ -176,15 +177,28 @@ namespace RendererEngine{
 		if (ImGui::BeginMenuBar()){
 			if (ImGui::BeginMenu("File")){
 				
-				if(ImGui::MenuItem("Serialize")){
-					SceneSerializer serializer(_activeScene);
-					serializer.serializer("assets/scene/Example.engine");
+				/* if(ImGui::MenuItem("Serialize")){ */
+				/* 	SceneSerializer serializer(_activeScene); */
+				/* 	serializer.serializer("assets/scene/Example.engine"); */
+				/* } */
+
+				/* if(ImGui::MenuItem("Deserialize")){ */
+				/* 	SceneSerializer serializer(_activeScene); */
+				/* 	serializer.deserialize("assets/scene/Example.engine"); */
+				/* } */
+				
+				if(ImGui::MenuItem("New", "Ctrl+N")){
+					newScene();
 				}
 
-				if(ImGui::MenuItem("Deserialize")){
-					SceneSerializer serializer(_activeScene);
-					serializer.deserialize("assets/scene/Example.engine");
+				if(ImGui::MenuItem("Open", "Ctrl+O")){
+					openScene();
 				}
+
+				if(ImGui::MenuItem("Save as", "Ctrl+Shift+s")){
+					saveAs();
+				}
+
 
 				if(ImGui::MenuItem("Exit")) Application::Get().close();
 
@@ -240,5 +254,70 @@ namespace RendererEngine{
 
 	void EditorLayer::onEvent(Event& e){
 		_cameraController.onEvent(e);
+
+		// Enabling key bindings
+		EventDispatcher dispatcher(e);
+
+		dispatcher.Dispatch<KeyPressedEvent>(bind_function(this, &EditorLayer::onKeyPressed));
+	}
+	
+	bool EditorLayer::onKeyPressed(KeyPressedEvent& e){
+		// Only works with shortcuts
+		if(e.GetRepeatCount() > 0)
+			return false;
+		bool control = InputPoll::isKeyPressed(KeyCode::LeftControl) || InputPoll::isKeyPressed(KeyCode::RightControl);
+		bool shift = InputPoll::isKeyPressed(KeyCode::LeftShift) || InputPoll::isKeyPressed(KeyCode::RightShift);
+
+		switch (e.GetKeyCode()) {
+		case KeyCode::N:
+		{
+			  if(control){
+				newScene();
+			  }
+		}
+			  break;
+
+		case KeyCode::O:
+		{
+			  if(control){
+					openScene();
+			  }
+		}
+			  break;
+
+		case KeyCode::S:
+		{
+			if(control && shift){
+				saveAs();
+			}
+		}
+			break;
+		default:
+			break;
+		}
+	}
+	void EditorLayer::newScene(){
+		_activeScene = CreateRef<Scene>();
+		_activeScene->onViewportResize((uint32_t)_viewportSize.x, (uint32_t)_viewportSize.y);
+		_sceneHeirarchyPanel.setContext(_activeScene);
+	}
+
+	void EditorLayer::openScene(){
+		
+		std::string filepath = FileDialogs::openFile("Game Engine (*.engine)\0*.engine\0");
+		coreLogTrace("Trace #2 -- filepath = {0}\n", filepath);
+
+		_activeScene = CreateRef<Scene>();
+		_activeScene->onViewportResize((uint32_t)_viewportSize.x, (uint32_t)_viewportSize.y);
+		_sceneHeirarchyPanel.setContext(_activeScene);
+
+		SceneSerializer serializer(_activeScene);
+		serializer.deserialize(filepath);
+	}
+
+	void EditorLayer::saveAs(){
+		std::string filepath = FileDialogs::saveFile("Game Engine (*.engine)\0*.engine\0");
+		SceneSerializer serializer(_activeScene);
+		serializer.serializer(filepath);
 	}
 };

@@ -38,10 +38,11 @@ endif()
 
 # Searching for glm
 find_package(glm REQUIRED)
-
 find_package(OpenGL REQUIRED)
 find_package(GLEW REQUIRED)
 find_package(GLUT REQUIRED)
+
+
 
 # Checking if glfw3 has been found meaning installed
 if(NOT TARGET glfw)
@@ -80,6 +81,7 @@ if(APPLE)
 		GLEW::GLEW
 		${GLUT_LIBRARIES} # NOTE: If you want to use freeglut, then you need this to link freeglut to get working
 		glm::glm
+		${APPKIT_LIBRARY} ${UNIFORMTYPEIDENTIFIERS_LIBRARY} # Note as TODO: Probably should put this somewhere else, since it relies on nfd.cmake...
 	)
 endif(APPLE)
 

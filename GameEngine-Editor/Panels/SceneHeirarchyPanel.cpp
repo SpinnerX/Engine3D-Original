@@ -15,6 +15,9 @@ namespace RendererEngine{
 
 	void SceneHeirachyPanel::setContext(const Ref<Scene>& scene){
 		_context = scene;
+		
+		// @note check for if the selected context is in active scene and when we set the context then we'll reset it.
+		_selectionContext = {};
 	}
 
 	void SceneHeirachyPanel::onImguiRender(){
@@ -308,6 +311,28 @@ namespace RendererEngine{
 
 			const char* projectionTypeStrings[] = {"Perspective", "Orthographic"};
 			const char* currentProjectionTypeString = projectionTypeStrings[(int)camera.getProjectionType()];
+			
+			// @note if BeginCombo has started.
+			if(ImGui::BeginCombo("Projection", currentProjectionTypeString)){
+					
+				// @note seeing what currently selected projection type is. 
+				for(int i = 0; i < 2; i++){
+
+					// @note handling if the projection type selected is valid and selected
+					bool isSelected = (currentProjectionTypeString == projectionTypeStrings[i]);
+					if(ImGui::Selectable(projectionTypeStrings[i], isSelected)){
+						currentProjectionTypeString = projectionTypeStrings[i];
+						camera.setProjectionType((SceneCamera::ProjectionType)i);
+					}
+						
+					// @note checking if already selected then setting the default focus.
+					if(isSelected){
+						ImGui::SetItemDefaultFocus();
+					}
+				}
+
+				ImGui::EndCombo();
+			}
 
 			// @note checking if the camera component is orthographic.
 			if(component.camera.getProjectionType() == SceneCamera::ProjectionType::Perspective){
