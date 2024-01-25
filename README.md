@@ -26,3 +26,13 @@ specific topics. Where each notes will be numbered on the process it takes when 
 ## Resources
 `https://icolorpalette.com/color/102669` - Link for medium royal blue colors
 `https://registry.khronos.org/OpenGL/specs/gl/glspec46.core.pdf` - OpenGL 4.6 fundamentals readings.
+
+### Checklist
+* Batch Renderer
+* Profiling (Debugging)
+* Entity Component System (ECS)
+* Native Scripting
+* Adding/Deleting Entities (using UI)
+* Serializing/Deserializing
+* Saving/Loading UI for serializer/deserializer
+* Gizmo
