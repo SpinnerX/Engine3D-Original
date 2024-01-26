@@ -2,6 +2,7 @@
 #include <GameEngine/Entt/entt.h>
 #include <GameEngine/Core/Timestep.h>
 #include <GameEngine/Renderer/Renderer2D.h>
+#include <GameEngine/Renderer/EditorCamera.h>
 
 namespace RendererEngine{
 	/*
@@ -26,7 +27,8 @@ namespace RendererEngine{
 		// temporary
 		entt::registry& reg() { return _registry; }
 
-		void onUpdate(Timestep ts);
+		void onUpdateEditor(Timestep ts, EditorCamera& camera);
+		void onUpdateRuntime(Timestep ts);
 
 		void onViewportResize(uint32_t width, uint32_t height);
 

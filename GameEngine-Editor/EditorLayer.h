@@ -1,6 +1,7 @@
 #pragma once
 #include <GameEngine/Core/GameEngine.h>
 #include "Panels/SceneHeirarchyPanel.h"
+#include <GameEngine/Renderer/EditorCamera.h>
 
 namespace RendererEngine{
 	class EditorLayer : public Layer{
@@ -26,7 +27,7 @@ EditorLayer();
 		void saveAs();
 
 	private:
-		OrthographicCameraController _cameraController;
+		/* OrthographicCameraController _cameraController; */
 
 		// This'll be temporary only!
 		Ref<VertexArray> _squareVertexArrays;
@@ -41,11 +42,12 @@ EditorLayer();
 		SceneHeirachyPanel _sceneHeirarchyPanel;
 
 		Ref<Scene> _activeScene;
-		Entity _squareEntity;
-		Entity _squareEntity2;
-		Entity _cameraEntity;
-		Entity _cameraSecond;
+		/* Entity _squareEntity; */
+		/* Entity _squareEntity2; */
+		/* Entity _cameraEntity; */
+		/* Entity _cameraSecond; */
 		bool isPrimaryCamera = true;
+		EditorCamera _editorCamera;
 		
 		int _gizmoType = -1; // @note this is going to be the type of operationt he gizmal is going to be.
 

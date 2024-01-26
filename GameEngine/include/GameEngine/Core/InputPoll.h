@@ -2,6 +2,7 @@
 #include <GameEngine/Core/core.h>
 #include <GameEngine/Core/KeyCodes.h>
 #include <GameEngine/Core/MouseButtonCodes.h>
+#include <glm/glm.hpp>
 
 // InputPoll is going to be static
 // - Where in a sense that there is going to be only one global input kind of manager
@@ -21,8 +22,8 @@ namespace RendererEngine{
         // This calls the implementation for Key Pressed that is implemented in WindowsInput
         static bool isKeyPressed(KeyCode keycode);
         static bool isMouseButtonPressed(MouseCode button);
-        static MousePosition getMousePosition();
-        inline static float getMouseX();
-        inline static float getMouseY();
+        static glm::vec2 getMousePosition();
+        static float getMouseX();
+        static float getMouseY();
     };
 };

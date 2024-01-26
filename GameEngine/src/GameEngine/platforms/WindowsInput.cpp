@@ -24,24 +24,20 @@ namespace RendererEngine{
     }
 
     float InputPoll::getMouseX() {
-        auto[x, y] = getMousePosition();
-
-        return x;
+        return getMousePosition().x;
     }
 
     float InputPoll::getMouseY() {
-        auto[x, y] = getMousePosition();
 
-        return y;
+        return getMousePosition().x;
     }
 
-    MousePosition InputPoll::getMousePosition(){
+	glm::vec2 InputPoll::getMousePosition(){
         auto window = static_cast<GLFWwindow *>(Application::Get().GetWindow().getNativeWindow());
         double xpos, ypos;
         glfwGetCursorPos(window, &xpos, &ypos);
 
-        MousePosition position = {(float)xpos, (float)ypos};
-        return position;
+        return {(float)xpos, (float)ypos};
     }
 
 };

@@ -10,13 +10,13 @@
 #include <GameEngine/Math/Math.h>
 
 namespace RendererEngine{
-	EditorLayer::EditorLayer() : Layer("Sandbox2D"), _cameraController(1280.0f / 720.0f), _squareColor({ 0.2f, 0.3f, 0.8f, 1.0f }){
+	EditorLayer::EditorLayer() : Layer("Sandbox2D"){
 	}
 
 	void EditorLayer::onAttach(){
 		RENDER_PROFILE_FUNCTION();
 		_checkerboardTexture = Texture2D::Create("assets/Checkerboard.png");
-		_cameraController.setZoomLevel(3.0f);
+		/* _cameraController.setZoomLevel(3.0f); */
 
 		FrameBufferSpecifications frameBufSpecs;
 		frameBufSpecs.width = 1280;
@@ -25,78 +25,10 @@ namespace RendererEngine{
 	
 		_framebuffers = FrameBuffer::Create(frameBufSpecs); // Creating out frame buffer
 		_activeScene = CreateRef<Scene>();
+
+		_editorCamera = EditorCamera(100.0f, 1.778f, 0.1f, 1000.0f);
 		
-
-#if 0
-		// Creating an entity in the scene.
-		auto square = _activeScene->createEntity("Green Square");
-		square.addComponent<SpriteRendererComponent>(glm::vec4{0.0f, 1.0f, 0.0f, 1.0f});
-
-		auto redSquare = _activeScene->createEntity("Red Square");
-		redSquare.addComponent<SpriteRendererComponent>(glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
-		
-		_squareEntity = square;
-
-		// Creating our camera component.
-		_cameraEntity = _activeScene->createEntity("Camera A");
-		_cameraEntity.addComponent<CameraComponent>();
-		
-		_cameraSecond = _activeScene->createEntity("Camera B");
-		auto& cc = _cameraSecond.addComponent<CameraComponent>();
-		cc.isPrimary = false;
-
-		// Standard script 
-		class CameraController : public ScriptableEntity{
-		public:
-
-			// Function gets called when entity gets created.
-			// We need onCreate instance.
-			void onCreate(){
-				/* getComponent<TransformComponent>(); */
-				/* coreLogInfo("CameraComponentController::onCreate() called!\n"); */
-				auto& translation = getComponent<TransformComponent>().translation;
-				translation.x = rand() % 10 - 5.0f;
-				/* transform.transform[3][0] = rand() % 10 - 5.0f; */
-			}
-			
-			// Where the scenes get updated
-			void onUpdate(Timestep ts){
-				/* coreLogInfo("CameraComponentController::onUpdate() TimeStep = {} has been called!\n", fmt::streamed(ts)); */
-				auto& translation = getComponent<TransformComponent>().translation;
-				float speed = 5.f;
-				if(InputPoll::isKeyPressed(KeyCode::A)){
-					/* transform.transform[3][0] -= speed * ts; */
-					translation.x -= speed * ts;
-				}
-				else if(InputPoll::isKeyPressed(KeyCode::D)){
-					/* transform.transform[3][0] += speed * ts; */
-					translation.x += speed * ts;
-				}
-				else if(InputPoll::isKeyPressed(KeyCode::W)){
-					/* transform.transform[3][1] += speed * ts; */
-					translation.y += speed * ts;
-				}
-				else if(InputPoll::isKeyPressed(KeyCode::S)){
-					/* transform.transform[3][1] -= speed * ts; */
-					translation.y -= speed * ts;
-				}
-				
-			}
-			
-			// To destroy entities, collision callbacks, etc.
-			void onDestroy(){
-				/* coreLogInfo("CameraComponentController::onDestroy() called!\n"); */
-			}
-		};
-		
-		// Idea in API usage.
-		_cameraSecond.addComponent<NativeScriptComponent>().bind<CameraController>();
-		_cameraEntity.addComponent<NativeScriptComponent>().bind<CameraController>();
-
-#endif
 		_sceneHeirarchyPanel.setContext(_activeScene);
-
-		/* serializer.serializer("assets/scene/Example.engine"); */
 	}
 
 	void EditorLayer::onDetach(){
@@ -108,14 +40,22 @@ namespace RendererEngine{
 		
 		// Updating scripts
 		// Iterate all entities in ScriptableEntity
-
-
-		_activeScene->onViewportResize(_viewportSize.x, _viewportSize.y); // viewport resizing every time the window size is changed
 		
+		if(FrameBufferSpecifications spec = _framebuffers->getSpecifications();
+				_viewportSize.x > 0.0f and _viewportSize.y > 0.0f &&
+				(spec.width != _viewportSize.x || spec.height != _viewportSize.y)){
+			_framebuffers->resize((uint32_t)_viewportSize.x, (uint32_t)_viewportSize.y);
+			_editorCamera.setViewportSize(_viewportSize.x, _viewportSize.y);
+			_activeScene->onViewportResize(_viewportSize.x, _viewportSize.y); // viewport resizing every time the window size is changed
+		}
 		
 		// Update (if mouse cursor is focused in window.)
-		if(_isViewportFocused)
-			_cameraController.onUpdate(ts);
+		if(_isViewportFocused){
+			/* _cameraController.onUpdate(ts); */
+			_editorCamera.onUpdate(ts);
+		}
+
+
 		
 		// Render
 		Renderer2D::resetStats();
@@ -123,7 +63,7 @@ namespace RendererEngine{
 		RendererCommand::setClearColor({ 0.1f, 0.1f, 0.1f, 1 });
 		RendererCommand::clear();
 
-		_activeScene->onUpdate(ts);
+		_activeScene->onUpdateEditor(ts, _editorCamera);
 
 		_framebuffers->unbind();
 	}
@@ -235,7 +175,7 @@ namespace RendererEngine{
 			// Recreating the frame buffer.
 			_framebuffers->resize((uint32_t)viewportPanelSize.x, (uint32_t)viewportPanelSize.y);
 			_viewportSize = {viewportPanelSize.x, viewportPanelSize.y};
-			_cameraController.onResize(_viewportSize.x, _viewportSize.y);
+			/* _cameraController.onResize(_viewportSize.x, _viewportSize.y); */
 		}
 
 		// By passing this renderer ID, this gives us the ID of the texture that we want to render.
@@ -258,10 +198,19 @@ namespace RendererEngine{
 
 			// Drawing the gismo (and figuring out where the camera is.
 			// @note Getting the camera information
-			auto cameraEntity = _activeScene->getPrimaryCamera();
-			const auto& camera = cameraEntity.getComponent<CameraComponent>().camera;
+			// Camera Runtime 
+			/* auto cameraEntity = _activeScene->getPrimaryCamera(); */
+			/* const auto& camera = cameraEntity.getComponent<CameraComponent>().camera; */
+			/* const glm::mat4& cameraProjection = camera.getProjection(); */
+			/* glm::mat4 cameraView = glm::inverse(cameraEntity.getComponent<TransformComponent>().getTransform()); *1/ */
+			
 
-			const glm::mat4& cameraProjection = camera.getProjection();
+
+			/* glm::mat4 deleteMeTemp_cameraView = glm::inverse(cameraEntity.getComponent<TransformComponent>().getTransform()); */
+			
+			// Editor Camera
+			const glm::mat4& cameraProjection = _editorCamera.getProjection();
+			glm::mat4 cameraView = _editorCamera.getViewMatrix();
 
 			// Snapping
 			bool isSnap = InputPoll::isKeyPressed(KeyCode::LeftControl);
@@ -271,8 +220,6 @@ namespace RendererEngine{
 				snapValue = 45.0f;
 
 			float snapValues[3] = {snapValue, snapValue, snapValue};
-
-			glm::mat4 cameraView = glm::inverse(cameraEntity.getComponent<TransformComponent>().getTransform());
 			
 			// Enttiy Transform
 			auto& tc = selectedEntity.getComponent<TransformComponent>();
@@ -305,7 +252,8 @@ namespace RendererEngine{
 	}
 
 	void EditorLayer::onEvent(Event& e){
-		_cameraController.onEvent(e);
+		/* _cameraController.onEvent(e); */
+		_editorCamera.onEvent(e);
 
 		// Enabling key bindings
 		EventDispatcher dispatcher(e);

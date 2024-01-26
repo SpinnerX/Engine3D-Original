@@ -23,7 +23,7 @@ namespace RendererEngine{
 		_registry.destroy(entity);
 	}
 
-	void Scene::onUpdate(Timestep ts){
+	void Scene::onUpdateRuntime(Timestep ts){
 		{
 			/*
 			 *
@@ -80,6 +80,20 @@ namespace RendererEngine{
 			
 		}
 
+	}
+	
+	void Scene::onUpdateEditor(Timestep ts, EditorCamera& camera){
+		Renderer2D::beginScene(camera);
+		auto group = _registry.group<TransformComponent>(entt::get<SpriteRendererComponent>);
+
+		for(auto entity : group){
+			auto[transform, sprite] = group.get<TransformComponent, SpriteRendererComponent>(entity);
+
+			Renderer2D::drawQuad(transform.getTransform(), sprite.color);
+		}
+
+		Renderer2D::endScene();
+		
 	}
 	
 	void Scene::onViewportResize(uint32_t width, uint32_t height){

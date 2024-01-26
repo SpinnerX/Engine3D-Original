@@ -99,7 +99,9 @@ void GameLayer::onUpdate(RendererEngine::Timestep ts) {
 
 
 	if(RendererEngine::InputPoll::isMouseButtonPressed(RENDER_MOUSE_BUTTON_LEFT)){
-		auto [x, y] = RendererEngine::InputPoll::getMousePosition();
+		glm::vec2 mousePos = RendererEngine::InputPoll::getMousePosition();
+		float x = mousePos.x;
+		float y = mousePos.y;
 		auto w = RendererEngine::Application::Get().GetWindow().getWidth();
 		auto h = RendererEngine::Application::Get().GetWindow().getHeight();
 

@@ -131,6 +131,21 @@ namespace RendererEngine{
 		
 		_data.textureSlotIndex = 1;
 	}
+	
+	void Renderer2D::beginScene(const EditorCamera& camera){
+		RENDER_PROFILE_FUNCTION();
+
+		glm::mat4 viewProj = camera.getViewProjection();
+		
+		_data.textureShader->bind();
+		_data.textureShader->setMat4("u_ViewProjection", viewProj);
+		
+		_data.quadIndexCount = 0;
+		_data.quadVertexBufferPtr = _data.quadVertexBufferBase; // Keeping track o our base memory allocations
+		
+		_data.textureSlotIndex = 1;
+
+	}
 
 	void Renderer2D::endScene(){
 		RENDER_PROFILE_FUNCTION();

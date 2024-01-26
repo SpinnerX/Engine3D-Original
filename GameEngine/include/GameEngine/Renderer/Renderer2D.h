@@ -3,7 +3,7 @@
 #include <GameEngine/Renderer/Camera.h> // TODO: May need to remove this..
 #include <GameEngine/Renderer/Texture.h>
 #include <GameEngine/Renderer/SubTexture2D.h>
-
+#include <GameEngine/Renderer/EditorCamera.h>
 namespace RendererEngine{
 
 	class Renderer2D{
@@ -18,6 +18,7 @@ namespace RendererEngine{
 		static void Shutdown();
 
 		static void beginScene(const Camera& camera, const glm::mat4& transform); // TODO: Remove
+		static void beginScene(const EditorCamera& camera);
 		static void beginScene(const OrthographicCamera& camera);
 
 		static void endScene();
