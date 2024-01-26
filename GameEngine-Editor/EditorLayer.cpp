@@ -26,7 +26,7 @@ namespace RendererEngine{
 		_framebuffers = FrameBuffer::Create(frameBufSpecs); // Creating out frame buffer
 		_activeScene = CreateRef<Scene>();
 
-		_editorCamera = EditorCamera(100.0f, 1.778f, 0.1f, 1000.0f);
+		_editorCamera = EditorCamera(30.0f, 1280.0f/720.0f, 0.1f, 1000.0f);
 		
 		_sceneHeirarchyPanel.setContext(_activeScene);
 	}
@@ -203,10 +203,6 @@ namespace RendererEngine{
 			/* const auto& camera = cameraEntity.getComponent<CameraComponent>().camera; */
 			/* const glm::mat4& cameraProjection = camera.getProjection(); */
 			/* glm::mat4 cameraView = glm::inverse(cameraEntity.getComponent<TransformComponent>().getTransform()); *1/ */
-			
-
-
-			/* glm::mat4 deleteMeTemp_cameraView = glm::inverse(cameraEntity.getComponent<TransformComponent>().getTransform()); */
 			
 			// Editor Camera
 			const glm::mat4& cameraProjection = _editorCamera.getProjection();

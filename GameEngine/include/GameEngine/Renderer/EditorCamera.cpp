@@ -9,15 +9,14 @@
 #include <glm/gtx/quaternion.hpp>
 
 namespace RendererEngine{
-    EditorCamera::EditorCamera(float fov, float aspectRatio, float nearClip, float farClip) : _fov(fov), _aspectRatio(aspectRatio), _nearClip(nearClip), _farClip(farClip){
+    EditorCamera::EditorCamera(float fov, float aspectRatio, float nearClip, float farClip) 
+		: _fov(fov), _aspectRatio(aspectRatio), _nearClip(nearClip), _farClip(farClip), Camera(glm::perspective(glm::radians(fov), aspectRatio, nearClip, farClip)){
 		updateView();
 	}
     
     void EditorCamera::onUpdate(Timestep ts){
 		if(InputPoll::isKeyPressed(KeyCode::LeftAlt)){
 			const glm::vec2& mouse = glm::vec2{InputPoll::getMouseX(), InputPoll::getMouseY()};
-			/* const glm::vec2& mouse = glm::vec2{InputPoll::getMousePosition().xpos, InputPoll::getMousePosition().ypos}; */
-
 			glm::vec2 delta = (mouse - _initialMousePosition) * 0.003f;
 			_initialMousePosition = mouse;
 
