@@ -11,7 +11,7 @@ void Sandbox2D::onAttach(){
 	_checkerboardTexture = RendererEngine::Texture2D::Create("assets/Checkerboard.png");
 	_cameraController.setZoomLevel(3.0f);
 
-	RendererEngine::FrameBufferSpecifications frameBufSpecs;
+	RendererEngine::FrameBufferSpecifications frameBufSpecs{};
 	frameBufSpecs.width = 1280;
 	frameBufSpecs.height = 720;
 }

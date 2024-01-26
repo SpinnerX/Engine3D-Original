@@ -2,6 +2,52 @@
 #include <GameEngine/Core/core.h>
 
 namespace RendererEngine{
+	/*
+	 *
+	 * @function enum class FrameBufferTextureFormat
+	 *
+	 * @note handle different formatting types for color attachments
+	 *
+	 *
+	 * */
+	enum class FrameBufferTextureFormat{
+		None=0,
+		RGBA8,
+		DEPTH24STENCIL8, // Depth/Stencil
+		DEPTH=DEPTH24STENCIL8
+	};
+	
+	/*
+	 *
+	 * @function FrameBufferTextureSpecifications
+	 *
+	 * @note struct that will contain the actual texture specs.
+	 * @note containing the actual physical specification for textures.
+	 *
+	 *
+	 * */
+
+	struct FrameBufferTextureSpecifications{
+		FrameBufferTextureSpecifications()  = default;
+		FrameBufferTextureSpecifications(FrameBufferTextureFormat format) : _textureFormat(format){}
+
+		FrameBufferTextureFormat _textureFormat = FrameBufferTextureFormat::None;
+		// @note TODO: filtering/wrap
+	};
+	/*
+	 *
+	 * @function FrameBufferAttachmentSpecification
+	 * @param std::vector<FrameBufferTextureSpecifications> is a list of the texture attachments themselves
+	 * @note is the collective frame buffer attachments 
+	 *
+	 *
+	 *
+	 * */
+	struct FrameBufferAttachmentSpecification{
+		FrameBufferAttachmentSpecification(const std::initializer_list<FrameBufferTextureSpecifications>& list) : attachments(list){}
+
+		std::vector<FrameBufferTextureSpecifications> attachments;
+	};
 	
 	// FrameBuffer specifications (POD)
 	struct FrameBufferSpecifications{
@@ -17,7 +63,9 @@ namespace RendererEngine{
 		// * Utilizes a frame buffer 
 		// * Frame buffer that contains a target
 		// * Rendering to a screen means you might not have a frame buffer.
-		bool swapChainTarget = false; 
+		bool swapChainTarget = false;
+
+		FrameBufferAttachmentSpecification attachments;
 	};
 
 	class FrameBuffer{
@@ -31,7 +79,7 @@ namespace RendererEngine{
 		// Used for when we want to resize this buffer when running in another scene.
 		virtual void resize(uint32_t w, uint32_t h) = 0;
 
-		virtual uint32_t getColorAttachmentRendererID() const = 0;
+		virtual uint32_t getColorAttachmentRendererID(uint32_t index = 0) const = 0;
 		
 		virtual const FrameBufferSpecifications& getSpecifications() const = 0;
 	};

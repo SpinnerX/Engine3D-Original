@@ -18,9 +18,10 @@ namespace RendererEngine{
 		_checkerboardTexture = Texture2D::Create("assets/Checkerboard.png");
 		/* _cameraController.setZoomLevel(3.0f); */
 
-		FrameBufferSpecifications frameBufSpecs;
+		FrameBufferSpecifications frameBufSpecs = {};
 		frameBufSpecs.width = 1280;
 		frameBufSpecs.height = 720;
+		frameBufSpecs.attachments = { FrameBufferTextureFormat::RGBA8, FrameBufferTextureFormat::DEPTH };
 
 	
 		_framebuffers = FrameBuffer::Create(frameBufSpecs); // Creating out frame buffer
@@ -234,9 +235,6 @@ namespace RendererEngine{
 				tc.scale = scale;
 			}
 		}
-
-
-
 
 		ImGui::End();
 		ImGui::PopStyleVar();
