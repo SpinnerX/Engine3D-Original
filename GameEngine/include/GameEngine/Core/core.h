@@ -29,10 +29,17 @@
 
     template<typename... T>
     void render_core_assert(bool x, T&&... args){
+#if __WIN32__
         if(!(x)){
             coreLogError("Assertion Failed: {}", std::forward(args)...);
             __debugbreak();
         }
+#endif
+		if(__builtin_expect(!(x), 0){
+			coreLogError("Assertion Failed: {}", std::forward(args)...);
+			__assert_rtn(__func__, __ASSERT_FILE_NAME, __LINE__, x)
+			return;
+		}
     }
 #else
     // #define RENDER_ASSERT(x, ...)
@@ -49,11 +56,11 @@ static bool is_same(){
     return std::is_same<t1, t2>();
 }
 
-static auto bind_function = [](auto* instance, auto member_bound_function){
+static auto bind_function(auto* instance, auto member_bound_function){
     return [instance, member_bound_function](auto&& arg1){
         return (instance->*member_bound_function)(std::forward<decltype(arg1)>(arg1));
     };
-};
+}
 
 // Using a bitfield to go into multiple categories
 // Hence, why we are using a bitfield.

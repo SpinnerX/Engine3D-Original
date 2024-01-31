@@ -13,6 +13,10 @@ namespace RendererEngine{
 	}
 
 	OpenGLFrameBuffer::OpenGLFrameBuffer(const FrameBufferSpecifications& specs) : _specifications(specs){
+		if(specs.attachments.attachments.size() <= 0){
+			assert(specs.attachments.attachments.size() > 0);
+		}
+
 		for(auto spec : specs.attachments.attachments){
 			attachmentFormats.push_back(spec.textureFormat);
 			if(!isDepth(spec.textureFormat)){
@@ -30,6 +34,11 @@ namespace RendererEngine{
 		glDeleteFramebuffers(1, &_rendererID);
 		/* glDeleteTextures(1, &colorAttachmentID); */
 		/* glDeleteTextures(1, &depthAttachmentID); */
+		for(auto spec : _specifications.attachments.attachments){
+			glDeleteTextures(1, &spec.attachmentID);
+		}
+
+		glDeleteTextures(1, &depthAttachmentAttachmentSpec.attachmentID);
 	}
 
 	void OpenGLFrameBuffer::invalidate(){
@@ -47,6 +56,10 @@ namespace RendererEngine{
 		glGenFramebuffers(1, &_rendererID);
 
 		glBindFramebuffer(GL_FRAMEBUFFER, _rendererID);
+
+		if(depthAttachmentAttachmentSpec.textureFormat == FrameBufferTextureFormat::None){
+			return;
+		}
 
 
 		// Testing attachment with std::vector<Format>
