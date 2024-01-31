@@ -29,9 +29,10 @@ namespace RendererEngine{
 
 	struct FrameBufferTextureSpecifications{
 		FrameBufferTextureSpecifications()  = default;
-		FrameBufferTextureSpecifications(FrameBufferTextureFormat format) : _textureFormat(format){}
+		FrameBufferTextureSpecifications(FrameBufferTextureFormat format) : textureFormat(format){}
 
-		FrameBufferTextureFormat _textureFormat = FrameBufferTextureFormat::None;
+		FrameBufferTextureFormat textureFormat = FrameBufferTextureFormat::None;
+		uint32_t attachmentID = 0;
 		// @note TODO: filtering/wrap
 	};
 	/*
@@ -44,6 +45,7 @@ namespace RendererEngine{
 	 *
 	 * */
 	struct FrameBufferAttachmentSpecification{
+		FrameBufferAttachmentSpecification() = default;
 		FrameBufferAttachmentSpecification(const std::initializer_list<FrameBufferTextureSpecifications>& list) : attachments(list){}
 
 		std::vector<FrameBufferTextureSpecifications> attachments;
