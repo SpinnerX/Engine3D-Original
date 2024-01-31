@@ -22,7 +22,6 @@ namespace RendererEngine{
 		frameBufSpecs.attachments = { FrameBufferTextureFormat::RGBA8, FrameBufferTextureFormat::DEPTH24STENCIL8 };
 		frameBufSpecs.width = 1280;
 		frameBufSpecs.height = 720;
-		frameBufSpecs.attachments = { FrameBufferTextureFormat::RGBA8, FrameBufferTextureFormat::DEPTH };
 
 	
 		_framebuffers = FrameBuffer::Create(frameBufSpecs); // Creating out frame buffer
@@ -140,7 +139,7 @@ namespace RendererEngine{
 				ImGui::Separator();
 
 
-				if(ImGui::MenuItem("Exit")) Application::Get().close();
+				if(ImGui::MenuItem("Exit", "Ctrl+X")) Application::Get().close();
 
 				ImGui::EndMenu();
 			}
@@ -286,6 +285,11 @@ namespace RendererEngine{
 				saveAs();
 			}
 		}
+			break;
+		case KeyCode::X:
+			if(control){
+				Application::Get().close();
+			}
 			break;
 			// Gizmos controls
 		case KeyCode::Q: // Selection
