@@ -1,5 +1,6 @@
 #pragma once
 #include <GameEngine/Renderer/Framebuffer.h>
+#include <map>
 
 namespace RendererEngine{
 	
@@ -14,8 +15,7 @@ namespace RendererEngine{
 		virtual void resize(uint32_t w, uint32_t h) override;
 		
 		virtual const FrameBufferSpecifications& getSpecifications() const override { return _specifications; }
-		/* virtual uint32_t getColorAttachmentRendererID(uint32_t index=0) const override { render_core_assert(index < _colorAttachments.size()); return _colorAttachments[index]; } */
-		virtual uint32_t getColorAttachmentRendererID(uint32_t index=0) const override { return colorAttachments[index].attachmentID; }
+		virtual uint32_t getColorAttachmentRendererID(uint32_t index=0) const override { assert(index < _specifications.attachments.attachments.size()); return colorAttachments[index].attachmentID; }
 		
 		// @function invalidate
 		// @note means that something has been changed/modified inside the frame buffer.
@@ -23,15 +23,16 @@ namespace RendererEngine{
 		void invalidate();
 
 	private:
+		void colorAttachment(GLenum target, uint32_t& attachmentID, GLenum format);
+
+	private:
 		uint32_t _rendererID;
-		uint32_t colorAttachmentID = 0;
-		uint32_t depthAttachmentID = 0; //  May delete this later
 		FrameBufferSpecifications _specifications;
 		std::vector<FrameBufferTextureFormat> attachmentFormats;
+		std::map<uint32_t, FrameBufferTextureSpecifications> colorAttachmentsMap;
+		uint32_t attachmentID = 0; // attachment id and the index of where in the map attachment is
 
 		std::vector<FrameBufferTextureSpecifications> colorAttachments;
 		FrameBufferTextureSpecifications depthAttachmentAttachmentSpec = FrameBufferTextureFormat::None; // Keeping track of state.
-		/* std::vector<uint32_t> _colorAttachments; */
-		uint32_t _depthAttachment = 0;
 	};
 };
