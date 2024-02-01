@@ -19,7 +19,7 @@ namespace RendererEngine{
 		/* _cameraController.setZoomLevel(3.0f); */
 
 		FrameBufferSpecifications frameBufSpecs;
-		frameBufSpecs.attachments = { FrameBufferTextureFormat::RGBA8, FrameBufferTextureFormat::DEPTH24STENCIL8 };
+		frameBufSpecs.attachments = { FrameBufferTextureFormat::RGBA8, FrameBufferTextureFormat::RGBA8, FrameBufferTextureFormat::DEPTH24STENCIL8 };
 		frameBufSpecs.width = 1280;
 		frameBufSpecs.height = 720;
 
@@ -27,7 +27,7 @@ namespace RendererEngine{
 		_framebuffers = FrameBuffer::Create(frameBufSpecs); // Creating out frame buffer
 		_activeScene = CreateRef<Scene>();
 
-		_editorCamera = EditorCamera(30.0f, 1280.0f/720.0f, 0.1f, 1000.0f);
+		_editorCamera = EditorCamera(30.0f, 1.778f, 0.1f, 1000.0f);
 		
 		_sceneHeirarchyPanel.setContext(_activeScene);
 	}
@@ -53,8 +53,8 @@ namespace RendererEngine{
 		// Update (if mouse cursor is focused in window.)
 		if(_isViewportFocused){
 			/* _cameraController.onUpdate(ts); */
-			_editorCamera.onUpdate(ts);
 		}
+		_editorCamera.onUpdate(ts);
 
 
 		
@@ -180,7 +180,7 @@ namespace RendererEngine{
 		}
 
 		// By passing this renderer ID, this gives us the ID of the texture that we want to render.
-		uint32_t textureID = _framebuffers->getColorAttachmentRendererID(); // Getting color buffer from frame buffer
+		uint32_t textureID = _framebuffers->getColorAttachmentRendererID(1); // Getting color buffer from frame buffer
 		ImGui::Image(reinterpret_cast<void *>(textureID), ImVec2{_viewportSize.x, _viewportSize.y}, ImVec2{0, 1}, ImVec2{1, 0});
 
 		
