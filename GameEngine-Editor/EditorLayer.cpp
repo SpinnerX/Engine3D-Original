@@ -16,10 +16,11 @@ namespace RendererEngine{
 	void EditorLayer::onAttach(){
 		RENDER_PROFILE_FUNCTION();
 		_checkerboardTexture = Texture2D::Create("assets/Checkerboard.png");
-		/* _cameraController.setZoomLevel(3.0f); */
 
 		FrameBufferSpecifications frameBufSpecs;
-		frameBufSpecs.attachments = { FrameBufferTextureFormat::RGBA8, FrameBufferTextureFormat::RGBA8, FrameBufferTextureFormat::DEPTH24STENCIL8 };
+		// @note in opengl has different RGB, such as RGBA8, RED (same as RGBA8 but one channel that is an int.)
+		// @note RED_INTEGER
+		frameBufSpecs.attachments = { FrameBufferTextureFormat::RGBA8, FrameBufferTextureFormat::RED_INTEGER, FrameBufferTextureFormat::DEPTH24STENCIL8 };
 		frameBufSpecs.width = 1280;
 		frameBufSpecs.height = 720;
 
@@ -51,12 +52,10 @@ namespace RendererEngine{
 		}
 		
 		// Update (if mouse cursor is focused in window.)
-		if(_isViewportFocused){
+		/* if(_isViewportFocused){ */
 			/* _cameraController.onUpdate(ts); */
-		}
+		/* } */
 		_editorCamera.onUpdate(ts);
-
-
 		
 		// Render
 		Renderer2D::resetStats();
@@ -65,6 +64,22 @@ namespace RendererEngine{
 		RendererCommand::clear();
 
 		_activeScene->onUpdateEditor(ts, _editorCamera);
+		
+		// @note this gives us the cursor location.
+		auto[mouseX, mouseY] = ImGui::GetMousePos();
+		mouseX -= _viewportBound[0].x; // making top-left (0, 0), if subtracting x and y with mouse pos.
+		mouseY -= _viewportBound[0].y;
+
+		glm::vec2 viewportSize = _viewportBound[1] - _viewportBound[0];
+		mouseY -= viewportSize.y - mouseY; // This makes our bottom left (0, 0)
+		int currentMouseX = (int)mouseX;
+		int currentMouseY = (int)mouseY;
+		
+		// @note giving feedback the pixel of that vertex buffer.
+		if(mouseX >= 0 and mouseY >= 0 and mouseX < (int)viewportSize.x and mouseY < (int)viewportSize.y){
+			int pixel = _framebuffers->readPixel(1, currentMouseX, currentMouseY);
+			coreLogWarn("Pixel = {}", pixel);
+		}
 
 		_framebuffers->unbind();
 	}
@@ -163,6 +178,9 @@ namespace RendererEngine{
 		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2{0, 0});
 		ImGui::Begin("Viewport");
 		
+		// @note If tab bar is expanded, then the cursor will be expanded
+		auto viewportOffset = ImGui::GetCursorPos(); // @note takes account of including tab bar
+		
 		// Checking if window is focused, then to not block incoming events
 		_isViewportFocused = ImGui::IsWindowFocused(); // If viewport is focused then we don't want to block incoming events.
 		_isViewportHovered = ImGui::IsWindowHovered();
@@ -180,9 +198,17 @@ namespace RendererEngine{
 		}
 
 		// By passing this renderer ID, this gives us the ID of the texture that we want to render.
-		uint32_t textureID = _framebuffers->getColorAttachmentRendererID(1); // Getting color buffer from frame buffer
+		uint32_t textureID = _framebuffers->getColorAttachmentRendererID(); // Getting color buffer from frame buffer
 		ImGui::Image(reinterpret_cast<void *>(textureID), ImVec2{_viewportSize.x, _viewportSize.y}, ImVec2{0, 1}, ImVec2{1, 0});
+		
+		auto windowSize = ImGui::GetWindowSize();
+		ImVec2 minBound = ImGui::GetWindowPos();
+		minBound.x += viewportOffset.x;
+		minBound.y += viewportOffset.y;
 
+		ImVec2 maxBound = { minBound.x + windowSize.x, minBound.y + windowSize.y };
+		_viewportBound[0] = {minBound.x, minBound.y};
+		_viewportBound[1] = {maxBound.x, maxBound.y};
 		
 		// Gizmos
 		Entity selectedEntity = _sceneHeirarchyPanel.getSelectedEntity();

@@ -68,31 +68,51 @@ namespace RendererEngine{
 			for(size_t i = 0; i < colorAttachments.size(); i++){
 				glGenTextures(1, &colorAttachments[i].attachmentID);
 				glBindTexture(GL_TEXTURE_2D, colorAttachments[i].attachmentID);
-				
-				/* colorAttachment(textureTarget(multisample), colorAttachments[i].attachmentID, textureTarget(multisample)); */
-				/* glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, _specifications.width, _specifications.height, 0, GL_RGBA, GL_UNSIGNED_BYTE, nullptr); */
-				/* glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR); */
-				/* glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR); */
-				/* glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE); */
-				/* glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE); */
-				/* glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE); */
-				
-				if(multisample){
-					glTexImage2DMultisample(GL_TEXTURE_2D_MULTISAMPLE, _specifications.samples, GL_RGBA8, _specifications.width, _specifications.height, GL_FALSE);
-				}
-				else{
-					glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, _specifications.width, _specifications.height, 0, GL_RGBA, GL_UNSIGNED_BYTE, nullptr);
+				// @note internalFormat is data to be stored
+				// @note format is data that will be accessed
+
+				switch(colorAttachments[i].textureFormat){
+					case RendererEngine::FrameBufferTextureFormat::RGBA8:
+					{
+						/* colorAttachment(textureTarget(multisample), colorAttachments[i].attachmentID, GL_RGBA8, GL_RGBA); */
+
+						if(multisample){
+							glTexImage2DMultisample(GL_TEXTURE_2D_MULTISAMPLE, _specifications.samples, GL_RGBA8, _specifications.width, _specifications.height, GL_FALSE);
+						}
+						else{
+							glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, _specifications.width, _specifications.height, 0, GL_RGBA, GL_UNSIGNED_BYTE, nullptr);
 					
-					glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-					glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-					glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
-					glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-					glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+							glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+							glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+							glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
+							glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+							glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+							glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0+i, textureTarget(multisample), colorAttachments[i].attachmentID, 0);
+						}
+					}
+						break;
+					case RendererEngine::FrameBufferTextureFormat::RED_INTEGER:
+						{
+							if(multisample){
+								glTexImage2DMultisample(GL_TEXTURE_2D_MULTISAMPLE, _specifications.samples, GL_RGBA8, _specifications.width, _specifications.height, GL_FALSE);
+							}
+							else{
+								glTexImage2D(GL_TEXTURE_2D, 0, GL_R32I, _specifications.width, _specifications.height, 0, GL_RED_INTEGER, GL_UNSIGNED_BYTE, nullptr);
+					
+								glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+								glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+								glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
+								glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+								glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+								glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0+i, textureTarget(multisample), colorAttachments[i].attachmentID, 0);
+							}
+						}
+						break;
+					default:
+						break;
 				}
-
-
 				/* glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, colorAttachments[i].attachmentID, 0); */
-				glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0+i, textureTarget(multisample), colorAttachments[i].attachmentID, 0);
+				/* glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0+i, textureTarget(multisample), colorAttachments[i].attachmentID, 0); */
 			}
 		}
 
@@ -100,7 +120,7 @@ namespace RendererEngine{
 		if(depthAttachmentAttachmentSpec.textureFormat != FrameBufferTextureFormat::None){
 			glGenTextures(1, &depthAttachmentAttachmentSpec.attachmentID);
 			glBindTexture(GL_TEXTURE_2D, depthAttachmentAttachmentSpec.attachmentID);
-
+			
 			if(multisample){
 					glTexImage2DMultisample(GL_TEXTURE_2D_MULTISAMPLE, _specifications.samples, GL_DEPTH24_STENCIL8, _specifications.width, _specifications.height, GL_FALSE);
 			}
@@ -131,15 +151,45 @@ namespace RendererEngine{
 
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	}
-	
-	void OpenGLFrameBuffer::colorAttachment(GLenum target, uint32_t& attachmentID, GLenum format){
+
+	void OpenGLFrameBuffer::colorAttachment(GLenum target, uint32_t& attachmentID, GLenum internalFormat, GLenum format){
+		bool multisample = _specifications.samples > 1;
+		if(multisample){
+			glTexImage2DMultisample(GL_TEXTURE_2D_MULTISAMPLE, _specifications.samples, GL_RGBA8, _specifications.width, _specifications.height, GL_FALSE);
+		}
+		else{
+			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, _specifications.width, _specifications.height, 0, GL_RGBA, GL_UNSIGNED_BYTE, nullptr);
+					
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+		}
+
+		/* if(multisample){ */
+		/* 	glTexImage2DMultisample(GL_TEXTURE_2D_MULTISAMPLE, _specifications.samples, internalFormat, _specifications.width, _specifications.height, GL_FALSE); */
+		/* } */
+		/* else{ */
+		/* 	/1* glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, _specifications.width, _specifications.height, 0, format, GL_UNSIGNED_BYTE, nullptr); *1/ */
+		/* 	glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, _specifications.width, _specifications.height, 0, format, GL_UNSIGNED_INT_24_8, NULL); */
+		/* 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR); */
+		/* 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR); */
+		/* 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE); */
+		/* 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE); */
+		/* 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE); */
+		/* } */
+		
+	}
+		
+	void OpenGLFrameBuffer::depthAttachment(GLenum target, uint32_t& attachmentID, GLenum internalFormat, GLenum format){
+		/* bool multisample = _specifications.samples > 1; */
 		glTexImage2D(target, 0, format, _specifications.width, _specifications.height, 0, GL_RGBA, GL_UNSIGNED_BYTE, nullptr);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-		
 	}
 
 	void OpenGLFrameBuffer::bind() {
@@ -160,6 +210,17 @@ namespace RendererEngine{
 		_specifications.width = w;
 		_specifications.height = h;
 		this->invalidate();
+	}
+	
+	int OpenGLFrameBuffer::readPixel(uint32_t attachmentIndex, int x, int y){
+		// @note TODO: In the future we may want to have multiple selections
+		// @note Where we might want to read an entire region and scan to see what colors(entities) are there.
+		assert(attachmentIndex < colorAttachments.size());
+		glReadBuffer(GL_COLOR_ATTACHMENT0 + attachmentIndex);
+		int pixelData; // Reading data into this memory buffer.
+		glReadPixels(x, y, 1, 1 , GL_RED_INTEGER, GL_INT, &pixelData);
+
+		return pixelData;
 	}
 
 };

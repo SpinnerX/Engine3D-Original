@@ -12,8 +12,13 @@ namespace RendererEngine{
 	 * */
 	enum class FrameBufferTextureFormat{
 		None=0,
+
+		// Color
 		RGBA8,
-		DEPTH24STENCIL8, // Depth/Stencil
+		RED_INTEGER,
+		
+		// Depth/Stencil
+		DEPTH24STENCIL8,
 		DEPTH=DEPTH24STENCIL8
 	};
 	
@@ -80,6 +85,8 @@ namespace RendererEngine{
 		
 		// Used for when we want to resize this buffer when running in another scene.
 		virtual void resize(uint32_t w, uint32_t h) = 0;
+
+		virtual int readPixel(uint32_t attachmentIndex, int x, int y) = 0;
 
 		virtual uint32_t getColorAttachmentRendererID(uint32_t index = 0) const = 0;
 		
