@@ -27,6 +27,9 @@ namespace RendererEngine{
 	 * @param focal point
 	 * @note sharpness and depth of field
 	 *
+	 * @function panSpeed
+	 * @note handles in computing the panspeed of the camera
+	 *
 	 * */
 	class EditorCamera : public Camera{
 	public:
@@ -49,7 +52,7 @@ namespace RendererEngine{
 		glm::vec3 getUpDirection() const;
 		glm::vec3 getRightDirection() const;
 		glm::vec3 getForwardDirection() const;
-		const glm::vec3 getPosition() const { return _position; }
+		const glm::vec3& getPosition() const { return _position; }
 		glm::quat getOrientation() const;
 
 		float getPitch() const { return _pitch; }

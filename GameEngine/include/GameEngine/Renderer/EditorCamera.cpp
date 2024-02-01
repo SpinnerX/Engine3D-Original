@@ -17,7 +17,9 @@ namespace RendererEngine{
     void EditorCamera::onUpdate(Timestep ts){
 		if(InputPoll::isKeyPressed(KeyCode::LeftAlt)){
 			const glm::vec2& mouse = glm::vec2{InputPoll::getMouseX(), InputPoll::getMouseY()};
+
 			glm::vec2 delta = (mouse - _initialMousePosition) * 0.003f;
+
 			_initialMousePosition = mouse;
 
 			if(InputPoll::isMouseButtonPressed(Mouse::ButtonMiddle))
@@ -55,6 +57,7 @@ namespace RendererEngine{
     void EditorCamera::updateProjection(){
 		_aspectRatio = _viewportWidth / _viewportHeight;
 		_projectionMatrix = glm::perspective(glm::radians(_fov), _aspectRatio, _nearClip, _farClip);
+		updateView();
 	}
 
     void EditorCamera::updateView(){
@@ -63,7 +66,6 @@ namespace RendererEngine{
 		glm::quat orientation = getOrientation();
 		_viewMatrix = glm::translate(glm::mat4(1.0f), _position) * glm::toMat4(orientation);
 		_viewMatrix = glm::inverse(_viewMatrix);
-
 	}
 
     bool EditorCamera::onMouseScroll(MouseScrolledEvent& e){

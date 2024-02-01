@@ -52,12 +52,10 @@ namespace RendererEngine{
     void ImGuiLayer::onDetach(){
 		RENDER_PROFILE_FUNCTION();
 		
-		// Checking if viewport is not focused to block events.
-		if(_isBlockingEvents){
-			ImGui_ImplOpenGL3_Shutdown();
-			ImGui_ImplGlfw_Shutdown();
-			ImGui::DestroyContext();
-		}
+
+		ImGui_ImplOpenGL3_Shutdown();
+		ImGui_ImplGlfw_Shutdown();
+		ImGui::DestroyContext();
     }
 
     void ImGuiLayer::begin(){
@@ -90,6 +88,16 @@ namespace RendererEngine{
             glfwMakeContextCurrent(backup_current_ctx);
         }
     }
+	
+	void ImGuiLayer::onEvent(Event& e){
+		// @note this is to prevent blocking.
+		// @note Checking if viewport is not focused to block events.
+		if(_isBlockingEvents){
+			ImGuiIO& io = ImGui::GetIO();
+			e._handled |= e.isInCategory(EventCategoryMouse) & io.WantCaptureMouse;
+			e._handled |= e.isInCategory(EventCategoryKeyboard) & io.WantCaptureKeyboard;
+		}
+	}
 
 	void ImGuiLayer::setDarkThemeColors(){
 		auto& colors = ImGui::GetStyle().Colors; // @note Colors is ImVec4

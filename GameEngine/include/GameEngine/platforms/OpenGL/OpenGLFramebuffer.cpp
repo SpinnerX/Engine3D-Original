@@ -24,7 +24,7 @@ namespace RendererEngine{
 		for(auto spec : specs.attachments.attachments){
 			attachmentFormats.push_back(spec.textureFormat);
 			if(!isDepth(spec.textureFormat)){
-				colorAttachments.emplace_back(std::move(spec));
+				colorAttachments.emplace_back(spec);
 			}
 			else{
 				depthAttachmentAttachmentSpec = std::move(spec);
@@ -92,7 +92,7 @@ namespace RendererEngine{
 
 
 				/* glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, colorAttachments[i].attachmentID, 0); */
-				glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, textureTarget(multisample), colorAttachments[i].attachmentID, 0);
+				glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0+i, textureTarget(multisample), colorAttachments[i].attachmentID, 0);
 			}
 		}
 
