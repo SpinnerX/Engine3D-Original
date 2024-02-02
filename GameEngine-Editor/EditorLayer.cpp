@@ -62,7 +62,10 @@ namespace RendererEngine{
 		_framebuffers->bind();
 		RendererCommand::setClearColor({ 0.1f, 0.1f, 0.1f, 1 });
 		RendererCommand::clear();
-
+		
+		/* _framebuffers->clearColorAttachment(1, -1); */
+		
+		// glClearTexImage does not work in Mac, hence commented this out.
 		_activeScene->onUpdateEditor(ts, _editorCamera);
 		
 		// @note this gives us the cursor location.
