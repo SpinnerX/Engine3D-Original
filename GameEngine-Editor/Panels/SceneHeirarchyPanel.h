@@ -21,6 +21,9 @@ namespace RendererEngine{
 		void onImguiRender();
 		
 		Entity getSelectedEntity() const { return _selectionContext; }
+		
+		void setSelectedEntity(Entity entity);
+
 	private:
 		void drawEntityNode(Entity entity);
 		void drawComponents(Entity entity);

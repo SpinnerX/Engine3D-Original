@@ -19,6 +19,10 @@ namespace RendererEngine{
 		// @note check for if the selected context is in active scene and when we set the context then we'll reset it.
 		_selectionContext = {};
 	}
+	
+	void SceneHeirachyPanel::setSelectedEntity(Entity entity){
+		_selectionContext = entity;
+	}
 
 	void SceneHeirachyPanel::onImguiRender(){
 		// @note Drawing this whole scene heirarchy.

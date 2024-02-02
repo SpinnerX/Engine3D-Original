@@ -21,6 +21,7 @@ EditorLayer();
 	
 	private:
 		bool onKeyPressed(KeyPressedEvent& e);
+		bool onMousePressed(MouseButtonPressedEvent& e);
 
 		void newScene();
 		void openScene();
@@ -42,12 +43,10 @@ EditorLayer();
 		SceneHeirachyPanel _sceneHeirarchyPanel;
 
 		Ref<Scene> _activeScene;
-		/* Entity _squareEntity; */
-		/* Entity _squareEntity2; */
-		/* Entity _cameraEntity; */
-		/* Entity _cameraSecond; */
 		bool isPrimaryCamera = true;
 		EditorCamera _editorCamera;
+
+		Entity hoveredEntity; // Gives us the entity we are hovering over.
 		
 		int _gizmoType = -1; // @note this is going to be the type of operationt he gizmal is going to be.
 

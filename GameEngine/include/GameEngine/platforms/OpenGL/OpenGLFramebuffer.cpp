@@ -232,5 +232,12 @@ namespace RendererEngine{
 		return pixelData;
 	}
 	
+	void OpenGLFrameBuffer::clearColorAttachment(uint32_t attachmentIndex, int data){
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glEnable(GL_DEPTH_TEST);
+		glClearBufferiv(colorAttachments[attachmentIndex].attachmentID, 0, &data);
+	}
+		
+	
 };
 

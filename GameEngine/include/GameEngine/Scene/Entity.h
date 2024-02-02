@@ -27,9 +27,9 @@ namespace RendererEngine{
 		template<typename T>
 		T& getComponent() {
 			// Checking if entity contains this component.
-			if(!this->hasComponent<T>()){
-				coreLogError("Entity does not have component!");
-			}
+			/* if(!this->hasComponent<T>()){ */
+			/* 	coreLogError("Entity does not have component!"); */
+			/* } */
 
 			return _scene->_registry.get<T>(_entityHandler);
 		}

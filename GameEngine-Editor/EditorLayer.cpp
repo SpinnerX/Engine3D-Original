@@ -82,6 +82,14 @@ namespace RendererEngine{
 		// @note giving feedback the pixel of that vertex buffer.
 		if(mouseX >= 0 and mouseY >= 0 and mouseX < (int)viewportSize.x and mouseY < (int)viewportSize.y){
 			int pixel = _framebuffers->readPixel(1, currentMouseX, currentMouseY);
+			if(pixel != 1036831949){
+				hoveredEntity = Entity((entt::entity)pixel, _activeScene.get());
+			}
+			else{
+				hoveredEntity = {};
+			}
+
+			/* hoveredEntity = pixel == 103681949 ? Entity() : Entity((entt::entity)pixel, _activeScene.get()); */
 			coreLogWarn("Pixel = {}", pixel);
 		}
 
@@ -168,6 +176,16 @@ namespace RendererEngine{
 		_sceneHeirarchyPanel.onImguiRender();
 
 		ImGui::Begin("Stats");
+		
+		std::string name = "None";
+
+		if(hoveredEntity){
+			name = hoveredEntity.getComponent<TagComponent>().tag;
+		}
+		else{
+		}
+
+		ImGui::Text("Hovered Entity: %s", name.c_str());
 
 		auto stats = Renderer2D::getStats();
 		ImGui::Text("Renderer2D Stats");
@@ -271,6 +289,7 @@ namespace RendererEngine{
 		EventDispatcher dispatcher(e);
 
 		dispatcher.Dispatch<KeyPressedEvent>(bind_function(this, &EditorLayer::onKeyPressed));
+		dispatcher.Dispatch<MouseButtonPressedEvent>(bind_function(this, &EditorLayer::onMousePressed));
 	}
 	
 	bool EditorLayer::onKeyPressed(KeyPressedEvent& e){
@@ -351,5 +370,17 @@ namespace RendererEngine{
 		std::string filepath = FileDialogs::saveFile("Game Engine (*.engine)\0*.engine\0");
 		SceneSerializer serializer(_activeScene);
 		serializer.serializer(filepath);
+	}
+	
+	bool EditorLayer::onMousePressed(MouseButtonPressedEvent& e){
+		// @note Change entity that we are clicking (only if we are hovering over that entitiy specifically.
+		// @note enabling mouse picking here
+		if(e.GetMouseButton() == Mouse::ButtonLeft){
+			
+			if(_isViewportHovered && !ImGuizmo::IsUsing() && !InputPoll::isKeyPressed(Key::LeftAlt))
+				_sceneHeirarchyPanel.setSelectedEntity(hoveredEntity);
+		}
+
+		return false;
 	}
 };

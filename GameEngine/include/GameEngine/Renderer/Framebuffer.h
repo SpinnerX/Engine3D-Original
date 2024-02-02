@@ -87,6 +87,8 @@ namespace RendererEngine{
 		virtual void resize(uint32_t w, uint32_t h) = 0;
 		
 		virtual int readPixel(uint32_t attachmentIndex, int x, int y) = 0;
+		
+		virtual void clearColorAttachment(uint32_t attachmentIndex, int data) = 0;
 
 		virtual uint32_t getColorAttachmentRendererID(uint32_t index = 0) const = 0;
 		

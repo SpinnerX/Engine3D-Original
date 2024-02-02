@@ -15,6 +15,8 @@ namespace RendererEngine{
 		virtual void resize(uint32_t w, uint32_t h) override;
 		virtual int readPixel(uint32_t attachmentIndex, int x, int y) override;
 		
+		virtual void clearColorAttachment(uint32_t attachmentIndex, int data) override;
+		
 		virtual const FrameBufferSpecifications& getSpecifications() const override { return _specifications; }
 		virtual uint32_t getColorAttachmentRendererID(uint32_t index=0) const override { assert(index < _specifications.attachments.attachments.size()); return colorAttachments[index].attachmentID; }
 		
@@ -31,7 +33,6 @@ namespace RendererEngine{
 		uint32_t _rendererID;
 		FrameBufferSpecifications _specifications;
 		std::vector<FrameBufferTextureFormat> attachmentFormats;
-		std::map<uint32_t, FrameBufferTextureSpecifications> colorAttachmentsMap;
 		uint32_t attachmentID = 0; // attachment id and the index of where in the map attachment is
 
 		std::vector<FrameBufferTextureSpecifications> colorAttachments;
