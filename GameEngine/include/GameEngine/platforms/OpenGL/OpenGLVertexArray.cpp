@@ -57,9 +57,15 @@ namespace RendererEngine{
 
         vertexBuffer->bind();
 
-        uint32_t index = 0;
+        /* uint32_t index = 0; */
         const auto& layout = vertexBuffer->getLayout();
         for(const auto& element : layout){
+			switch (element.type) {
+			case RendererEngine::ShaderDataType::Float:
+			case RendererEngine::ShaderDataType::Float2:
+			case RendererEngine::ShaderDataType::Float3:
+			case RendererEngine::ShaderDataType::Float4:
+				{
                 glEnableVertexAttribArray(index);
                 glVertexAttribPointer(index,
                                         element.getComponentCount(),
@@ -68,6 +74,28 @@ namespace RendererEngine{
                                         vertexBuffer->getLayout().getStride(),
                                         (const void*)element.offset); // provind a vertex a shader
                 index++;
+				}
+				break;
+			case RendererEngine::ShaderDataType::Int:
+			case RendererEngine::ShaderDataType::Int2:
+			case RendererEngine::ShaderDataType::Int3:
+			case RendererEngine::ShaderDataType::Int4:
+			case RendererEngine::ShaderDataType::Bool:
+				{
+					glEnableVertexAttribArray(index);
+					glVertexAttribIPointer(index,
+						element.getComponentCount(),
+						shaderDatatTypeToOpenGlBaseTypeConversion(element.type),
+						layout.getStride(),
+						(const void*)element.offset);
+					index++;
+				}
+				break;
+			default:
+				/* assert(false); */
+				break;
+			}
+
         }
 
         _vertexBuffers.push_back(vertexBuffer);

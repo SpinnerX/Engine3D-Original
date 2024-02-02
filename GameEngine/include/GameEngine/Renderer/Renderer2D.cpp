@@ -4,6 +4,7 @@
 #include <GameEngine/Renderer/RenderCommand.h>
 #include <GameEngine/platforms/OpenGL/OpenGLShader.h>
 #include <glm/gtc/matrix_transform.hpp>
+#include <GameEngine/Scene/Components.h>
 
 namespace RendererEngine{
 	struct quadVertex{
@@ -12,6 +13,9 @@ namespace RendererEngine{
 		glm::vec2 texCoord;
 		float texIndex; // containing whatever texture we have (if zero then it'll sample from white texture and draw nothing)
 		float tilingFactor;
+
+		// Editor-only stuff
+		int entityID = 0;
 	};
 
 	// This data wont get deleted unless we delete this manually.
@@ -48,7 +52,8 @@ namespace RendererEngine{
 			{ ShaderDataType::Float4, "a_Color" },
 			{ ShaderDataType::Float2, "a_TexCoord" },
 			{ ShaderDataType::Float, "a_TexIndex" },
-			{ ShaderDataType::Float, "a_TilingFactor" }
+			{ ShaderDataType::Float, "a_TilingFactor" },
+			{ ShaderDataType::Int, "a_EntityID" }
 		});
 
 		_data.quadVertexArray->addVertexBuffer(_data.quadVertexBuffer);
@@ -260,7 +265,7 @@ namespace RendererEngine{
 	
 
 	// NEW DRAW QUAD
-	void Renderer2D::drawQuad(const glm::mat4& transform, const glm::vec4& color){
+	void Renderer2D::drawQuad(const glm::mat4& transform, const glm::vec4& color, int entityID){
 		constexpr size_t quadVertexCount = 4;
 		constexpr glm::vec2 textureCoords[] = { {0.0f, 0.0f}, {1.0f, 0.0f}, {1.0f, 1.0f}, {0.0f, 1.0f}};
 		
@@ -273,6 +278,7 @@ namespace RendererEngine{
 			_data.quadVertexBufferPtr->texCoord = textureCoords[i];
 			_data.quadVertexBufferPtr->texIndex = textureIndex;
 			_data.quadVertexBufferPtr->tilingFactor = tilingFactor;
+			_data.quadVertexBufferPtr->entityID = entityID;
 			_data.quadVertexBufferPtr++;
 		}
 
@@ -283,7 +289,7 @@ namespace RendererEngine{
 	}
 
 	// NEW DRAW QUAD
-	void Renderer2D::drawQuad(const glm::mat4& transform, const Ref<Texture2D>& texture, float tilingFactor, const glm::vec4& tintColor){
+	void Renderer2D::drawQuad(const glm::mat4& transform, const Ref<Texture2D>& texture, float tilingFactor, const glm::vec4& tintColor, int entityID){
 
 		// To prevent overflow.
 		if(_data.quadIndexCount >= Renderer2DData::maxIndices){
@@ -318,6 +324,7 @@ namespace RendererEngine{
 			_data.quadVertexBufferPtr->texCoord = textureCoords[i];
 			_data.quadVertexBufferPtr->texIndex = textureIndex;
 			_data.quadVertexBufferPtr->tilingFactor = tilingFactor;
+			_data.quadVertexBufferPtr->entityID = entityID;
 			_data.quadVertexBufferPtr++;
 		}
 
@@ -459,6 +466,11 @@ namespace RendererEngine{
 		_data.quadIndexCount += 6;
 
 		_data.stats.quadCount++;
+	}
+
+	void Renderer2D::drawSprite(const glm::mat4& transform, SpriteRendererComponent& src, int entityID){
+		auto t = src.color;
+		drawQuad(transform, src.color, entityID);
 	}
 
 	Renderer2D::Statistics Renderer2D::getStats(){ return _data.stats; }

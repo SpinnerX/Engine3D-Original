@@ -16,6 +16,15 @@ namespace RendererEngine{
 		return false;
 	}
 
+	static GLenum engineFBTexturFormatToGL(FrameBufferTextureFormat format){
+		switch (format) {
+			case RendererEngine::FrameBufferTextureFormat::RGBA8: return GL_RGBA8;
+			case RendererEngine::FrameBufferTextureFormat::RED_INTEGER: return GL_RED_INTEGER;
+			default: return 0;
+		}
+		return 0;
+	}
+
 	OpenGLFrameBuffer::OpenGLFrameBuffer(const FrameBufferSpecifications& specs) : _specifications(specs){
 		if(specs.attachments.attachments.size() <= 0){
 			assert(specs.attachments.attachments.size() > 0);
@@ -222,6 +231,6 @@ namespace RendererEngine{
 
 		return pixelData;
 	}
-
+	
 };
 

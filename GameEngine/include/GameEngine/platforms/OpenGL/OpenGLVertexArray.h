@@ -19,6 +19,7 @@ namespace RendererEngine{
 
     private:
         uint32_t _rendererID;
+		uint32_t index = 0;
         std::vector<Ref<VertexBuffer>> _vertexBuffers; // mimicking how opengl does this, but on the CPU
         Ref<IndexBuffer> _indexBuffer;
     };

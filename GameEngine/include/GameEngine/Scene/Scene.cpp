@@ -89,7 +89,8 @@ namespace RendererEngine{
 		for(auto entity : group){
 			auto[transform, sprite] = group.get<TransformComponent, SpriteRendererComponent>(entity);
 
-			Renderer2D::drawQuad(transform.getTransform(), sprite.color);
+			/* Renderer2D::drawQuad(transform.getTransform(), sprite.color); */
+			Renderer2D::drawSprite(transform.getTransform(), sprite, (int)entity);
 		}
 
 		Renderer2D::endScene();
