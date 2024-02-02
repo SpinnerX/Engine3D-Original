@@ -78,6 +78,7 @@ namespace RendererEngine{
 		int currentMouseX = (int)mouseX;
 		int currentMouseY = (int)mouseY;
 		
+
 		// @note giving feedback the pixel of that vertex buffer.
 		if(mouseX >= 0 and mouseY >= 0 and mouseX < (int)viewportSize.x and mouseY < (int)viewportSize.y){
 			int pixel = _framebuffers->readPixel(1, currentMouseX, currentMouseY);
@@ -181,12 +182,18 @@ namespace RendererEngine{
 		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2{0, 0});
 		ImGui::Begin("Viewport");
 		
-		// @note If tab bar is expanded, then the cursor will be expanded
-		auto viewportOffset = ImGui::GetCursorPos(); // @note takes account of including tab bar
-		
+
 		// Checking if window is focused, then to not block incoming events
 		_isViewportFocused = ImGui::IsWindowFocused(); // If viewport is focused then we don't want to block incoming events.
 		_isViewportHovered = ImGui::IsWindowHovered();
+
+		auto viewportMinRegion = ImGui::GetWindowContentRegionMin();
+		auto viewportMaxRegion = ImGui::GetWindowContentRegionMax();
+		// @note If tab bar is expanded, then the cursor will be expanded
+		auto viewportOffset = ImGui::GetWindowPos();
+
+		_viewportBound[0] = { viewportMinRegion.x + viewportOffset.x, viewportMinRegion.y + viewportOffset.y};
+		_viewportBound[1] = { viewportMaxRegion.x + viewportOffset.x, viewportMaxRegion.y + viewportOffset.y};
 
 		Application::Get().getImGuiLayer()->setBlockEvents(!_isViewportFocused && !_isViewportHovered); // if either out of focused or hovered
 
@@ -204,15 +211,6 @@ namespace RendererEngine{
 		uint32_t textureID = _framebuffers->getColorAttachmentRendererID(); // Getting color buffer from frame buffer
 		ImGui::Image(reinterpret_cast<void *>(textureID), ImVec2{_viewportSize.x, _viewportSize.y}, ImVec2{0, 1}, ImVec2{1, 0});
 		
-		auto windowSize = ImGui::GetWindowSize();
-		ImVec2 minBound = ImGui::GetWindowPos();
-		minBound.x += viewportOffset.x;
-		minBound.y += viewportOffset.y;
-
-		ImVec2 maxBound = { minBound.x + windowSize.x, minBound.y + windowSize.y };
-		_viewportBound[0] = {minBound.x, minBound.y};
-		_viewportBound[1] = {maxBound.x, maxBound.y};
-		
 		// Gizmos
 		Entity selectedEntity = _sceneHeirarchyPanel.getSelectedEntity();
 		
@@ -221,19 +219,10 @@ namespace RendererEngine{
 			ImGuizmo::SetOrthographic(false);
 			ImGuizmo::SetDrawlist();
 			
-			float windowWidth = (float)ImGui::GetWindowWidth();
-			float windowHeight = (float)ImGui::GetWindowHeight();
-
-			ImGuizmo::SetRect(ImGui::GetWindowPos().x, ImGui::GetWindowPos().y, windowWidth, windowHeight); // Setting the rectangle.
-
 			// Drawing the gismo (and figuring out where the camera is.
+			ImGuizmo::SetRect(_viewportBound[0].x, _viewportBound[0].y, _viewportBound[1].x - _viewportBound[0].x, _viewportBound[1].y - _viewportBound[0].y);
+
 			// @note Getting the camera information
-			// Camera Runtime 
-			/* auto cameraEntity = _activeScene->getPrimaryCamera(); */
-			/* const auto& camera = cameraEntity.getComponent<CameraComponent>().camera; */
-			/* const glm::mat4& cameraProjection = camera.getProjection(); */
-			/* glm::mat4 cameraView = glm::inverse(cameraEntity.getComponent<TransformComponent>().getTransform()); *1/ */
-			
 			// Editor Camera
 			const glm::mat4& cameraProjection = _editorCamera.getProjection();
 			glm::mat4 cameraView = _editorCamera.getViewMatrix();
