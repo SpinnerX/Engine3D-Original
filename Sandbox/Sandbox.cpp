@@ -10,6 +10,6 @@ public:
     ~Sandbox() {}
 };
 
-RendererEngine::Application* RendererEngine::CreateApplication(){
+RendererEngine::Application* RendererEngine::CreateApplication(RendererEngine::ApplicationCommandLineArgs args){
     return new Sandbox();
 }

@@ -7,7 +7,7 @@
 // that allows us to create different entry points when creating game engines, and stuff
 
 #ifdef RENDER_PLATFORM_WINDOWS
-  extern RendererEngine::Application* RendererEngine::CreateApplication();
+  extern RendererEngine::Application* RendererEngine::CreateApplication(RendererEngine::ApplicationCommandLineArgs args);
 
   int main(int argc, char** argv){
 
@@ -16,12 +16,12 @@
       delete app;
   }
 #else
-  extern RendererEngine::Application* RendererEngine::CreateApplication();
+  extern RendererEngine::Application* RendererEngine::CreateApplication(RendererEngine::ApplicationCommandLineArgs args);
 
   int main(int argc, char** argv){
     RendererEngine::EngineLogger::Init();
 	RENDER_PROFILE_BEGIN_SESSION("Startup", "EngineProfile-Startup.json");
-    auto app = RendererEngine::CreateApplication();
+    auto app = RendererEngine::CreateApplication({argc, argv });
 	RENDER_PROFILE_END_SESSION();
 
 	RENDER_PROFILE_BEGIN_SESSION("Runtime", "EngineProfile-Runtime.json");

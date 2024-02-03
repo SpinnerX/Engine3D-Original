@@ -6,14 +6,14 @@
 namespace RendererEngine{
 	class EngineEditor : public Application{
 	public:
-		EngineEditor() : Application("Engine Editor") {
+		EngineEditor(ApplicationCommandLineArgs args) : Application("Engine Editor", args) {
 			pushLayer(new EditorLayer());
 		}
 
 		~EngineEditor(){}
 	};
 
-	Application* CreateApplication(){
-		return new EngineEditor();
+	Application* CreateApplication(ApplicationCommandLineArgs args){
+		return new EngineEditor(args);
 	}
 };

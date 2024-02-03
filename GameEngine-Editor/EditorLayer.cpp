@@ -28,6 +28,14 @@ namespace RendererEngine{
 		_framebuffers = FrameBuffer::Create(frameBufSpecs); // Creating out frame buffer
 		_activeScene = CreateRef<Scene>();
 
+		auto commandLineArgs = Application::Get().getCommandLineArgs();
+
+		if(commandLineArgs.count > 1){
+			auto sceneFilepath = commandLineArgs[1];
+			SceneSerializer serializer(_activeScene);
+			serializer.deserializeRuntime(sceneFilepath);
+		}
+
 		_editorCamera = EditorCamera(30.0f, 1.778f, 0.1f, 1000.0f);
 		
 		_sceneHeirarchyPanel.setContext(_activeScene);
@@ -84,13 +92,14 @@ namespace RendererEngine{
 			int pixel = _framebuffers->readPixel(1, currentMouseX, currentMouseY);
 			if(pixel != 1036831949){
 				hoveredEntity = Entity((entt::entity)pixel, _activeScene.get());
+				pixelHoveredValue = pixel;
 			}
 			else{
 				hoveredEntity = {};
+				pixelHoveredValue = pixel;
 			}
 
 			/* hoveredEntity = pixel == 103681949 ? Entity() : Entity((entt::entity)pixel, _activeScene.get()); */
-			coreLogWarn("Pixel = {}", pixel);
 		}
 
 		_framebuffers->unbind();
@@ -173,19 +182,19 @@ namespace RendererEngine{
 			ImGui::EndMenuBar();
 		}
 		
+		// @note TODO: Probably adding panels to a list, in the cases that there will be multiple panels for the editor.
 		_sceneHeirarchyPanel.onImguiRender();
+		_contentBrowserPanel.onImguiRender();
 
 		ImGui::Begin("Stats");
 		
 		std::string name = "None";
-
 		if(hoveredEntity){
 			name = hoveredEntity.getComponent<TagComponent>().tag;
 		}
-		else{
-		}
 
 		ImGui::Text("Hovered Entity: %s", name.c_str());
+		ImGui::Text("Pixel Value: %i", pixelHoveredValue);
 
 		auto stats = Renderer2D::getStats();
 		ImGui::Text("Renderer2D Stats");
@@ -357,19 +366,24 @@ namespace RendererEngine{
 		
 		std::string filepath = FileDialogs::openFile("Game Engine (*.engine)\0*.engine\0");
 		coreLogTrace("Trace #2 -- filepath = {0}\n", filepath);
+		
+		if(!filepath.empty()){
+			_activeScene = CreateRef<Scene>();
+			_activeScene->onViewportResize((uint32_t)_viewportSize.x, (uint32_t)_viewportSize.y);
+			_sceneHeirarchyPanel.setContext(_activeScene);
 
-		_activeScene = CreateRef<Scene>();
-		_activeScene->onViewportResize((uint32_t)_viewportSize.x, (uint32_t)_viewportSize.y);
-		_sceneHeirarchyPanel.setContext(_activeScene);
-
-		SceneSerializer serializer(_activeScene);
-		serializer.deserialize(filepath);
+			SceneSerializer serializer(_activeScene);
+			serializer.deserialize(filepath);
+		}
 	}
 
 	void EditorLayer::saveAs(){
 		std::string filepath = FileDialogs::saveFile("Game Engine (*.engine)\0*.engine\0");
-		SceneSerializer serializer(_activeScene);
-		serializer.serializer(filepath);
+		
+		if(!filepath.empty()){
+			SceneSerializer serializer(_activeScene);
+			serializer.serializer(filepath);
+		}
 	}
 	
 	bool EditorLayer::onMousePressed(MouseButtonPressedEvent& e){

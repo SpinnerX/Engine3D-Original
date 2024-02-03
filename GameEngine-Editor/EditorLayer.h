@@ -2,11 +2,12 @@
 #include <GameEngine/Core/GameEngine.h>
 #include "Panels/SceneHeirarchyPanel.h"
 #include <GameEngine/Renderer/EditorCamera.h>
+#include "Panels/ContentBrowserPanel.h"
 
 namespace RendererEngine{
 	class EditorLayer : public Layer{
 	public:
-EditorLayer();
+		EditorLayer();
 	
 		virtual ~EditorLayer() = default;
 
@@ -41,6 +42,7 @@ EditorLayer();
 		Ref<FrameBuffer> _framebuffers;
 
 		SceneHeirachyPanel _sceneHeirarchyPanel;
+		ContentBrowserPanel _contentBrowserPanel;
 
 		Ref<Scene> _activeScene;
 		bool isPrimaryCamera = true;
@@ -48,6 +50,8 @@ EditorLayer();
 
 		Entity hoveredEntity; // Gives us the entity we are hovering over.
 		
+		uint32_t pixelHoveredValue=0;
+
 		int _gizmoType = -1; // @note this is going to be the type of operationt he gizmal is going to be.
 
 		glm::vec2 _viewportSize = {0, 0};

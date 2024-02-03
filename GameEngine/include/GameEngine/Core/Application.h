@@ -7,11 +7,22 @@
 #include <GameEngine/Core/Timestep.h>
 
 namespace RendererEngine{
+	struct ApplicationCommandLineArgs{
+		int count = 0;
+		char** args = nullptr;
+
+		const char* operator[](int index) const {
+			assert(index < count);
+			return args[index];
+		}
+	};
+
     // Application
     // - Essentially how users will run their own applications
     class Application{
     public:
-        Application(const std::string& name="Game Engine");
+        /* Application(const std::string& name="Game Engine"); */
+		Application(const std::string& name="Game Engine", ApplicationCommandLineArgs args = ApplicationCommandLineArgs{});
         ~Application();
 
         void Run();
@@ -33,6 +44,8 @@ namespace RendererEngine{
         inline static Application& Get() { return *_instance; }
         inline Window& GetWindow() { return *_window; }
 
+		ApplicationCommandLineArgs getCommandLineArgs() const { return _commandLineArgs; }
+
     private:
         bool onWindowClose(WindowCloseEvent& e);
         bool onWindowResize(WindowResizeEvent& e);
@@ -45,11 +58,12 @@ namespace RendererEngine{
         LayerStack _layerStack;
 
         float _lastFrameTime = 0.0f; // Time it took to render the last frame
+		ApplicationCommandLineArgs _commandLineArgs;
     private:
         // Since there really is only going to be one application
         static Application* _instance; // Getting our current application instance
     };
 
     // To be defined in client.
-    Application* CreateApplication();
+    Application* CreateApplication(ApplicationCommandLineArgs args);
 };

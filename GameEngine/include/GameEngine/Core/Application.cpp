@@ -7,7 +7,7 @@
 namespace RendererEngine{
     Application* Application::_instance = nullptr;
     
-    Application::Application(const std::string& name){
+    Application::Application(const std::string& name, ApplicationCommandLineArgs args) : _commandLineArgs(args){
 		RENDER_PROFILE_FUNCTION();
 
         render_core_assert(!_instance, "Application already exists!");

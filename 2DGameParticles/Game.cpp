@@ -11,6 +11,6 @@ public:
 };
 
 
-RendererEngine::Application* RendererEngine::CreateApplication(){
+RendererEngine::Application* RendererEngine::CreateApplication(RendererEngine::ApplicationCommandLineArgs args){
 	return new Game2D();
 }
