@@ -61,6 +61,8 @@ set(
   GameEngine/src/GameEngine/platforms/WindowsPlatformUtils.cpp
   GameEngine/include/GameEngine/Math/Math.cpp
   GameEngine/include/GameEngine/Renderer/EditorCamera.cpp
+  GameEngine/include/GameEngine/Renderer/UniformBuffer.cpp
+  GameEngine/include/GameEngine/platforms/OpenGL/OpenGLUniformBuffer.cpp
   ${stbi_src}
 
 )

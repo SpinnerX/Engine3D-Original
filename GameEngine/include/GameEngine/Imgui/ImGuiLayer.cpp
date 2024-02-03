@@ -29,9 +29,10 @@ namespace RendererEngine{
 		//io.ConfigFlags |= ImGuiConfigFlags_ViewportsNoTaskBarIcons;
         //io.ConfigFlags |= ImGuiConfigFlags_ViewportsNoMerge;
 		
+		float fontSize = 15.0f;
 		// @note Loading fonts with ImGui
-		io.Fonts->AddFontFromFileTTF("assets/opensans/static/OpenSans-Regular.ttf", 18.0f);
-		io.FontDefault = io.Fonts->AddFontFromFileTTF("assets/opensans/static/OpenSans-Regular.ttf", 18.0f);
+		io.Fonts->AddFontFromFileTTF("assets/opensans/static/OpenSans-Regular.ttf", fontSize);
+		io.FontDefault = io.Fonts->AddFontFromFileTTF("assets/opensans/static/OpenSans-Regular.ttf", fontSize);
 
         // When viewports are enabled we tweak WindowRounding/WindowBg so platform windows can look identical to regular ones.
 		ImGuiStyle& style = ImGui::GetStyle();
