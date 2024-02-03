@@ -26,6 +26,7 @@ namespace RendererEngine{
 
 		void newScene();
 		void openScene();
+		void openSceneTarget(std::filesystem::path* path);
 		void saveAs();
 
 	private:

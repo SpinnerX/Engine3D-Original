@@ -238,6 +238,16 @@ namespace RendererEngine{
 		uint32_t textureID = _framebuffers->getColorAttachmentRendererID(); // Getting color buffer from frame buffer
 		ImGui::Image(reinterpret_cast<void *>(textureID), ImVec2{_viewportSize.x, _viewportSize.y}, ImVec2{0, 1}, ImVec2{1, 0});
 		
+		// @note This allows us to drop content browser items to this specific target od draggind/dropping
+		if(ImGui::BeginDragDropTarget()){
+			const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("CONTENT_BROWSER_ITEM");
+			std::filesystem::path filepath = (const char*)payload->Data;
+
+			openSceneTarget(&filepath);
+
+			ImGui::EndDragDropTarget();
+		}
+
 		// Gizmos
 		Entity selectedEntity = _sceneHeirarchyPanel.getSelectedEntity();
 		
@@ -375,6 +385,15 @@ namespace RendererEngine{
 			SceneSerializer serializer(_activeScene);
 			serializer.deserialize(filepath);
 		}
+	}
+	
+	void EditorLayer::openSceneTarget(std::filesystem::path* path){
+		_activeScene = CreateRef<Scene>();
+		_activeScene->onViewportResize((uint32_t)_viewportSize.x, (uint32_t)_viewportSize.y);
+		_sceneHeirarchyPanel.setContext(_activeScene);
+
+		SceneSerializer serializer(_activeScene);
+		serializer.deserialize(path->string());
 	}
 
 	void EditorLayer::saveAs(){

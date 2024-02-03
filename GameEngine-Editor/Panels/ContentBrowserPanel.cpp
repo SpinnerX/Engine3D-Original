@@ -2,6 +2,8 @@
 #include "ContentBrowserPanel.h"
 #include <imgui/imgui.h>
 #include <filesystem>
+#include <GameEngine/Events/MouseEvent.h>
+#include <GameEngine/Core/InputPoll.h>
 
 namespace RendererEngine{
 	static const std::filesystem::path _assetPath = "assets";
@@ -42,8 +44,8 @@ namespace RendererEngine{
 		// @note OR could do it per second, to pickup new files (since if file do change)
 		
 		for(auto& directoryEntry : std::filesystem::directory_iterator(_assetPath)){
-			const auto& path = directoryEntry.path();
-			auto relativePath = std::filesystem::relative(path, _assetPath);
+			const auto& path = directoryEntry.path(); // Absolute Path
+			auto relativePath = std::filesystem::relative(path, _assetPath); 
 			std::string filenameString = relativePath.filename().string();
 			
 			Ref<Texture2D> icon = directoryEntry.is_directory() ? _directoryIcon : _fileIcon;
@@ -51,9 +53,18 @@ namespace RendererEngine{
 
 			ImGui::ImageButton((ImTextureID)icon->getRendererID(), {thumbnailSize, thumbnailSize}, { 0, 1 }, { 1, 0});
 			
+			if(ImGui::BeginDragDropSource()){
+				/* const char* itemPath = relativePath.c_str(); */
+				std::string itemPath = relativePath.string();
+				// @note keep in mind sizeof(itemPath) is in bytes
+				ImGui::SetDragDropPayload("CONTENT_BROWSER_ITEM", itemPath.c_str(), itemPath.size(), ImGuiCond_Once);
+				ImGui::EndDragDropSource();
+			}
+
 			ImGui::PopStyleColor();
 
-			if(ImGui::IsItemHovered() && ImGui::IsMouseDoubleClicked(ImGuiMouseButton_Left)){
+			/* if(ImGui::IsItemHovered() && ImGui::IsMouseDoubleClicked(ImGuiMouseButton_Left)){ */
+			if(ImGui::IsItemHovered() and InputPoll::isMouseButtonPressed(Mouse::ButtonLeft)){
 				if(directoryEntry.is_directory())
 					_currentDirectory /= path.filename();
 			}
