@@ -42,9 +42,17 @@ namespace RendererEngine{
     private:
         std::string readFile(const std::string& filepath);
         std::unordered_map<GLenum, std::string> preProcess(const std::string& src);
-        void compile(const std::unordered_map<GLenum, std::string>& map);
+        /* void compile(const std::unordered_map<GLenum, std::string>& map); */
+		void compileOrGetVulkanBinaries(const std::unordered_map<GLenum, std::string>& shaderSrcs);
+
+		void compileOrGetOpenGLBinaries();
+		
+		void createProgram();
+
+		void reflect(GLenum stage, const std::vector<uint32_t>& shaderData);
     private:
         uint32_t _rendererID; // Keeping track uniquely identifying this object
         std::string _name;
+		std::string _filepath; // Keeping track of the filepath.
     };
 };

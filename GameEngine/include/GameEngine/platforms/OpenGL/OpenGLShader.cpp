@@ -3,6 +3,10 @@
 #include <fstream>
 #include <glad/glad.h>
 #include <glm/gtc/type_ptr.hpp>
+#include <GameEngine/Core/Timer.h>
+#include <shaderc/shaderc.hpp>
+/* #include <spirv_cross/spirv_cross.hpp> */
+/* #include <spirv_cross/spirv_glsl.hpp> */
 
 namespace RendererEngine{
     // Read our shaders into the appropriate buffers
@@ -24,10 +28,72 @@ namespace RendererEngine{
         return 0;
     }
 
-    OpenGLShader::OpenGLShader(const std::string& filepath){
+	static shaderc_shader_kind glShaderStageToShaderC(GLenum stage){
+		switch (stage) {
+			case GL_VERTEX_SHADER: return shaderc_glsl_vertex_shader;
+			case GL_FRAGMENT_SHADER: return shaderc_glsl_fragment_shader;
+		}
+		return (shaderc_shader_kind)0;
+	}
+
+	static const char* glShaderStageToString(GLenum stage){
+		switch (stage) {
+			case GL_VERTEX_SHADER: return "GL_VERTEX_SHADER";
+			case GL_FRAGMENT_SHADER: return "GL_FRAGMENT_SHADER";
+		}
+		assert(false);
+		return nullptr;
+	}
+
+	static const char* getCacheDirectory(){
+		// TODO: make sure assets directory is valid.
+		return "assets/cache/shader/opengl";
+	}
+
+	static void createCacheDirectoryIfNeeded(){
+		std::string cacheDir = getCacheDirectory();
+		
+		// Checks if the directory for caching exists.
+		if(!std::filesystem::exists(cacheDir))
+			std::filesystem::create_directories(cacheDir);
+	}
+
+	static const char* glShaderStageCacheOpenGLFileExtension(uint32_t stage){
+		switch (stage) {
+			case GL_VERTEX_SHADER: return ".cached_opengl.vert";
+			case GL_FRAGMENT_SHADER: return ".cached_opengl.frag";
+		}
+		assert(false);
+		return "";
+	}
+
+	static const char* glShaderStageCachedVulkanFileExtension(uint32_t stage){
+		switch (stage) {
+			case GL_VERTEX_SHADER: return ".cached_vulkan.vert";
+			case GL_FRAGMENT_SHADER: return ".cached_vulkan.frag";
+		}
+
+		assert(false);
+		return "";
+	}
+
+    OpenGLShader::OpenGLShader(const std::string& filepath) : _filepath(filepath){
         std::string src = readFile(filepath);
-        std::unordered_map<GLenum, std::string> shaderSrc = preProcess(src);
-        compile(shaderSrc);
+        auto shaderSrc = preProcess(src);
+		RENDER_PROFILE_FUNCTION();
+		createCacheDirectoryIfNeeded();
+
+		{
+
+
+			Timer timer;
+			compileOrGetVulkanBinaries(shaderSrc);
+			compileOrGetOpenGLBinaries();
+			createProgram();
+
+			coreLogWarn("Shader Creation Took {0} ms", timer.elapsedMilliseconds());
+		}
+
 
         // Examples Filepath: asets/shaders/Texture.glsl
         // Essentially how we will extract Texture.glsl from the filepath.
@@ -54,7 +120,9 @@ namespace RendererEngine{
         sources[GL_VERTEX_SHADER] = vertexSrc;
         sources[GL_FRAGMENT_SHADER] = fragmentSrc;
 
-        compile(sources);
+        compileOrGetVulkanBinaries(sources);
+		compileOrGetOpenGLBinaries();
+		createProgram();
 
     }
 
@@ -106,9 +174,14 @@ namespace RendererEngine{
         return shaderSources;
     }
 
-    void OpenGLShader::compile(const std::unordered_map<GLenum, std::string>& shaderSources){
+    void OpenGLShader::compileOrGetVulkanBinaries(const std::unordered_map<GLenum, std::string>& shaderSources){
 		RENDER_PROFILE_FUNCTION();
         GLint program = glCreateProgram();
+
+		// Adding shaderc stuff.
+		/* shaderc::Compiler compiler; */
+		/* shaderc::CompileOptions options; */
+
         render_core_assert(shaderSources.size() <= 2, "We only support 2 shaders for now!");
 
         std::array<GLenum, 3> glShaderIDs;
@@ -181,7 +254,14 @@ namespace RendererEngine{
             glDetachShader(program, id);
         }
         _rendererID = program;
+
     }
+	
+	void OpenGLShader::compileOrGetOpenGLBinaries(){}
+		
+	void OpenGLShader::createProgram(){}
+
+	void OpenGLShader::reflect(GLenum stage, const std::vector<uint32_t>& shaderData){}
 
     void OpenGLShader::bind() const {
 		RENDER_PROFILE_FUNCTION();
