@@ -48,29 +48,32 @@ namespace RendererEngine{
 			auto relativePath = std::filesystem::relative(path, _assetPath); 
 			std::string filenameString = relativePath.filename().string();
 			
+			ImGui::PushID(filenameString.c_str());
 			Ref<Texture2D> icon = directoryEntry.is_directory() ? _directoryIcon : _fileIcon;
 			ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));
 
-			ImGui::ImageButton((ImTextureID)icon->getRendererID(), {thumbnailSize, thumbnailSize}, { 0, 1 }, { 1, 0});
+			ImGui::ImageButton(reinterpret_cast<void *>(icon->getRendererID()), {thumbnailSize, thumbnailSize}, { 0, 1 }, { 1, 0});
 			
 			if(ImGui::BeginDragDropSource()){
 				/* const char* itemPath = relativePath.c_str(); */
 				std::string itemPath = relativePath.string();
 				// @note keep in mind sizeof(itemPath) is in bytes
-				ImGui::SetDragDropPayload("CONTENT_BROWSER_ITEM", itemPath.c_str(), itemPath.size(), ImGuiCond_Once);
+				ImGui::SetDragDropPayload("CONTENT_BROWSER_ITEM", itemPath.c_str(), itemPath.size());
 				ImGui::EndDragDropSource();
 			}
 
 			ImGui::PopStyleColor();
 
-			/* if(ImGui::IsItemHovered() && ImGui::IsMouseDoubleClicked(ImGuiMouseButton_Left)){ */
-			if(ImGui::IsItemHovered() and InputPoll::isMouseButtonPressed(Mouse::ButtonLeft)){
-				if(directoryEntry.is_directory())
+			if(ImGui::IsItemHovered() && ImGui::IsMouseDoubleClicked(ImGuiMouseButton_Left)){
+				if(directoryEntry.is_directory()){
 					_currentDirectory /= path.filename();
+				}
 			}
 
 			ImGui::TextWrapped("%s", filenameString.c_str());
 			ImGui::NextColumn();
+
+			ImGui::PopID();
 		}
 
 		ImGui::Columns(1);

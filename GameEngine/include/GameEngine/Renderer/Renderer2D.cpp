@@ -469,8 +469,12 @@ namespace RendererEngine{
 	}
 
 	void Renderer2D::drawSprite(const glm::mat4& transform, SpriteRendererComponent& src, int entityID){
-		auto t = src.color;
-		drawQuad(transform, src.color, entityID);
+		/* auto t = src.color; */
+		// @note If texture submitted for SpriteRendererComponent then we render with that texture
+		if(src.texture)
+			drawQuad(transform, src.texture, src.tilingFactor, src.color, entityID);
+		else
+			drawQuad(transform, src.color, entityID);
 	}
 
 	Renderer2D::Statistics Renderer2D::getStats(){ return _data.stats; }

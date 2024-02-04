@@ -4,8 +4,11 @@
 #include <GameEngine/Scene/Components.h>
 #include <glm/gtc/type_ptr.hpp>
 #include <imgui/imgui_internal.h>
-
+#include <GameEngine/Renderer/Texture.h>
 namespace RendererEngine{
+	extern const std::filesystem::path _assetPath;
+	const std::filesystem::path _assetPath = "assets";
+
 	// Since BeginPopupContextWindow(const char*, ImGuiMouseButton, bool) is obsolete in ImGui, just recreated that function call through here.
     static inline bool BeginPopupContextWindow(const char* str_id, ImGuiMouseButton mb, bool over_items) { return ImGui::BeginPopupContextWindow(str_id, mb | (over_items ? 0 : ImGuiPopupFlags_NoOpenOverItems)); }
 
@@ -374,6 +377,27 @@ namespace RendererEngine{
 		// @note setting up Sprite Renderer Component.
 		drawComponent<SpriteRendererComponent>("Sprite Renderer", entity, [](auto& component){
 				ImGui::ColorEdit4("Color", glm::value_ptr(component.color));
+				// Being able to drag in a texture 
+				// @note using a button that is going to be the target for texture
+				ImGui::Button("Texture", ImVec2(100.0f, 0.0f));
+
+				// @note getting the texture here
+				// @note by dragging/dropping those texture
+				// @note for loading a texture via drag/drop
+				if(ImGui::BeginDragDropTarget()){
+					if(const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("CONTENT_BROWSER_ITEM")){
+						const char* filepath = (const char*)payload->Data;
+						std::filesystem::path texturePath = std::filesystem::path(_assetPath) / filepath;
+						component.texture = Texture2D::Create(texturePath);
+					}
+
+					ImGui::EndDragDropTarget();
+				}
+
+				// @note Doing Texture stuff
+				ImGui::DragFloat("Tiling Factor", &component.tilingFactor, 0.1f, 0.0f, 100.0f);
+
+
 		});
 	}
 };

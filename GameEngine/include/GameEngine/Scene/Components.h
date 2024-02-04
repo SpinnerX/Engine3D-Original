@@ -42,6 +42,9 @@ namespace RendererEngine{
 	struct SpriteRendererComponent{
 		glm::vec4 color = {1.0f, 1.0f, 1.0f, 1.0f};
 
+		Ref<Texture2D> texture; // SpriteRendererComponent will contain a way for user to allow to apply textures
+		float tilingFactor = 1.0f;
+
 		SpriteRendererComponent() = default;
 		SpriteRendererComponent(const SpriteRendererComponent&) = default;
 		SpriteRendererComponent(const glm::vec4& color) : color(color){}
