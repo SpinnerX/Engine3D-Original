@@ -16,6 +16,8 @@ namespace RendererEngine{
 	void EditorLayer::onAttach(){
 		RENDER_PROFILE_FUNCTION();
 		_checkerboardTexture = Texture2D::Create("assets/Checkerboard.png");
+		_iconPlay = Texture2D::Create("assets/icons/PlayButton.png");
+		_iconStop = Texture2D::Create("assets/icons/StopButton.png");
 
 		FrameBufferSpecifications frameBufSpecs;
 		// @note in opengl has different RGB, such as RGBA8, RED (same as RGBA8 but one channel that is an int.)
@@ -72,9 +74,24 @@ namespace RendererEngine{
 		RendererCommand::clear();
 		
 		/* _framebuffers->clearColorAttachment(1, -1); */
+
+		switch (_sceneState) {
+			case SceneState::Play:
+				{
+					_editorCamera.onUpdate(ts);
+
+					_activeScene->onUpdateEditor(ts, _editorCamera);
+				}
+				break;
+			case SceneState::Edit:
+				{
+					_activeScene->onUpdateRuntime(ts);
+				}
+				break;
+		}
 		
 		// glClearTexImage does not work in Mac, hence commented this out.
-		_activeScene->onUpdateEditor(ts, _editorCamera);
+		/* _activeScene->onUpdateEditor(ts, _editorCamera); */
 		
 		// @note this gives us the cursor location.
 		auto[mouseX, mouseY] = ImGui::GetMousePos();
@@ -293,11 +310,51 @@ namespace RendererEngine{
 
 		ImGui::End();
 		ImGui::PopStyleVar();
-
+		
+		// Calling UI stuff
+		ui_toolBar();
 
 
 		ImGui::End();
 
+	}
+	
+	void EditorLayer::ui_toolBar(){
+		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 2)); // @note ImVec making button not touch bottom
+		ImGui::PushStyleVar(ImGuiStyleVar_ItemInnerSpacing, ImVec2(0, 2));
+		ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));
+
+		auto& color = ImGui::GetStyle().Colors;
+		auto& buttonHovered = color[ImGuiCol_ButtonHovered];
+		auto& buttonActive = color[ImGuiCol_ButtonActive];
+		ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(buttonHovered.x, buttonHovered.y, buttonHovered.z, 0.5f));
+		ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(buttonActive.x, buttonActive.y, buttonActive.z, 0.5f));
+
+		// @note setting size dynamically
+		/* float size = ImGui::GetWindowHeight() - 4.0f; */
+		float size = 20.0f;
+		// @note nullptr meaning not closing the toolbar (not having close button
+		/* ImGui::Begin("##", nullptr, ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse); */
+		ImGui::Begin("##toolbox");
+		
+		// @note checking to see what state we are in. (If playing/stopping)
+		Ref<Texture2D> icon = _sceneState == SceneState::Edit ? _iconPlay : _iconStop;
+		
+		// @note GetWindowContentRegionMax().x is how much space is there for content (widgets)
+		// @note 0.5f is the offset for padding.
+		// @note takes button size and halves it and makes the offset the center of that tab. (centering  buttons)
+		ImGui::SameLine((ImGui::GetWindowContentRegionMax().x * 0.5f) - (size * 0.5f));
+
+		if(ImGui::ImageButton((ImTextureID)icon->getRendererID(), ImVec2{size, size}, ImVec2(0, 0), ImVec2(1, 1))){
+			if(_sceneState == SceneState::Edit)
+				onScenePlay();
+			else if(_sceneState == SceneState::Play)
+				onSceneStop();
+		}
+		
+		ImGui::PopStyleVar(2);
+		ImGui::PopStyleColor(3);
+		ImGui::End();
 	}
 
 	void EditorLayer::onEvent(Event& e){
@@ -415,5 +472,13 @@ namespace RendererEngine{
 		}
 
 		return false;
+	}
+
+	void EditorLayer::onScenePlay(){
+		_sceneState = SceneState::Play;
+	}
+
+	void EditorLayer::onSceneStop(){
+		_sceneState = SceneState::Edit;
 	}
 };

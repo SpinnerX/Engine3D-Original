@@ -30,6 +30,16 @@ namespace RendererEngine{
 		void saveAs();
 
 	private:
+		// @note playing/stopping/simulating scenes
+		void onScenePlay();
+		void onSceneStop();
+
+	private:
+		// @note ui-related function calls
+
+		void ui_toolBar();
+
+	private:
 		/* OrthographicCameraController _cameraController; */
 
 		// This'll be temporary only!
@@ -40,6 +50,8 @@ namespace RendererEngine{
 		bool _isViewportHovered = false;
 
 		Ref<Texture2D> _checkerboardTexture;
+
+
 		Ref<FrameBuffer> _framebuffers;
 
 		SceneHeirachyPanel _sceneHeirarchyPanel;
@@ -58,5 +70,17 @@ namespace RendererEngine{
 		glm::vec2 _viewportSize = {0, 0};
 		glm::vec2 _viewportBound[2];
 		glm::vec4 _squareColor;
+		
+		enum class SceneState{
+			Edit=0, Play=1
+		};
+		
+		// @note Editor Resources
+		Ref<Texture2D> _iconPlay;
+		Ref<Texture2D> _iconStop;
+
+
+
+		SceneState _sceneState = SceneState::Edit;
 	};
 };
