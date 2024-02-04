@@ -41,7 +41,7 @@ find_package(glm REQUIRED)
 find_package(OpenGL REQUIRED)
 find_package(GLEW REQUIRED)
 find_package(GLUT REQUIRED)
-
+find_package(box2d REQUIRED)
 
 
 # Checking if glfw3 has been found meaning installed
@@ -82,6 +82,7 @@ if(APPLE)
 		${GLUT_LIBRARIES} # NOTE: If you want to use freeglut, then you need this to link freeglut to get working
 		glm::glm
 		${APPKIT_LIBRARY} ${UNIFORMTYPEIDENTIFIERS_LIBRARY} # Note as TODO: Probably should put this somewhere else, since it relies on nfd.cmake...
+		box2d::box2d
 	)
 endif(APPLE)
 

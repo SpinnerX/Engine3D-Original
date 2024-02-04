@@ -8,6 +8,7 @@
 #include <GameEngine/Utils/PlatformUtils.h>
 #include <ImGuizmo/ImGuizmo.h>
 #include <GameEngine/Math/Math.h>
+#include <box2d/b2_body.h>
 
 namespace RendererEngine{
 	EditorLayer::EditorLayer() : Layer("Sandbox2D"){
@@ -476,9 +477,11 @@ namespace RendererEngine{
 
 	void EditorLayer::onScenePlay(){
 		_sceneState = SceneState::Play;
+		_activeScene->onRuntimeStart();
 	}
 
 	void EditorLayer::onSceneStop(){
 		_sceneState = SceneState::Edit;
+		_activeScene->onRuntimeStop();
 	}
 };

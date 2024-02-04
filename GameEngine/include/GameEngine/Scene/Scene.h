@@ -4,6 +4,8 @@
 #include <GameEngine/Renderer/Renderer2D.h>
 #include <GameEngine/Renderer/EditorCamera.h>
 
+
+class b2World;
 namespace RendererEngine{
 	/*
 	 *
@@ -24,6 +26,12 @@ namespace RendererEngine{
 		Entity createEntity(const std::string& name=std::string());
 		void destroyEntity(Entity entity);
 
+		// Runtime start and stop
+		
+		// @note for starting our physics simulation via runtime.
+		void onRuntimeStart();
+		void onRuntimeStop();
+
 		// temporary
 		entt::registry& reg() { return _registry; }
 
@@ -40,6 +48,9 @@ namespace RendererEngine{
 	private:
 		entt::registry _registry; // entity used to determine which components belong together. registry contain the actual data.
 		uint32_t _viewportWidth=0, _viewportHeight=0;
+
+		b2World* _physicsWorld = nullptr;
+
 		friend class Entity;
 		friend class SceneSerializer;
 		friend class SceneHeirachyPanel;

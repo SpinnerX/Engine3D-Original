@@ -102,4 +102,39 @@ namespace RendererEngine{
 			destroyScript = [](NativeScriptComponent* nsc) { delete nsc; nsc=nullptr; };
 		}
 	};
+
+	// Physics Component
+	// @TODO: move physics material
+
+	// Represent our body type for physics
+	struct RigidBody2DComponent{
+		RigidBody2DComponent() = default;
+		RigidBody2DComponent(const RigidBody2DComponent&) = default;
+
+		enum class BodyType{
+			Static=0,Dynamic=1, Kinematic
+		};
+
+		BodyType type = BodyType::Static;
+		bool hasFixedRotation = false;
+		void* runtimeBody=nullptr; // @note is actually going to be storing the body for the runtime.
+		float tilingFactor = 1.0f;
+	};
+
+	struct BoxCollider2DComponent{
+		BoxCollider2DComponent() = default;
+		BoxCollider2DComponent(const BoxCollider2DComponent&) = default;
+
+		float density = 1.0f;
+		float friction = 0.5f;
+		float restitution = 0.0f;
+		float restitutionThreshold = 0.5f; // @note velocity on which is the threshold when the box is bounding and the speed is below this threshold for slowly stopping it's bouncing.
+
+		// @note offset from collider to middle of the entity.
+		glm::vec2 offset = {0.0f, 0.f};
+		glm::vec2 size = {0.0f, 0.0f};
+
+
+		void* runtimeFixture = nullptr;
+	};
 };
