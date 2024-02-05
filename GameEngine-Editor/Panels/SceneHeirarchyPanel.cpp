@@ -97,7 +97,7 @@ namespace RendererEngine{
 		// @note if child entities, recursively open those entities.
 		if(opened){
 			ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_SpanAvailWidth;
-			bool opened2 = ImGui::TreeNodeEx((void *)(uint64_t)((uint32_t)entity + 1000), flags, tc.c_str());
+			bool opened2 = ImGui::TreeNodeEx((void *)(uint64_t)((uint32_t)entity + 1000), flags, "%s", tc.c_str());
 			if(opened2){
 				ImGui::TreePop();
 			}
@@ -132,7 +132,7 @@ namespace RendererEngine{
 		ImGui::Columns(2); // two columns, one for the labels
 		
 		ImGui::SetColumnWidth(0, columnWidth);
-		ImGui::Text(label.c_str());
+		ImGui::Text("%s", label.c_str());
 		ImGui::NextColumn();
 		
 		ImGui::PushMultiItemsWidths(3, ImGui::CalcItemWidth());

@@ -74,7 +74,6 @@ namespace RendererEngine{
 			const int64_t positionIterations=2;
 
 			/* _physicsWorld->Step(ts, 6, 2); */
-
 			auto view  = _registry.view<RigidBody2DComponent>();
 			for(auto e : view){
 				// @note rendering and grabbing transforms to render in the right place.
