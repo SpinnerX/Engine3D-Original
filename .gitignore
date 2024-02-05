@@ -1,6 +1,5 @@
 build
 image/image.h
-imgui.ini
 .cache
 EngineProfile-Runtime.json
 EngineProfile-Shutdown.json
