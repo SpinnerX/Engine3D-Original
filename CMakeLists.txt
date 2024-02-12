@@ -90,8 +90,7 @@ target_include_directories(
   ${glad_include}
 )
 
-file(COPY Sandbox/assets DESTINATION ${CMAKE_BINARY_DIR}/Sandbox/assets)
-file(COPY GameEngine-Editor/assets DESTINATION ${CMAKE_BINARY_DIR}/GameEngine-Editor/assets)
+# file(COPY Sandbox/assets DESTINATION ${CMAKE_BINARY_DIR}/Sandbox/assets)
 
 target_precompile_headers(${PROJECT_NAME} PUBLIC
   "$<$<COMPILE_LANGUAGE:CXX>:${CMAKE_CURRENT_SOURCE_DIR}/GameEngine/include/GameEnginePrecompiledHeader.h>"
