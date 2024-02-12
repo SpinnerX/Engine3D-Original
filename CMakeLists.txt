@@ -68,8 +68,6 @@ set(
 )
 
 add_subdirectory(Sandbox)
-add_subdirectory(RocketGame)
-add_subdirectory(2DGameParticles)
 add_subdirectory(GameEngine-Editor)
 
 add_library(${PROJECT_NAME} SHARED ${all_src})
