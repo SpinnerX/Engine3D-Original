@@ -1,8 +1,6 @@
 build
-image/image.h
+Sandbox/build
+*.o
 .cache
-EngineProfile-Runtime.json
-EngineProfile-Shutdown.json
-EngineProfile-Startup.json
-.DS_Store
-*.json
+Sandbox/.cache
+./Debug

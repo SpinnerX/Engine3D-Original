@@ -1,4 +1,0 @@
-## Scene Heirarchy Notes
-
-### Context
-* 
