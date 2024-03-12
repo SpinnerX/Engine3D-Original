@@ -223,6 +223,7 @@ target_link_libraries(
 	spdlog::spdlog
 	glad::glad
 	GLEW::GLEW
+	${APPKIT_LIBRARY} ${UNIFORMTYPEIDENTIFIERS_LIBRARY} # Note as TODO: Probably should put this somewhere else, since it relies on nfd.cmake...
 )
 endif(APPLE)
 
