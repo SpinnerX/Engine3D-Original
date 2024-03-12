@@ -8,48 +8,6 @@ set(
 	Engine3D	
 )
 
-# set(
-# 	all_src
-# 	Engine3D/Core/core.cpp
-# 	Engine3D/Core/Application.cpp
-# 	Engine3D/Core/EntryPoint.cpp
-# 	Engine3D/Core/EngineLogger.cpp
-# 	Engine3D/OpenGL/OpenGLWindow.cpp
-# 	Engine3D/Core/Layer.cpp
-# 	Engine3D/Core/LayerStack.cpp
-# 	Engine3D/Events/InputPoll.cpp
-# 	Engine3D/OpenGL/OpenGLInputPoll.cpp
-# 	Engine3D/interfaces/Buffer.cpp
-# 	Engine3D/interfaces/RendererAPI.cpp
-# 	Engine3D/interfaces/Shader.cpp
-
-# 	Engine3D/OpenGL/OpenGLBuffer.cpp
-# 	Engine3D/OpenGL/OpenGLShader.cpp
-# )
-
-# set(
-# 	all_headers
-# 	../${INCLUDE_DIR}/Core/core.h
-# 	../${INCLUDE_DIR}/Core/Application.h
-# 	../${INCLUDE_DIR}/Core/EntryPoint.h
-# 	../${INCLUDE_DIR}/Core/EngineLogger.h
-# 	../${INCLUDE_DIR}/Events/Event.h
-# 	../${INCLUDE_DIR}/Events/KeyEvent.h
-# 	../${INCLUDE_DIR}/Events/KeyCodes.h
-# 	../${INCLUDE_DIR}/Events/MouseEvent.h
-# 	../${INCLUDE_DIR}/Events/MouseButtonCodes.h
-# 	../${INCLUDE_DIR}/Events/ApplicationEvent.h
-# 	../${INCLUDE_DIR}/OpenGL/OpenGLWindow.h
-# 	../${INCLUDE_DIR}/Events/InputPoll.h
-# 	../${INCLUDE_DIR}/OpenGL/OpenGLInputPoll.h
-# 	../${INCLUDE_DIR}/interfaces/Buffer.h
-# 	../${INCLUDE_DIR}/interfaces/RendererAPI.h
-# 	../${INCLUDE_DIR}/interfaces/GraphicsContext.h
-
-# 	../${INCLUDE_DIR}/OpenGL/OpenGLBuffer.h
-# 	../${INCLUDE_DIR}/OpenGL/OpenGLShader.h
-# )
-
 set(
   all_src
 
@@ -176,22 +134,36 @@ set(
   ../${INCLUDE_DIR}/platforms/Mac/nfd.hpp
 )
 
-# if(UNIX AND NOT APPLE)
-find_package(glfw3 REQUIRED)
-# endif(UNIX AND NOT APPLE)
+include(CMakeFindDependencyMacro)
 
-find_package(OpenGL REQUIRED)
-find_package(GLEW REQUIRED)
-# find_package(GLUT REQUIRED)
+# @note find_dependency is how you can specify what dependencies will be shipped with Engine3D
+# @note When users try to find this packages.
 
-find_package(imgui REQUIRED)
-find_package(ImGuizmo REQUIRED)
-# find_package(Vulkan REQUIRED)
+# find_package(glfw3 REQUIRED)
+find_dependency(glfw3 REQUIRED)
 
-find_package(fmt REQUIRED)
-find_package(spdlog REQUIRED)
-find_package(glad REQUIRED)
-find_package(glm REQUIRED)
+# find_package(OpenGL REQUIRED)
+# find_package(GLEW REQUIRED)
+find_dependency(OpenGL REQUIRED)
+find_dependency(GLEW REQUIRED)
+
+# find_package(imgui REQUIRED)
+# find_package(ImGuizmo REQUIRED)
+find_dependency(imgui REQUIRED)
+find_dependency(ImGuizmo REQUIRED)
+
+# find_package(fmt REQUIRED)
+# find_package(spdlog REQUIRED)
+# find_package(glad REQUIRED)
+# find_package(glm REQUIRED)
+
+find_dependency(fmt REQUIRED)
+find_dependency(spdlog REQUIRED)
+find_dependency(glad REQUIRED)
+find_dependency(glm REQUIRED)
+
+find_dependency(box2d REQUIRED)
+find_dependency(yaml-cpp REQUIRED)
 
 add_library( ${PROJECT_NAME} ${all_src} ${all_headers} )
 
@@ -215,6 +187,7 @@ endif(UNIX AND NOT APPLE)
 if(APPLE)
 target_link_libraries(
 	${PROJECT_NAME}
+	PUBLIC
 	glfw
 	imgui::imgui
 	ImGuizmo::ImGuizmo
@@ -223,6 +196,8 @@ target_link_libraries(
 	spdlog::spdlog
 	glad::glad
 	GLEW::GLEW
+	box2d::box2d
+	yaml-cpp::yaml-cpp
 	${APPKIT_LIBRARY} ${UNIFORMTYPEIDENTIFIERS_LIBRARY} # Note as TODO: Probably should put this somewhere else, since it relies on nfd.cmake...
 )
 endif(APPLE)
