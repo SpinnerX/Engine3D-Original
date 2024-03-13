@@ -21,7 +21,7 @@ namespace Engine3D{
 
 		static void beginScene(const Camera& camera, const glm::mat4& transform); // TODO: Remove
 		static void beginScene(const EditorCamera& camera);
-		static void beginScene(const OrthographicCamera& camera);
+		static void beginScene(const OrthographicCamera& camera, const glm::vec4& color = glm::vec4( 0.1f, 0.1f, 0.1f, 1 ));
 
 		static void endScene();
 
