@@ -5,6 +5,7 @@
 #include <OpenGL/OpenGLShader.h>
 #include <glm/gtc/matrix_transform.hpp>
 #include <Engine3D/Scene/Components.h>
+#include <Engine3D/Renderer/RenderCommand.h>
 
 namespace Engine3D{
 	struct quadVertex{
@@ -123,8 +124,14 @@ namespace Engine3D{
 		
 	}
 
-	void Renderer2D::beginScene(const OrthographicCamera& camera){
+	void Renderer2D::beginScene(const OrthographicCamera& camera, const glm::vec4& color){
 		RENDER_PROFILE_FUNCTION();
+
+		Renderer2D::resetStats();
+		RendererCommand::setClearColor(color);
+		RendererCommand::clear();
+
+		// @note Setting the clear color beforehand
 
 		// Simply uploads the camera data
 		// upload is more API specific (actual OpenGL to set that uniform)
