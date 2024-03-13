@@ -123,13 +123,17 @@ namespace Engine3D{
 		_data.textureSlotIndex = 1;
 		
 	}
-
-	void Renderer2D::beginScene(const OrthographicCamera& camera, const glm::vec4& color){
-		RENDER_PROFILE_FUNCTION();
-
+	
+	void Renderer2D::setClearColor(const glm::vec4& color){
 		Renderer2D::resetStats();
 		RendererCommand::setClearColor(color);
 		RendererCommand::clear();
+	}
+
+	void Renderer2D::beginScene(const OrthographicCamera& camera){
+		RENDER_PROFILE_FUNCTION();
+
+
 
 		// @note Setting the clear color beforehand
 
