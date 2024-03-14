@@ -25,22 +25,22 @@ set(
   Engine3D/interfaces/Shader.cpp
   Engine3D/interfaces/Buffer.cpp
   Engine3D/OpenGL/OpenGLBuffer.cpp
-  Engine3D/Renderer/Renderer.cpp
+  Engine3D/Renderer2D/Renderer.cpp
   Engine3D/interfaces/VertexArray.cpp
   Engine3D/OpenGL/OpenGLVertexArray.cpp
   Engine3D/interfaces/RendererAPI.cpp
-  Engine3D/Renderer/RendererCommand.cpp
+  Engine3D/Renderer2D/RendererCommand.cpp
   Engine3D/OpenGL/OpenGLRendererAPI.cpp
-  Engine3D/Renderer/OrthographicCamera.cpp
+  Engine3D/Renderer2D/OrthographicCamera.cpp
   Engine3D/OpenGL/OpenGLShader.cpp
   Engine3D/interfaces/Texture.cpp
   Engine3D/OpenGL/OpenGLTexture.cpp
-  Engine3D/Renderer/OrthographicCameraController.cpp
+  Engine3D/Renderer2D/OrthographicCameraController.cpp
 
   Engine3D/OpenGL/OpenGLInputPoll.cpp
   
   Engine3D/OpenGL/OpenGLWindow.cpp
-  Engine3D/Renderer/Renderer2D.cpp
+  Engine3D/Renderer2D/Renderer2D.cpp
   Engine3D/interfaces/SubTexture2D.cpp
   Engine3D/interfaces/Framebuffer.cpp
   Engine3D/OpenGL/OpenGLFramebuffer.cpp
@@ -52,9 +52,11 @@ set(
 
   Engine3D/platforms/Mac/MacPlatformUtils.cpp
   Engine3D/Math/Math.cpp
-  Engine3D/Renderer/EditorCamera.cpp
+  Engine3D/Renderer2D/EditorCamera.cpp
   Engine3D/interfaces/UniformBuffer.cpp
   Engine3D/OpenGL/OpenGLUniformBuffer.cpp
+
+  Engine3D/Renderer3D/Renderer3D.cpp
 )
 
 # For Mac, linking AppKit only and only needing nfd_cocoa.m
@@ -109,17 +111,17 @@ set(
   ../${INCLUDE_DIR}/interfaces/Shader.h
   ../${INCLUDE_DIR}/interfaces/Buffer.h
   ../${INCLUDE_DIR}/OpenGL/OpenGLBuffer.h
-  ../${INCLUDE_DIR}/Renderer/Renderer.h
+  ../${INCLUDE_DIR}/Renderer2D/Renderer.h
   ../${INCLUDE_DIR}/interfaces/VertexArray.h
   ../${INCLUDE_DIR}/OpenGL/OpenGLVertexArray.h
   ../${INCLUDE_DIR}/interfaces/RendererAPI.h
-  ../${INCLUDE_DIR}/Renderer/RenderCommand.h
+  ../${INCLUDE_DIR}/Renderer2D/RenderCommand.h
   ../${INCLUDE_DIR}/OpenGL/OpenGLRendererAPI.h
-  ../${INCLUDE_DIR}/Renderer/OrthographicCamera.h
+  ../${INCLUDE_DIR}/Renderer2D/OrthographicCamera.h
   ../${INCLUDE_DIR}/OpenGL/OpenGLShader.h
   ../${INCLUDE_DIR}/interfaces/Texture.h
   ../${INCLUDE_DIR}/OpenGL/OpenGLTexture.h
-  ../${INCLUDE_DIR}/Renderer/OrthographicCameraController.h
+  ../${INCLUDE_DIR}/Renderer2D/OrthographicCameraController.h
 
   ../${INCLUDE_DIR}/platforms/PlatformUtils.h
 
@@ -132,6 +134,8 @@ set(
 
   ../${INCLUDE_DIR}/platforms/Mac/nfd.h
   ../${INCLUDE_DIR}/platforms/Mac/nfd.hpp
+
+  ../${INCLUDE_DIR}/Renderer3D/Renderer3D.h
 )
 
 include(CMakeFindDependencyMacro)
@@ -189,6 +193,10 @@ target_link_libraries(
 	${PROJECT_NAME}
 	PUBLIC
 	glfw
+	"-framework Cocoa"
+	"-framework OpenGL"
+	"-framework IOKit"
+	${APPKIT_LIBRARY} ${UNIFORMTYPEIDENTIFIERS_LIBRARY} # Note as TODO: Probably should put this somewhere else, since it relies on nfd.cmake...
 	imgui::imgui
 	ImGuizmo::ImGuizmo
 	fmt::fmt

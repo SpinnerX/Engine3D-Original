@@ -1,0 +1,242 @@
+[
+{
+  "directory": "/Users/aaronher/Desktop/Engine3D/Debug/src",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++ -DFMT_SHARED -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -DSPDLOG_SHARED_LIB -I/Users/aaronher/Desktop/Engine3D/include -I/Users/aaronher/Desktop/Engine3D/include/Engine3D -I/Users/aaronher/Desktop/Engine3D/src/Engine3D -I/Users/aaronher/Desktop/Engine3D/src/.. -I/Users/aaronher/Desktop/Engine3D/src/../Engine3D -I/Users/aaronher/Desktop/Engine3D/src -F/Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/System/Library/Frameworks -isystem /opt/homebrew/include -isystem /usr/local/include -isystem /opt/homebrew/lib -g -std=c++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk -fvisibility=hidden -fvisibility-inlines-hidden -F/Library/Developer/CommandLineTools/SDKs/MacOSX12.sdk/System/Library/Frameworks  -fsanitize=address -o CMakeFiles/Engine3D.dir/Engine3D/Core/EntryPoint.cpp.o -c /Users/aaronher/Desktop/Engine3D/src/Engine3D/Core/EntryPoint.cpp",
+  "file": "/Users/aaronher/Desktop/Engine3D/src/Engine3D/Core/EntryPoint.cpp",
+  "output": "src/CMakeFiles/Engine3D.dir/Engine3D/Core/EntryPoint.cpp.o"
+},
+{
+  "directory": "/Users/aaronher/Desktop/Engine3D/Debug/src",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++ -DFMT_SHARED -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -DSPDLOG_SHARED_LIB -I/Users/aaronher/Desktop/Engine3D/include -I/Users/aaronher/Desktop/Engine3D/include/Engine3D -I/Users/aaronher/Desktop/Engine3D/src/Engine3D -I/Users/aaronher/Desktop/Engine3D/src/.. -I/Users/aaronher/Desktop/Engine3D/src/../Engine3D -I/Users/aaronher/Desktop/Engine3D/src -F/Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/System/Library/Frameworks -isystem /opt/homebrew/include -isystem /usr/local/include -isystem /opt/homebrew/lib -g -std=c++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk -fvisibility=hidden -fvisibility-inlines-hidden -F/Library/Developer/CommandLineTools/SDKs/MacOSX12.sdk/System/Library/Frameworks  -fsanitize=address -o CMakeFiles/Engine3D.dir/Engine3D/Core/Application.cpp.o -c /Users/aaronher/Desktop/Engine3D/src/Engine3D/Core/Application.cpp",
+  "file": "/Users/aaronher/Desktop/Engine3D/src/Engine3D/Core/Application.cpp",
+  "output": "src/CMakeFiles/Engine3D.dir/Engine3D/Core/Application.cpp.o"
+},
+{
+  "directory": "/Users/aaronher/Desktop/Engine3D/Debug/src",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++ -DFMT_SHARED -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -DSPDLOG_SHARED_LIB -I/Users/aaronher/Desktop/Engine3D/include -I/Users/aaronher/Desktop/Engine3D/include/Engine3D -I/Users/aaronher/Desktop/Engine3D/src/Engine3D -I/Users/aaronher/Desktop/Engine3D/src/.. -I/Users/aaronher/Desktop/Engine3D/src/../Engine3D -I/Users/aaronher/Desktop/Engine3D/src -F/Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/System/Library/Frameworks -isystem /opt/homebrew/include -isystem /usr/local/include -isystem /opt/homebrew/lib -g -std=c++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk -fvisibility=hidden -fvisibility-inlines-hidden -F/Library/Developer/CommandLineTools/SDKs/MacOSX12.sdk/System/Library/Frameworks  -fsanitize=address -o CMakeFiles/Engine3D.dir/Engine3D/Core/EngineLogger.cpp.o -c /Users/aaronher/Desktop/Engine3D/src/Engine3D/Core/EngineLogger.cpp",
+  "file": "/Users/aaronher/Desktop/Engine3D/src/Engine3D/Core/EngineLogger.cpp",
+  "output": "src/CMakeFiles/Engine3D.dir/Engine3D/Core/EngineLogger.cpp.o"
+},
+{
+  "directory": "/Users/aaronher/Desktop/Engine3D/Debug/src",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++ -DFMT_SHARED -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -DSPDLOG_SHARED_LIB -I/Users/aaronher/Desktop/Engine3D/include -I/Users/aaronher/Desktop/Engine3D/include/Engine3D -I/Users/aaronher/Desktop/Engine3D/src/Engine3D -I/Users/aaronher/Desktop/Engine3D/src/.. -I/Users/aaronher/Desktop/Engine3D/src/../Engine3D -I/Users/aaronher/Desktop/Engine3D/src -F/Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/System/Library/Frameworks -isystem /opt/homebrew/include -isystem /usr/local/include -isystem /opt/homebrew/lib -g -std=c++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk -fvisibility=hidden -fvisibility-inlines-hidden -F/Library/Developer/CommandLineTools/SDKs/MacOSX12.sdk/System/Library/Frameworks  -fsanitize=address -o CMakeFiles/Engine3D.dir/Engine3D/Events/InputPoll.cpp.o -c /Users/aaronher/Desktop/Engine3D/src/Engine3D/Events/InputPoll.cpp",
+  "file": "/Users/aaronher/Desktop/Engine3D/src/Engine3D/Events/InputPoll.cpp",
+  "output": "src/CMakeFiles/Engine3D.dir/Engine3D/Events/InputPoll.cpp.o"
+},
+{
+  "directory": "/Users/aaronher/Desktop/Engine3D/Debug/src",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++ -DFMT_SHARED -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -DSPDLOG_SHARED_LIB -I/Users/aaronher/Desktop/Engine3D/include -I/Users/aaronher/Desktop/Engine3D/include/Engine3D -I/Users/aaronher/Desktop/Engine3D/src/Engine3D -I/Users/aaronher/Desktop/Engine3D/src/.. -I/Users/aaronher/Desktop/Engine3D/src/../Engine3D -I/Users/aaronher/Desktop/Engine3D/src -F/Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/System/Library/Frameworks -isystem /opt/homebrew/include -isystem /usr/local/include -isystem /opt/homebrew/lib -g -std=c++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk -fvisibility=hidden -fvisibility-inlines-hidden -F/Library/Developer/CommandLineTools/SDKs/MacOSX12.sdk/System/Library/Frameworks  -fsanitize=address -o CMakeFiles/Engine3D.dir/Engine3D/Core/Layer.cpp.o -c /Users/aaronher/Desktop/Engine3D/src/Engine3D/Core/Layer.cpp",
+  "file": "/Users/aaronher/Desktop/Engine3D/src/Engine3D/Core/Layer.cpp",
+  "output": "src/CMakeFiles/Engine3D.dir/Engine3D/Core/Layer.cpp.o"
+},
+{
+  "directory": "/Users/aaronher/Desktop/Engine3D/Debug/src",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++ -DFMT_SHARED -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -DSPDLOG_SHARED_LIB -I/Users/aaronher/Desktop/Engine3D/include -I/Users/aaronher/Desktop/Engine3D/include/Engine3D -I/Users/aaronher/Desktop/Engine3D/src/Engine3D -I/Users/aaronher/Desktop/Engine3D/src/.. -I/Users/aaronher/Desktop/Engine3D/src/../Engine3D -I/Users/aaronher/Desktop/Engine3D/src -F/Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/System/Library/Frameworks -isystem /opt/homebrew/include -isystem /usr/local/include -isystem /opt/homebrew/lib -g -std=c++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk -fvisibility=hidden -fvisibility-inlines-hidden -F/Library/Developer/CommandLineTools/SDKs/MacOSX12.sdk/System/Library/Frameworks  -fsanitize=address -o CMakeFiles/Engine3D.dir/Engine3D/Core/LayerStack.cpp.o -c /Users/aaronher/Desktop/Engine3D/src/Engine3D/Core/LayerStack.cpp",
+  "file": "/Users/aaronher/Desktop/Engine3D/src/Engine3D/Core/LayerStack.cpp",
+  "output": "src/CMakeFiles/Engine3D.dir/Engine3D/Core/LayerStack.cpp.o"
+},
+{
+  "directory": "/Users/aaronher/Desktop/Engine3D/Debug/src",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++ -DFMT_SHARED -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -DSPDLOG_SHARED_LIB -I/Users/aaronher/Desktop/Engine3D/include -I/Users/aaronher/Desktop/Engine3D/include/Engine3D -I/Users/aaronher/Desktop/Engine3D/src/Engine3D -I/Users/aaronher/Desktop/Engine3D/src/.. -I/Users/aaronher/Desktop/Engine3D/src/../Engine3D -I/Users/aaronher/Desktop/Engine3D/src -F/Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/System/Library/Frameworks -isystem /opt/homebrew/include -isystem /usr/local/include -isystem /opt/homebrew/lib -g -std=c++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk -fvisibility=hidden -fvisibility-inlines-hidden -F/Library/Developer/CommandLineTools/SDKs/MacOSX12.sdk/System/Library/Frameworks  -fsanitize=address -o CMakeFiles/Engine3D.dir/Engine3D/ImGui/ImGuiLayer.cpp.o -c /Users/aaronher/Desktop/Engine3D/src/Engine3D/ImGui/ImGuiLayer.cpp",
+  "file": "/Users/aaronher/Desktop/Engine3D/src/Engine3D/ImGui/ImGuiLayer.cpp",
+  "output": "src/CMakeFiles/Engine3D.dir/Engine3D/ImGui/ImGuiLayer.cpp.o"
+},
+{
+  "directory": "/Users/aaronher/Desktop/Engine3D/Debug/src",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++ -DFMT_SHARED -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -DSPDLOG_SHARED_LIB -I/Users/aaronher/Desktop/Engine3D/include -I/Users/aaronher/Desktop/Engine3D/include/Engine3D -I/Users/aaronher/Desktop/Engine3D/src/Engine3D -I/Users/aaronher/Desktop/Engine3D/src/.. -I/Users/aaronher/Desktop/Engine3D/src/../Engine3D -I/Users/aaronher/Desktop/Engine3D/src -F/Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/System/Library/Frameworks -isystem /opt/homebrew/include -isystem /usr/local/include -isystem /opt/homebrew/lib -g -std=c++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk -fvisibility=hidden -fvisibility-inlines-hidden -F/Library/Developer/CommandLineTools/SDKs/MacOSX12.sdk/System/Library/Frameworks  -fsanitize=address -o CMakeFiles/Engine3D.dir/Engine3D/OpenGL/OpenGLContext.cpp.o -c /Users/aaronher/Desktop/Engine3D/src/Engine3D/OpenGL/OpenGLContext.cpp",
+  "file": "/Users/aaronher/Desktop/Engine3D/src/Engine3D/OpenGL/OpenGLContext.cpp",
+  "output": "src/CMakeFiles/Engine3D.dir/Engine3D/OpenGL/OpenGLContext.cpp.o"
+},
+{
+  "directory": "/Users/aaronher/Desktop/Engine3D/Debug/src",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++ -DFMT_SHARED -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -DSPDLOG_SHARED_LIB -I/Users/aaronher/Desktop/Engine3D/include -I/Users/aaronher/Desktop/Engine3D/include/Engine3D -I/Users/aaronher/Desktop/Engine3D/src/Engine3D -I/Users/aaronher/Desktop/Engine3D/src/.. -I/Users/aaronher/Desktop/Engine3D/src/../Engine3D -I/Users/aaronher/Desktop/Engine3D/src -F/Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/System/Library/Frameworks -isystem /opt/homebrew/include -isystem /usr/local/include -isystem /opt/homebrew/lib -g -std=c++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk -fvisibility=hidden -fvisibility-inlines-hidden -F/Library/Developer/CommandLineTools/SDKs/MacOSX12.sdk/System/Library/Frameworks  -fsanitize=address -o CMakeFiles/Engine3D.dir/Engine3D/interfaces/Shader.cpp.o -c /Users/aaronher/Desktop/Engine3D/src/Engine3D/interfaces/Shader.cpp",
+  "file": "/Users/aaronher/Desktop/Engine3D/src/Engine3D/interfaces/Shader.cpp",
+  "output": "src/CMakeFiles/Engine3D.dir/Engine3D/interfaces/Shader.cpp.o"
+},
+{
+  "directory": "/Users/aaronher/Desktop/Engine3D/Debug/src",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++ -DFMT_SHARED -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -DSPDLOG_SHARED_LIB -I/Users/aaronher/Desktop/Engine3D/include -I/Users/aaronher/Desktop/Engine3D/include/Engine3D -I/Users/aaronher/Desktop/Engine3D/src/Engine3D -I/Users/aaronher/Desktop/Engine3D/src/.. -I/Users/aaronher/Desktop/Engine3D/src/../Engine3D -I/Users/aaronher/Desktop/Engine3D/src -F/Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/System/Library/Frameworks -isystem /opt/homebrew/include -isystem /usr/local/include -isystem /opt/homebrew/lib -g -std=c++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk -fvisibility=hidden -fvisibility-inlines-hidden -F/Library/Developer/CommandLineTools/SDKs/MacOSX12.sdk/System/Library/Frameworks  -fsanitize=address -o CMakeFiles/Engine3D.dir/Engine3D/interfaces/Buffer.cpp.o -c /Users/aaronher/Desktop/Engine3D/src/Engine3D/interfaces/Buffer.cpp",
+  "file": "/Users/aaronher/Desktop/Engine3D/src/Engine3D/interfaces/Buffer.cpp",
+  "output": "src/CMakeFiles/Engine3D.dir/Engine3D/interfaces/Buffer.cpp.o"
+},
+{
+  "directory": "/Users/aaronher/Desktop/Engine3D/Debug/src",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++ -DFMT_SHARED -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -DSPDLOG_SHARED_LIB -I/Users/aaronher/Desktop/Engine3D/include -I/Users/aaronher/Desktop/Engine3D/include/Engine3D -I/Users/aaronher/Desktop/Engine3D/src/Engine3D -I/Users/aaronher/Desktop/Engine3D/src/.. -I/Users/aaronher/Desktop/Engine3D/src/../Engine3D -I/Users/aaronher/Desktop/Engine3D/src -F/Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/System/Library/Frameworks -isystem /opt/homebrew/include -isystem /usr/local/include -isystem /opt/homebrew/lib -g -std=c++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk -fvisibility=hidden -fvisibility-inlines-hidden -F/Library/Developer/CommandLineTools/SDKs/MacOSX12.sdk/System/Library/Frameworks  -fsanitize=address -o CMakeFiles/Engine3D.dir/Engine3D/OpenGL/OpenGLBuffer.cpp.o -c /Users/aaronher/Desktop/Engine3D/src/Engine3D/OpenGL/OpenGLBuffer.cpp",
+  "file": "/Users/aaronher/Desktop/Engine3D/src/Engine3D/OpenGL/OpenGLBuffer.cpp",
+  "output": "src/CMakeFiles/Engine3D.dir/Engine3D/OpenGL/OpenGLBuffer.cpp.o"
+},
+{
+  "directory": "/Users/aaronher/Desktop/Engine3D/Debug/src",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++ -DFMT_SHARED -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -DSPDLOG_SHARED_LIB -I/Users/aaronher/Desktop/Engine3D/include -I/Users/aaronher/Desktop/Engine3D/include/Engine3D -I/Users/aaronher/Desktop/Engine3D/src/Engine3D -I/Users/aaronher/Desktop/Engine3D/src/.. -I/Users/aaronher/Desktop/Engine3D/src/../Engine3D -I/Users/aaronher/Desktop/Engine3D/src -F/Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/System/Library/Frameworks -isystem /opt/homebrew/include -isystem /usr/local/include -isystem /opt/homebrew/lib -g -std=c++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk -fvisibility=hidden -fvisibility-inlines-hidden -F/Library/Developer/CommandLineTools/SDKs/MacOSX12.sdk/System/Library/Frameworks  -fsanitize=address -o CMakeFiles/Engine3D.dir/Engine3D/Renderer2D/Renderer.cpp.o -c /Users/aaronher/Desktop/Engine3D/src/Engine3D/Renderer2D/Renderer.cpp",
+  "file": "/Users/aaronher/Desktop/Engine3D/src/Engine3D/Renderer2D/Renderer.cpp",
+  "output": "src/CMakeFiles/Engine3D.dir/Engine3D/Renderer2D/Renderer.cpp.o"
+},
+{
+  "directory": "/Users/aaronher/Desktop/Engine3D/Debug/src",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++ -DFMT_SHARED -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -DSPDLOG_SHARED_LIB -I/Users/aaronher/Desktop/Engine3D/include -I/Users/aaronher/Desktop/Engine3D/include/Engine3D -I/Users/aaronher/Desktop/Engine3D/src/Engine3D -I/Users/aaronher/Desktop/Engine3D/src/.. -I/Users/aaronher/Desktop/Engine3D/src/../Engine3D -I/Users/aaronher/Desktop/Engine3D/src -F/Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/System/Library/Frameworks -isystem /opt/homebrew/include -isystem /usr/local/include -isystem /opt/homebrew/lib -g -std=c++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk -fvisibility=hidden -fvisibility-inlines-hidden -F/Library/Developer/CommandLineTools/SDKs/MacOSX12.sdk/System/Library/Frameworks  -fsanitize=address -o CMakeFiles/Engine3D.dir/Engine3D/interfaces/VertexArray.cpp.o -c /Users/aaronher/Desktop/Engine3D/src/Engine3D/interfaces/VertexArray.cpp",
+  "file": "/Users/aaronher/Desktop/Engine3D/src/Engine3D/interfaces/VertexArray.cpp",
+  "output": "src/CMakeFiles/Engine3D.dir/Engine3D/interfaces/VertexArray.cpp.o"
+},
+{
+  "directory": "/Users/aaronher/Desktop/Engine3D/Debug/src",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++ -DFMT_SHARED -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -DSPDLOG_SHARED_LIB -I/Users/aaronher/Desktop/Engine3D/include -I/Users/aaronher/Desktop/Engine3D/include/Engine3D -I/Users/aaronher/Desktop/Engine3D/src/Engine3D -I/Users/aaronher/Desktop/Engine3D/src/.. -I/Users/aaronher/Desktop/Engine3D/src/../Engine3D -I/Users/aaronher/Desktop/Engine3D/src -F/Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/System/Library/Frameworks -isystem /opt/homebrew/include -isystem /usr/local/include -isystem /opt/homebrew/lib -g -std=c++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk -fvisibility=hidden -fvisibility-inlines-hidden -F/Library/Developer/CommandLineTools/SDKs/MacOSX12.sdk/System/Library/Frameworks  -fsanitize=address -o CMakeFiles/Engine3D.dir/Engine3D/OpenGL/OpenGLVertexArray.cpp.o -c /Users/aaronher/Desktop/Engine3D/src/Engine3D/OpenGL/OpenGLVertexArray.cpp",
+  "file": "/Users/aaronher/Desktop/Engine3D/src/Engine3D/OpenGL/OpenGLVertexArray.cpp",
+  "output": "src/CMakeFiles/Engine3D.dir/Engine3D/OpenGL/OpenGLVertexArray.cpp.o"
+},
+{
+  "directory": "/Users/aaronher/Desktop/Engine3D/Debug/src",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++ -DFMT_SHARED -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -DSPDLOG_SHARED_LIB -I/Users/aaronher/Desktop/Engine3D/include -I/Users/aaronher/Desktop/Engine3D/include/Engine3D -I/Users/aaronher/Desktop/Engine3D/src/Engine3D -I/Users/aaronher/Desktop/Engine3D/src/.. -I/Users/aaronher/Desktop/Engine3D/src/../Engine3D -I/Users/aaronher/Desktop/Engine3D/src -F/Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/System/Library/Frameworks -isystem /opt/homebrew/include -isystem /usr/local/include -isystem /opt/homebrew/lib -g -std=c++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk -fvisibility=hidden -fvisibility-inlines-hidden -F/Library/Developer/CommandLineTools/SDKs/MacOSX12.sdk/System/Library/Frameworks  -fsanitize=address -o CMakeFiles/Engine3D.dir/Engine3D/interfaces/RendererAPI.cpp.o -c /Users/aaronher/Desktop/Engine3D/src/Engine3D/interfaces/RendererAPI.cpp",
+  "file": "/Users/aaronher/Desktop/Engine3D/src/Engine3D/interfaces/RendererAPI.cpp",
+  "output": "src/CMakeFiles/Engine3D.dir/Engine3D/interfaces/RendererAPI.cpp.o"
+},
+{
+  "directory": "/Users/aaronher/Desktop/Engine3D/Debug/src",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++ -DFMT_SHARED -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -DSPDLOG_SHARED_LIB -I/Users/aaronher/Desktop/Engine3D/include -I/Users/aaronher/Desktop/Engine3D/include/Engine3D -I/Users/aaronher/Desktop/Engine3D/src/Engine3D -I/Users/aaronher/Desktop/Engine3D/src/.. -I/Users/aaronher/Desktop/Engine3D/src/../Engine3D -I/Users/aaronher/Desktop/Engine3D/src -F/Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/System/Library/Frameworks -isystem /opt/homebrew/include -isystem /usr/local/include -isystem /opt/homebrew/lib -g -std=c++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk -fvisibility=hidden -fvisibility-inlines-hidden -F/Library/Developer/CommandLineTools/SDKs/MacOSX12.sdk/System/Library/Frameworks  -fsanitize=address -o CMakeFiles/Engine3D.dir/Engine3D/Renderer2D/RendererCommand.cpp.o -c /Users/aaronher/Desktop/Engine3D/src/Engine3D/Renderer2D/RendererCommand.cpp",
+  "file": "/Users/aaronher/Desktop/Engine3D/src/Engine3D/Renderer2D/RendererCommand.cpp",
+  "output": "src/CMakeFiles/Engine3D.dir/Engine3D/Renderer2D/RendererCommand.cpp.o"
+},
+{
+  "directory": "/Users/aaronher/Desktop/Engine3D/Debug/src",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++ -DFMT_SHARED -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -DSPDLOG_SHARED_LIB -I/Users/aaronher/Desktop/Engine3D/include -I/Users/aaronher/Desktop/Engine3D/include/Engine3D -I/Users/aaronher/Desktop/Engine3D/src/Engine3D -I/Users/aaronher/Desktop/Engine3D/src/.. -I/Users/aaronher/Desktop/Engine3D/src/../Engine3D -I/Users/aaronher/Desktop/Engine3D/src -F/Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/System/Library/Frameworks -isystem /opt/homebrew/include -isystem /usr/local/include -isystem /opt/homebrew/lib -g -std=c++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk -fvisibility=hidden -fvisibility-inlines-hidden -F/Library/Developer/CommandLineTools/SDKs/MacOSX12.sdk/System/Library/Frameworks  -fsanitize=address -o CMakeFiles/Engine3D.dir/Engine3D/OpenGL/OpenGLRendererAPI.cpp.o -c /Users/aaronher/Desktop/Engine3D/src/Engine3D/OpenGL/OpenGLRendererAPI.cpp",
+  "file": "/Users/aaronher/Desktop/Engine3D/src/Engine3D/OpenGL/OpenGLRendererAPI.cpp",
+  "output": "src/CMakeFiles/Engine3D.dir/Engine3D/OpenGL/OpenGLRendererAPI.cpp.o"
+},
+{
+  "directory": "/Users/aaronher/Desktop/Engine3D/Debug/src",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++ -DFMT_SHARED -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -DSPDLOG_SHARED_LIB -I/Users/aaronher/Desktop/Engine3D/include -I/Users/aaronher/Desktop/Engine3D/include/Engine3D -I/Users/aaronher/Desktop/Engine3D/src/Engine3D -I/Users/aaronher/Desktop/Engine3D/src/.. -I/Users/aaronher/Desktop/Engine3D/src/../Engine3D -I/Users/aaronher/Desktop/Engine3D/src -F/Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/System/Library/Frameworks -isystem /opt/homebrew/include -isystem /usr/local/include -isystem /opt/homebrew/lib -g -std=c++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk -fvisibility=hidden -fvisibility-inlines-hidden -F/Library/Developer/CommandLineTools/SDKs/MacOSX12.sdk/System/Library/Frameworks  -fsanitize=address -o CMakeFiles/Engine3D.dir/Engine3D/Renderer2D/OrthographicCamera.cpp.o -c /Users/aaronher/Desktop/Engine3D/src/Engine3D/Renderer2D/OrthographicCamera.cpp",
+  "file": "/Users/aaronher/Desktop/Engine3D/src/Engine3D/Renderer2D/OrthographicCamera.cpp",
+  "output": "src/CMakeFiles/Engine3D.dir/Engine3D/Renderer2D/OrthographicCamera.cpp.o"
+},
+{
+  "directory": "/Users/aaronher/Desktop/Engine3D/Debug/src",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++ -DFMT_SHARED -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -DSPDLOG_SHARED_LIB -I/Users/aaronher/Desktop/Engine3D/include -I/Users/aaronher/Desktop/Engine3D/include/Engine3D -I/Users/aaronher/Desktop/Engine3D/src/Engine3D -I/Users/aaronher/Desktop/Engine3D/src/.. -I/Users/aaronher/Desktop/Engine3D/src/../Engine3D -I/Users/aaronher/Desktop/Engine3D/src -F/Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/System/Library/Frameworks -isystem /opt/homebrew/include -isystem /usr/local/include -isystem /opt/homebrew/lib -g -std=c++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk -fvisibility=hidden -fvisibility-inlines-hidden -F/Library/Developer/CommandLineTools/SDKs/MacOSX12.sdk/System/Library/Frameworks  -fsanitize=address -o CMakeFiles/Engine3D.dir/Engine3D/OpenGL/OpenGLShader.cpp.o -c /Users/aaronher/Desktop/Engine3D/src/Engine3D/OpenGL/OpenGLShader.cpp",
+  "file": "/Users/aaronher/Desktop/Engine3D/src/Engine3D/OpenGL/OpenGLShader.cpp",
+  "output": "src/CMakeFiles/Engine3D.dir/Engine3D/OpenGL/OpenGLShader.cpp.o"
+},
+{
+  "directory": "/Users/aaronher/Desktop/Engine3D/Debug/src",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++ -DFMT_SHARED -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -DSPDLOG_SHARED_LIB -I/Users/aaronher/Desktop/Engine3D/include -I/Users/aaronher/Desktop/Engine3D/include/Engine3D -I/Users/aaronher/Desktop/Engine3D/src/Engine3D -I/Users/aaronher/Desktop/Engine3D/src/.. -I/Users/aaronher/Desktop/Engine3D/src/../Engine3D -I/Users/aaronher/Desktop/Engine3D/src -F/Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/System/Library/Frameworks -isystem /opt/homebrew/include -isystem /usr/local/include -isystem /opt/homebrew/lib -g -std=c++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk -fvisibility=hidden -fvisibility-inlines-hidden -F/Library/Developer/CommandLineTools/SDKs/MacOSX12.sdk/System/Library/Frameworks  -fsanitize=address -o CMakeFiles/Engine3D.dir/Engine3D/interfaces/Texture.cpp.o -c /Users/aaronher/Desktop/Engine3D/src/Engine3D/interfaces/Texture.cpp",
+  "file": "/Users/aaronher/Desktop/Engine3D/src/Engine3D/interfaces/Texture.cpp",
+  "output": "src/CMakeFiles/Engine3D.dir/Engine3D/interfaces/Texture.cpp.o"
+},
+{
+  "directory": "/Users/aaronher/Desktop/Engine3D/Debug/src",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++ -DFMT_SHARED -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -DSPDLOG_SHARED_LIB -I/Users/aaronher/Desktop/Engine3D/include -I/Users/aaronher/Desktop/Engine3D/include/Engine3D -I/Users/aaronher/Desktop/Engine3D/src/Engine3D -I/Users/aaronher/Desktop/Engine3D/src/.. -I/Users/aaronher/Desktop/Engine3D/src/../Engine3D -I/Users/aaronher/Desktop/Engine3D/src -F/Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/System/Library/Frameworks -isystem /opt/homebrew/include -isystem /usr/local/include -isystem /opt/homebrew/lib -g -std=c++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk -fvisibility=hidden -fvisibility-inlines-hidden -F/Library/Developer/CommandLineTools/SDKs/MacOSX12.sdk/System/Library/Frameworks  -fsanitize=address -o CMakeFiles/Engine3D.dir/Engine3D/OpenGL/OpenGLTexture.cpp.o -c /Users/aaronher/Desktop/Engine3D/src/Engine3D/OpenGL/OpenGLTexture.cpp",
+  "file": "/Users/aaronher/Desktop/Engine3D/src/Engine3D/OpenGL/OpenGLTexture.cpp",
+  "output": "src/CMakeFiles/Engine3D.dir/Engine3D/OpenGL/OpenGLTexture.cpp.o"
+},
+{
+  "directory": "/Users/aaronher/Desktop/Engine3D/Debug/src",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++ -DFMT_SHARED -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -DSPDLOG_SHARED_LIB -I/Users/aaronher/Desktop/Engine3D/include -I/Users/aaronher/Desktop/Engine3D/include/Engine3D -I/Users/aaronher/Desktop/Engine3D/src/Engine3D -I/Users/aaronher/Desktop/Engine3D/src/.. -I/Users/aaronher/Desktop/Engine3D/src/../Engine3D -I/Users/aaronher/Desktop/Engine3D/src -F/Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/System/Library/Frameworks -isystem /opt/homebrew/include -isystem /usr/local/include -isystem /opt/homebrew/lib -g -std=c++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk -fvisibility=hidden -fvisibility-inlines-hidden -F/Library/Developer/CommandLineTools/SDKs/MacOSX12.sdk/System/Library/Frameworks  -fsanitize=address -o CMakeFiles/Engine3D.dir/Engine3D/Renderer2D/OrthographicCameraController.cpp.o -c /Users/aaronher/Desktop/Engine3D/src/Engine3D/Renderer2D/OrthographicCameraController.cpp",
+  "file": "/Users/aaronher/Desktop/Engine3D/src/Engine3D/Renderer2D/OrthographicCameraController.cpp",
+  "output": "src/CMakeFiles/Engine3D.dir/Engine3D/Renderer2D/OrthographicCameraController.cpp.o"
+},
+{
+  "directory": "/Users/aaronher/Desktop/Engine3D/Debug/src",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++ -DFMT_SHARED -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -DSPDLOG_SHARED_LIB -I/Users/aaronher/Desktop/Engine3D/include -I/Users/aaronher/Desktop/Engine3D/include/Engine3D -I/Users/aaronher/Desktop/Engine3D/src/Engine3D -I/Users/aaronher/Desktop/Engine3D/src/.. -I/Users/aaronher/Desktop/Engine3D/src/../Engine3D -I/Users/aaronher/Desktop/Engine3D/src -F/Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/System/Library/Frameworks -isystem /opt/homebrew/include -isystem /usr/local/include -isystem /opt/homebrew/lib -g -std=c++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk -fvisibility=hidden -fvisibility-inlines-hidden -F/Library/Developer/CommandLineTools/SDKs/MacOSX12.sdk/System/Library/Frameworks  -fsanitize=address -o CMakeFiles/Engine3D.dir/Engine3D/OpenGL/OpenGLInputPoll.cpp.o -c /Users/aaronher/Desktop/Engine3D/src/Engine3D/OpenGL/OpenGLInputPoll.cpp",
+  "file": "/Users/aaronher/Desktop/Engine3D/src/Engine3D/OpenGL/OpenGLInputPoll.cpp",
+  "output": "src/CMakeFiles/Engine3D.dir/Engine3D/OpenGL/OpenGLInputPoll.cpp.o"
+},
+{
+  "directory": "/Users/aaronher/Desktop/Engine3D/Debug/src",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++ -DFMT_SHARED -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -DSPDLOG_SHARED_LIB -I/Users/aaronher/Desktop/Engine3D/include -I/Users/aaronher/Desktop/Engine3D/include/Engine3D -I/Users/aaronher/Desktop/Engine3D/src/Engine3D -I/Users/aaronher/Desktop/Engine3D/src/.. -I/Users/aaronher/Desktop/Engine3D/src/../Engine3D -I/Users/aaronher/Desktop/Engine3D/src -F/Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/System/Library/Frameworks -isystem /opt/homebrew/include -isystem /usr/local/include -isystem /opt/homebrew/lib -g -std=c++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk -fvisibility=hidden -fvisibility-inlines-hidden -F/Library/Developer/CommandLineTools/SDKs/MacOSX12.sdk/System/Library/Frameworks  -fsanitize=address -o CMakeFiles/Engine3D.dir/Engine3D/OpenGL/OpenGLWindow.cpp.o -c /Users/aaronher/Desktop/Engine3D/src/Engine3D/OpenGL/OpenGLWindow.cpp",
+  "file": "/Users/aaronher/Desktop/Engine3D/src/Engine3D/OpenGL/OpenGLWindow.cpp",
+  "output": "src/CMakeFiles/Engine3D.dir/Engine3D/OpenGL/OpenGLWindow.cpp.o"
+},
+{
+  "directory": "/Users/aaronher/Desktop/Engine3D/Debug/src",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++ -DFMT_SHARED -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -DSPDLOG_SHARED_LIB -I/Users/aaronher/Desktop/Engine3D/include -I/Users/aaronher/Desktop/Engine3D/include/Engine3D -I/Users/aaronher/Desktop/Engine3D/src/Engine3D -I/Users/aaronher/Desktop/Engine3D/src/.. -I/Users/aaronher/Desktop/Engine3D/src/../Engine3D -I/Users/aaronher/Desktop/Engine3D/src -F/Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/System/Library/Frameworks -isystem /opt/homebrew/include -isystem /usr/local/include -isystem /opt/homebrew/lib -g -std=c++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk -fvisibility=hidden -fvisibility-inlines-hidden -F/Library/Developer/CommandLineTools/SDKs/MacOSX12.sdk/System/Library/Frameworks  -fsanitize=address -o CMakeFiles/Engine3D.dir/Engine3D/Renderer2D/Renderer2D.cpp.o -c /Users/aaronher/Desktop/Engine3D/src/Engine3D/Renderer2D/Renderer2D.cpp",
+  "file": "/Users/aaronher/Desktop/Engine3D/src/Engine3D/Renderer2D/Renderer2D.cpp",
+  "output": "src/CMakeFiles/Engine3D.dir/Engine3D/Renderer2D/Renderer2D.cpp.o"
+},
+{
+  "directory": "/Users/aaronher/Desktop/Engine3D/Debug/src",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++ -DFMT_SHARED -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -DSPDLOG_SHARED_LIB -I/Users/aaronher/Desktop/Engine3D/include -I/Users/aaronher/Desktop/Engine3D/include/Engine3D -I/Users/aaronher/Desktop/Engine3D/src/Engine3D -I/Users/aaronher/Desktop/Engine3D/src/.. -I/Users/aaronher/Desktop/Engine3D/src/../Engine3D -I/Users/aaronher/Desktop/Engine3D/src -F/Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/System/Library/Frameworks -isystem /opt/homebrew/include -isystem /usr/local/include -isystem /opt/homebrew/lib -g -std=c++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk -fvisibility=hidden -fvisibility-inlines-hidden -F/Library/Developer/CommandLineTools/SDKs/MacOSX12.sdk/System/Library/Frameworks  -fsanitize=address -o CMakeFiles/Engine3D.dir/Engine3D/interfaces/SubTexture2D.cpp.o -c /Users/aaronher/Desktop/Engine3D/src/Engine3D/interfaces/SubTexture2D.cpp",
+  "file": "/Users/aaronher/Desktop/Engine3D/src/Engine3D/interfaces/SubTexture2D.cpp",
+  "output": "src/CMakeFiles/Engine3D.dir/Engine3D/interfaces/SubTexture2D.cpp.o"
+},
+{
+  "directory": "/Users/aaronher/Desktop/Engine3D/Debug/src",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++ -DFMT_SHARED -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -DSPDLOG_SHARED_LIB -I/Users/aaronher/Desktop/Engine3D/include -I/Users/aaronher/Desktop/Engine3D/include/Engine3D -I/Users/aaronher/Desktop/Engine3D/src/Engine3D -I/Users/aaronher/Desktop/Engine3D/src/.. -I/Users/aaronher/Desktop/Engine3D/src/../Engine3D -I/Users/aaronher/Desktop/Engine3D/src -F/Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/System/Library/Frameworks -isystem /opt/homebrew/include -isystem /usr/local/include -isystem /opt/homebrew/lib -g -std=c++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk -fvisibility=hidden -fvisibility-inlines-hidden -F/Library/Developer/CommandLineTools/SDKs/MacOSX12.sdk/System/Library/Frameworks  -fsanitize=address -o CMakeFiles/Engine3D.dir/Engine3D/interfaces/Framebuffer.cpp.o -c /Users/aaronher/Desktop/Engine3D/src/Engine3D/interfaces/Framebuffer.cpp",
+  "file": "/Users/aaronher/Desktop/Engine3D/src/Engine3D/interfaces/Framebuffer.cpp",
+  "output": "src/CMakeFiles/Engine3D.dir/Engine3D/interfaces/Framebuffer.cpp.o"
+},
+{
+  "directory": "/Users/aaronher/Desktop/Engine3D/Debug/src",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++ -DFMT_SHARED -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -DSPDLOG_SHARED_LIB -I/Users/aaronher/Desktop/Engine3D/include -I/Users/aaronher/Desktop/Engine3D/include/Engine3D -I/Users/aaronher/Desktop/Engine3D/src/Engine3D -I/Users/aaronher/Desktop/Engine3D/src/.. -I/Users/aaronher/Desktop/Engine3D/src/../Engine3D -I/Users/aaronher/Desktop/Engine3D/src -F/Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/System/Library/Frameworks -isystem /opt/homebrew/include -isystem /usr/local/include -isystem /opt/homebrew/lib -g -std=c++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk -fvisibility=hidden -fvisibility-inlines-hidden -F/Library/Developer/CommandLineTools/SDKs/MacOSX12.sdk/System/Library/Frameworks  -fsanitize=address -o CMakeFiles/Engine3D.dir/Engine3D/OpenGL/OpenGLFramebuffer.cpp.o -c /Users/aaronher/Desktop/Engine3D/src/Engine3D/OpenGL/OpenGLFramebuffer.cpp",
+  "file": "/Users/aaronher/Desktop/Engine3D/src/Engine3D/OpenGL/OpenGLFramebuffer.cpp",
+  "output": "src/CMakeFiles/Engine3D.dir/Engine3D/OpenGL/OpenGLFramebuffer.cpp.o"
+},
+{
+  "directory": "/Users/aaronher/Desktop/Engine3D/Debug/src",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++ -DFMT_SHARED -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -DSPDLOG_SHARED_LIB -I/Users/aaronher/Desktop/Engine3D/include -I/Users/aaronher/Desktop/Engine3D/include/Engine3D -I/Users/aaronher/Desktop/Engine3D/src/Engine3D -I/Users/aaronher/Desktop/Engine3D/src/.. -I/Users/aaronher/Desktop/Engine3D/src/../Engine3D -I/Users/aaronher/Desktop/Engine3D/src -F/Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/System/Library/Frameworks -isystem /opt/homebrew/include -isystem /usr/local/include -isystem /opt/homebrew/lib -g -std=c++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk -fvisibility=hidden -fvisibility-inlines-hidden -F/Library/Developer/CommandLineTools/SDKs/MacOSX12.sdk/System/Library/Frameworks  -fsanitize=address -o CMakeFiles/Engine3D.dir/Engine3D/Scene/Scene.cpp.o -c /Users/aaronher/Desktop/Engine3D/src/Engine3D/Scene/Scene.cpp",
+  "file": "/Users/aaronher/Desktop/Engine3D/src/Engine3D/Scene/Scene.cpp",
+  "output": "src/CMakeFiles/Engine3D.dir/Engine3D/Scene/Scene.cpp.o"
+},
+{
+  "directory": "/Users/aaronher/Desktop/Engine3D/Debug/src",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++ -DFMT_SHARED -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -DSPDLOG_SHARED_LIB -I/Users/aaronher/Desktop/Engine3D/include -I/Users/aaronher/Desktop/Engine3D/include/Engine3D -I/Users/aaronher/Desktop/Engine3D/src/Engine3D -I/Users/aaronher/Desktop/Engine3D/src/.. -I/Users/aaronher/Desktop/Engine3D/src/../Engine3D -I/Users/aaronher/Desktop/Engine3D/src -F/Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/System/Library/Frameworks -isystem /opt/homebrew/include -isystem /usr/local/include -isystem /opt/homebrew/lib -g -std=c++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk -fvisibility=hidden -fvisibility-inlines-hidden -F/Library/Developer/CommandLineTools/SDKs/MacOSX12.sdk/System/Library/Frameworks  -fsanitize=address -o CMakeFiles/Engine3D.dir/Engine3D/Scene/Entity.cpp.o -c /Users/aaronher/Desktop/Engine3D/src/Engine3D/Scene/Entity.cpp",
+  "file": "/Users/aaronher/Desktop/Engine3D/src/Engine3D/Scene/Entity.cpp",
+  "output": "src/CMakeFiles/Engine3D.dir/Engine3D/Scene/Entity.cpp.o"
+},
+{
+  "directory": "/Users/aaronher/Desktop/Engine3D/Debug/src",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++ -DFMT_SHARED -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -DSPDLOG_SHARED_LIB -I/Users/aaronher/Desktop/Engine3D/include -I/Users/aaronher/Desktop/Engine3D/include/Engine3D -I/Users/aaronher/Desktop/Engine3D/src/Engine3D -I/Users/aaronher/Desktop/Engine3D/src/.. -I/Users/aaronher/Desktop/Engine3D/src/../Engine3D -I/Users/aaronher/Desktop/Engine3D/src -F/Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/System/Library/Frameworks -isystem /opt/homebrew/include -isystem /usr/local/include -isystem /opt/homebrew/lib -g -std=c++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk -fvisibility=hidden -fvisibility-inlines-hidden -F/Library/Developer/CommandLineTools/SDKs/MacOSX12.sdk/System/Library/Frameworks  -fsanitize=address -o CMakeFiles/Engine3D.dir/Engine3D/Scene/SceneCamera.cpp.o -c /Users/aaronher/Desktop/Engine3D/src/Engine3D/Scene/SceneCamera.cpp",
+  "file": "/Users/aaronher/Desktop/Engine3D/src/Engine3D/Scene/SceneCamera.cpp",
+  "output": "src/CMakeFiles/Engine3D.dir/Engine3D/Scene/SceneCamera.cpp.o"
+},
+{
+  "directory": "/Users/aaronher/Desktop/Engine3D/Debug/src",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++ -DFMT_SHARED -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -DSPDLOG_SHARED_LIB -I/Users/aaronher/Desktop/Engine3D/include -I/Users/aaronher/Desktop/Engine3D/include/Engine3D -I/Users/aaronher/Desktop/Engine3D/src/Engine3D -I/Users/aaronher/Desktop/Engine3D/src/.. -I/Users/aaronher/Desktop/Engine3D/src/../Engine3D -I/Users/aaronher/Desktop/Engine3D/src -F/Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/System/Library/Frameworks -isystem /opt/homebrew/include -isystem /usr/local/include -isystem /opt/homebrew/lib -g -std=c++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk -fvisibility=hidden -fvisibility-inlines-hidden -F/Library/Developer/CommandLineTools/SDKs/MacOSX12.sdk/System/Library/Frameworks  -fsanitize=address -o CMakeFiles/Engine3D.dir/Engine3D/Scene/SceneSerializer.cpp.o -c /Users/aaronher/Desktop/Engine3D/src/Engine3D/Scene/SceneSerializer.cpp",
+  "file": "/Users/aaronher/Desktop/Engine3D/src/Engine3D/Scene/SceneSerializer.cpp",
+  "output": "src/CMakeFiles/Engine3D.dir/Engine3D/Scene/SceneSerializer.cpp.o"
+},
+{
+  "directory": "/Users/aaronher/Desktop/Engine3D/Debug/src",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++ -DFMT_SHARED -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -DSPDLOG_SHARED_LIB -I/Users/aaronher/Desktop/Engine3D/include -I/Users/aaronher/Desktop/Engine3D/include/Engine3D -I/Users/aaronher/Desktop/Engine3D/src/Engine3D -I/Users/aaronher/Desktop/Engine3D/src/.. -I/Users/aaronher/Desktop/Engine3D/src/../Engine3D -I/Users/aaronher/Desktop/Engine3D/src -F/Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/System/Library/Frameworks -isystem /opt/homebrew/include -isystem /usr/local/include -isystem /opt/homebrew/lib -g -std=c++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk -fvisibility=hidden -fvisibility-inlines-hidden -F/Library/Developer/CommandLineTools/SDKs/MacOSX12.sdk/System/Library/Frameworks  -fsanitize=address -o CMakeFiles/Engine3D.dir/Engine3D/image/stb_image.cpp.o -c /Users/aaronher/Desktop/Engine3D/src/Engine3D/image/stb_image.cpp",
+  "file": "/Users/aaronher/Desktop/Engine3D/src/Engine3D/image/stb_image.cpp",
+  "output": "src/CMakeFiles/Engine3D.dir/Engine3D/image/stb_image.cpp.o"
+},
+{
+  "directory": "/Users/aaronher/Desktop/Engine3D/Debug/src",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++ -DFMT_SHARED -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -DSPDLOG_SHARED_LIB -I/Users/aaronher/Desktop/Engine3D/include -I/Users/aaronher/Desktop/Engine3D/include/Engine3D -I/Users/aaronher/Desktop/Engine3D/src/Engine3D -I/Users/aaronher/Desktop/Engine3D/src/.. -I/Users/aaronher/Desktop/Engine3D/src/../Engine3D -I/Users/aaronher/Desktop/Engine3D/src -F/Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/System/Library/Frameworks -isystem /opt/homebrew/include -isystem /usr/local/include -isystem /opt/homebrew/lib -g -std=c++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk -fvisibility=hidden -fvisibility-inlines-hidden -F/Library/Developer/CommandLineTools/SDKs/MacOSX12.sdk/System/Library/Frameworks  -fsanitize=address -o CMakeFiles/Engine3D.dir/Engine3D/platforms/Mac/MacPlatformUtils.cpp.o -c /Users/aaronher/Desktop/Engine3D/src/Engine3D/platforms/Mac/MacPlatformUtils.cpp",
+  "file": "/Users/aaronher/Desktop/Engine3D/src/Engine3D/platforms/Mac/MacPlatformUtils.cpp",
+  "output": "src/CMakeFiles/Engine3D.dir/Engine3D/platforms/Mac/MacPlatformUtils.cpp.o"
+},
+{
+  "directory": "/Users/aaronher/Desktop/Engine3D/Debug/src",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++ -DFMT_SHARED -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -DSPDLOG_SHARED_LIB -I/Users/aaronher/Desktop/Engine3D/include -I/Users/aaronher/Desktop/Engine3D/include/Engine3D -I/Users/aaronher/Desktop/Engine3D/src/Engine3D -I/Users/aaronher/Desktop/Engine3D/src/.. -I/Users/aaronher/Desktop/Engine3D/src/../Engine3D -I/Users/aaronher/Desktop/Engine3D/src -F/Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/System/Library/Frameworks -isystem /opt/homebrew/include -isystem /usr/local/include -isystem /opt/homebrew/lib -g -std=c++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk -fvisibility=hidden -fvisibility-inlines-hidden -F/Library/Developer/CommandLineTools/SDKs/MacOSX12.sdk/System/Library/Frameworks  -fsanitize=address -o CMakeFiles/Engine3D.dir/Engine3D/Math/Math.cpp.o -c /Users/aaronher/Desktop/Engine3D/src/Engine3D/Math/Math.cpp",
+  "file": "/Users/aaronher/Desktop/Engine3D/src/Engine3D/Math/Math.cpp",
+  "output": "src/CMakeFiles/Engine3D.dir/Engine3D/Math/Math.cpp.o"
+},
+{
+  "directory": "/Users/aaronher/Desktop/Engine3D/Debug/src",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++ -DFMT_SHARED -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -DSPDLOG_SHARED_LIB -I/Users/aaronher/Desktop/Engine3D/include -I/Users/aaronher/Desktop/Engine3D/include/Engine3D -I/Users/aaronher/Desktop/Engine3D/src/Engine3D -I/Users/aaronher/Desktop/Engine3D/src/.. -I/Users/aaronher/Desktop/Engine3D/src/../Engine3D -I/Users/aaronher/Desktop/Engine3D/src -F/Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/System/Library/Frameworks -isystem /opt/homebrew/include -isystem /usr/local/include -isystem /opt/homebrew/lib -g -std=c++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk -fvisibility=hidden -fvisibility-inlines-hidden -F/Library/Developer/CommandLineTools/SDKs/MacOSX12.sdk/System/Library/Frameworks  -fsanitize=address -o CMakeFiles/Engine3D.dir/Engine3D/Renderer2D/EditorCamera.cpp.o -c /Users/aaronher/Desktop/Engine3D/src/Engine3D/Renderer2D/EditorCamera.cpp",
+  "file": "/Users/aaronher/Desktop/Engine3D/src/Engine3D/Renderer2D/EditorCamera.cpp",
+  "output": "src/CMakeFiles/Engine3D.dir/Engine3D/Renderer2D/EditorCamera.cpp.o"
+},
+{
+  "directory": "/Users/aaronher/Desktop/Engine3D/Debug/src",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++ -DFMT_SHARED -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -DSPDLOG_SHARED_LIB -I/Users/aaronher/Desktop/Engine3D/include -I/Users/aaronher/Desktop/Engine3D/include/Engine3D -I/Users/aaronher/Desktop/Engine3D/src/Engine3D -I/Users/aaronher/Desktop/Engine3D/src/.. -I/Users/aaronher/Desktop/Engine3D/src/../Engine3D -I/Users/aaronher/Desktop/Engine3D/src -F/Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/System/Library/Frameworks -isystem /opt/homebrew/include -isystem /usr/local/include -isystem /opt/homebrew/lib -g -std=c++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk -fvisibility=hidden -fvisibility-inlines-hidden -F/Library/Developer/CommandLineTools/SDKs/MacOSX12.sdk/System/Library/Frameworks  -fsanitize=address -o CMakeFiles/Engine3D.dir/Engine3D/interfaces/UniformBuffer.cpp.o -c /Users/aaronher/Desktop/Engine3D/src/Engine3D/interfaces/UniformBuffer.cpp",
+  "file": "/Users/aaronher/Desktop/Engine3D/src/Engine3D/interfaces/UniformBuffer.cpp",
+  "output": "src/CMakeFiles/Engine3D.dir/Engine3D/interfaces/UniformBuffer.cpp.o"
+},
+{
+  "directory": "/Users/aaronher/Desktop/Engine3D/Debug/src",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++ -DFMT_SHARED -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -DSPDLOG_SHARED_LIB -I/Users/aaronher/Desktop/Engine3D/include -I/Users/aaronher/Desktop/Engine3D/include/Engine3D -I/Users/aaronher/Desktop/Engine3D/src/Engine3D -I/Users/aaronher/Desktop/Engine3D/src/.. -I/Users/aaronher/Desktop/Engine3D/src/../Engine3D -I/Users/aaronher/Desktop/Engine3D/src -F/Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/System/Library/Frameworks -isystem /opt/homebrew/include -isystem /usr/local/include -isystem /opt/homebrew/lib -g -std=c++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk -fvisibility=hidden -fvisibility-inlines-hidden -F/Library/Developer/CommandLineTools/SDKs/MacOSX12.sdk/System/Library/Frameworks  -fsanitize=address -o CMakeFiles/Engine3D.dir/Engine3D/OpenGL/OpenGLUniformBuffer.cpp.o -c /Users/aaronher/Desktop/Engine3D/src/Engine3D/OpenGL/OpenGLUniformBuffer.cpp",
+  "file": "/Users/aaronher/Desktop/Engine3D/src/Engine3D/OpenGL/OpenGLUniformBuffer.cpp",
+  "output": "src/CMakeFiles/Engine3D.dir/Engine3D/OpenGL/OpenGLUniformBuffer.cpp.o"
+},
+{
+  "directory": "/Users/aaronher/Desktop/Engine3D/Debug/src",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++ -DFMT_SHARED -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -DSPDLOG_SHARED_LIB -I/Users/aaronher/Desktop/Engine3D/include -I/Users/aaronher/Desktop/Engine3D/include/Engine3D -I/Users/aaronher/Desktop/Engine3D/src/Engine3D -I/Users/aaronher/Desktop/Engine3D/src/.. -I/Users/aaronher/Desktop/Engine3D/src/../Engine3D -I/Users/aaronher/Desktop/Engine3D/src -F/Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/System/Library/Frameworks -isystem /opt/homebrew/include -isystem /usr/local/include -isystem /opt/homebrew/lib -g -std=c++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk -fvisibility=hidden -fvisibility-inlines-hidden -F/Library/Developer/CommandLineTools/SDKs/MacOSX12.sdk/System/Library/Frameworks  -fsanitize=address -o CMakeFiles/Engine3D.dir/Engine3D/Renderer3D/Renderer3D.cpp.o -c /Users/aaronher/Desktop/Engine3D/src/Engine3D/Renderer3D/Renderer3D.cpp",
+  "file": "/Users/aaronher/Desktop/Engine3D/src/Engine3D/Renderer3D/Renderer3D.cpp",
+  "output": "src/CMakeFiles/Engine3D.dir/Engine3D/Renderer3D/Renderer3D.cpp.o"
+},
+{
+  "directory": "/Users/aaronher/Desktop/Engine3D/Debug/src",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/cc -DFMT_SHARED -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -DSPDLOG_SHARED_LIB -I/Users/aaronher/Desktop/Engine3D/include -I/Users/aaronher/Desktop/Engine3D/include/Engine3D -I/Users/aaronher/Desktop/Engine3D/src/Engine3D -I/Users/aaronher/Desktop/Engine3D/src/.. -I/Users/aaronher/Desktop/Engine3D/src/../Engine3D -I/Users/aaronher/Desktop/Engine3D/src -F/Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/System/Library/Frameworks -isystem /opt/homebrew/include -isystem /usr/local/include -isystem /opt/homebrew/lib -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk -F/Library/Developer/CommandLineTools/SDKs/MacOSX12.sdk/System/Library/Frameworks  -fsanitize=address -o CMakeFiles/Engine3D.dir/Engine3D/platforms/Mac/nfd_cocoa.m.o -c /Users/aaronher/Desktop/Engine3D/src/Engine3D/platforms/Mac/nfd_cocoa.m",
+  "file": "/Users/aaronher/Desktop/Engine3D/src/Engine3D/platforms/Mac/nfd_cocoa.m",
+  "output": "src/CMakeFiles/Engine3D.dir/Engine3D/platforms/Mac/nfd_cocoa.m.o"
+}
+]

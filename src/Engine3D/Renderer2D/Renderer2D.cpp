@@ -8,39 +8,89 @@
 #include <Engine3D/Renderer/RenderCommand.h>
 
 namespace Engine3D{
+	/*
+	 * @class quadVertex
+	 * @note Initially contains our vertices data
+	 * @note These are data that will be used throughout the renderer
+	 * @note QuadVertex is used to storing vertices.
+	 *
+	 *
+	*/
 	struct quadVertex{
-		glm::vec3 pos; // contains position of the texture
-		glm::vec4 color; // color the texture contains
+		glm::vec3 pos; // @note contains position of the texture
+		glm::vec4 color; // @note color the texture contains
 		glm::vec2 texCoord;
-		float texIndex; // containing whatever texture we have (if zero then it'll sample from white texture and draw nothing)
+		float texIndex; // @note containing whatever texture we have (if zero then it'll sample from white texture and draw nothing)
 		float tilingFactor;
 
-		// Editor-only stuff
+		// @note Editor-only stuff
 		int entityID = 0;
 	};
-
-	// This data wont get deleted unless we delete this manually.
+	
+	/*
+	 * @class Renderer2DData
+	 * @note Storage class for storing our vertices into our buffers.
+	 * @note Manages the data stored and handling data before the rendering stage.
+	 * @note Keeps track of memory allocations, indices, textures slots effectively during the rendering process.
+	 * 
+	 * @param maxQuads
+	 * @note Setting what the max quads that can be rendered
+	 * 
+	 * @param maxVertices
+	 * @note Setting the max vertices that can be rendered.
+	 * 
+	 * @param maxIndices
+	 * @note Setting max indices vertices that can be rendered
+	 * 
+	 * @param maxTextureSlots
+	 * @note Setting max texture slots that can be attached.
+	 * @note Since this differentiates based on the platform.
+	 * 
+	 * @param quadVertexArray
+	 * @note Vertex Array for our draw quads every
+	 * 
+	 * @param quadVertexBuffer
+	 * @param textureShader
+	 * @param whiteTexture
+	 * @param quadIndexCount
+	 * 
+	 * @param quadVertexBufferBase: ptr
+	 * 
+	 * @param quadVertexBufferPtr
+	 * @note Everytime we make a draw call to drawQuad we add the data into this buffer
+	 * @note Storing all that information in this quadVertexBufferPtr.
+	 * 
+	 * @param textureSlots
+	 * @note Contains an array of texture slots that have been submitted to the renderer
+	 * 
+	 * @param quadVertexPositions
+	 * @note Used for keeping track of the quad vertex positions
+	 * 
+	 * @param Renderer2D::Statistics stats
+	 * @note
+	 * 
+	*/
 	struct Renderer2DData{
 		static const uint32_t maxQuads = 10000; // max for how many quads we can Render
 		static const uint32_t maxVertices = maxQuads * 4; // max of vertices we can have every single draw quad
 		static const uint32_t maxIndices = maxQuads * 6; // Since we have around 6 indices per quad
 		static const uint32_t maxTextureSlots = 16; // Mac = 16, Windows maybe = 32.
-		Ref<VertexArray> quadVertexArray;
-		Ref<VertexBuffer> quadVertexBuffer;
+		Ref<VertexArray> quadVertexArray; // @note Vertex array will contain all of our Vertex buffer, initially.
+		Ref<VertexBuffer> quadVertexBuffer; // @note Our actual vertex buffer.
 		Ref<Shader> textureShader;
 		Ref<Texture2D> whiteTexture;
-		uint32_t quadIndexCount = 0;
-		quadVertex* quadVertexBufferBase = nullptr;
+		uint32_t quadIndexCount = 0; // @note Keeping track of the base vertex buffer count
+		quadVertex* quadVertexBufferBase = nullptr; 
 		quadVertex* quadVertexBufferPtr = nullptr;
 
 		std::array<Ref<Texture2D>, maxTextureSlots> textureSlots;
-		uint32_t textureSlotIndex = 1; // 0 - white texture
-		glm::vec4 quadVertexPositions[4];
+		uint32_t textureSlotIndex = 1; // @note 0 - white texture
+		std::array<glm::vec4, 4> quadVertexPositions;
 
 		Renderer2D::Statistics stats;
 	};
 
-	static Renderer2DData _data; // So this could be unique to this translation unit
+	static Renderer2DData _data; // @note Unique to this translation unit
 
 	void Renderer2D::Init(){
 		RENDER_PROFILE_FUNCTION();
@@ -170,16 +220,15 @@ namespace Engine3D{
 		uint32_t dataSize = (uint8_t *)_data.quadVertexBufferPtr - (uint8_t *)_data.quadVertexBufferBase;
 		_data.quadVertexBuffer->setData(_data.quadVertexBufferBase, dataSize);
 
-		// Actually doing the rendering, essentially flushing
-		// Uploading data to GPU
 		flush();
 	}
 
 	void Renderer2D::flush(){
 		RENDER_PROFILE_FUNCTION();
 
-		// Iterating based on whatever textures we've submitted
-		// Binding the correct textures
+		// @note Binding all of our texture slots submitted with a renderer id (that is i).
+		// @note Essentially uploading data to the GPU
+		// @note Executing the actual rendering.
 		for(uint32_t i = 0; i < _data.textureSlotIndex; i++)
 			_data.textureSlots[i]->bind(i);
 		
