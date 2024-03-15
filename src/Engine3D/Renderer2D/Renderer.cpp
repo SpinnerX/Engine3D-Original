@@ -1,7 +1,7 @@
 #include <Engine3D/Engine3DPrecompiledHeader.h>
-#include <Engine3D/Renderer/Renderer.h>
+#include <Engine3D/Renderer2D/Renderer.h>
 #include <OpenGL/OpenGLShader.h>
-#include <Engine3D/Renderer/Renderer2D.h>
+#include <Engine3D/Renderer2D/Renderer2D.h>
 #include <Engine3D/Debug/Instrumentor.h>
 
 namespace Engine3D{

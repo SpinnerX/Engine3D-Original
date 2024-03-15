@@ -1,5 +1,5 @@
 #include <Engine3D/Engine3DPrecompiledHeader.h>
-#include <Engine3D/Renderer/EditorCamera.h>
+#include <Engine3D/Renderer2D/EditorCamera.h>
 #include <Engine3D/Events/KeyCodes.h>
 #include <Engine3D/Events/MouseButtonCodes.h>
 #include <Engine3D/Events/InputPoll.h>

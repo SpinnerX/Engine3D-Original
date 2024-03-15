@@ -1,5 +1,5 @@
 #pragma once
-#include <Engine3D/Scene/Scene.h>
+#include <Engine3D/Scene2D/Scene.h>
 #include <Engine3D/Core/EngineLogger.h>
 #include <Engine3D/Entt/entt.h>
 

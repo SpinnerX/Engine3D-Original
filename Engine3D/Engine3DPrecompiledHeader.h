@@ -39,7 +39,7 @@
 #include <Engine3D/Events/ApplicationEvent.h>
 
 #include <Engine3D/Core/EngineLogger.h>
-#include <Engine3D/Renderer/OrthographicCameraController.h>
+#include <Engine3D/Renderer2D/OrthographicCameraController.h>
 #include <Engine3D/Debug/Instrumentor.h>
 
 #include <fmt/ostream.h>

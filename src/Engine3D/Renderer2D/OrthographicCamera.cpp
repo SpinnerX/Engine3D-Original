@@ -1,5 +1,5 @@
 #include <Engine3D/Engine3DPrecompiledHeader.h>
-#include <Engine3D/Renderer/OrthographicCamera.h>
+#include <Engine3D/Renderer2D/OrthographicCamera.h>
 #include <glm/gtc/matrix_transform.hpp>
 #include <Engine3D/Debug/Instrumentor.h>
 

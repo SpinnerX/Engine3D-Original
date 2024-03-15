@@ -1,8 +1,8 @@
 #pragma once
 #include <Engine3D/Entt/entt.h>
 #include <Engine3D/Core/Timestep.h>
-#include <Engine3D/Renderer/Renderer2D.h>
-#include <Engine3D/Renderer/EditorCamera.h>
+#include <Engine3D/Renderer2D/Renderer2D.h>
+#include <Engine3D/Renderer2D/EditorCamera.h>
 
 
 class b2World;

@@ -1,11 +1,11 @@
 #include <Engine3D/Engine3DPrecompiledHeader.h>
-#include <Engine3D/Renderer/Renderer2D.h>
+#include <Engine3D/Renderer2D/Renderer2D.h>
 #include <Engine3D/interfaces/VertexArray.h>
-#include <Engine3D/Renderer/RenderCommand.h>
+#include <Engine3D/Renderer2D/RenderCommand.h>
 #include <OpenGL/OpenGLShader.h>
 #include <glm/gtc/matrix_transform.hpp>
-#include <Engine3D/Scene/Components.h>
-#include <Engine3D/Renderer/RenderCommand.h>
+#include <Engine3D/Scene2D/Components.h>
+#include <Engine3D/Renderer2D/RenderCommand.h>
 
 namespace Engine3D{
 	/*

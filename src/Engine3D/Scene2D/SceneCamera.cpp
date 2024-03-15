@@ -1,5 +1,5 @@
-#include <Engine3D/GameEnginePrecompiledHeader.h>
-#include <Engine3D/Scene/SceneCamera.h>
+#include <Engine3D/Engine3DPrecompiledHeader.h>
+#include <Engine3D/Scene2D/SceneCamera.h>
 #include <glm/gtc/matrix_transform.hpp>
 
 namespace Engine3D{

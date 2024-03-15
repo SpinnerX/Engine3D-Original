@@ -1,6 +1,6 @@
 #pragma once
-#include <Engine3D/Renderer/RenderCommand.h>
-#include <Engine3D/Renderer/OrthographicCamera.h>
+#include <Engine3D/Renderer2D/RenderCommand.h>
+#include <Engine3D/Renderer2D/OrthographicCamera.h>
 #include <Engine3D/interfaces/Shader.h>
 
 namespace Engine3D{

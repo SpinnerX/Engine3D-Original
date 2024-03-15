@@ -44,10 +44,10 @@ set(
   Engine3D/interfaces/SubTexture2D.cpp
   Engine3D/interfaces/Framebuffer.cpp
   Engine3D/OpenGL/OpenGLFramebuffer.cpp
-  Engine3D/Scene/Scene.cpp
-  Engine3D/Scene/Entity.cpp
-  Engine3D/Scene/SceneCamera.cpp
-  Engine3D/Scene/SceneSerializer.cpp
+  Engine3D/Scene2D/Scene.cpp
+  Engine3D/Scene2D/Entity.cpp
+  Engine3D/Scene2D/SceneCamera.cpp
+  Engine3D/Scene2D/SceneSerializer.cpp
   Engine3D/image/stb_image.cpp
 
   Engine3D/platforms/Mac/MacPlatformUtils.cpp

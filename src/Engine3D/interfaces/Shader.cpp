@@ -1,6 +1,6 @@
 #include <Engine3D/Engine3DPrecompiledHeader.h>
 #include <Engine3D/interfaces/Shader.h>
-#include <Engine3D/Renderer/Renderer.h>
+#include <Engine3D/Renderer2D/Renderer.h>
 #include <OpenGL/OpenGLShader.h>
 
 namespace Engine3D{

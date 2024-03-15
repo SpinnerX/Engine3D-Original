@@ -1,7 +1,7 @@
 #include <Engine3D/Engine3DPrecompiledHeader.h>
-#include <Engine3D/Scene/SceneSerializer.h>
-#include <Engine3D/Scene/Entity.h>
-#include <Engine3D/Scene/Components.h>
+#include <Engine3D/Scene2D/SceneSerializer.h>
+#include <Engine3D/Scene2D/Entity.h>
+#include <Engine3D/Scene2D/Components.h>
 #include <fstream>
 #include <yaml-cpp/yaml.h>
 

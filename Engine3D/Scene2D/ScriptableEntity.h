@@ -1,5 +1,5 @@
 #pragma once
-#include <Engine3D/Scene/Entity.h>
+#include <Engine3D/Scene2D/Entity.h>
 
 namespace Engine3D{
 	/*

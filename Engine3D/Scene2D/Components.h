@@ -1,7 +1,7 @@
 #pragma once
-#include <Engine3D/Renderer/OrthographicCamera.h>
-#include <Engine3D/Scene/SceneCamera.h>
-#include <Engine3D/Scene/ScriptableEntity.h>
+#include <Engine3D/Renderer2D/OrthographicCamera.h>
+#include <Engine3D/Scene2D/SceneCamera.h>
+#include <Engine3D/Scene2D/ScriptableEntity.h>
 #include <glm/gtc/matrix_transform.hpp>
 
 #define GLM_ENABLE_EXPERIEMENTAL

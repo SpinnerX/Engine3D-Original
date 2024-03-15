@@ -1,9 +1,9 @@
 #pragma once
-#include <Engine3D/Renderer/OrthographicCamera.h>
+#include <Engine3D/Renderer2D/OrthographicCamera.h>
 #include <Engine3D/interfaces/Camera.h> // TODO: May need to remove this..
 #include <Engine3D/interfaces/Texture.h>
 #include <Engine3D/interfaces/SubTexture2D.h>
-#include <Engine3D/Renderer/EditorCamera.h>
+#include <Engine3D/Renderer2D/EditorCamera.h>
 
 namespace Engine3D{
 

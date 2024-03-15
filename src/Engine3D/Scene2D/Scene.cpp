@@ -1,8 +1,8 @@
 #include <Engine3D/Engine3DPrecompiledHeader.h>
-#include <Engine3D/Scene/Scene.h>
+#include <Engine3D/Scene2D/Scene.h>
 #include <glm/glm.hpp>
-#include <Engine3D/Scene/Components.h>
-#include <Engine3D/Scene/Entity.h>
+#include <Engine3D/Scene2D/Components.h>
+#include <Engine3D/Scene2D/Entity.h>
 
 // @note box2D related includes
 #include <box2d/box2d.h>

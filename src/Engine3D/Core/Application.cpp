@@ -1,7 +1,7 @@
 #include <Engine3D/Core/Application.h>
 #include <Engine3D/Core/EngineLogger.h>
 #include <Engine3D/Events/ApplicationEvent.h>
-#include <Engine3D/Renderer/Renderer.h>
+#include <Engine3D/Renderer2D/Renderer.h>
 #include <GLFW/glfw3.h>
 
 namespace Engine3D{
