@@ -461,61 +461,61 @@ src/CMakeFiles/Engine3D.dir/Engine3D/OpenGL/OpenGLFramebuffer.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/Engine3D.dir/Engine3D/OpenGL/OpenGLFramebuffer.cpp.s"
 	cd /Users/aaronher/Desktop/Engine3D/Debug/src && /Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/aaronher/Desktop/Engine3D/src/Engine3D/OpenGL/OpenGLFramebuffer.cpp -o CMakeFiles/Engine3D.dir/Engine3D/OpenGL/OpenGLFramebuffer.cpp.s
 
-src/CMakeFiles/Engine3D.dir/Engine3D/Scene/Scene.cpp.o: src/CMakeFiles/Engine3D.dir/flags.make
-src/CMakeFiles/Engine3D.dir/Engine3D/Scene/Scene.cpp.o: /Users/aaronher/Desktop/Engine3D/src/Engine3D/Scene/Scene.cpp
-src/CMakeFiles/Engine3D.dir/Engine3D/Scene/Scene.cpp.o: src/CMakeFiles/Engine3D.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/aaronher/Desktop/Engine3D/Debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_29) "Building CXX object src/CMakeFiles/Engine3D.dir/Engine3D/Scene/Scene.cpp.o"
-	cd /Users/aaronher/Desktop/Engine3D/Debug/src && /Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT src/CMakeFiles/Engine3D.dir/Engine3D/Scene/Scene.cpp.o -MF CMakeFiles/Engine3D.dir/Engine3D/Scene/Scene.cpp.o.d -o CMakeFiles/Engine3D.dir/Engine3D/Scene/Scene.cpp.o -c /Users/aaronher/Desktop/Engine3D/src/Engine3D/Scene/Scene.cpp
+src/CMakeFiles/Engine3D.dir/Engine3D/Scene2D/Scene.cpp.o: src/CMakeFiles/Engine3D.dir/flags.make
+src/CMakeFiles/Engine3D.dir/Engine3D/Scene2D/Scene.cpp.o: /Users/aaronher/Desktop/Engine3D/src/Engine3D/Scene2D/Scene.cpp
+src/CMakeFiles/Engine3D.dir/Engine3D/Scene2D/Scene.cpp.o: src/CMakeFiles/Engine3D.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/aaronher/Desktop/Engine3D/Debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_29) "Building CXX object src/CMakeFiles/Engine3D.dir/Engine3D/Scene2D/Scene.cpp.o"
+	cd /Users/aaronher/Desktop/Engine3D/Debug/src && /Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT src/CMakeFiles/Engine3D.dir/Engine3D/Scene2D/Scene.cpp.o -MF CMakeFiles/Engine3D.dir/Engine3D/Scene2D/Scene.cpp.o.d -o CMakeFiles/Engine3D.dir/Engine3D/Scene2D/Scene.cpp.o -c /Users/aaronher/Desktop/Engine3D/src/Engine3D/Scene2D/Scene.cpp
 
-src/CMakeFiles/Engine3D.dir/Engine3D/Scene/Scene.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/Engine3D.dir/Engine3D/Scene/Scene.cpp.i"
-	cd /Users/aaronher/Desktop/Engine3D/Debug/src && /Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/aaronher/Desktop/Engine3D/src/Engine3D/Scene/Scene.cpp > CMakeFiles/Engine3D.dir/Engine3D/Scene/Scene.cpp.i
+src/CMakeFiles/Engine3D.dir/Engine3D/Scene2D/Scene.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/Engine3D.dir/Engine3D/Scene2D/Scene.cpp.i"
+	cd /Users/aaronher/Desktop/Engine3D/Debug/src && /Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/aaronher/Desktop/Engine3D/src/Engine3D/Scene2D/Scene.cpp > CMakeFiles/Engine3D.dir/Engine3D/Scene2D/Scene.cpp.i
 
-src/CMakeFiles/Engine3D.dir/Engine3D/Scene/Scene.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/Engine3D.dir/Engine3D/Scene/Scene.cpp.s"
-	cd /Users/aaronher/Desktop/Engine3D/Debug/src && /Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/aaronher/Desktop/Engine3D/src/Engine3D/Scene/Scene.cpp -o CMakeFiles/Engine3D.dir/Engine3D/Scene/Scene.cpp.s
+src/CMakeFiles/Engine3D.dir/Engine3D/Scene2D/Scene.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/Engine3D.dir/Engine3D/Scene2D/Scene.cpp.s"
+	cd /Users/aaronher/Desktop/Engine3D/Debug/src && /Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/aaronher/Desktop/Engine3D/src/Engine3D/Scene2D/Scene.cpp -o CMakeFiles/Engine3D.dir/Engine3D/Scene2D/Scene.cpp.s
 
-src/CMakeFiles/Engine3D.dir/Engine3D/Scene/Entity.cpp.o: src/CMakeFiles/Engine3D.dir/flags.make
-src/CMakeFiles/Engine3D.dir/Engine3D/Scene/Entity.cpp.o: /Users/aaronher/Desktop/Engine3D/src/Engine3D/Scene/Entity.cpp
-src/CMakeFiles/Engine3D.dir/Engine3D/Scene/Entity.cpp.o: src/CMakeFiles/Engine3D.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/aaronher/Desktop/Engine3D/Debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_30) "Building CXX object src/CMakeFiles/Engine3D.dir/Engine3D/Scene/Entity.cpp.o"
-	cd /Users/aaronher/Desktop/Engine3D/Debug/src && /Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT src/CMakeFiles/Engine3D.dir/Engine3D/Scene/Entity.cpp.o -MF CMakeFiles/Engine3D.dir/Engine3D/Scene/Entity.cpp.o.d -o CMakeFiles/Engine3D.dir/Engine3D/Scene/Entity.cpp.o -c /Users/aaronher/Desktop/Engine3D/src/Engine3D/Scene/Entity.cpp
+src/CMakeFiles/Engine3D.dir/Engine3D/Scene2D/Entity.cpp.o: src/CMakeFiles/Engine3D.dir/flags.make
+src/CMakeFiles/Engine3D.dir/Engine3D/Scene2D/Entity.cpp.o: /Users/aaronher/Desktop/Engine3D/src/Engine3D/Scene2D/Entity.cpp
+src/CMakeFiles/Engine3D.dir/Engine3D/Scene2D/Entity.cpp.o: src/CMakeFiles/Engine3D.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/aaronher/Desktop/Engine3D/Debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_30) "Building CXX object src/CMakeFiles/Engine3D.dir/Engine3D/Scene2D/Entity.cpp.o"
+	cd /Users/aaronher/Desktop/Engine3D/Debug/src && /Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT src/CMakeFiles/Engine3D.dir/Engine3D/Scene2D/Entity.cpp.o -MF CMakeFiles/Engine3D.dir/Engine3D/Scene2D/Entity.cpp.o.d -o CMakeFiles/Engine3D.dir/Engine3D/Scene2D/Entity.cpp.o -c /Users/aaronher/Desktop/Engine3D/src/Engine3D/Scene2D/Entity.cpp
 
-src/CMakeFiles/Engine3D.dir/Engine3D/Scene/Entity.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/Engine3D.dir/Engine3D/Scene/Entity.cpp.i"
-	cd /Users/aaronher/Desktop/Engine3D/Debug/src && /Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/aaronher/Desktop/Engine3D/src/Engine3D/Scene/Entity.cpp > CMakeFiles/Engine3D.dir/Engine3D/Scene/Entity.cpp.i
+src/CMakeFiles/Engine3D.dir/Engine3D/Scene2D/Entity.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/Engine3D.dir/Engine3D/Scene2D/Entity.cpp.i"
+	cd /Users/aaronher/Desktop/Engine3D/Debug/src && /Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/aaronher/Desktop/Engine3D/src/Engine3D/Scene2D/Entity.cpp > CMakeFiles/Engine3D.dir/Engine3D/Scene2D/Entity.cpp.i
 
-src/CMakeFiles/Engine3D.dir/Engine3D/Scene/Entity.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/Engine3D.dir/Engine3D/Scene/Entity.cpp.s"
-	cd /Users/aaronher/Desktop/Engine3D/Debug/src && /Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/aaronher/Desktop/Engine3D/src/Engine3D/Scene/Entity.cpp -o CMakeFiles/Engine3D.dir/Engine3D/Scene/Entity.cpp.s
+src/CMakeFiles/Engine3D.dir/Engine3D/Scene2D/Entity.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/Engine3D.dir/Engine3D/Scene2D/Entity.cpp.s"
+	cd /Users/aaronher/Desktop/Engine3D/Debug/src && /Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/aaronher/Desktop/Engine3D/src/Engine3D/Scene2D/Entity.cpp -o CMakeFiles/Engine3D.dir/Engine3D/Scene2D/Entity.cpp.s
 
-src/CMakeFiles/Engine3D.dir/Engine3D/Scene/SceneCamera.cpp.o: src/CMakeFiles/Engine3D.dir/flags.make
-src/CMakeFiles/Engine3D.dir/Engine3D/Scene/SceneCamera.cpp.o: /Users/aaronher/Desktop/Engine3D/src/Engine3D/Scene/SceneCamera.cpp
-src/CMakeFiles/Engine3D.dir/Engine3D/Scene/SceneCamera.cpp.o: src/CMakeFiles/Engine3D.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/aaronher/Desktop/Engine3D/Debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_31) "Building CXX object src/CMakeFiles/Engine3D.dir/Engine3D/Scene/SceneCamera.cpp.o"
-	cd /Users/aaronher/Desktop/Engine3D/Debug/src && /Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT src/CMakeFiles/Engine3D.dir/Engine3D/Scene/SceneCamera.cpp.o -MF CMakeFiles/Engine3D.dir/Engine3D/Scene/SceneCamera.cpp.o.d -o CMakeFiles/Engine3D.dir/Engine3D/Scene/SceneCamera.cpp.o -c /Users/aaronher/Desktop/Engine3D/src/Engine3D/Scene/SceneCamera.cpp
+src/CMakeFiles/Engine3D.dir/Engine3D/Scene2D/SceneCamera.cpp.o: src/CMakeFiles/Engine3D.dir/flags.make
+src/CMakeFiles/Engine3D.dir/Engine3D/Scene2D/SceneCamera.cpp.o: /Users/aaronher/Desktop/Engine3D/src/Engine3D/Scene2D/SceneCamera.cpp
+src/CMakeFiles/Engine3D.dir/Engine3D/Scene2D/SceneCamera.cpp.o: src/CMakeFiles/Engine3D.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/aaronher/Desktop/Engine3D/Debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_31) "Building CXX object src/CMakeFiles/Engine3D.dir/Engine3D/Scene2D/SceneCamera.cpp.o"
+	cd /Users/aaronher/Desktop/Engine3D/Debug/src && /Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT src/CMakeFiles/Engine3D.dir/Engine3D/Scene2D/SceneCamera.cpp.o -MF CMakeFiles/Engine3D.dir/Engine3D/Scene2D/SceneCamera.cpp.o.d -o CMakeFiles/Engine3D.dir/Engine3D/Scene2D/SceneCamera.cpp.o -c /Users/aaronher/Desktop/Engine3D/src/Engine3D/Scene2D/SceneCamera.cpp
 
-src/CMakeFiles/Engine3D.dir/Engine3D/Scene/SceneCamera.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/Engine3D.dir/Engine3D/Scene/SceneCamera.cpp.i"
-	cd /Users/aaronher/Desktop/Engine3D/Debug/src && /Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/aaronher/Desktop/Engine3D/src/Engine3D/Scene/SceneCamera.cpp > CMakeFiles/Engine3D.dir/Engine3D/Scene/SceneCamera.cpp.i
+src/CMakeFiles/Engine3D.dir/Engine3D/Scene2D/SceneCamera.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/Engine3D.dir/Engine3D/Scene2D/SceneCamera.cpp.i"
+	cd /Users/aaronher/Desktop/Engine3D/Debug/src && /Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/aaronher/Desktop/Engine3D/src/Engine3D/Scene2D/SceneCamera.cpp > CMakeFiles/Engine3D.dir/Engine3D/Scene2D/SceneCamera.cpp.i
 
-src/CMakeFiles/Engine3D.dir/Engine3D/Scene/SceneCamera.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/Engine3D.dir/Engine3D/Scene/SceneCamera.cpp.s"
-	cd /Users/aaronher/Desktop/Engine3D/Debug/src && /Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/aaronher/Desktop/Engine3D/src/Engine3D/Scene/SceneCamera.cpp -o CMakeFiles/Engine3D.dir/Engine3D/Scene/SceneCamera.cpp.s
+src/CMakeFiles/Engine3D.dir/Engine3D/Scene2D/SceneCamera.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/Engine3D.dir/Engine3D/Scene2D/SceneCamera.cpp.s"
+	cd /Users/aaronher/Desktop/Engine3D/Debug/src && /Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/aaronher/Desktop/Engine3D/src/Engine3D/Scene2D/SceneCamera.cpp -o CMakeFiles/Engine3D.dir/Engine3D/Scene2D/SceneCamera.cpp.s
 
-src/CMakeFiles/Engine3D.dir/Engine3D/Scene/SceneSerializer.cpp.o: src/CMakeFiles/Engine3D.dir/flags.make
-src/CMakeFiles/Engine3D.dir/Engine3D/Scene/SceneSerializer.cpp.o: /Users/aaronher/Desktop/Engine3D/src/Engine3D/Scene/SceneSerializer.cpp
-src/CMakeFiles/Engine3D.dir/Engine3D/Scene/SceneSerializer.cpp.o: src/CMakeFiles/Engine3D.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/aaronher/Desktop/Engine3D/Debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_32) "Building CXX object src/CMakeFiles/Engine3D.dir/Engine3D/Scene/SceneSerializer.cpp.o"
-	cd /Users/aaronher/Desktop/Engine3D/Debug/src && /Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT src/CMakeFiles/Engine3D.dir/Engine3D/Scene/SceneSerializer.cpp.o -MF CMakeFiles/Engine3D.dir/Engine3D/Scene/SceneSerializer.cpp.o.d -o CMakeFiles/Engine3D.dir/Engine3D/Scene/SceneSerializer.cpp.o -c /Users/aaronher/Desktop/Engine3D/src/Engine3D/Scene/SceneSerializer.cpp
+src/CMakeFiles/Engine3D.dir/Engine3D/Scene2D/SceneSerializer.cpp.o: src/CMakeFiles/Engine3D.dir/flags.make
+src/CMakeFiles/Engine3D.dir/Engine3D/Scene2D/SceneSerializer.cpp.o: /Users/aaronher/Desktop/Engine3D/src/Engine3D/Scene2D/SceneSerializer.cpp
+src/CMakeFiles/Engine3D.dir/Engine3D/Scene2D/SceneSerializer.cpp.o: src/CMakeFiles/Engine3D.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/aaronher/Desktop/Engine3D/Debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_32) "Building CXX object src/CMakeFiles/Engine3D.dir/Engine3D/Scene2D/SceneSerializer.cpp.o"
+	cd /Users/aaronher/Desktop/Engine3D/Debug/src && /Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT src/CMakeFiles/Engine3D.dir/Engine3D/Scene2D/SceneSerializer.cpp.o -MF CMakeFiles/Engine3D.dir/Engine3D/Scene2D/SceneSerializer.cpp.o.d -o CMakeFiles/Engine3D.dir/Engine3D/Scene2D/SceneSerializer.cpp.o -c /Users/aaronher/Desktop/Engine3D/src/Engine3D/Scene2D/SceneSerializer.cpp
 
-src/CMakeFiles/Engine3D.dir/Engine3D/Scene/SceneSerializer.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/Engine3D.dir/Engine3D/Scene/SceneSerializer.cpp.i"
-	cd /Users/aaronher/Desktop/Engine3D/Debug/src && /Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/aaronher/Desktop/Engine3D/src/Engine3D/Scene/SceneSerializer.cpp > CMakeFiles/Engine3D.dir/Engine3D/Scene/SceneSerializer.cpp.i
+src/CMakeFiles/Engine3D.dir/Engine3D/Scene2D/SceneSerializer.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/Engine3D.dir/Engine3D/Scene2D/SceneSerializer.cpp.i"
+	cd /Users/aaronher/Desktop/Engine3D/Debug/src && /Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/aaronher/Desktop/Engine3D/src/Engine3D/Scene2D/SceneSerializer.cpp > CMakeFiles/Engine3D.dir/Engine3D/Scene2D/SceneSerializer.cpp.i
 
-src/CMakeFiles/Engine3D.dir/Engine3D/Scene/SceneSerializer.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/Engine3D.dir/Engine3D/Scene/SceneSerializer.cpp.s"
-	cd /Users/aaronher/Desktop/Engine3D/Debug/src && /Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/aaronher/Desktop/Engine3D/src/Engine3D/Scene/SceneSerializer.cpp -o CMakeFiles/Engine3D.dir/Engine3D/Scene/SceneSerializer.cpp.s
+src/CMakeFiles/Engine3D.dir/Engine3D/Scene2D/SceneSerializer.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/Engine3D.dir/Engine3D/Scene2D/SceneSerializer.cpp.s"
+	cd /Users/aaronher/Desktop/Engine3D/Debug/src && /Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/aaronher/Desktop/Engine3D/src/Engine3D/Scene2D/SceneSerializer.cpp -o CMakeFiles/Engine3D.dir/Engine3D/Scene2D/SceneSerializer.cpp.s
 
 src/CMakeFiles/Engine3D.dir/Engine3D/image/stb_image.cpp.o: src/CMakeFiles/Engine3D.dir/flags.make
 src/CMakeFiles/Engine3D.dir/Engine3D/image/stb_image.cpp.o: /Users/aaronher/Desktop/Engine3D/src/Engine3D/image/stb_image.cpp
@@ -615,10 +615,24 @@ src/CMakeFiles/Engine3D.dir/Engine3D/Renderer3D/Renderer3D.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/Engine3D.dir/Engine3D/Renderer3D/Renderer3D.cpp.s"
 	cd /Users/aaronher/Desktop/Engine3D/Debug/src && /Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/aaronher/Desktop/Engine3D/src/Engine3D/Renderer3D/Renderer3D.cpp -o CMakeFiles/Engine3D.dir/Engine3D/Renderer3D/Renderer3D.cpp.s
 
+src/CMakeFiles/Engine3D.dir/Engine3D/OpenGL/OpenGLBuffer3D.cpp.o: src/CMakeFiles/Engine3D.dir/flags.make
+src/CMakeFiles/Engine3D.dir/Engine3D/OpenGL/OpenGLBuffer3D.cpp.o: /Users/aaronher/Desktop/Engine3D/src/Engine3D/OpenGL/OpenGLBuffer3D.cpp
+src/CMakeFiles/Engine3D.dir/Engine3D/OpenGL/OpenGLBuffer3D.cpp.o: src/CMakeFiles/Engine3D.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/aaronher/Desktop/Engine3D/Debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_40) "Building CXX object src/CMakeFiles/Engine3D.dir/Engine3D/OpenGL/OpenGLBuffer3D.cpp.o"
+	cd /Users/aaronher/Desktop/Engine3D/Debug/src && /Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT src/CMakeFiles/Engine3D.dir/Engine3D/OpenGL/OpenGLBuffer3D.cpp.o -MF CMakeFiles/Engine3D.dir/Engine3D/OpenGL/OpenGLBuffer3D.cpp.o.d -o CMakeFiles/Engine3D.dir/Engine3D/OpenGL/OpenGLBuffer3D.cpp.o -c /Users/aaronher/Desktop/Engine3D/src/Engine3D/OpenGL/OpenGLBuffer3D.cpp
+
+src/CMakeFiles/Engine3D.dir/Engine3D/OpenGL/OpenGLBuffer3D.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/Engine3D.dir/Engine3D/OpenGL/OpenGLBuffer3D.cpp.i"
+	cd /Users/aaronher/Desktop/Engine3D/Debug/src && /Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/aaronher/Desktop/Engine3D/src/Engine3D/OpenGL/OpenGLBuffer3D.cpp > CMakeFiles/Engine3D.dir/Engine3D/OpenGL/OpenGLBuffer3D.cpp.i
+
+src/CMakeFiles/Engine3D.dir/Engine3D/OpenGL/OpenGLBuffer3D.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/Engine3D.dir/Engine3D/OpenGL/OpenGLBuffer3D.cpp.s"
+	cd /Users/aaronher/Desktop/Engine3D/Debug/src && /Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/aaronher/Desktop/Engine3D/src/Engine3D/OpenGL/OpenGLBuffer3D.cpp -o CMakeFiles/Engine3D.dir/Engine3D/OpenGL/OpenGLBuffer3D.cpp.s
+
 src/CMakeFiles/Engine3D.dir/Engine3D/platforms/Mac/nfd_cocoa.m.o: src/CMakeFiles/Engine3D.dir/flags.make
 src/CMakeFiles/Engine3D.dir/Engine3D/platforms/Mac/nfd_cocoa.m.o: /Users/aaronher/Desktop/Engine3D/src/Engine3D/platforms/Mac/nfd_cocoa.m
 src/CMakeFiles/Engine3D.dir/Engine3D/platforms/Mac/nfd_cocoa.m.o: src/CMakeFiles/Engine3D.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/aaronher/Desktop/Engine3D/Debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_40) "Building C object src/CMakeFiles/Engine3D.dir/Engine3D/platforms/Mac/nfd_cocoa.m.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/aaronher/Desktop/Engine3D/Debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_41) "Building C object src/CMakeFiles/Engine3D.dir/Engine3D/platforms/Mac/nfd_cocoa.m.o"
 	cd /Users/aaronher/Desktop/Engine3D/Debug/src && /Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT src/CMakeFiles/Engine3D.dir/Engine3D/platforms/Mac/nfd_cocoa.m.o -MF CMakeFiles/Engine3D.dir/Engine3D/platforms/Mac/nfd_cocoa.m.o.d -o CMakeFiles/Engine3D.dir/Engine3D/platforms/Mac/nfd_cocoa.m.o -c /Users/aaronher/Desktop/Engine3D/src/Engine3D/platforms/Mac/nfd_cocoa.m
 
 src/CMakeFiles/Engine3D.dir/Engine3D/platforms/Mac/nfd_cocoa.m.i: cmake_force
@@ -659,10 +673,10 @@ Engine3D_OBJECTS = \
 "CMakeFiles/Engine3D.dir/Engine3D/interfaces/SubTexture2D.cpp.o" \
 "CMakeFiles/Engine3D.dir/Engine3D/interfaces/Framebuffer.cpp.o" \
 "CMakeFiles/Engine3D.dir/Engine3D/OpenGL/OpenGLFramebuffer.cpp.o" \
-"CMakeFiles/Engine3D.dir/Engine3D/Scene/Scene.cpp.o" \
-"CMakeFiles/Engine3D.dir/Engine3D/Scene/Entity.cpp.o" \
-"CMakeFiles/Engine3D.dir/Engine3D/Scene/SceneCamera.cpp.o" \
-"CMakeFiles/Engine3D.dir/Engine3D/Scene/SceneSerializer.cpp.o" \
+"CMakeFiles/Engine3D.dir/Engine3D/Scene2D/Scene.cpp.o" \
+"CMakeFiles/Engine3D.dir/Engine3D/Scene2D/Entity.cpp.o" \
+"CMakeFiles/Engine3D.dir/Engine3D/Scene2D/SceneCamera.cpp.o" \
+"CMakeFiles/Engine3D.dir/Engine3D/Scene2D/SceneSerializer.cpp.o" \
 "CMakeFiles/Engine3D.dir/Engine3D/image/stb_image.cpp.o" \
 "CMakeFiles/Engine3D.dir/Engine3D/platforms/Mac/MacPlatformUtils.cpp.o" \
 "CMakeFiles/Engine3D.dir/Engine3D/Math/Math.cpp.o" \
@@ -670,6 +684,7 @@ Engine3D_OBJECTS = \
 "CMakeFiles/Engine3D.dir/Engine3D/interfaces/UniformBuffer.cpp.o" \
 "CMakeFiles/Engine3D.dir/Engine3D/OpenGL/OpenGLUniformBuffer.cpp.o" \
 "CMakeFiles/Engine3D.dir/Engine3D/Renderer3D/Renderer3D.cpp.o" \
+"CMakeFiles/Engine3D.dir/Engine3D/OpenGL/OpenGLBuffer3D.cpp.o" \
 "CMakeFiles/Engine3D.dir/Engine3D/platforms/Mac/nfd_cocoa.m.o"
 
 # External object files for target Engine3D
@@ -703,10 +718,10 @@ src/libEngine3D.a: src/CMakeFiles/Engine3D.dir/Engine3D/Renderer2D/Renderer2D.cp
 src/libEngine3D.a: src/CMakeFiles/Engine3D.dir/Engine3D/interfaces/SubTexture2D.cpp.o
 src/libEngine3D.a: src/CMakeFiles/Engine3D.dir/Engine3D/interfaces/Framebuffer.cpp.o
 src/libEngine3D.a: src/CMakeFiles/Engine3D.dir/Engine3D/OpenGL/OpenGLFramebuffer.cpp.o
-src/libEngine3D.a: src/CMakeFiles/Engine3D.dir/Engine3D/Scene/Scene.cpp.o
-src/libEngine3D.a: src/CMakeFiles/Engine3D.dir/Engine3D/Scene/Entity.cpp.o
-src/libEngine3D.a: src/CMakeFiles/Engine3D.dir/Engine3D/Scene/SceneCamera.cpp.o
-src/libEngine3D.a: src/CMakeFiles/Engine3D.dir/Engine3D/Scene/SceneSerializer.cpp.o
+src/libEngine3D.a: src/CMakeFiles/Engine3D.dir/Engine3D/Scene2D/Scene.cpp.o
+src/libEngine3D.a: src/CMakeFiles/Engine3D.dir/Engine3D/Scene2D/Entity.cpp.o
+src/libEngine3D.a: src/CMakeFiles/Engine3D.dir/Engine3D/Scene2D/SceneCamera.cpp.o
+src/libEngine3D.a: src/CMakeFiles/Engine3D.dir/Engine3D/Scene2D/SceneSerializer.cpp.o
 src/libEngine3D.a: src/CMakeFiles/Engine3D.dir/Engine3D/image/stb_image.cpp.o
 src/libEngine3D.a: src/CMakeFiles/Engine3D.dir/Engine3D/platforms/Mac/MacPlatformUtils.cpp.o
 src/libEngine3D.a: src/CMakeFiles/Engine3D.dir/Engine3D/Math/Math.cpp.o
@@ -714,10 +729,11 @@ src/libEngine3D.a: src/CMakeFiles/Engine3D.dir/Engine3D/Renderer2D/EditorCamera.
 src/libEngine3D.a: src/CMakeFiles/Engine3D.dir/Engine3D/interfaces/UniformBuffer.cpp.o
 src/libEngine3D.a: src/CMakeFiles/Engine3D.dir/Engine3D/OpenGL/OpenGLUniformBuffer.cpp.o
 src/libEngine3D.a: src/CMakeFiles/Engine3D.dir/Engine3D/Renderer3D/Renderer3D.cpp.o
+src/libEngine3D.a: src/CMakeFiles/Engine3D.dir/Engine3D/OpenGL/OpenGLBuffer3D.cpp.o
 src/libEngine3D.a: src/CMakeFiles/Engine3D.dir/Engine3D/platforms/Mac/nfd_cocoa.m.o
 src/libEngine3D.a: src/CMakeFiles/Engine3D.dir/build.make
 src/libEngine3D.a: src/CMakeFiles/Engine3D.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/aaronher/Desktop/Engine3D/Debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_41) "Linking CXX static library libEngine3D.a"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/aaronher/Desktop/Engine3D/Debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_42) "Linking CXX static library libEngine3D.a"
 	cd /Users/aaronher/Desktop/Engine3D/Debug/src && $(CMAKE_COMMAND) -P CMakeFiles/Engine3D.dir/cmake_clean_target.cmake
 	cd /Users/aaronher/Desktop/Engine3D/Debug/src && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/Engine3D.dir/link.txt --verbose=$(VERBOSE)
 

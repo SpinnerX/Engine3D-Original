@@ -169,6 +169,13 @@ namespace Engine3D{
         uint32_t _stride = 0;
     };
 
+
+	enum class VertexBufferUsage{
+		NONE=0,
+		STATIC=1,
+		DYNAMIC=2
+	};
+
     // Vertex Buffer (what does a vertex buffer need?)
     // - Needs a bind()
     // - 
@@ -187,8 +194,40 @@ namespace Engine3D{
 		static Ref<VertexBuffer> Create(uint32_t size);
 
         static Ref<VertexBuffer> Create(float* vertices, uint32_t size);
-
     };
+
+	class VertexBuffer3D{
+	public:
+		virtual ~VertexBuffer3D(){}
+
+		virtual void bind() const = 0;
+		virtual void unbind() const = 0;
+
+		virtual void setLayout(const BufferLayout& latout) = 0;
+
+		virtual void setData(const void* data, uint32_t size) = 0;
+
+		static Ref<VertexBuffer3D> Create(uint32_t size);
+		
+		
+		/*
+		 * @function Create(data, size)
+		 * @param T
+		 * @note When creating a vertex buffer we can specify what data to create for the VertexBuffer
+		 * 
+		 * @param SIZE
+		 * @note In compile-time telling how large this vertex buffer should be.
+		 *
+		 * @usage: Ref<VertexBuffer3D> buffer = VertexBuffer3D::Create<uint8_t, 10>(data, size);
+		*/
+		template<auto SIZE, typename T>
+		static Ref<VertexBuffer3D> Create(T* data){
+			return VertexBuffer3D::Create(data, SIZE);
+		}
+
+	private:
+		static Ref<VertexBuffer3D> Create(void* data, uint32_t size);
+	};
 	
 	// Currently the engine only supports 32-bit index buffers
     class IndexBuffer{

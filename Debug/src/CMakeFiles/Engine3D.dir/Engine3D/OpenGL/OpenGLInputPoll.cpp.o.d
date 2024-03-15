@@ -1,7 +1,7 @@
 src/CMakeFiles/Engine3D.dir/Engine3D/OpenGL/OpenGLInputPoll.cpp.o: \
   /Library/Developer/CommandLineTools/usr/lib/clang/15.0.0/share/asan_ignorelist.txt \
-  /Users/aaronher/Desktop/Engine3D-Linux/src/Engine3D/OpenGL/OpenGLInputPoll.cpp \
-  /Users/aaronher/Desktop/Engine3D-Linux/src/../Engine3D/Engine3DPrecompiledHeader.h \
+  /Users/aaronher/Desktop/Engine3D/src/Engine3D/OpenGL/OpenGLInputPoll.cpp \
+  /Users/aaronher/Desktop/Engine3D/src/../Engine3D/Engine3DPrecompiledHeader.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/cstdarg \
   /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/__assert \
   /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/__config \
@@ -775,11 +775,14 @@ src/CMakeFiles/Engine3D.dir/Engine3D/OpenGL/OpenGLInputPoll.cpp.o: \
   /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/_types/_nl_item.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/__bsd_locale_defaults.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/unordered_set \
-  /usr/local/include/Engine3D/Events/ApplicationEvent.h \
-  /usr/local/include/Engine3D/Events/Event.h \
-  /usr/local/include/Engine3D/Core/core.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/thread \
+  /usr/local/include/glad/glad.h /opt/homebrew/include/KHR/khrplatform.h \
+  /opt/homebrew/include/GLFW/glfw3.h \
+  /Users/aaronher/Desktop/Engine3D/src/../Engine3D/Events/ApplicationEvent.h \
+  /Users/aaronher/Desktop/Engine3D/src/../Engine3D/Events/Event.h \
+  /Users/aaronher/Desktop/Engine3D/src/../Engine3D/Core/core.h \
   /opt/homebrew/include/fmt/format.h /opt/homebrew/include/fmt/core.h \
-  /usr/local/include/Engine3D/Core/EngineLogger.h \
+  /Users/aaronher/Desktop/Engine3D/src/../Engine3D/Core/EngineLogger.h \
   /opt/homebrew/include/spdlog/spdlog.h \
   /opt/homebrew/include/spdlog/common.h \
   /opt/homebrew/include/spdlog/tweakme.h \
@@ -807,7 +810,6 @@ src/CMakeFiles/Engine3D.dir/Engine3D/OpenGL/OpenGLInputPoll.cpp.o: \
   /opt/homebrew/include/spdlog/details/registry.h \
   /opt/homebrew/include/spdlog/details/periodic_worker.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/condition_variable \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/thread \
   /opt/homebrew/include/spdlog/logger.h \
   /opt/homebrew/include/spdlog/details/log_msg.h \
   /opt/homebrew/include/spdlog/details/backtracer.h \
@@ -838,17 +840,172 @@ src/CMakeFiles/Engine3D.dir/Engine3D/OpenGL/OpenGLInputPoll.cpp.o: \
   /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/__filesystem/path_iterator.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/__filesystem/recursive_directory_iterator.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/__filesystem/u8path.h \
-  /usr/local/include/Engine3D/OpenGL/OpenGLInputPoll.h \
-  /usr/local/include/Engine3D/Events/InputPoll.h \
-  /usr/local/include/Engine3D/Events/KeyCodes.h \
-  /usr/local/include/Engine3D/Events/MouseButtonCodes.h \
-  /usr/local/include/Engine3D/Core/Application.h \
-  /usr/local/include/Engine3D/Core/Window.h \
-  /usr/local/include/Engine3D/Engine3DPrecompiledHeader.h \
-  /usr/local/include/Engine3D/Core/LayerStack.h \
-  /usr/local/include/Engine3D/Core/Layer.h \
-  /opt/homebrew/include/GLFW/glfw3.h \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/System/Library/Frameworks/OpenGL.framework/Headers/gl.h \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/System/Library/Frameworks/OpenGL.framework/Headers/gltypes.h \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/System/Library/Frameworks/OpenGL.framework/Headers/OpenGLAvailability.h \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/os/availability.h
+  /Users/aaronher/Desktop/Engine3D/src/../Engine3D/Renderer2D/OrthographicCameraController.h \
+  /Users/aaronher/Desktop/Engine3D/src/../Engine3D/Renderer2D/OrthographicCamera.h \
+  /opt/homebrew/include/glm/glm.hpp \
+  /opt/homebrew/include/glm/detail/_fixes.hpp \
+  /opt/homebrew/include/glm/detail/setup.hpp \
+  /opt/homebrew/include/glm/detail/../simd/platform.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/cfloat \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/float.h \
+  /Library/Developer/CommandLineTools/usr/lib/clang/15.0.0/include/float.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/float.h \
+  /opt/homebrew/include/glm/fwd.hpp \
+  /opt/homebrew/include/glm/detail/qualifier.hpp \
+  /opt/homebrew/include/glm/vec2.hpp \
+  /opt/homebrew/include/glm/./ext/vector_bool2.hpp \
+  /opt/homebrew/include/glm/./ext/../detail/type_vec2.hpp \
+  /opt/homebrew/include/glm/detail/type_vec2.inl \
+  /opt/homebrew/include/glm/detail/./compute_vector_relational.hpp \
+  /opt/homebrew/include/glm/./ext/vector_bool2_precision.hpp \
+  /opt/homebrew/include/glm/./ext/vector_float2.hpp \
+  /opt/homebrew/include/glm/./ext/vector_float2_precision.hpp \
+  /opt/homebrew/include/glm/./ext/vector_double2.hpp \
+  /opt/homebrew/include/glm/./ext/vector_double2_precision.hpp \
+  /opt/homebrew/include/glm/./ext/vector_int2.hpp \
+  /opt/homebrew/include/glm/./ext/vector_int2_sized.hpp \
+  /opt/homebrew/include/glm/./ext/../ext/vector_int2.hpp \
+  /opt/homebrew/include/glm/./ext/../ext/scalar_int_sized.hpp \
+  /opt/homebrew/include/glm/./ext/../detail/setup.hpp \
+  /opt/homebrew/include/glm/./ext/vector_uint2.hpp \
+  /opt/homebrew/include/glm/./ext/vector_uint2_sized.hpp \
+  /opt/homebrew/include/glm/./ext/../ext/vector_uint2.hpp \
+  /opt/homebrew/include/glm/./ext/../ext/scalar_uint_sized.hpp \
+  /opt/homebrew/include/glm/vec3.hpp \
+  /opt/homebrew/include/glm/./ext/vector_bool3.hpp \
+  /opt/homebrew/include/glm/./ext/../detail/type_vec3.hpp \
+  /opt/homebrew/include/glm/detail/type_vec3.inl \
+  /opt/homebrew/include/glm/detail/compute_vector_relational.hpp \
+  /opt/homebrew/include/glm/./ext/vector_bool3_precision.hpp \
+  /opt/homebrew/include/glm/./ext/vector_float3.hpp \
+  /opt/homebrew/include/glm/./ext/vector_float3_precision.hpp \
+  /opt/homebrew/include/glm/./ext/vector_double3.hpp \
+  /opt/homebrew/include/glm/./ext/vector_double3_precision.hpp \
+  /opt/homebrew/include/glm/./ext/vector_int3.hpp \
+  /opt/homebrew/include/glm/./ext/vector_int3_sized.hpp \
+  /opt/homebrew/include/glm/./ext/../ext/vector_int3.hpp \
+  /opt/homebrew/include/glm/./ext/vector_uint3.hpp \
+  /opt/homebrew/include/glm/./ext/vector_uint3_sized.hpp \
+  /opt/homebrew/include/glm/./ext/../ext/vector_uint3.hpp \
+  /opt/homebrew/include/glm/vec4.hpp \
+  /opt/homebrew/include/glm/./ext/vector_bool4.hpp \
+  /opt/homebrew/include/glm/./ext/../detail/type_vec4.hpp \
+  /opt/homebrew/include/glm/detail/type_vec4.inl \
+  /opt/homebrew/include/glm/./ext/vector_bool4_precision.hpp \
+  /opt/homebrew/include/glm/./ext/vector_float4.hpp \
+  /opt/homebrew/include/glm/./ext/vector_float4_precision.hpp \
+  /opt/homebrew/include/glm/./ext/vector_double4.hpp \
+  /opt/homebrew/include/glm/./ext/vector_double4_precision.hpp \
+  /opt/homebrew/include/glm/./ext/vector_int4.hpp \
+  /opt/homebrew/include/glm/./ext/vector_int4_sized.hpp \
+  /opt/homebrew/include/glm/./ext/../ext/vector_int4.hpp \
+  /opt/homebrew/include/glm/./ext/vector_uint4.hpp \
+  /opt/homebrew/include/glm/./ext/vector_uint4_sized.hpp \
+  /opt/homebrew/include/glm/./ext/../ext/vector_uint4.hpp \
+  /opt/homebrew/include/glm/mat2x2.hpp \
+  /opt/homebrew/include/glm/./ext/matrix_double2x2.hpp \
+  /opt/homebrew/include/glm/./ext/../detail/type_mat2x2.hpp \
+  /opt/homebrew/include/glm/detail/type_vec2.hpp \
+  /opt/homebrew/include/glm/detail/type_mat2x2.inl \
+  /opt/homebrew/include/glm/detail/../matrix.hpp \
+  /opt/homebrew/include/glm/mat2x3.hpp \
+  /opt/homebrew/include/glm/./ext/matrix_double2x3.hpp \
+  /opt/homebrew/include/glm/./ext/../detail/type_mat2x3.hpp \
+  /opt/homebrew/include/glm/detail/type_vec3.hpp \
+  /opt/homebrew/include/glm/detail/type_mat2x3.inl \
+  /opt/homebrew/include/glm/./ext/matrix_double2x3_precision.hpp \
+  /opt/homebrew/include/glm/./ext/matrix_float2x3.hpp \
+  /opt/homebrew/include/glm/./ext/matrix_float2x3_precision.hpp \
+  /opt/homebrew/include/glm/mat2x4.hpp \
+  /opt/homebrew/include/glm/./ext/matrix_double2x4.hpp \
+  /opt/homebrew/include/glm/./ext/../detail/type_mat2x4.hpp \
+  /opt/homebrew/include/glm/detail/type_vec4.hpp \
+  /opt/homebrew/include/glm/detail/type_mat2x4.inl \
+  /opt/homebrew/include/glm/./ext/matrix_double2x4_precision.hpp \
+  /opt/homebrew/include/glm/./ext/matrix_float2x4.hpp \
+  /opt/homebrew/include/glm/./ext/matrix_float2x4_precision.hpp \
+  /opt/homebrew/include/glm/mat3x2.hpp \
+  /opt/homebrew/include/glm/./ext/matrix_double3x2.hpp \
+  /opt/homebrew/include/glm/./ext/../detail/type_mat3x2.hpp \
+  /opt/homebrew/include/glm/detail/type_mat3x2.inl \
+  /opt/homebrew/include/glm/./ext/matrix_double3x2_precision.hpp \
+  /opt/homebrew/include/glm/./ext/matrix_float3x2.hpp \
+  /opt/homebrew/include/glm/./ext/matrix_float3x2_precision.hpp \
+  /opt/homebrew/include/glm/mat3x3.hpp \
+  /opt/homebrew/include/glm/./ext/matrix_double3x3.hpp \
+  /opt/homebrew/include/glm/./ext/../detail/type_mat3x3.hpp \
+  /opt/homebrew/include/glm/detail/type_mat3x3.inl \
+  /opt/homebrew/include/glm/./ext/matrix_double3x3_precision.hpp \
+  /opt/homebrew/include/glm/./ext/matrix_float3x3.hpp \
+  /opt/homebrew/include/glm/./ext/matrix_float3x3_precision.hpp \
+  /opt/homebrew/include/glm/mat3x4.hpp \
+  /opt/homebrew/include/glm/./ext/matrix_double3x4.hpp \
+  /opt/homebrew/include/glm/./ext/../detail/type_mat3x4.hpp \
+  /opt/homebrew/include/glm/detail/type_mat3x4.inl \
+  /opt/homebrew/include/glm/./ext/matrix_double3x4_precision.hpp \
+  /opt/homebrew/include/glm/./ext/matrix_float3x4.hpp \
+  /opt/homebrew/include/glm/./ext/matrix_float3x4_precision.hpp \
+  /opt/homebrew/include/glm/mat4x2.hpp \
+  /opt/homebrew/include/glm/./ext/matrix_double4x2.hpp \
+  /opt/homebrew/include/glm/./ext/../detail/type_mat4x2.hpp \
+  /opt/homebrew/include/glm/detail/type_mat4x2.inl \
+  /opt/homebrew/include/glm/./ext/matrix_double4x2_precision.hpp \
+  /opt/homebrew/include/glm/./ext/matrix_float4x2.hpp \
+  /opt/homebrew/include/glm/./ext/matrix_float4x2_precision.hpp \
+  /opt/homebrew/include/glm/mat4x3.hpp \
+  /opt/homebrew/include/glm/./ext/matrix_double4x3.hpp \
+  /opt/homebrew/include/glm/./ext/../detail/type_mat4x3.hpp \
+  /opt/homebrew/include/glm/detail/type_mat4x3.inl \
+  /opt/homebrew/include/glm/./ext/matrix_double4x3_precision.hpp \
+  /opt/homebrew/include/glm/./ext/matrix_float4x3.hpp \
+  /opt/homebrew/include/glm/./ext/matrix_float4x3_precision.hpp \
+  /opt/homebrew/include/glm/mat4x4.hpp \
+  /opt/homebrew/include/glm/./ext/matrix_double4x4.hpp \
+  /opt/homebrew/include/glm/./ext/../detail/type_mat4x4.hpp \
+  /opt/homebrew/include/glm/detail/type_mat4x4.inl \
+  /opt/homebrew/include/glm/./ext/matrix_double4x4_precision.hpp \
+  /opt/homebrew/include/glm/./ext/matrix_float4x4.hpp \
+  /opt/homebrew/include/glm/./ext/matrix_float4x4_precision.hpp \
+  /opt/homebrew/include/glm/detail/func_matrix.inl \
+  /opt/homebrew/include/glm/detail/../geometric.hpp \
+  /opt/homebrew/include/glm/detail/func_geometric.inl \
+  /opt/homebrew/include/glm/detail/../exponential.hpp \
+  /opt/homebrew/include/glm/detail/type_vec1.hpp \
+  /opt/homebrew/include/glm/detail/type_vec1.inl \
+  /opt/homebrew/include/glm/detail/func_exponential.inl \
+  /opt/homebrew/include/glm/detail/../vector_relational.hpp \
+  /opt/homebrew/include/glm/detail/func_vector_relational.inl \
+  /opt/homebrew/include/glm/detail/_vectorize.hpp \
+  /opt/homebrew/include/glm/detail/../common.hpp \
+  /opt/homebrew/include/glm/detail/func_common.inl \
+  /opt/homebrew/include/glm/detail/compute_common.hpp \
+  /opt/homebrew/include/glm/./ext/matrix_double2x2_precision.hpp \
+  /opt/homebrew/include/glm/./ext/matrix_float2x2.hpp \
+  /opt/homebrew/include/glm/./ext/matrix_float2x2_precision.hpp \
+  /opt/homebrew/include/glm/trigonometric.hpp \
+  /opt/homebrew/include/glm/detail/func_trigonometric.inl \
+  /opt/homebrew/include/glm/exponential.hpp \
+  /opt/homebrew/include/glm/common.hpp \
+  /opt/homebrew/include/glm/packing.hpp \
+  /opt/homebrew/include/glm/detail/func_packing.inl \
+  /opt/homebrew/include/glm/detail/type_half.hpp \
+  /opt/homebrew/include/glm/detail/type_half.inl \
+  /opt/homebrew/include/glm/geometric.hpp \
+  /opt/homebrew/include/glm/matrix.hpp \
+  /opt/homebrew/include/glm/vector_relational.hpp \
+  /opt/homebrew/include/glm/integer.hpp \
+  /opt/homebrew/include/glm/detail/func_integer.inl \
+  /Users/aaronher/Desktop/Engine3D/src/../Engine3D/Core/Timestep.h \
+  /Users/aaronher/Desktop/Engine3D/src/../Engine3D/Events/MouseEvent.h \
+  /Users/aaronher/Desktop/Engine3D/src/../Engine3D/Events/InputPoll.h \
+  /Users/aaronher/Desktop/Engine3D/src/../Engine3D/Events/KeyCodes.h \
+  /Users/aaronher/Desktop/Engine3D/src/../Engine3D/Events/MouseButtonCodes.h \
+  /Users/aaronher/Desktop/Engine3D/src/../Engine3D/Debug/Instrumentor.h \
+  /Users/aaronher/Desktop/Engine3D/src/../Engine3D/OpenGL/OpenGLInputPoll.h \
+  /Users/aaronher/Desktop/Engine3D/src/../Engine3D/Core/Application.h \
+  /Users/aaronher/Desktop/Engine3D/src/../Engine3D/Core/Window.h \
+  /Users/aaronher/Desktop/Engine3D/src/../Engine3D/Core/LayerStack.h \
+  /Users/aaronher/Desktop/Engine3D/src/../Engine3D/Core/Layer.h \
+  /Users/aaronher/Desktop/Engine3D/src/../Engine3D/Imgui/ImGuiLayer.h \
+  /Users/aaronher/Desktop/Engine3D/src/../Engine3D/Events/KeyEvent.h \
+  /usr/local/include/imgui/imgui.h /usr/local/include/imgui/imconfig.h

@@ -31,6 +31,7 @@ set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 message("Message = ${CMAKE_INSTALL_PREFIX}")
 
 # add_subdirectory(Sandbox)
+add_subdirectory(Sandbox-Internal)
 add_subdirectory(src)
 
 

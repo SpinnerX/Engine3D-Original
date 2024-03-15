@@ -162,6 +162,19 @@ depend:
 .PHONY : depend
 
 #=============================================================================
+# Target rules for targets named Sandbox-Internal
+
+# Build rule for target.
+Sandbox-Internal: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 Sandbox-Internal
+.PHONY : Sandbox-Internal
+
+# fast build rule for target.
+Sandbox-Internal/fast:
+	$(MAKE) $(MAKESILENT) -f Sandbox-Internal/CMakeFiles/Sandbox-Internal.dir/build.make Sandbox-Internal/CMakeFiles/Sandbox-Internal.dir/build
+.PHONY : Sandbox-Internal/fast
+
+#=============================================================================
 # Target rules for targets named Engine3D
 
 # Build rule for target.
@@ -187,6 +200,7 @@ help:
 	@echo "... list_install_components"
 	@echo "... rebuild_cache"
 	@echo "... Engine3D"
+	@echo "... Sandbox-Internal"
 .PHONY : help
 
 

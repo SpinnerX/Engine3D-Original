@@ -57,6 +57,7 @@ set(
   Engine3D/OpenGL/OpenGLUniformBuffer.cpp
 
   Engine3D/Renderer3D/Renderer3D.cpp
+  Engine3D/OpenGL/OpenGLBuffer3D.cpp
 )
 
 # For Mac, linking AppKit only and only needing nfd_cocoa.m
