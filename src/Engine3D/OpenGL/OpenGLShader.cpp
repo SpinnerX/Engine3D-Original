@@ -49,38 +49,10 @@ namespace Engine3D{
 		return "assets/cache/shader/opengl";
 	}
 
-	static void createCacheDirectoryIfNeeded(){
-		std::string cacheDir = getCacheDirectory();
-		
-		// Checks if the directory for caching exists.
-		if(!std::filesystem::exists(cacheDir))
-			std::filesystem::create_directories(cacheDir);
-	}
-
-	static const char* glShaderStageCacheOpenGLFileExtension(uint32_t stage){
-		switch (stage) {
-			case GL_VERTEX_SHADER: return ".cached_opengl.vert";
-			case GL_FRAGMENT_SHADER: return ".cached_opengl.frag";
-		}
-		assert(false);
-		return "";
-	}
-
-	static const char* glShaderStageCachedVulkanFileExtension(uint32_t stage){
-		switch (stage) {
-			case GL_VERTEX_SHADER: return ".cached_vulkan.vert";
-			case GL_FRAGMENT_SHADER: return ".cached_vulkan.frag";
-		}
-
-		assert(false);
-		return "";
-	}
-
     OpenGLShader::OpenGLShader(const std::string& filepath) : _filepath(filepath){
         std::string src = readFile(filepath);
         auto shaderSrc = preProcess(src);
 		RENDER_PROFILE_FUNCTION();
-		createCacheDirectoryIfNeeded();
 
 		{
 

@@ -1,4 +1,4 @@
-#define GLM_ENABLE_EXPERIEMENTAL
+#define GLM_ENABLE_EXPERIMENTAL
 #include <Engine3D/Engine3DPrecompiledHeader.h>
 #include <Engine3D/Math/Math.h>
 
