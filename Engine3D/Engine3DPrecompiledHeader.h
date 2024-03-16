@@ -1,22 +1,6 @@
-// #pragma once
-
-// #include <cstdarg>
-// #include <memory>
-// #include <utility>
-// #include <algorithm>
-// #include <functional>
-// #include <sstream>
-
-// #include <string>
-// #include <vector>
-// #include <unordered_map>
-// #include <unordered_set>
-
-// #include <Engine3D/Events/ApplicationEvent.h>
-
-// #include <Engine3D/Core/EngineLogger.h>
 #pragma once
 #define _CRT_SECURE_NO_WARNINGS
+#define GLM_ENABLE_EXPERIEMENTAL
 #include <cstdarg>
 #include <memory>
 #include <utility>

@@ -1,7 +1,6 @@
 #include <Engine3D/Engine3DPrecompiledHeader.h>
 #include <Engine3D/Math/Math.h>
 
-#define GLM_ENABLE_EXPERIEMENTAL
 #include <glm/gtx/matrix_decompose.hpp>
 
 namespace Engine3D::Math{
