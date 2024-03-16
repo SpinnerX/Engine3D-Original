@@ -19,7 +19,7 @@ set(
   Engine3D/Core/Layer.cpp
   Engine3D/Core/LayerStack.cpp
 
-  Engine3D/ImGui/ImGuiLayer.cpp
+  Engine3D/Imgui/ImGuiLayer.cpp
 
   Engine3D/OpenGL/OpenGLContext.cpp
   Engine3D/interfaces/Shader.cpp
@@ -150,8 +150,9 @@ find_dependency(glfw3 REQUIRED)
 # find_package(OpenGL REQUIRED)
 # find_package(GLEW REQUIRED)
 find_dependency(OpenGL REQUIRED)
+if(APPLE)
 find_dependency(GLEW REQUIRED)
-
+endif(APPLE)
 # find_package(imgui REQUIRED)
 # find_package(ImGuizmo REQUIRED)
 find_dependency(imgui REQUIRED)
@@ -180,12 +181,14 @@ if(UNIX AND NOT APPLE)
 		glfw
 		# ${OPENGL_gl_LIBRARY}
 		OpenGL::GL
-		Vulkan::Vulkan
+		# Vulkan::Vulkan
 		imgui::imgui
 		fmt::fmt
 		glm::glm
 		spdlog::spdlog
 		glad::glad
+		box2d::box2d
+		yaml-cpp::yaml-cpp
 	)
 endif(UNIX AND NOT APPLE)
 
