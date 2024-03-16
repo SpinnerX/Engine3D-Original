@@ -133,11 +133,12 @@ set(
   ../${INCLUDE_DIR}/OpenGL/OpenGLInputPoll.h
   ../${INCLUDE_DIR}/image/stb_image.h
 
-  ../${INCLUDE_DIR}/platforms/Mac/nfd.h
-  ../${INCLUDE_DIR}/platforms/Mac/nfd.hpp
-
   ../${INCLUDE_DIR}/Renderer3D/Renderer3D.h
 )
+
+if(APPLE)
+list(APPEND all_headers ../${INCLUDE_DIR}/platforms/Mac/nfd.h ../${INCLUDE_DIR}/platforms/Mac/nfd.hpp)
+endif(APPLE)
 
 include(CMakeFindDependencyMacro)
 
