@@ -1,5 +1,6 @@
 #pragma once
 #include <ostream>
+#include <vector>
 #include <Engine3D/Core/core.h>
 
 namespace Engine3D{

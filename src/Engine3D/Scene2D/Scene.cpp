@@ -1,6 +1,4 @@
-#ifdef __linux__
-	#define GLM_ENABLE_EXPERIEMENTAL
-#endif
+#define GLM_ENABLE_EXPERIEMENTAL
 #include <Engine3D/Engine3DPrecompiledHeader.h>
 #include <Engine3D/Scene2D/Scene.h>
 #include <glm/glm.hpp>
