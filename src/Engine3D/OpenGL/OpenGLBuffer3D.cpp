@@ -1,8 +1,6 @@
 #include <Engine3D/Engine3DPrecompiledHeader.h>
 #include <Engine3D/OpenGL/OpenGLBuffer3D.h>
 
-
-
 namespace Engine3D{
 	
 	OpenGLVertexBuffer3D::OpenGLVertexBuffer3D(void* data, uint32_t size){

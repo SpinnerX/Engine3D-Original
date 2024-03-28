@@ -1,6 +1,7 @@
 #pragma once
 
 #include <Engine3D/Core/core.h>
+#include <Engine3D/interfaces/Camera.h>
 #include <glm/glm.hpp>
 
 namespace Engine3D{
@@ -11,6 +12,7 @@ namespace Engine3D{
 	 * 
 	 * @function Initialize();
 	 * @note Initializes the renderer when when users chooses to begin a scene.
+	 * @note Initializing Cameras, and various other components the renderer may require
 	 *
 	 * @function Shutdown();
 	 * @note Handles the cleanup when the scene ends.
@@ -37,6 +39,13 @@ namespace Engine3D{
 			uint32_t getTotalIndexCount() { return quadCount * 6; }
 		};
 	public:
+		
+		// @note Used for initializing a camera.
+		// @note Potential user API would like the following:
+		// @API USAGE --> Renderer3D::init<EditorCamera>();
+		// @note Which will potentially call ((T *)component)->attach();
+		// @note The idea behind this is to allow for initializing a camera component
+		static void init(Ref<Camera>& camera);
 
 		static void begin();
 

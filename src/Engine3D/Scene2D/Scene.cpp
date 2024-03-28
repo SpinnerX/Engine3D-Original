@@ -73,6 +73,7 @@ namespace Engine3D{
 		{
 			const int64_t velocityIterations=6;
 			const int64_t positionIterations=2;
+			_physicsWorld->Step(ts, velocityIterations, positionIterations);
 
 			/* _physicsWorld->Step(ts, 6, 2); */
 			auto view  = _registry.view<RigidBody2DComponent>();
@@ -169,7 +170,8 @@ namespace Engine3D{
 	
 	template<>
 	void Scene::onComponentAdded<CameraComponent>(Entity entity, CameraComponent& component){
-		component.camera.setViewportSize(_viewportWidth, _viewportHeight);
+		if(_viewportWidth > 0 and _viewportHeight > 0)
+			component.camera.setViewportSize(_viewportWidth, _viewportHeight);
 	}
 
 	template<>
@@ -207,6 +209,8 @@ namespace Engine3D{
 	
 	void Scene::onRuntimeStart(){
 		_physicsWorld = new b2World({0.0f, -9.8f});
+		coreLogWarn("Starting Physics Simulation!");
+		if(!_physicsWorld) coreLogWarn("_physicsWorld is not nullptr!");
 		// Going through ECS for rigit body 2D components
 		auto view = _registry.view<RigidBody2DComponent>();
 

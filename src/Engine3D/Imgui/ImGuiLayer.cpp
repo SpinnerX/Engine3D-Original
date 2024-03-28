@@ -32,7 +32,7 @@ namespace Engine3D{
 		
 		float fontSize = 15.0f;
 		// @note Loading fonts with ImGui
-		std::string filename = "assets/opensans/static/OpenSans-Regular.ttf";
+		/* std::string filename = "assets/opensans/static/OpenSans-Regular.ttf"; */
 		std::string sansTtf = "/usr/local/public/GameEngine/assets/opensans/static/OpenSans-Regular.ttf";
 		io.Fonts->AddFontFromFileTTF(sansTtf.c_str(), fontSize);
 		io.FontDefault = io.Fonts->AddFontFromFileTTF(sansTtf.c_str(), fontSize);

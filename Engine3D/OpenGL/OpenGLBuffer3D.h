@@ -5,7 +5,9 @@
 namespace Engine3D{
 	/*
 	 * @file OpenGLBuffer3D.h
-	 * @note Buffers for handling 3D data flow.
+	 * @note OpenGL requires that when a buffer is given data
+	 * @note Those vertices data are to be binded/ubinded
+	 * @note Before rendering
 	 *
 	*/
 

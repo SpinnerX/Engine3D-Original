@@ -45,11 +45,11 @@ namespace Engine3D{
 		template<typename T>
 		void removeComponent(){
 			// Checking if the component exists
-			if(this->hasComponent<T>()){
-				coreLogWarn("Entity does not have component!");
-			}
+			/* if(this->hasComponent<T>()){ */
+			/* 	coreLogWarn("Entity does not have component!"); */
+			/* } */
 			
-			render_core_assert(hasComponent<T>(), "Entity does not have component");
+			/* render_core_assert(hasComponent<T>(), "Entity does not have component"); */
 
 			_scene->_registry.remove<T>(_entityHandler);
 		}
