@@ -49,15 +49,17 @@ namespace Engine3D{
             // Have to specify these on macOS
             // to prevent 1200x800 from becoming 2400x1600
             int success = glfwInit();
-            render_core_assert(success, "Could not initialize GLFW!"); // Chhecking if glfw initialized successfully and then set that variable to true
+            // render_core_assert(success, "Could not initialize GLFW!"); // Chhecking if glfw initialized successfully and then set that variable to true
             // Setting an error callback
             glfwSetErrorCallback(GLFWErrorCallback);
             _glfwInitialized = true;
         }
 
         // Have to specify this as a requirement before using opengl/glad or else you'll get a segfault
-        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+        /* glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3); */
+        /* glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3); */
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
         glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
         glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, true);
 		

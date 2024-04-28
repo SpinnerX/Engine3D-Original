@@ -10,13 +10,13 @@ namespace Engine3D{
     Application::Application(const std::string& name, ApplicationCommandLineArgs args) : _commandLineArgs(args){
 		RENDER_PROFILE_FUNCTION();
 
-        render_core_assert(!_instance, "Application already exists!");
+        // render_core_assert(!_instance, "Application already exists!");
         isRunning = true;
 		isMinimized = false;
         _instance = this;
         _window = std::unique_ptr<Window>(Window::create(name));
 
-        _window->setEventCallback(bind_function(this, &Application::onEvent));
+        _window->setEventCallback(bind(this, &Application::OnEvent));
 
         // Initializing our renderer
         Renderer::init();
@@ -34,17 +34,17 @@ namespace Engine3D{
     void Application::pushLayer(Layer* layer){
 		RENDER_PROFILE_FUNCTION();
         _layerStack.pushLayer(layer);
-        layer->onAttach();
+        layer->OnAttach();
     }
 
     void Application::pushOverlay(Layer* layer){
 		RENDER_PROFILE_FUNCTION();
         _layerStack.pushOverlay(layer);
-        layer->onAttach();
+        layer->OnAttach();
     }
 
 
-    void Application::onEvent(Event& event){
+    void Application::OnEvent(Event& event){
 		RENDER_PROFILE_FUNCTION();
         EventDispatcher dispatcher(event);
         // In order for dispatcher to tell which event to execute, this is where that happens
@@ -52,8 +52,8 @@ namespace Engine3D{
         // NOTE
         // - Dispatcher checks the incoming type event is the same as the static type in the Dispatch function
         //  then we execute that specific callback corresponding to that event.
-        dispatcher.Dispatch<WindowCloseEvent>(bind_function(this, &Application::onWindowClose));
-        dispatcher.Dispatch<WindowResizeEvent>(bind_function(this, &Application::onWindowResize));
+        dispatcher.Dispatch<WindowCloseEvent>(bind(this, &Application::onWindowClose));
+        dispatcher.Dispatch<WindowResizeEvent>(bind(this, &Application::onWindowResize));
 
         // Iterating backwards thhrough the layer stack and thhen we called onEvent, and if it isn;t handled thhen it breaks 
         // If not a layer and an overlay then we do not continue.
@@ -62,7 +62,7 @@ namespace Engine3D{
             if(event._handled)
 				break;
 
-            (*--iter)->onEvent(event);
+            (*--iter)->OnEvent(event);
 
         }
 
@@ -83,18 +83,18 @@ namespace Engine3D{
 				{
 				RENDER_PROFILE_SCOPE("LayerStack onUpdate in run");
 				for(Layer* layer : _layerStack){
-				    layer->onUpdate(timestep);
+				    layer->OnUpdate(timestep);
 				}
 				}
 
-				_imguiLayer->begin();
+				_imguiLayer->Begin();
 				{
 				RENDER_PROFILE_SCOPE("LayerStack onImguiRender in Application::run()");
 				for(Layer* layer : _layerStack){
-				    layer->onImguiRender();
+				    layer->OnUIRender();
 				}
 				}
-				_imguiLayer->end();
+				_imguiLayer->End();
 			}
 
             _window->onUpdate();

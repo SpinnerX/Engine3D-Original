@@ -18,19 +18,19 @@ namespace Engine3D{
 
         // When pushing onto the Layer Stack we attach it
         // Pop of thhe layer stack is for detaching (like shhutdown)
-        virtual void onAttach() {
+        virtual void OnAttach() {
             coreLogInfo("Default onAttach() called instead!");
         }
 
-        virtual void onDetach() {}
+        virtual void OnDetach() {}
 
         // Updating the layer is updated when the application calls onUpdate
-        virtual void onUpdate(Timestep ts){}
+        virtual void OnUpdate(Timestep ts){}
 
-        virtual void onImguiRender(){}
+        virtual void OnUIRender(){}
 
         // Whichh is wherever events get sent to the layer, it'll know how to handle that event.
-        virtual void onEvent(Event& event){}
+        virtual void OnEvent(Event& event){}
 
         inline const std::string& getName() const { return _debugName; }
 

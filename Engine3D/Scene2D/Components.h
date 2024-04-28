@@ -97,7 +97,7 @@ namespace Engine3D{
 		 * @note Deletes that instance, setting it to nullptr.
 		 */
 		template<typename T>
-		void bind(){
+		void Bind(){
 			instantiateScript = []() { return static_cast<ScriptableEntity *>(new T()); };
 			destroyScript = [](NativeScriptComponent* nsc) { delete nsc; nsc=nullptr; };
 		}

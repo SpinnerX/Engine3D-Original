@@ -52,7 +52,8 @@ namespace Engine3D{
             case ShaderDataType::Bool: // A Bool is 1 byte.
                 return 1;
         }
-        render_core_assert(false, "Unknown ShaderDataType!");
+        // render_core_assert(false, "Unknown ShaderDataType!");
+        assert(false);
         return 0;
     }
 
@@ -96,7 +97,8 @@ namespace Engine3D{
                 case ShaderDataType::Bool:   return 1;
             }
 
-            render_core_assert(false, "Unknown ShaderDataType!");
+            // render_core_assert(false, "Unknown ShaderDataType!");
+            assert(false);
             return 0;
         }
         friend inline std::ostream& operator<<(std::ostream& outs, BufferElement& element);
@@ -184,8 +186,8 @@ namespace Engine3D{
     public:
         virtual ~VertexBuffer(){}
 
-        virtual void bind() const = 0;
-        virtual void unbind() const = 0;
+        virtual void Bind() const = 0;
+        virtual void Unbind() const = 0;
 
         virtual void setLayout(const BufferLayout& layout) = 0;
         virtual const BufferLayout& getLayout() const = 0;
@@ -196,46 +198,13 @@ namespace Engine3D{
 
         static Ref<VertexBuffer> Create(float* vertices, uint32_t size);
     };
-
-	class VertexBuffer3D{
-	public:
-		virtual ~VertexBuffer3D(){}
-
-		virtual void bind() const = 0;
-		virtual void unbind() const = 0;
-
-		virtual void setLayout(const BufferLayout& latout) = 0;
-
-		virtual void setData(const void* data, uint32_t size) = 0;
-
-		static Ref<VertexBuffer3D> Create(uint32_t size);
-		
-		
-		/*
-		 * @function Create(data, size)
-		 * @param T
-		 * @note When creating a vertex buffer we can specify what data to create for the VertexBuffer
-		 * 
-		 * @param SIZE
-		 * @note In compile-time telling how large this vertex buffer should be.
-		 *
-		 * @usage: Ref<VertexBuffer3D> buffer = VertexBuffer3D::Create<uint8_t, 10>(data, size);
-		*/
-		template<auto SIZE, typename T>
-		static Ref<VertexBuffer3D> Create(T* data){
-			return VertexBuffer3D::Create(data, SIZE);
-		}
-
-	private:
-		static Ref<VertexBuffer3D> Create(void* data, uint32_t size);
-	};
 	
 	// Currently the engine only supports 32-bit index buffers
     class IndexBuffer{
     public:
         virtual ~IndexBuffer(){}
-        virtual void bind() const = 0;
-        virtual void unbind() const = 0;
+        virtual void Bind() const = 0;
+        virtual void Unbind() const = 0;
 
         virtual uint32_t getCount() const = 0;
 

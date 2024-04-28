@@ -8,12 +8,14 @@ namespace Engine3D{
     Ref<Shader> Shader::CreateShader(const std::string& filepath){
         switch (RendererAPI::getAPI()){
             case RendererAPI::API::None:
-                render_core_assert(false, "RenderAPI::None is currently not supported!");
+                // render_core_assert(false, "RenderAPI::None is currently not supported!");
+                assert(false);
                 return nullptr;
             case RendererAPI::API::OpenGL: return CreateRef<OpenGLShader>(filepath);
         }
 
-        render_core_assert(false, "Unknown renderer API");
+        // render_core_assert(false, "Unknown renderer API");
+        assert(false);
         return nullptr;
     }
 
@@ -21,13 +23,15 @@ namespace Engine3D{
     Ref<Shader> Shader::CreateShader(const std::string& name, const std::string& vertexSrc, const std::string& fragmentSrc){
         switch (RendererAPI::getAPI()){
             case RendererAPI::API::None:
-                render_core_assert(false, "RenderAPI::None is currently not supported!");
+                // render_core_assert(false, "RenderAPI::None is currently not supported!");
+                assert(false);
                 return nullptr;
             case RendererAPI::API::OpenGL:
                 return CreateRef<OpenGLShader>(name, vertexSrc, fragmentSrc);
         }
 
-        render_core_assert(false, "Unknown renderer API");
+        // render_core_assert(false, "Unknown renderer API");
+        assert(false);
         return nullptr;
     }
 

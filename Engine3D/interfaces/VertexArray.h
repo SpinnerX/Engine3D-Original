@@ -19,8 +19,8 @@ namespace Engine3D{
     public:
         virtual ~VertexArray(){}
 
-        virtual void bind() const = 0;
-        virtual void unbind() const = 0; // NOTE: In vertex arrays there are use cases where you may want to unbind your data.
+        virtual void Bind() const = 0;
+        virtual void Unbind() const = 0; // NOTE: In vertex arrays there are use cases where you may want to unbind your data.
 
         virtual void addVertexBuffer(const Ref<VertexBuffer>& vertexBuffer) = 0;
         virtual void setIndexBuffer(const Ref<IndexBuffer>& vertexBuffer) = 0;

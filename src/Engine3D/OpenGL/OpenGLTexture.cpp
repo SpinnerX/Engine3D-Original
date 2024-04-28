@@ -39,7 +39,7 @@ namespace Engine3D{
             coreLogError("Failed to load image as the value was nullptr!");
         }
         else coreLogInfo("Image Data was not nullptr meaning it was valid!");
-        render_core_assert(data, "Failed to load image!");
+        // render_core_assert(data, "Failed to load image!");
 
         _width = width;
         _height = height;
@@ -63,7 +63,8 @@ namespace Engine3D{
         glGenTextures(1, &_rendererID); // Equivalent to glCreateTexture (but will segfault though)
         glActiveTexture(GL_TEXTURE_2D);
         glBindTexture(GL_TEXTURE_2D, _rendererID);
-
+		/* glCreateTextures(GL_TEXTURE_2D, 1, &_rendererID); */
+		/* glTextureStorage2D(GL_TEXTURE_2D, 0, _internalFormat, _width, _height); */
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 		
@@ -98,7 +99,7 @@ namespace Engine3D{
 		
 		// bytes per pixel
 		uint32_t bpp = _formatData == GL_RGBA ? 4 : 3;
-		render_core_assert(size == _width * _height * bpp, "Data must be an entire texture"); // Make sure that the textures are fine for rn
+		// render_core_assert(size == _width * _height * bpp, "Data must be an entire texture"); // Make sure that the textures are fine for rn
         glTexImage2D(GL_TEXTURE_2D, 0, _internalFormat, _width, _height, 0, _formatData, GL_UNSIGNED_BYTE, data); // same thing as doing: glTextureSubImage2D
 	}
 

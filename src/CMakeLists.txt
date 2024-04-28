@@ -15,7 +15,7 @@ set(
   Engine3D/Core/EntryPoint.cpp
   Engine3D/Core/Application.cpp
   Engine3D/Core/EngineLogger.cpp
-  Engine3D/Events/InputPoll.cpp
+  Engine3D/Event/InputPoll.cpp
   Engine3D/Core/Layer.cpp
   Engine3D/Core/LayerStack.cpp
 
@@ -99,7 +99,7 @@ set(
   ../${INCLUDE_DIR}/Core/EngineLogger.h
   ../${INCLUDE_DIR}/Core/EntryPoint.h
 #   ../${INCLUDE_DIR}/Core/GameEngine.h
-  ../${INCLUDE_DIR}/Events/InputPoll.h
+  ../${INCLUDE_DIR}/Event/InputPoll.h
   ../${INCLUDE_DIR}/Core/Window.h
   ../${INCLUDE_DIR}/Core/Layer.h
   ../${INCLUDE_DIR}/Core/LayerStack.h
@@ -126,10 +126,10 @@ set(
 
   ../${INCLUDE_DIR}/platforms/PlatformUtils.h
 
-  ../${INCLUDE_DIR}/Events/ApplicationEvent.h
-  ../${INCLUDE_DIR}/Events/Event.h
-  ../${INCLUDE_DIR}/Events/KeyEvent.h
-  ../${INCLUDE_DIR}/Events/MouseEvent.h
+  ../${INCLUDE_DIR}/Event/ApplicationEvent.h
+  ../${INCLUDE_DIR}/Event/Event.h
+  ../${INCLUDE_DIR}/Event/KeyEvent.h
+  ../${INCLUDE_DIR}/Event/MouseEvent.h
   ../${INCLUDE_DIR}/OpenGL/OpenGLInputPoll.h
   ../${INCLUDE_DIR}/image/stb_image.h
 

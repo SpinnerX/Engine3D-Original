@@ -27,11 +27,11 @@ namespace Engine3D{
     }
 
     void Renderer::submit(const Ref<Shader>& shader, const Ref<VertexArray>& vertexArray, const glm::mat4& transform){
-        shader->bind();
+        shader->Bind();
         std::dynamic_pointer_cast<OpenGLShader>(shader)->uploadUniformMat4("u_ViewProjection", _sceneData->viewProjectionMatrix);
         std::dynamic_pointer_cast<OpenGLShader>(shader)->uploadUniformMat4("u_Transform", transform); // whenever we submit, def need to do this per object
 
-        vertexArray->bind();
+        vertexArray->Bind();
         RendererCommand::drawIndexed(vertexArray);
     }
 };

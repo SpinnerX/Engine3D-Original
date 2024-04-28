@@ -12,10 +12,10 @@ namespace Engine3D{
         ImGuiLayer();
         ~ImGuiLayer();
 
-        virtual void onAttach() override;
-        virtual void onDetach() override;
+        virtual void OnAttach() override;
+        virtual void OnDetach() override;
 
-		virtual void onEvent(Event& e) override;
+		virtual void OnEvent(Event& e) override;
 
         // - Reason we add these two functions is because we want imgui to be able to start rendering on its own
         // - All I want this to do is to know when to begin rendering and to end rendering.
@@ -23,15 +23,15 @@ namespace Engine3D{
         // - So because we want the layer to enclose with this functionality we are going to need to
         //  render a new window, or somethihng like that.
 
-        void begin();
-        void end();
+        void Begin();
+        void End();
 
-		void setBlockEvents(bool blocks) { _isBlockingEvents = blocks; }
+		void SetBlockEvents(bool blocks) { isBlockingEvents = blocks; }
 		
-		void setDarkThemeColors();
+		void SetDarkThemeColors();
 
     private:
-		bool _isBlockingEvents = true;
-        float _time=0.f;
+		bool isBlockingEvents = true;
+        float time=0.f;
     };
 };

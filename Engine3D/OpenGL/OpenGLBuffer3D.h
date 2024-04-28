@@ -18,8 +18,8 @@ namespace Engine3D{
 
 		virtual ~OpenGLVertexBuffer3D();
 
-		virtual void bind() const override;
-		virtual void unbind() const override;
+		virtual void Bind() const override;
+		virtual void Unbind() const override;
 
 		virtual void setLayout(const BufferLayout& layout) override{
 			_layout = layout;

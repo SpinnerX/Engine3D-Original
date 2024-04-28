@@ -60,8 +60,8 @@ namespace Engine3D{
 		RENDER_PROFILE_FUNCTION();
 
 		EventDispatcher dispatcher(e);
-		dispatcher.Dispatch<MouseScrolledEvent>(Engine3D::bind_function(this, &OrthographicCameraController::onMouseScrolled));
-		dispatcher.Dispatch<WindowResizeEvent>(Engine3D::bind_function(this, &OrthographicCameraController::onWindowResized));
+		dispatcher.Dispatch<MouseScrolledEvent>(Engine3D::bind(this, &OrthographicCameraController::onMouseScrolled));
+		dispatcher.Dispatch<WindowResizeEvent>(Engine3D::bind(this, &OrthographicCameraController::onWindowResized));
 	}
 	
 	void OrthographicCameraController::onResize(float width, float height){

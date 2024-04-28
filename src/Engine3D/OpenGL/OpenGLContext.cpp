@@ -6,7 +6,8 @@
 
 namespace Engine3D{
 	OpenGLContext::OpenGLContext(GLFWwindow* other) : _window(other) {
-		render_core_assert(_window, "Window was nullptr!");
+		// render_core_assert(_window, "Window was nullptr!");
+		// assert(false);
 	}
 
 	void OpenGLContext::Init(){
@@ -14,8 +15,8 @@ namespace Engine3D{
 
 		glfwMakeContextCurrent(_window);
 		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
-		render_core_assert(status, "Failed to initialize Glad!");
-
+		// render_core_assert(status, "Failed to initialize Glad!");
+		// assert(false);
 		coreLogInfo("OpenGL Info:");
 		coreLogInfo("  Vendor: {0}", (const char *)glGetString(GL_VENDOR));
 		coreLogInfo("  Renderer: {0}", (const char *)glGetString(GL_RENDERER));

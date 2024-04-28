@@ -144,7 +144,7 @@ namespace Engine3D{
 
 		// _data.textureShader = Shader::CreateShader("assets/shaders/texture.glsl");
 		_data.textureShader = Shader::CreateShader("/usr/local/public/GameEngine/assets/shaders/texture.glsl");
-		_data.textureShader->bind();
+		_data.textureShader->Bind();
 		_data.textureShader->setIntArray("u_Textures", samplers, _data.maxTextureSlots);
 
 		// Texture slot at 0 to white texture
@@ -165,7 +165,7 @@ namespace Engine3D{
 		glm::mat4 viewProj = camera.getProjection() * glm::inverse(transform);
 		
 		
-		_data.textureShader->bind();
+		_data.textureShader->Bind();
 		_data.textureShader->setMat4("u_ViewProjection", viewProj);
 		
 		_data.quadIndexCount = 0;
@@ -191,7 +191,7 @@ namespace Engine3D{
 		// Simply uploads the camera data
 		// upload is more API specific (actual OpenGL to set that uniform)
 		// Where set is just set is a much higher level concept.
-		_data.textureShader->bind();
+		_data.textureShader->Bind();
 		_data.textureShader->setMat4("u_ViewProjection", camera.getViewProjectionMatrix());
 		
 		_data.quadIndexCount = 0;
@@ -205,7 +205,7 @@ namespace Engine3D{
 
 		glm::mat4 viewProj = camera.getViewProjection();
 		
-		_data.textureShader->bind();
+		_data.textureShader->Bind();
 		_data.textureShader->setMat4("u_ViewProjection", viewProj);
 		
 		_data.quadIndexCount = 0;

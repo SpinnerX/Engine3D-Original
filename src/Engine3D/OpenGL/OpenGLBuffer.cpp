@@ -30,13 +30,13 @@ namespace Engine3D{
         glDeleteBuffers(1, &_rendererID);
     }
 
-    void OpenGLVertexBuffer::bind() const {
+    void OpenGLVertexBuffer::Bind() const {
 		RENDER_PROFILE_FUNCTION();
 
         glBindBuffer(GL_ARRAY_BUFFER, _rendererID);
     }
 
-    void OpenGLVertexBuffer::unbind() const {
+    void OpenGLVertexBuffer::Unbind() const {
 		RENDER_PROFILE_FUNCTION();
 
         glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -65,13 +65,13 @@ namespace Engine3D{
         glDeleteBuffers(1, &_rendererID);
     }
 
-    void OpenGLIndexBuffer::bind() const{
+    void OpenGLIndexBuffer::Bind() const{
 		RENDER_PROFILE_FUNCTION();
 
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _rendererID);
     }
 
-    void OpenGLIndexBuffer::unbind() const{
+    void OpenGLIndexBuffer::Unbind() const{
 		RENDER_PROFILE_FUNCTION();
 
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);

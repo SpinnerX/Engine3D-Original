@@ -14,7 +14,7 @@ namespace Engine3D{
 
     ImGuiLayer::~ImGuiLayer() {}
 
-    void ImGuiLayer::onAttach(){
+    void ImGuiLayer::OnAttach(){
 		RENDER_PROFILE_FUNCTION();
 
         // IMGUI_CHECKVERSION();
@@ -44,7 +44,7 @@ namespace Engine3D{
 			style.Colors[ImGuiCol_WindowBg].w = 1.0f;
 		}
 
-		setDarkThemeColors();
+		SetDarkThemeColors();
 
         // Initializing the OpenGL3 ()
         GLFWwindow* window = static_cast<GLFWwindow *>(Application::Get().GetWindow().getNativeWindow());
@@ -53,7 +53,7 @@ namespace Engine3D{
         ImGui_ImplOpenGL3_Init("#version 410"); // We should check the version of GLSL (if there is an error with this version)
     }
     
-    void ImGuiLayer::onDetach(){
+    void ImGuiLayer::OnDetach(){
 		RENDER_PROFILE_FUNCTION();
 		
 
@@ -62,7 +62,7 @@ namespace Engine3D{
 		ImGui::DestroyContext();
     }
 
-    void ImGuiLayer::begin(){
+    void ImGuiLayer::Begin(){
 		RENDER_PROFILE_FUNCTION();
 
         ImGui_ImplGlfw_NewFrame();
@@ -71,7 +71,7 @@ namespace Engine3D{
 		ImGuizmo::BeginFrame();
     }
 
-    void ImGuiLayer::end(){
+    void ImGuiLayer::End(){
 		RENDER_PROFILE_FUNCTION();
 
         ImGuiIO& io = ImGui::GetIO();
@@ -93,17 +93,17 @@ namespace Engine3D{
         }
     }
 	
-	void ImGuiLayer::onEvent(Event& e){
+	void ImGuiLayer::OnEvent(Event& e){
 		// @note this is to prevent blocking.
 		// @note Checking if viewport is not focused to block events.
-		if(_isBlockingEvents){
+		if(isBlockingEvents){
 			ImGuiIO& io = ImGui::GetIO();
 			e._handled |= e.isInCategory(EventCategoryMouse) & io.WantCaptureMouse;
 			e._handled |= e.isInCategory(EventCategoryKeyboard) & io.WantCaptureKeyboard;
 		}
 	}
 
-	void ImGuiLayer::setDarkThemeColors(){
+	void ImGuiLayer::SetDarkThemeColors(){
 		auto& colors = ImGui::GetStyle().Colors; // @note Colors is ImVec4
 		
 		colors[ImGuiCol_WindowBg] = ImVec4{ 0.1f, 0.105f, 0.11f, 1.0f };

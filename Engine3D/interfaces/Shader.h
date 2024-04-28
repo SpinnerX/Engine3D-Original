@@ -15,9 +15,9 @@ namespace Engine3D{
     public:
         virtual ~Shader() = default;
 
-        virtual void bind() const = 0;
+        virtual void Bind() const = 0;
 
-        virtual void unbind() const = 0;
+        virtual void Unbind() const = 0;
 		
 		virtual void setInt(const std::string& name, int value) = 0;
 		

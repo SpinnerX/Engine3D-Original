@@ -12,24 +12,28 @@ namespace Engine3D{
     Ref<VertexBuffer> VertexBuffer::Create(float* vertices, uint32_t size){
         switch (RendererAPI::getAPI()){
         case RendererAPI::API::None:
-            render_core_assert(false, "RenderAPI::None is currently not supported!");
+            // render_core_assert(false, "RenderAPI::None is currently not supported!");
+            assert(false);
             return nullptr;
         case RendererAPI::API::OpenGL:
             return CreateRef<OpenGLVertexBuffer>(vertices, size);
         }
-        render_core_assert(false, "Unknown renderer API");
+        // render_core_assert(false, "Unknown renderer API");
+        assert(false);
         return nullptr;
     }
 
 	Ref<VertexBuffer> VertexBuffer::Create(uint32_t size){
         switch (RendererAPI::getAPI()){
         case RendererAPI::API::None:
-            render_core_assert(false, "RenderAPI::None is currently not supported!");
+            // render_core_assert(false, "RenderAPI::None is currently not supported!");
+            assert(false);
             return nullptr;
         case RendererAPI::API::OpenGL:
             return CreateRef<OpenGLVertexBuffer>(size);
         }
-        render_core_assert(false, "Unknown renderer API");
+        // render_core_assert(false, "Unknown renderer API");
+        assert(false);
         return nullptr;
 		
 	}
@@ -39,26 +43,30 @@ namespace Engine3D{
 	Ref<VertexBuffer3D> VertexBuffer3D::Create(uint32_t size){
 		switch (RendererAPI::getAPI()) {
 			case Engine3D::RendererAPI::API::None:
-				render_core_assert(false, "RenderAPI::None is currently not supported!");
+				// render_core_assert(false, "RenderAPI::None is currently not supported!");
+                assert(false);
 				return nullptr;
 			case Engine3D::RendererAPI::API::OpenGL:
 				return CreateRef<OpenGLVertexBuffer3D>(size);
 		}
 
-        render_core_assert(false, "RenderAPI::None is currently not supported!");
+        // render_core_assert(false, "RenderAPI::None is currently not supported!");
+        assert(false);
 		return nullptr;
 	}
 
 	Ref<VertexBuffer3D> VertexBuffer3D::Create(void* data, uint32_t size){
 		switch (RendererAPI::getAPI()) {
 			case Engine3D::RendererAPI::API::None:
-				render_core_assert(false, "RenderAPI::None is currently not supported!");
+				// render_core_assert(false, "RenderAPI::None is currently not supported!");
+                assert(false);
 				return nullptr;
 			case Engine3D::RendererAPI::API::OpenGL:
 				return CreateRef<OpenGLVertexBuffer3D>(data, size);
 		}
 		
-		render_core_assert(false, "RenderAPI::None is currently not supported!");
+		// render_core_assert(false, "RenderAPI::None is currently not supported!");
+        assert(false);
 		return nullptr;
 	}
 
@@ -66,12 +74,14 @@ namespace Engine3D{
     Ref<IndexBuffer> IndexBuffer::Create(uint32_t* indices, uint32_t size){
         switch (RendererAPI::getAPI()){
         case RendererAPI::API::None:
-            render_core_assert(false, "RenderAPI::None is currently not supported!");
+            // render_core_assert(false, "RenderAPI::None is currently not supported!");
+            assert(false);
             return nullptr;
         case RendererAPI::API::OpenGL:
             return CreateRef<OpenGLIndexBuffer>(indices, size);
         }
-        render_core_assert(false, "Unknown renderer API");
+        // render_core_assert(false, "Unknown renderer API");
+        assert(false);
         return nullptr;
     }
 };

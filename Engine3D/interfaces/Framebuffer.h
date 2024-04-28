@@ -80,8 +80,8 @@ namespace Engine3D{
 		virtual ~FrameBuffer() = default;
 		static Ref<FrameBuffer> Create(const FrameBufferSpecifications& specs);
 		
-		virtual void bind() = 0;
-		virtual void unbind() = 0;
+		virtual void Bind() = 0;
+		virtual void Unbind() = 0;
 		
 		// Used for when we want to resize this buffer when running in another scene.
 		virtual void resize(uint32_t w, uint32_t h) = 0;

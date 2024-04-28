@@ -35,7 +35,7 @@ namespace Engine3D{
 
     void EditorCamera::onEvent(Event& e){
 		EventDispatcher dispatcher(e);
-		dispatcher.Dispatch<MouseScrolledEvent>(Engine3D::bind_function(this, &EditorCamera::onMouseScroll));
+		dispatcher.Dispatch<MouseScrolledEvent>(Engine3D::bind(this, &EditorCamera::onMouseScroll));
 	}
 
     glm::vec3 EditorCamera::getUpDirection() const {

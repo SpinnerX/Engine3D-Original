@@ -9,8 +9,8 @@ namespace Engine3D{
 		OpenGLVertexBuffer(uint32_t size);
         virtual ~OpenGLVertexBuffer();
 
-        virtual void bind() const override;
-        virtual void unbind() const override;
+        virtual void Bind() const override;
+        virtual void Unbind() const override;
 		
 		virtual void setData(const void* data, uint32_t size) override;
 
@@ -39,8 +39,8 @@ namespace Engine3D{
         OpenGLIndexBuffer(uint32_t* indices, uint32_t size);
         virtual ~OpenGLIndexBuffer();
 
-        virtual void bind() const override;
-        virtual void unbind() const override;
+        virtual void Bind() const override;
+        virtual void Unbind() const override;
 
         // This will tell us how many indices are in this index buffer.
         // To differentiate getCount() means in elements and NOT in bytes.

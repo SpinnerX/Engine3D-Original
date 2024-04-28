@@ -29,14 +29,14 @@ namespace Engine3D{
 
         // We can use the EventDispatcher created to dispatch events depending on what kind of
         // events that is needed to dispatched being passed in.
-        void onEvent(Event& event);
+        void OnEvent(Event& event);
 
         void pushLayer(Layer* layer);
         void pushOverlay(Layer* layer);
 		
 		void close();
 		
-		ImGuiLayer* getImGuiLayer() { return _imguiLayer; }
+		ImGuiLayer* GetImGuiLayer() { return _imguiLayer; }
 
         // Wherever we are in our codebase, we will want to access the application
         // since this application contain important informaiton

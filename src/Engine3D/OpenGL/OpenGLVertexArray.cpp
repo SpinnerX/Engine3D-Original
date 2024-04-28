@@ -23,7 +23,8 @@ namespace Engine3D{
             case ShaderDataType::Bool:   return GL_BOOL;
         }
 
-        render_core_assert(false, "Unknown ShaderDataType!");
+        // render_core_assert(false, "Unknown ShaderDataType!");
+        assert(false);
         return 0;
     }
 
@@ -40,24 +41,24 @@ namespace Engine3D{
         glDeleteVertexArrays(1, &_rendererID);
     }
 
-    void OpenGLVertexArray::bind() const {
+    void OpenGLVertexArray::Bind() const {
 		RENDER_PROFILE_FUNCTION();
 
         glBindVertexArray(_rendererID);
     }
 
-    void OpenGLVertexArray::unbind() const {
+    void OpenGLVertexArray::Unbind() const {
 		RENDER_PROFILE_FUNCTION();
 
         glBindVertexArray(0);
     }
 
     void OpenGLVertexArray::addVertexBuffer(const Ref<VertexBuffer>& vertexBuffer) {
-        render_core_assert(vertexBuffer->getLayout().getElements().size(), "Vertex buffer has no layout!");
+        // render_core_assert(vertexBuffer->getLayout().getElements().size(), "Vertex buffer has no layout!");
         
         glBindVertexArray(_rendererID);
 
-        vertexBuffer->bind();
+        vertexBuffer->Bind();
 
         /* uint32_t index = 0; */
         const auto& layout = vertexBuffer->getLayout();
@@ -105,7 +106,7 @@ namespace Engine3D{
 
     void OpenGLVertexArray::setIndexBuffer(const Ref<IndexBuffer>& indexBuffer) {
         glBindVertexArray(_rendererID);
-        indexBuffer->bind();
+        indexBuffer->Bind();
 
         _indexBuffer = indexBuffer;
     }

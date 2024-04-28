@@ -9,8 +9,8 @@ namespace Engine3D{
 		OpenGLFrameBuffer(const FrameBufferSpecifications& specs);
 		virtual ~OpenGLFrameBuffer();
 
-		void bind() override;
-		void unbind() override;
+		void Bind() override;
+		void Unbind() override;
 		
 		virtual void resize(uint32_t w, uint32_t h) override;
 		virtual int readPixel(uint32_t attachmentIndex, int x, int y) override;

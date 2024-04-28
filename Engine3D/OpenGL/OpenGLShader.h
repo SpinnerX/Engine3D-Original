@@ -12,8 +12,8 @@ namespace Engine3D{
         OpenGLShader(const std::string& name, const std::string& vertexSrc, const std::string& fragmentSrc);
         ~OpenGLShader();
 
-        virtual void bind() const override;
-        virtual void unbind() const override;
+        virtual void Bind() const override;
+        virtual void Unbind() const override;
 
         virtual const std::string& getName() const override { return _name; }
 		

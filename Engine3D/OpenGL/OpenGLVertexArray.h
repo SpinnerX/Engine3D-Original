@@ -8,8 +8,8 @@ namespace Engine3D{
         OpenGLVertexArray();
         virtual ~OpenGLVertexArray();
 
-        virtual void bind() const override;
-        virtual void unbind() const override; // NOTE: In vertex arrays there are use cases where you may want to unbind your data.
+        virtual void Bind() const override;
+        virtual void Unbind() const override; // NOTE: In vertex arrays there are use cases where you may want to unbind your data.
 
         virtual void addVertexBuffer(const Ref<VertexBuffer>& vertexBuffer) override;
         virtual void setIndexBuffer(const Ref<IndexBuffer>& vertexBuffer) override;

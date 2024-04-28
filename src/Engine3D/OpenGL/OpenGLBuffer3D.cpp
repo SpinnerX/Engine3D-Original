@@ -19,11 +19,11 @@ namespace Engine3D{
 		glDeleteBuffers(1, &_rendererID);
 	}
 
-	void OpenGLVertexBuffer3D::bind() const {
+	void OpenGLVertexBuffer3D::Bind() const {
 		glBindBuffer(1, _rendererID);
 	}
 
-	void OpenGLVertexBuffer3D::unbind() const {
+	void OpenGLVertexBuffer3D::Unbind() const {
 		glBindBuffer(GL_ARRAY_BUFFER, _rendererID);
 	}
 

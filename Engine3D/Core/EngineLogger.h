@@ -3,7 +3,6 @@
 #include <Engine3D/Core/core.h>
 #include <spdlog/spdlog.h>
 #include <spdlog/fmt/ostr.h>
-#include <cstdarg>
 
 namespace Engine3D{
 

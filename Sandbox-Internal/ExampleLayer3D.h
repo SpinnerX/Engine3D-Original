@@ -18,7 +18,7 @@ namespace Engine3D{
 
 		void onEvent(Event& e) override {}
 		
-		void onImguiRender() override {}
+		void OnUIRender() override {}
 
 	private:
 		Ref<VertexBuffer3D> vertexBuffer;

@@ -155,7 +155,8 @@ namespace Engine3D{
 
 		if(glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE){	
 			coreLogError("Framebuffer is incomplete!");
-			render_core_assert(glCheckFramebufferStatus(GL_FRAMEBUFFER) == GL_FRAMEBUFFER_COMPLETE, "FrameBuffer is incomplete!");
+			// render_core_assert(glCheckFramebufferStatus(GL_FRAMEBUFFER) == GL_FRAMEBUFFER_COMPLETE, "FrameBuffer is incomplete!");
+			assert(glCheckFramebufferStatus(GL_FRAMEBUFFER) == GL_FRAMEBUFFER_COMPLETE);
 		}
 
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
@@ -201,12 +202,12 @@ namespace Engine3D{
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 	}
 
-	void OpenGLFrameBuffer::bind() {
+	void OpenGLFrameBuffer::Bind() {
 		glBindFramebuffer(GL_FRAMEBUFFER, _rendererID);	
 		glViewport(0, 0, _specifications.width, _specifications.height);
 	}
 
-	void OpenGLFrameBuffer::unbind() {
+	void OpenGLFrameBuffer::Unbind() {
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	}
 

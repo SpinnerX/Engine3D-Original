@@ -23,7 +23,8 @@ namespace Engine3D{
         if(type == "fragment" || type == "pixel")
             return GL_FRAGMENT_SHADER;
         
-        render_core_assert(false, "Unknown shader type!");
+        // render_core_assert(false, "Unknown shader type!");
+        assert(false);
         return 0;
     }
 
@@ -131,11 +132,11 @@ namespace Engine3D{
 
         while(pos != std::string::npos){
             size_t eol = src.find_first_of("\r\n", pos);
-            render_core_assert(eol != std::string::npos, "Syntax Error!");
+            // render_core_assert(eol != std::string::npos, "Syntax Error!");
 
             size_t begin = pos + typeTokenLength + 1; // being the beginning of the token
             std::string type = src.substr(begin, eol - begin); // extracting that actual string type
-            render_core_assert(shaderTypeFromString(type), "Invalid shader type specifier");
+            // render_core_assert(shaderTypeFromString(type), "Invalid shader type specifier");
 
             size_t nextLinePos = src.find_first_not_of("\r\n", eol);
             pos = src.find(typeToken, nextLinePos);
@@ -153,7 +154,7 @@ namespace Engine3D{
 		/* shaderc::Compiler compiler; */
 		/* shaderc::CompileOptions options; */
 
-        render_core_assert(shaderSources.size() <= 2, "We only support 2 shaders for now!");
+        // render_core_assert(shaderSources.size() <= 2, "We only support 2 shaders for now!");
 
         std::array<GLenum, 3> glShaderIDs;
         int glShaderIDIndex = 0; // Keeping track of our shaders
@@ -185,7 +186,7 @@ namespace Engine3D{
 
                 coreLogError("Vertex Shader compilation failure! (In Shader.cpp)");
                 coreLogError("{}", infoLog.data());
-                render_core_assert(false, "Shader compilation error!");
+                // render_core_assert(false, "Shader compilation error!");
                 break;
             }
 
@@ -217,7 +218,7 @@ namespace Engine3D{
 
             coreLogError("Fragment Shader link failure!");
             coreLogError("{}", infoLog.data());
-            render_core_assert(false, "Shader link error!");
+            // render_core_assert(false, "Shader link error!");
             return;
         }
 
@@ -234,12 +235,12 @@ namespace Engine3D{
 
 	void OpenGLShader::reflect(GLenum stage, const std::vector<uint32_t>& shaderData){}
 
-    void OpenGLShader::bind() const {
+    void OpenGLShader::Bind() const {
 		RENDER_PROFILE_FUNCTION();
         glUseProgram(_rendererID);
     }
 
-    void OpenGLShader::unbind() const {
+    void OpenGLShader::Unbind() const {
         glUseProgram(0);
     }
 
