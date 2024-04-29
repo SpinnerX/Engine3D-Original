@@ -38,6 +38,8 @@ add_subdirectory(external/glm)
 add_subdirectory(external/yaml-cpp)
 
 add_subdirectory(external/Box2D-cmake)
+# add_subdirectory(external/box2d)
+# find_package(box2d REQUIRED)
 
 include(FetchContent)
 add_subdirectory(external/fmt)

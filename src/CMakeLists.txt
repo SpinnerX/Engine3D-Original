@@ -49,6 +49,12 @@ set(
   Engine3D/Scene2D/Components.cpp
   Engine3D/Scene2D/SceneCamera.cpp
   Engine3D/Scene2D/SceneSerializer.cpp
+
+  Engine3D/ImGuizmo/ImCurveEdit.cpp
+  Engine3D/ImGuizmo/ImGradient.cpp
+  Engine3D/ImGuizmo/ImGuizmo.cpp
+  Engine3D/ImGuizmo/ImSequencer.cpp
+
   Engine3D/Image/stb_image.cpp
 
   Engine3D/platforms/Mac/MacPlatformUtils.cpp
@@ -130,6 +136,11 @@ set(
   ../${INCLUDE_DIR}/Event/KeyEvent.h
   ../${INCLUDE_DIR}/Event/MouseEvent.h
   ../${INCLUDE_DIR}/Event/InputPoll.h
+
+  ../${INCLUDE_DIR}/ImGuizmo/ImCurveEdit.h
+  ../${INCLUDE_DIR}/ImGuizmo/ImGradient.h
+  ../${INCLUDE_DIR}/ImGuizmo/ImGuizmo.h
+  ../${INCLUDE_DIR}/ImGuizmo/ImSequencer.h
   ../${INCLUDE_DIR}/Image/stb_image.h
 
   ../${INCLUDE_DIR}/Renderer3D/Renderer3D.h

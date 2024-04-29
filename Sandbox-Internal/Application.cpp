@@ -115,7 +115,7 @@ public:
         // textureShader->Set("u_Texture", 0);
 
 		// texture = Texture2D::Create("Resources/assets/Checkerboard.png");
-		texture = Texture2D::Create("../Resources/assets/Checkerboard.png");
+		texture = Texture2D::Create("Resources/assets/texture2.png");
     }
 
     //! @note Used for handling cleanly detaching all of our properties for this specific layer.

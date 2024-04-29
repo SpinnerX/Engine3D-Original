@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="VcsDirectoryMappings">
+    <mapping directory="" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/external/Box2D-cmake" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/external/Box2D-cmake/Box2D" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/external/ImGuizmo" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/external/abseil-cpp" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/external/box2d" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/external/effcee" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/external/fmt" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/external/glad" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/external/glfw" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/external/glm" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/external/googletest" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/external/imgui" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/external/re2" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/external/shaderc" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/external/spdlog" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/external/yaml-cpp" vcs="Git" />
+  </component>
+</project>

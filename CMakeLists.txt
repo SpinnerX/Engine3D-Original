@@ -3,8 +3,8 @@ cmake_minimum_required(VERSION 3.15)
 set(PROJECT_NAME Engine3D)
 set(CMAKE_CXX_STANDARD 20)
 
-add_compile_options(-fsanitize=address)
-add_link_options(-fsanitize=address)
+# add_compile_options(-fsanitize=address)
+# add_link_options(-fsanitize=address)
 
 project(${PROJECT_NAME} VERSION 1.0)
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)

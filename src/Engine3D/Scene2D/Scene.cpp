@@ -211,7 +211,7 @@ namespace Engine3D{
 				fixtureDef.density = bc2d.density;
 				fixtureDef.friction = bc2d.friction;
 				fixtureDef.restitution = bc2d.restitution;
-				fixtureDef.restitutionThreshold = bc2d.restitutionThreshold;
+				// fixtureDef.restitutionThreshold = bc2d.restitutionThreshold;
 				body->CreateFixture(&fixtureDef);
 			}
 		}

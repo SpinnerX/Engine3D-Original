@@ -30,7 +30,7 @@
 #define GLM_ENABLE_EXPERIMENTAL
 #include <glm/gtx/quaternion.hpp>
 
-#include <fmt/ostream.h>
+// #include <fmt/ostream.h>
 
 #include <imgui/imgui.h>
 #include <imgui/backends/imgui_impl_opengl3.h>
@@ -84,10 +84,11 @@
 
 //! @note Physics-related includes
 // @note box2D related includes
-#include <box2d/box2d.h>
-#include <box2d/b2_body.h>
-#include <box2d/b2_fixture.h>
-#include <box2d/b2_polygon_shape.h>
+// #include <box2d/box2d.h>
+#include <Box2D/Box2D.h>
+// #include <box2d/b2_body.h>
+// #include <box2d/b2_fixture.h>
+// #include <box2d/b2_polygon_shape.h>
 
 // #include <glm/glm.hpp>
 // #include <Engine3D/Event/ApplicationEvent.h>

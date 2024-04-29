@@ -94,7 +94,7 @@ namespace Engine3D{
 
         uint32_t GetRendererID() const;
 
-        void Bind(GLenum slot=GL_TEXTURE_3D) const;
+        void Bind(GLenum slot) const;
         uint32_t GetWidth() const;
         uint32_t GetHeight() const;
 

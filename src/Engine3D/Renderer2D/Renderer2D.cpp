@@ -136,7 +136,8 @@ namespace Engine3D{
 			samplers[i] = i;
 
 		// _data.textureShader = Shader::CreateShader("assets/shaders/texture.glsl");
-		_data.textureShader = Shader::Create("/usr/local/public/GameEngine/assets/shaders/texture.glsl");
+		// _data.textureShader = Shader::Create("/usr/local/public/GameEngine/assets/shaders/texture.glsl");
+		_data.textureShader = Shader::Create("Resources/assets/shaders/texture.glsl");
 		_data.textureShader->Bind();
 		_data.textureShader->Set("u_Textures", samplers, _data.maxTextureSlots);
 
