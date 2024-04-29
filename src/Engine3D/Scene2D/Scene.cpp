@@ -1,15 +1,5 @@
-#define GLM_ENABLE_EXPERIMENTAL
 #include <Engine3D/Engine3DPrecompiledHeader.h>
 #include <Engine3D/Scene2D/Scene.h>
-#include <glm/glm.hpp>
-#include <Engine3D/Scene2D/Components.h>
-#include <Engine3D/Scene2D/Entity.h>
-
-// @note box2D related includes
-#include <box2d/box2d.h>
-#include <box2d/b2_body.h>
-#include <box2d/b2_fixture.h>
-#include <box2d/b2_polygon_shape.h>
 
 namespace Engine3D{
 	static b2BodyType engineRigidBody2DTypeToBox2DType(RigidBody2DComponent::BodyType type){

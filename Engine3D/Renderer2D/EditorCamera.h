@@ -74,8 +74,6 @@ namespace Engine3D{
 		/*
 		 *
 		 * @note dependent on how big the viewport is.
-		 *
-		 *
 		 * */
 		std::pair<float, float> panSpeed() const;
 		float rotationSpeed() const;

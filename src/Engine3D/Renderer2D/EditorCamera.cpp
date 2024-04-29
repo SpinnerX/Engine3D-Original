@@ -1,9 +1,6 @@
 #include <Engine3D/Engine3DPrecompiledHeader.h>
 #include <Engine3D/Renderer2D/EditorCamera.h>
 
-#define GLM_ENABLE_EXPERIMENTAL
-#include <glm/gtx/quaternion.hpp>
-
 namespace Engine3D{
     EditorCamera::EditorCamera(float fov, float aspectRatio, float nearClip, float farClip) 
 		: _fov(fov), _aspectRatio(aspectRatio), _nearClip(nearClip), _farClip(farClip), Camera(glm::perspective(glm::radians(fov), aspectRatio, nearClip, farClip)){
@@ -11,8 +8,9 @@ namespace Engine3D{
 	}
     
     void EditorCamera::OnUpdate(Timestep ts){
+		const glm::vec2& mouse = glm::vec2{InputPoll::GetMouseX(), InputPoll::GetMouseY()};
 		if(InputPoll::IsKeyPressed(KeyCode::LeftAlt)){
-			const glm::vec2& mouse = glm::vec2{InputPoll::GetMouseX(), InputPoll::GetMouseY()};
+			// const glm::vec2& mouse = glm::vec2{InputPoll::GetMouseX(), InputPoll::GetMouseY()};
 
 			glm::vec2 delta = (mouse - _initialMousePosition) * 0.003f;
 
@@ -25,6 +23,34 @@ namespace Engine3D{
 			else if(InputPoll::IsMousePressed(Mouse::ButtonRight))
 				mouseZoom(delta.y);
 		}
+
+		// glm::vec2 delta = (mouse - _initialMousePosition) * 0.003f;
+		// glm::vec2 delta;
+
+		//! @note Q key in editor is used for navigating pov 
+		//! @note E key that will be used for 
+
+		// if(InputPoll::IsKeyPressed(ENGINE_KEY_W)){
+		// 	// delta.x++;
+		// 	delta.x += (mouse.x - _initialMousePosition.x) * 0.003f;
+		// }
+
+		// if(InputPoll::IsKeyPressed(ENGINE_KEY_A)){
+		// 	delta.y += (mouse.y - _initialMousePosition.y) * 0.003f;
+		// }
+
+		// if(InputPoll::IsKeyPressed(ENGINE_KEY_S)){
+
+		// }
+
+		// if(InputPoll::IsKeyPressed(ENGINE_KEY_D)){
+
+		// }
+
+		// if(InputPoll::IsKeyPressed(ENGINE_KEY_Q)){}
+		// if(InputPoll::IsKeyPressed(ENGINE_KEY_E)){}
+
+
 
 		updateView();
 	}

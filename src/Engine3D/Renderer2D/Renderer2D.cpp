@@ -1,12 +1,5 @@
-#define GLM_ENABLE_EXPERIMENTAL
 #include <Engine3D/Engine3DPrecompiledHeader.h>
 #include <Engine3D/Renderer2D/Renderer2D.h>
-#include <Engine3D/Graphics/VertexArray.h>
-#include <Engine3D/Renderer2D/RenderCommand.h>
-#include <OpenGL/OpenGLShader.h>
-#include <glm/gtc/matrix_transform.hpp>
-#include <Engine3D/Scene2D/Components.h>
-#include <Engine3D/Renderer2D/RenderCommand.h>
 
 namespace Engine3D{
 	/*
@@ -142,7 +135,7 @@ namespace Engine3D{
 		for(uint32_t i = 0; i < _data.maxTextureSlots; i++)
 			samplers[i] = i;
 
-		// _data.textureShader = Shader::Create("assets/shaders/texture.glsl");
+		// _data.textureShader = Shader::CreateShader("assets/shaders/texture.glsl");
 		_data.textureShader = Shader::Create("/usr/local/public/GameEngine/assets/shaders/texture.glsl");
 		_data.textureShader->Bind();
 		_data.textureShader->Set("u_Textures", samplers, _data.maxTextureSlots);

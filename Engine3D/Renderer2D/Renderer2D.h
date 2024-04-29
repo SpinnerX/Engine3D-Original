@@ -1,20 +1,15 @@
 #pragma once
-#include <Engine3D/Renderer2D/OrthographicCamera.h>
 #include <Engine3D/Graphics/Camera.h> // TODO: May need to remove this..
+#include <Engine3D/Renderer2D/EditorCamera.h>
+#include <Engine3D/Renderer2D/OrthographicCamera.h>
 #include <Engine3D/Graphics/Texture.h>
 #include <Engine3D/Graphics/SubTexture2D.h>
-#include <Engine3D/Renderer2D/EditorCamera.h>
 
 namespace Engine3D{
 
 	class SpriteRendererComponent;
 	class Renderer2D{
 	public:
-
-		struct RenderCamera{
-			glm::mat4 projection;
-			glm::mat4 view;
-		};
 
 		static void Init();
 		static void Shutdown();

@@ -67,6 +67,9 @@
         "variant": "cpp",
         "format": "cpp",
         "typeindex": "cpp",
-        "system_error": "cpp"
+        "system_error": "cpp",
+        "__locale": "cpp",
+        "expected": "cpp",
+        "ranges": "cpp"
     }
 }

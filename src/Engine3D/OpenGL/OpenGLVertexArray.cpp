@@ -1,8 +1,5 @@
 #include <Engine3D/Engine3DPrecompiledHeader.h>
 #include <OpenGL/OpenGLVertexArray.h>
-#include <glad/glad.h>
-#include <Engine3D/Core/EngineLogger.h>
-#include <Engine3D/Debug/Instrumentor.h>
 
 namespace Engine3D{
     static GLenum shaderDatatTypeToOpenGlBaseTypeConversion(ShaderDataType type){

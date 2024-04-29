@@ -82,6 +82,13 @@
 
 #include <Engine3D/platforms/PlatformUtils.h>
 
+//! @note Physics-related includes
+// @note box2D related includes
+#include <box2d/box2d.h>
+#include <box2d/b2_body.h>
+#include <box2d/b2_fixture.h>
+#include <box2d/b2_polygon_shape.h>
+
 // #include <glm/glm.hpp>
 // #include <Engine3D/Event/ApplicationEvent.h>
 

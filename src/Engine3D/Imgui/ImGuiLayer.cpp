@@ -1,12 +1,5 @@
 #include <Engine3D/Engine3DPrecompiledHeader.h>
-#include <imgui/backends/imgui_impl_opengl3.h>
-#include <imgui/backends/imgui_impl_glfw.h>
 #include <Engine3D/Imgui/ImGuiLayer.h>
-#include <Engine3D/Core/Application.h>
-#include <Engine3D/Core/core.h>
-#include <Engine3D/Event/KeyCodes.h>
-#include <GLFW/glfw3.h>
-#include <ImGuizmo/ImGuizmo.h>
 
 namespace Engine3D{
     ImGuiLayer::ImGuiLayer() : Layer("ImGuiLayer") {
