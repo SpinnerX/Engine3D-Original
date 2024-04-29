@@ -1,8 +1,6 @@
 #pragma once
 #include <Engine3D/Core/Layer.h>
-#include <Engine3D/Events/KeyEvent.h>
-#include <Engine3D/Events/MouseEvent.h>
-#include <imgui/imgui.h>
+
 namespace Engine3D{
 
     // - This is going to be ImGuiLayer that will come with the engine

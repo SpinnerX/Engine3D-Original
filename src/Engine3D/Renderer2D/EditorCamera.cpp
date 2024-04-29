@@ -1,9 +1,5 @@
 #include <Engine3D/Engine3DPrecompiledHeader.h>
 #include <Engine3D/Renderer2D/EditorCamera.h>
-#include <Engine3D/Events/KeyCodes.h>
-#include <Engine3D/Events/MouseButtonCodes.h>
-#include <Engine3D/Events/InputPoll.h>
-#include <GLFW/glfw3.h>
 
 #define GLM_ENABLE_EXPERIMENTAL
 #include <glm/gtx/quaternion.hpp>
@@ -14,26 +10,26 @@ namespace Engine3D{
 		updateView();
 	}
     
-    void EditorCamera::onUpdate(Timestep ts){
-		if(InputPoll::isKeyPressed(KeyCode::LeftAlt)){
-			const glm::vec2& mouse = glm::vec2{InputPoll::getMouseX(), InputPoll::getMouseY()};
+    void EditorCamera::OnUpdate(Timestep ts){
+		if(InputPoll::IsKeyPressed(KeyCode::LeftAlt)){
+			const glm::vec2& mouse = glm::vec2{InputPoll::GetMouseX(), InputPoll::GetMouseY()};
 
 			glm::vec2 delta = (mouse - _initialMousePosition) * 0.003f;
 
 			_initialMousePosition = mouse;
 
-			if(InputPoll::isMouseButtonPressed(Mouse::ButtonMiddle))
+			if(InputPoll::IsMousePressed(Mouse::ButtonMiddle))
 				mousePan(delta);
-			else if(InputPoll::isMouseButtonPressed(Mouse::ButtonLeft))
+			else if(InputPoll::IsMousePressed(Mouse::ButtonLeft))
 				mouseRotate(delta);
-			else if(InputPoll::isMouseButtonPressed(Mouse::ButtonRight))
+			else if(InputPoll::IsMousePressed(Mouse::ButtonRight))
 				mouseZoom(delta.y);
 		}
 
 		updateView();
 	}
 
-    void EditorCamera::onEvent(Event& e){
+    void EditorCamera::OnEvent(Event& e){
 		EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<MouseScrolledEvent>(Engine3D::bind(this, &EditorCamera::onMouseScroll));
 	}

@@ -1,8 +1,8 @@
 #pragma once
 #include <Engine3D/Renderer2D/OrthographicCamera.h>
-#include <Engine3D/interfaces/Camera.h> // TODO: May need to remove this..
-#include <Engine3D/interfaces/Texture.h>
-#include <Engine3D/interfaces/SubTexture2D.h>
+#include <Engine3D/Graphics/Camera.h> // TODO: May need to remove this..
+#include <Engine3D/Graphics/Texture.h>
+#include <Engine3D/Graphics/SubTexture2D.h>
 #include <Engine3D/Renderer2D/EditorCamera.h>
 
 namespace Engine3D{
@@ -21,17 +21,17 @@ namespace Engine3D{
 
 		static void setClearColor(const glm::vec4& color = glm::vec4( 0.1f, 0.1f, 0.1f, 1 ));
 
-		static void beginScene(const Camera& camera, const glm::mat4& transform); // TODO: Remove
-		static void beginScene(const EditorCamera& camera);
-		static void beginScene(const OrthographicCamera& camera);
+		static void Begin(const Camera& camera, const glm::mat4& transform); // TODO: Remove
+		static void Begin(const EditorCamera& camera);
+		static void Begin(const OrthographicCamera& camera);
 
-		static void endScene();
+		static void End();
 
 		static void flush();
 
 		/*
-		 * Small NOTE: These are drawQuads for colors and textures.
-		 * drawQuad
+		 * Small NOTE: These are DrawQuads for colors and textures.
+		 * DrawQuad
 		 * @params
 		 * @pos = position of the objects
 		 * @size = scaling the size of objects
@@ -44,24 +44,24 @@ namespace Engine3D{
 		 * QUICK NOTE: Rotations is in radians.
 		 *
 		*/
-		static void drawQuad(const glm::vec2& pos, const glm::vec2& size, const glm::vec4& color);
-		static void drawQuad(const glm::vec3& pos, const glm::vec2& size, const glm::vec4& color);
-		static void drawQuad(const glm::vec2& pos, const glm::vec2& size, const Ref<Texture2D>& texture, float tilingFactor=1.0f, const glm::vec4& tintColor=glm::vec4(1.0f));
-		static void drawQuad(const glm::vec3& pos, const glm::vec2& size, const Ref<Texture2D>& texture, float tilingFactor=1.0f, const glm::vec4& tintColor = glm::vec4(1.0f));
-		static void drawQuad(const glm::vec2& pos, const glm::vec2& size, const Ref<SubTexture2D>& texture, float tilingFactor=1.0f, const glm::vec4& tintColor=glm::vec4(1.0f));
-		static void drawQuad(const glm::vec3& pos, const glm::vec2& size, const Ref<SubTexture2D>& texture, float tilingFactor=1.0f, const glm::vec4& tintColor = glm::vec4(1.0f));
+		static void DrawQuad(const glm::vec2& pos, const glm::vec2& size, const glm::vec4& color);
+		static void DrawQuad(const glm::vec3& pos, const glm::vec2& size, const glm::vec4& color);
+		static void DrawQuad(const glm::vec2& pos, const glm::vec2& size, const Ref<Texture2D>& texture, float tilingFactor=1.0f, const glm::vec4& tintColor=glm::vec4(1.0f));
+		static void DrawQuad(const glm::vec3& pos, const glm::vec2& size, const Ref<Texture2D>& texture, float tilingFactor=1.0f, const glm::vec4& tintColor = glm::vec4(1.0f));
+		static void DrawQuad(const glm::vec2& pos, const glm::vec2& size, const Ref<SubTexture2D>& texture, float tilingFactor=1.0f, const glm::vec4& tintColor=glm::vec4(1.0f));
+		static void DrawQuad(const glm::vec3& pos, const glm::vec2& size, const Ref<SubTexture2D>& texture, float tilingFactor=1.0f, const glm::vec4& tintColor = glm::vec4(1.0f));
 
-		static void drawQuad(const glm::mat4& transform, const glm::vec4& color, int entityID = -1);
-		static void drawQuad(const glm::mat4& transform, const Ref<Texture2D>& texture, float tilingFactor=1.0f, const glm::vec4& tintColor = glm::vec4(1.0f), int entityID = -1);
+		static void DrawQuad(const glm::mat4& transform, const glm::vec4& color, int entityID = -1);
+		static void DrawQuad(const glm::mat4& transform, const Ref<Texture2D>& texture, float tilingFactor=1.0f, const glm::vec4& tintColor = glm::vec4(1.0f), int entityID = -1);
 
 
-		static void drawRotatedQuad(const glm::vec2& pos, const glm::vec2& size, float rotation, const glm::vec4& color);
-		static void drawRotatedQuad(const glm::vec3& pos, const glm::vec2& size, float rotation, const glm::vec4& color);
-		static void drawRotatedQuad(const glm::vec2& pos, const glm::vec2& size, float rotation, const Ref<Texture2D>& texture, float tilingFactor=1.0f, const glm::vec4& tintColor = glm::vec4(1.0f));
-		static void drawRotatedQuad(const glm::vec3& pos, const glm::vec2& size, float rotation, const Ref<Texture2D>& texture, float tilingFactor=1.0f, const glm::vec4& tintColor = glm::vec4(1.0f));
+		static void DrawRotatedQuad(const glm::vec2& pos, const glm::vec2& size, float rotation, const glm::vec4& color);
+		static void DrawRotatedQuad(const glm::vec3& pos, const glm::vec2& size, float rotation, const glm::vec4& color);
+		static void DrawRotatedQuad(const glm::vec2& pos, const glm::vec2& size, float rotation, const Ref<Texture2D>& texture, float tilingFactor=1.0f, const glm::vec4& tintColor = glm::vec4(1.0f));
+		static void DrawRotatedQuad(const glm::vec3& pos, const glm::vec2& size, float rotation, const Ref<Texture2D>& texture, float tilingFactor=1.0f, const glm::vec4& tintColor = glm::vec4(1.0f));
 		
-		static void drawRotatedQuad(const glm::vec2& pos, const glm::vec2& size, float rotation, const Ref<SubTexture2D>& texture, float tilingFactor=1.0f, const glm::vec4& tintColor = glm::vec4(1.0f));
-		static void drawRotatedQuad(const glm::vec3& pos, const glm::vec2& size, float rotation, const Ref<SubTexture2D>& texture, float tilingFactor=1.0f, const glm::vec4& tintColor = glm::vec4(1.0f));
+		static void DrawRotatedQuad(const glm::vec2& pos, const glm::vec2& size, float rotation, const Ref<SubTexture2D>& texture, float tilingFactor=1.0f, const glm::vec4& tintColor = glm::vec4(1.0f));
+		static void DrawRotatedQuad(const glm::vec3& pos, const glm::vec2& size, float rotation, const Ref<SubTexture2D>& texture, float tilingFactor=1.0f, const glm::vec4& tintColor = glm::vec4(1.0f));
 		
 		static void drawSprite(const glm::mat4& transform, SpriteRendererComponent& src, int entityID);
 

@@ -1,4 +1,4 @@
-#include <Engine3D/interfaces/UniformBuffer.h>
+#include <Engine3D/Graphics/UniformBuffer.h>
 
 namespace Engine3D{
 	class OpenGLUniformBuffer : public UniformBuffer{

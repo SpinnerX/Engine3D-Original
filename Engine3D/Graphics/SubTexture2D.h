@@ -1,5 +1,5 @@
 #pragma once
-#include <Engine3D/interfaces/Texture.h>
+#include <Engine3D/Graphics/Texture.h>
 #include <glm/glm.hpp>
 
 namespace Engine3D{

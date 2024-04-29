@@ -81,7 +81,7 @@ namespace Engine3D{
         BufferElement() = default;
         BufferElement(ShaderDataType t, const std::string& n, bool normalized = false) : name(n), type(t), size(ShaderDataTypeSize(type)), offset(0), isNormalized(normalized) {}
 
-        uint32_t getComponentCount() const {
+        uint32_t GetComponentCount() const {
             switch (type){
                 case ShaderDataType::None: return 0;
                 case ShaderDataType::Float:  return 1;
@@ -189,10 +189,10 @@ namespace Engine3D{
         virtual void Bind() const = 0;
         virtual void Unbind() const = 0;
 
-        virtual void setLayout(const BufferLayout& layout) = 0;
-        virtual const BufferLayout& getLayout() const = 0;
+        virtual void SetLayout(const BufferLayout& layout) = 0;
+        virtual const BufferLayout& GetLayout() const = 0;
 
-		virtual void setData(const void* data, uint32_t size) = 0;
+		virtual void SetData(const void* data, uint32_t size) = 0;
 		
 		static Ref<VertexBuffer> Create(uint32_t size);
 

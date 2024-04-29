@@ -29,14 +29,14 @@ namespace Engine3D{
 		// Runtime start and stop
 		
 		// @note for starting our physics simulation via runtime.
-		void onRuntimeStart();
-		void onRuntimeStop();
+		void OnRuntimeStart();
+		void OnRuntimeStop();
 
 		// temporary
 		entt::registry& reg() { return _registry; }
 
-		void onUpdateEditor(Timestep ts, EditorCamera& camera);
-		void onUpdateRuntime(Timestep ts);
+		void OnUpdateEditor(Timestep ts, EditorCamera& camera);
+		void OnUpdateRuntime(Timestep ts);
 
 		void onViewportResize(uint32_t width, uint32_t height);
 
@@ -44,12 +44,13 @@ namespace Engine3D{
 
 	private:
 		template<typename T>
-		void onComponentAdded(Entity entity, T& component);
+		void OnComponentAdded(Entity entity, T& component);
 	private:
 		entt::registry _registry; // entity used to determine which components belong together. registry contain the actual data.
 		uint32_t _viewportWidth=0, _viewportHeight=0;
 
-		b2World* _physicsWorld = nullptr;
+		// b2World* _physicsWorld;
+		b2World* physicsWorld = nullptr;
 
 		friend class Entity;
 		friend class SceneSerializer;

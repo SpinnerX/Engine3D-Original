@@ -1,9 +1,8 @@
 #define GLM_ENABLE_EXPERIEMENTAL
 #include <Engine3D/Engine3DPrecompiledHeader.h>
-#include <Engine3D/interfaces/Buffer.h>
+#include <Engine3D/Graphics/Buffer.h>
 #include <Engine3D/Renderer2D/Renderer.h>
 #include <OpenGL/OpenGLBuffer.h>
-#include <OpenGL/OpenGLBuffer3D.h>
 
 namespace Engine3D{
 
@@ -36,38 +35,6 @@ namespace Engine3D{
         assert(false);
         return nullptr;
 		
-	}
-
-
-
-	Ref<VertexBuffer3D> VertexBuffer3D::Create(uint32_t size){
-		switch (RendererAPI::getAPI()) {
-			case Engine3D::RendererAPI::API::None:
-				// render_core_assert(false, "RenderAPI::None is currently not supported!");
-                assert(false);
-				return nullptr;
-			case Engine3D::RendererAPI::API::OpenGL:
-				return CreateRef<OpenGLVertexBuffer3D>(size);
-		}
-
-        // render_core_assert(false, "RenderAPI::None is currently not supported!");
-        assert(false);
-		return nullptr;
-	}
-
-	Ref<VertexBuffer3D> VertexBuffer3D::Create(void* data, uint32_t size){
-		switch (RendererAPI::getAPI()) {
-			case Engine3D::RendererAPI::API::None:
-				// render_core_assert(false, "RenderAPI::None is currently not supported!");
-                assert(false);
-				return nullptr;
-			case Engine3D::RendererAPI::API::OpenGL:
-				return CreateRef<OpenGLVertexBuffer3D>(data, size);
-		}
-		
-		// render_core_assert(false, "RenderAPI::None is currently not supported!");
-        assert(false);
-		return nullptr;
 	}
 
 

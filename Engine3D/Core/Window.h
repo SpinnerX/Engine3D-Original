@@ -1,6 +1,6 @@
 #pragma once
 #include <Engine3D/Core/core.h>
-#include <Engine3D/Events/Event.h>
+#include <Engine3D/Event/Event.h>
 
 namespace Engine3D{
     struct WindowProps{
@@ -20,7 +20,7 @@ namespace Engine3D{
 
         virtual ~Window(){}
 
-        virtual void onUpdate() = 0;
+        virtual void OnUpdate() = 0;
 
         virtual uint32_t GetWidth() const = 0;
         virtual uint32_t GetHeight() const = 0;
@@ -32,7 +32,7 @@ namespace Engine3D{
 
         // This will return a GLFW window
         // void* is because this could potentially return an HHWindow, GLFWwindow*, etc.
-        virtual void* getNativeWindow() const = 0;
+        virtual void* GetNativeWindow() const = 0;
 
         // Create Window function allowing us to create windows that may be platform specific.
         static Window* create(const WindowProps& props = WindowProps());

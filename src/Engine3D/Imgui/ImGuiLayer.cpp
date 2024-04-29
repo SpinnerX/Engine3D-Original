@@ -4,7 +4,7 @@
 #include <Engine3D/Imgui/ImGuiLayer.h>
 #include <Engine3D/Core/Application.h>
 #include <Engine3D/Core/core.h>
-#include <Engine3D/Events/KeyCodes.h>
+#include <Engine3D/Event/KeyCodes.h>
 #include <GLFW/glfw3.h>
 #include <ImGuizmo/ImGuizmo.h>
 
@@ -47,7 +47,7 @@ namespace Engine3D{
 		SetDarkThemeColors();
 
         // Initializing the OpenGL3 ()
-        GLFWwindow* window = static_cast<GLFWwindow *>(Application::Get().GetWindow().getNativeWindow());
+        GLFWwindow* window = static_cast<GLFWwindow *>(Application::Get().GetNativeWindow());
 
         ImGui_ImplGlfw_InitForOpenGL(window, true);
         ImGui_ImplOpenGL3_Init("#version 410"); // We should check the version of GLSL (if there is an error with this version)
@@ -76,8 +76,8 @@ namespace Engine3D{
 
         ImGuiIO& io = ImGui::GetIO();
 
-        Application& app = Application::Get();
-        io.DisplaySize = ImVec2(app.GetWindow().GetWidth(), app.GetWindow().GetHeight());
+        // Application& app = Application::Get();
+        io.DisplaySize = ImVec2(Application::Get().GetWidth(), Application::Get().GetHeight());
 
         // We want this part to be controlled by the layers themselves.
         // (or whatever layer we have inside Sandbox)
@@ -98,8 +98,8 @@ namespace Engine3D{
 		// @note Checking if viewport is not focused to block events.
 		if(isBlockingEvents){
 			ImGuiIO& io = ImGui::GetIO();
-			e._handled |= e.isInCategory(EventCategoryMouse) & io.WantCaptureMouse;
-			e._handled |= e.isInCategory(EventCategoryKeyboard) & io.WantCaptureKeyboard;
+			e |= e.inCategory(EventCategoryMouse) & io.WantCaptureMouse;
+			e |= e.inCategory(EventCategoryKeyboard) & io.WantCaptureKeyboard;
 		}
 	}
 

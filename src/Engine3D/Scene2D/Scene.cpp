@@ -32,8 +32,8 @@ namespace Engine3D{
 	
 	Entity Scene::createEntity(const std::string& name){
 		Entity entity = {_registry.create(), this};
-		entity.addComponent<TransformComponent>();
-		auto& tag = entity.addComponent<TagComponent>();
+		entity.AddComponent<TransformComponent>();
+		auto& tag = entity.AddComponent<TagComponent>();
 		tag.tag = name.empty() ? "Entity" : name;
 
 		return entity;
@@ -43,7 +43,7 @@ namespace Engine3D{
 		_registry.destroy(entity);
 	}
 
-	void Scene::onUpdateRuntime(Timestep ts){
+	void Scene::OnUpdateRuntime(Timestep ts){
 		{
 			/*
 			 *
@@ -63,7 +63,7 @@ namespace Engine3D{
 					nativeScriptComponent.instance->onCreate();
 				}
 
-				nativeScriptComponent.instance->onUpdate(ts); // TODO: Should be called in onSceneStop.
+				nativeScriptComponent.instance->OnUpdate(ts); // TODO: Should be called in onSceneStop.
 			});
 		}
 
@@ -71,18 +71,18 @@ namespace Engine3D{
 		// @note Doing Physics...
 		// @note conceptually this is it, for simulating the physics each frame.
 		{
-			const int64_t velocityIterations=6;
-			const int64_t positionIterations=2;
-			_physicsWorld->Step(ts, velocityIterations, positionIterations);
+			const int32_t velocityIterations=6;
+			const int32_t positionIterations=2;
+			physicsWorld->Step(ts, velocityIterations, positionIterations);
 
-			/* _physicsWorld->Step(ts, 6, 2); */
+			/* physicsWorld->Step(ts, 6, 2); */
 			auto view  = _registry.view<RigidBody2DComponent>();
 			for(auto e : view){
 				// @note rendering and grabbing transforms to render in the right place.
 				// @TODO: Probably have some UUID to grab a specific entities body for physics in the future.
 				Entity entity = { e, this };
-				auto& transform = entity.getComponent<TransformComponent>();
-				auto& rb2d = entity.getComponent<RigidBody2DComponent>();
+				auto& transform = entity.GetComponent<TransformComponent>();
+				auto& rb2d = entity.GetComponent<RigidBody2DComponent>();
 
 				b2Body* body = (b2Body *)rb2d.runtimeBody;
 				const auto& pos = body->GetPosition();
@@ -97,7 +97,6 @@ namespace Engine3D{
 		// Rendering 2D
 		Camera* mainCamera = nullptr;
 		glm::mat4 cameraTransform;
-
 		{
 			auto view = _registry.view<TransformComponent, CameraComponent>();
 
@@ -106,7 +105,7 @@ namespace Engine3D{
 
 				if(camera.isPrimary){
 					mainCamera = &camera.camera;
-					cameraTransform = transform.getTransform();
+					cameraTransform = transform.GetTransform();
 					break;
 				}
 			}
@@ -114,33 +113,33 @@ namespace Engine3D{
 		
 		// Checking mainCamera exists, then if the scene does not contain camera then do not render camera.
 		if(mainCamera){
-			Renderer2D::beginScene(mainCamera->getProjection(), cameraTransform);
+			Renderer2D::Begin(mainCamera->getProjection(), cameraTransform);
 			auto group = _registry.group<TransformComponent>(entt::get<SpriteRendererComponent>);
 
 			for(auto entity : group){
 				auto[transform, sprite] = group.get<TransformComponent, SpriteRendererComponent>(entity);
 
-				Renderer2D::drawQuad(transform.getTransform(), sprite.color);
+				Renderer2D::DrawQuad(transform.GetTransform(), sprite.color);
 			}
 
-			Renderer2D::endScene();
+			Renderer2D::End();
 			
 		}
 
 	}
 	
-	void Scene::onUpdateEditor(Timestep ts, EditorCamera& camera){
-		Renderer2D::beginScene(camera);
+	void Scene::OnUpdateEditor(Timestep ts, EditorCamera& camera){
+		Renderer2D::Begin(camera);
 		auto group = _registry.group<TransformComponent>(entt::get<SpriteRendererComponent>);
 
 		for(auto entity : group){
 			auto[transform, sprite] = group.get<TransformComponent, SpriteRendererComponent>(entity);
 
-			/* Renderer2D::drawQuad(transform.getTransform(), sprite.color); */
-			Renderer2D::drawSprite(transform.getTransform(), sprite, (int)entity);
+			/* Renderer2D::DrawQuad(transform.getTransform(), sprite.color); */
+			Renderer2D::drawSprite(transform.GetTransform(), sprite, (int)entity);
 		}
 
-		Renderer2D::endScene();
+		Renderer2D::End();
 		
 	}
 	
@@ -165,35 +164,6 @@ namespace Engine3D{
 		}
 	}
 
-	template<>
-	void Scene::onComponentAdded<TransformComponent>(Entity entity, TransformComponent& component){}
-	
-	template<>
-	void Scene::onComponentAdded<CameraComponent>(Entity entity, CameraComponent& component){
-		if(_viewportWidth > 0 and _viewportHeight > 0)
-			component.camera.setViewportSize(_viewportWidth, _viewportHeight);
-	}
-
-	template<>
-	void Scene::onComponentAdded<SpriteRendererComponent>(Entity entity, SpriteRendererComponent& component){
-	}
-
-	template<>
-	void Scene::onComponentAdded<TagComponent>(Entity entity, TagComponent& component){
-	}
-
-	template<>
-	void Scene::onComponentAdded<NativeScriptComponent>(Entity entity, NativeScriptComponent& component){
-	}
-	
-	template<>
-	void Scene::onComponentAdded<RigidBody2DComponent>(Entity entity, RigidBody2DComponent& component){
-	}
-
-	template<>
-	void Scene::onComponentAdded<BoxCollider2DComponent>(Entity entity, BoxCollider2DComponent& component){
-	}
-
 	Entity Scene::getPrimaryCamera(){
 		auto view = _registry.view<CameraComponent>();
 		for(auto entity : view){
@@ -207,35 +177,41 @@ namespace Engine3D{
 		return {};
 	}
 	
-	void Scene::onRuntimeStart(){
-		_physicsWorld = new b2World({0.0f, -9.8f});
+	void Scene::OnRuntimeStart(){
 		coreLogWarn("Starting Physics Simulation!");
-		if(!_physicsWorld) coreLogWarn("_physicsWorld is not nullptr!");
+		// if(!physicsWorld) coreLogWarn("physicsWorld is not nullptr!");
+		// else coreLogError("_physicsWord is still nullptr!");
+
+		if(physicsWorld == nullptr){
+			coreLogWarn("Should not be nullptr == b2World");
+			physicsWorld = new b2World({0.0f, -9.8f});
+			if(physicsWorld == nullptr) coreLogWarn("Should is still nullptr == b2World");
+		}
+
+
 		// Going through ECS for rigit body 2D components
 		auto view = _registry.view<RigidBody2DComponent>();
 
 		for(auto e : view){
 			// Creating our entities.
 			Entity entity = { e, this };
-			auto& transform = entity.getComponent<TransformComponent>();
-			auto& rb2d = entity.getComponent<RigidBody2DComponent>();
+			auto& transform = entity.GetComponent<TransformComponent>();
+			auto& rb2d = entity.GetComponent<RigidBody2DComponent>();
 			
 			// Defining our body
 			b2BodyDef bodyDef;
 			// Converting to different body type.
 			bodyDef.type = engineRigidBody2DTypeToBox2DType(rb2d.type);
-			bodyDef.position.Set(transform.translation.y, transform.translation.x);
+			bodyDef.position.Set(transform.translation.x, transform.translation.y);
 			bodyDef.angle = transform.rotation.z;
 			
 			// Creating our body
-			b2Body* body = _physicsWorld->CreateBody(&bodyDef);
+			b2Body* body = physicsWorld->CreateBody(&bodyDef);
 			body->SetFixedRotation(rb2d.hasFixedRotation);
-			
-			// @note definig that this predeffined body is going to be our runtime.
-			rb2d.runtimeBody = body;
+			rb2d.runtimeBody = body; // @note definig that this predeffined body is going to be our runtime.
 
-			if(entity.hasComponent<BoxCollider2DComponent>()){
-				auto& bc2d = entity.getComponent<BoxCollider2DComponent>();
+			if(entity.HasComponent<BoxCollider2DComponent>()){
+				auto& bc2d = entity.GetComponent<BoxCollider2DComponent>();
 				
 				b2PolygonShape boxShape;
 				boxShape.SetAsBox(bc2d.size.x * transform.scale.x, bc2d.size.y * transform.scale.y);
@@ -251,9 +227,44 @@ namespace Engine3D{
 		}
 	}
 
-	void Scene::onRuntimeStop(){
+	void Scene::OnRuntimeStop(){
 		// resetting.
-		delete _physicsWorld;
-		_physicsWorld = nullptr;
+		coreLogWarn("OnRuntimeStop() was called!");
+		delete physicsWorld;
+		physicsWorld = nullptr;
+	}
+
+	template<typename T>
+	void Scene::OnComponentAdded(Entity entity, T& component){
+		assert(false);
+	}
+
+	template<>
+	void Scene::OnComponentAdded<TransformComponent>(Entity entity, TransformComponent& component){}
+	
+	template<>
+	void Scene::OnComponentAdded<CameraComponent>(Entity entity, CameraComponent& component){
+		if(_viewportWidth > 0 and _viewportHeight > 0)
+			component.camera.setViewportSize(_viewportWidth, _viewportHeight);
+	}
+
+	template<>
+	void Scene::OnComponentAdded<SpriteRendererComponent>(Entity entity, SpriteRendererComponent& component){
+	}
+
+	template<>
+	void Scene::OnComponentAdded<TagComponent>(Entity entity, TagComponent& component){
+	}
+
+	template<>
+	void Scene::OnComponentAdded<NativeScriptComponent>(Entity entity, NativeScriptComponent& component){
+	}
+	
+	template<>
+	void Scene::OnComponentAdded<RigidBody2DComponent>(Entity entity, RigidBody2DComponent& component){
+	}
+
+	template<>
+	void Scene::OnComponentAdded<BoxCollider2DComponent>(Entity entity, BoxCollider2DComponent& component){
 	}
 };

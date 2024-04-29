@@ -1,5 +1,5 @@
 #pragma once
-#include <Engine3D/interfaces/Framebuffer.h>
+#include <Engine3D/Graphics/Framebuffer.h>
 #include <map>
 
 namespace Engine3D{

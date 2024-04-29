@@ -55,6 +55,18 @@
         "memory_resource": "cpp",
         "random": "cpp",
         "type_traits": "cpp",
-        "utility": "cpp"
+        "utility": "cpp",
+        "cctype": "cpp",
+        "complex": "cpp",
+        "ctime": "cpp",
+        "cwchar": "cpp",
+        "cwctype": "cpp",
+        "iostream": "cpp",
+        "istream": "cpp",
+        "ratio": "cpp",
+        "variant": "cpp",
+        "format": "cpp",
+        "typeindex": "cpp",
+        "system_error": "cpp"
     }
 }

@@ -1,9 +1,9 @@
 #pragma once
 #include <Engine3D/Renderer2D/OrthographicCamera.h>
 #include <Engine3D/Core/Timestep.h>
-#include <Engine3D/Events/ApplicationEvent.h>
-#include <Engine3D/Events/Event.h>
-#include <Engine3D/Events/MouseEvent.h>
+#include <Engine3D/Event/ApplicationEvent.h>
+#include <Engine3D/Event/Event.h>
+#include <Engine3D/Event/MouseEvent.h>
 
 
 namespace Engine3D{
@@ -25,38 +25,35 @@ namespace Engine3D{
 	public:	
 		OrthographicCameraController(float aspectRatio, bool rotation=false); // vertically when camera starts up that there is 2 units of space (then to get correct aspect ratio, have: aspectratio * 2 units)
 		
-		void getProjection();
+		// void getProjection();
 		
-		void onUpdate(Timestep ts);
+		void OnUpdate(Timestep ts);
 		void onEvent(Event& e);
 
 		void onResize(float width, float height);
 
-		OrthographicCamera& getCamera() { return _camera; }
-		OrthographicCamera getCamera() const { return _camera; }
+		OrthographicCamera& GetCamera(){ return camera; }
+		OrthographicCamera GetCamera() const { return camera; }
 
-		const OrthographicCameraBounds& getBounds() const { return _bounds; }
+		const OrthographicCameraBounds& GetBounds() const;
 		
-		float getZoomLevel() const { return _zoomLevel; }
-		void setZoomLevel(float level) {
-			_zoomLevel = level;
-			calculateView();
-		}
+		float GetZoomLevel() const;
+		void SetZoomLevel(float level);
 
 	private:
-		void calculateView();
+		void CalculateView();
 		bool onMouseScrolled(MouseScrolledEvent& e);
 		bool onWindowResized(WindowResizeEvent& e);
 
 	private:
-		float _aspectRatio;
-		float _zoomLevel = 1.f; // Higher zoom level is, the further out you zoomed inwards.
-		OrthographicCamera _camera;
-		OrthographicCameraBounds _bounds;
+		float aspectRatio;
+		float zoomLevel = 1.f; // Higher zoom level is, the further out you zoomed inwards.
+		OrthographicCamera camera;
+		OrthographicCameraBounds bounds;
 
-		bool _rotation;
-		glm::vec3 _cameraPosition = {0.f, 0.f, 0.f};
-		float _cameraRotation = 0.f;
-		float _cameraTranslationSpeed = 5.0f, _cameraRotationSpeed = 180.0f;
+		bool rotation;
+		glm::vec3 cameraPosition = {0.f, 0.f, 0.f};
+		float cameraRotation = 0.f;
+		float cameraTranslationSpeed = 5.0f, cameraRotationSpeed = 180.0f;
 	};
 };

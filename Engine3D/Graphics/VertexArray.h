@@ -1,6 +1,6 @@
 #pragma once
 #include <memory>
-#include <Engine3D/interfaces/Buffer.h>
+#include <Engine3D/Graphics/Buffer.h>
 
 namespace Engine3D{
     // VertexArray
@@ -22,11 +22,11 @@ namespace Engine3D{
         virtual void Bind() const = 0;
         virtual void Unbind() const = 0; // NOTE: In vertex arrays there are use cases where you may want to unbind your data.
 
-        virtual void addVertexBuffer(const Ref<VertexBuffer>& vertexBuffer) = 0;
-        virtual void setIndexBuffer(const Ref<IndexBuffer>& vertexBuffer) = 0;
+        virtual void AddVertexBuffer(const Ref<VertexBuffer>& vertexBuffer) = 0;
+        virtual void SetIndexBuffer(const Ref<IndexBuffer>& vertexBuffer) = 0;
 
-        virtual const std::vector<Ref<VertexBuffer>>& getVertexBuffer() const  = 0;
-        virtual const Ref<IndexBuffer>& getIndexBuffer() const  = 0;
+        virtual const std::vector<Ref<VertexBuffer>>& GetVertexBuffer() const  = 0;
+        virtual const Ref<IndexBuffer>& GetIndexBuffer() const  = 0;
 
         static Ref<VertexArray> Create();
 

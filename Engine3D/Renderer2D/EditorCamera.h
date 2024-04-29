@@ -1,8 +1,8 @@
 #pragma once
-#include <Engine3D/interfaces/Camera.h>
+#include <Engine3D/Graphics/Camera.h>
 #include <Engine3D/Core/Timestep.h>
-#include <Engine3D/Events/Event.h>
-#include <Engine3D/Events/MouseEvent.h>
+#include <Engine3D/Event/Event.h>
+#include <Engine3D/Event/MouseEvent.h>
 
 #include <glm/glm.hpp>
 
@@ -36,8 +36,8 @@ namespace Engine3D{
 		EditorCamera() = default;
 		EditorCamera(float fov, float aspectRatio, float nearClip, float farClip);
 		
-		void onUpdate(Timestep ts);
-		void onEvent(Event& e);
+		void OnUpdate(Timestep ts);
+		void OnEvent(Event& e);
 
 		inline float getDistance() const { return _distance; }
 		inline void setDistance(float dist) { _distance = dist; }

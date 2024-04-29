@@ -1,5 +1,5 @@
 #pragma once
-#include <Engine3D/interfaces/Shader.h>
+#include <Engine3D/Graphics/Shader.h>
 #include <GLFW/glfw3.h>
 
 namespace Engine3D{
@@ -12,32 +12,21 @@ namespace Engine3D{
         OpenGLShader(const std::string& name, const std::string& vertexSrc, const std::string& fragmentSrc);
         ~OpenGLShader();
 
-        virtual void Bind() const override;
-        virtual void Unbind() const override;
+    private:
+        void bind() const override;
+        void unbind() const override;
 
-        virtual const std::string& getName() const override { return _name; }
-		
-		virtual void setInt(const std::string& name, int value) override;
-		
-		virtual void setIntArray(const std::string& name, int* values, uint32_t count) override;
+        std::string GetNameInternal() const override;
 
-		virtual void setFloat(const std::string& name, float) override;
-		
-		virtual void setFloat3(const std::string& name, const glm::vec3& value) override;
+        void UploadUniformInt(const std::string& name, int values) override;
+		void UploadIntArray(const std::string& name, int* values, uint32_t count) override;
+        void UploadUniformFloat(const std::string& name, float values) override;
+        void UploadUniformFloat2(const std::string& name, const glm::vec2& values) override;
+        void UploadUniformFloat3(const std::string& name, const glm::vec3& values) override;
+        void UploadUniformFloat4(const std::string& name, const glm::vec4& values) override;
 
-		virtual void setFloat4(const std::string& name, const glm::vec4& value) override;
-
-		virtual void setMat4(const std::string& name, const glm::mat4& value) override;
-
-        void uploadUniformInt(const std::string& name, int values);
-		void uploadIntArray(const std::string& name, int* values, uint32_t count);
-        void uploadUniformFloat(const std::string& name, float values);
-        void uploadUniformFloat2(const std::string& name, const glm::vec2& values);
-        void uploadUniformFloat3(const std::string& name, const glm::vec3& values);
-        void uploadUniformFloat4(const std::string& name, const glm::vec4& values);
-
-        void uploadUniformMat3(const std::string& name, const glm::mat3& matrix);
-        void uploadUniformMat4(const std::string& name, const glm::mat4& matrix);
+        void UploadUniformMat3(const std::string& name, const glm::mat3& matrix) override;
+        void UploadUniformMat4(const std::string& name, const glm::mat4& matrix) override;
 
     private:
         std::string readFile(const std::string& filepath);
@@ -51,8 +40,8 @@ namespace Engine3D{
 
 		void reflect(GLenum stage, const std::vector<uint32_t>& shaderData);
     private:
-        uint32_t _rendererID; // Keeping track uniquely identifying this object
-        std::string _name;
-		std::string _filepath; // Keeping track of the filepath.
+        uint32_t id; // Keeping track uniquely identifying this object
+        std::string name;
+		std::string filepath; // Keeping track of the filepath.
     };
 };

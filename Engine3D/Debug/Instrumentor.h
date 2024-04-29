@@ -10,12 +10,12 @@
 /*
 
 Usage: include this header and use like:
-Instrumentor::get().beginSession("Session Name"); // beginning the session
+Instrumentor::get().BeginSession("Session Name"); // beginning the session
 {
 	InstrumentorTimer timer("Profiled Scope Name"); // placing code like this in scopes, you'd like to include in profiling
 	// code...
 }
-Instrumentor::get().endSession(); // Ending the profiling session
+Instrumentor::get().EndSession(); // Ending the profiling session
 
 NOTE: Probably want to shorten how we call this to switch on/off easily and also consider using things like __FUNCSIG__ for the profile name.
 
@@ -38,12 +38,12 @@ NOTE: Probably want to shorten how we call this to switch on/off easily and also
 /*	public: */
 /*		Instrumentor() : _currentSession(nullptr), _profileCount(0) {} */
 
-/*		void beginSession(const std::string& name, const std::string& filepath = "results.json"){ */
+/*		void BeginSession(const std::string& name, const std::string& filepath = "results.json"){ */
 /*			std::lock_guard<std::mutex> guard(_mutex); */
 			
 /*			/1* */
 /*			 * */
-/*			 * @beginSession */
+/*			 * @BeginSession */
 /*			 * @note before starting a session if one session already exists, then close that session before starting a new one. */
 /*			 * @note Profiling output means for original session will be the newly opened session instead (better then having it be badly formatted) */
 /*			 * @note profiling output */
@@ -61,7 +61,7 @@ NOTE: Probably want to shorten how we call this to switch on/off easily and also
 /*			_currentSession = new InstrumentationSession{ name }; */
 /*		} */
 		
-/*		void endSession(){ */
+/*		void EndSession(){ */
 /*			std::lock_guard<std::mutex> guard(_mutex); */
 /*			internalEndSession(); */
 /*		} */
@@ -175,13 +175,13 @@ namespace Engine3D{
 	public:
 		Instrumentor() : _currentSession(nullptr), _profileCount(0) {}
 
-		void beginSession(const std::string& name, const std::string& filepath = "results.json"){
+		void BeginSession(const std::string& name, const std::string& filepath = "results.json"){
 			 _outputStream.open(filepath);
 			writeHeader();
 			_currentSession = new InstrumentationSession{ name };
 		}
 		
-		void endSession(){
+		void EndSession(){
 			writeFooter();
 			_outputStream.close();
 			delete _currentSession;
@@ -284,8 +284,8 @@ namespace Engine3D{
 		#define RENDER_FUNCTION_SIG "RENDER_FUNCTION_SIG not supported!"
 #endif
 
-	#define RENDER_PROFILE_BEGIN_SESSION(name, filepath) ::Engine3D::Instrumentor::get().beginSession(name, filepath);
-	#define RENDER_PROFILE_END_SESSION() ::Engine3D::Instrumentor::get().endSession();
+	#define RENDER_PROFILE_BEGIN_SESSION(name, filepath) ::Engine3D::Instrumentor::get().BeginSession(name, filepath);
+	#define RENDER_PROFILE_END_SESSION() ::Engine3D::Instrumentor::get().EndSession();
 	
 	#define RENDER_PROFILE_SCOPE(name) ::Engine3D::InstrumentorTimer timer##__LINE__(name);
 

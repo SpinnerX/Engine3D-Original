@@ -1,5 +1,5 @@
-#include <Engine3D/interfaces/VertexArray.h>
-#include <Engine3D/Renderer2D/Renderer.h>
+#include <Engine3D/Engine3DPrecompiledHeader.h>
+#include <Engine3D/Graphics/VertexArray.h>
 #include <OpenGL/OpenGLVertexArray.h>
 
 namespace Engine3D{

@@ -18,18 +18,20 @@ namespace Engine3D{
 		RendererCommand::setViewport(0, 0, w, h);
 	}
 
-    void Renderer::beginScene(OrthographicCamera& camera){
+    void Renderer::Begin(OrthographicCamera& camera){
         _sceneData->viewProjectionMatrix = camera.getViewProjectionMatrix();
     }
 
-    void Renderer::endScene(){
+    void Renderer::End(){
 
     }
 
     void Renderer::submit(const Ref<Shader>& shader, const Ref<VertexArray>& vertexArray, const glm::mat4& transform){
         shader->Bind();
-        std::dynamic_pointer_cast<OpenGLShader>(shader)->uploadUniformMat4("u_ViewProjection", _sceneData->viewProjectionMatrix);
-        std::dynamic_pointer_cast<OpenGLShader>(shader)->uploadUniformMat4("u_Transform", transform); // whenever we submit, def need to do this per object
+        // std::dynamic_pointer_cast<OpenGLShader>(shader)->Set("u_ViewProjection", _sceneData->viewProjectionMatrix);
+        // std::dynamic_pointer_cast<OpenGLShader>(shader)->Set("u_Transform", transform); // whenever we submit, def need to do this per object
+        shader->Set("u_ViewProjection", _sceneData->viewProjectionMatrix);
+        shader->Set("u_Transform", transform);
 
         vertexArray->Bind();
         RendererCommand::drawIndexed(vertexArray);

@@ -1,7 +1,7 @@
 #define GLM_ENABLE_EXPERIMENTAL
 #include <Engine3D/Engine3DPrecompiledHeader.h>
 #include <Engine3D/Renderer2D/Renderer2D.h>
-#include <Engine3D/interfaces/VertexArray.h>
+#include <Engine3D/Graphics/VertexArray.h>
 #include <Engine3D/Renderer2D/RenderCommand.h>
 #include <OpenGL/OpenGLShader.h>
 #include <glm/gtc/matrix_transform.hpp>
@@ -58,7 +58,7 @@ namespace Engine3D{
 	 * @param quadVertexBufferBase: ptr
 	 * 
 	 * @param quadVertexBufferPtr
-	 * @note Everytime we make a draw call to drawQuad we add the data into this buffer
+	 * @note Everytime we make a draw call to DrawQuad we add the data into this buffer
 	 * @note Storing all that information in this quadVertexBufferPtr.
 	 * 
 	 * @param textureSlots
@@ -99,7 +99,7 @@ namespace Engine3D{
 
 		_data.quadVertexBuffer = VertexBuffer::Create(_data.maxVertices * sizeof(quadVertex));
 		
-		_data.quadVertexBuffer->setLayout({
+		_data.quadVertexBuffer->SetLayout({
 			{ ShaderDataType::Float3, "a_Position" },
 			{ ShaderDataType::Float4, "a_Color" },
 			{ ShaderDataType::Float2, "a_TexCoord" },
@@ -108,7 +108,7 @@ namespace Engine3D{
 			{ ShaderDataType::Int, "a_EntityID" }
 		});
 
-		_data.quadVertexArray->addVertexBuffer(_data.quadVertexBuffer);
+		_data.quadVertexArray->AddVertexBuffer(_data.quadVertexBuffer);
 		
 		_data.quadVertexBufferBase = new quadVertex[_data.maxVertices * sizeof(quadVertex)];
 
@@ -130,22 +130,22 @@ namespace Engine3D{
 
 
 		Ref<IndexBuffer> quadIB = IndexBuffer::Create(quadIndices, _data.maxIndices);
-		_data.quadVertexArray->setIndexBuffer(quadIB);
+		_data.quadVertexArray->SetIndexBuffer(quadIB);
 
 		delete[] quadIndices;
 
 		_data.whiteTexture = Texture2D::Create(1,1);
 		uint32_t whiteTextureData = 0xffffffff; // four f's for every channel
-		_data.whiteTexture->setData(&whiteTextureData, sizeof(uint32_t));
+		_data.whiteTexture->SetData(&whiteTextureData, sizeof(uint32_t));
 
 		int32_t samplers[_data.maxTextureSlots];
 		for(uint32_t i = 0; i < _data.maxTextureSlots; i++)
 			samplers[i] = i;
 
-		// _data.textureShader = Shader::CreateShader("assets/shaders/texture.glsl");
-		_data.textureShader = Shader::CreateShader("/usr/local/public/GameEngine/assets/shaders/texture.glsl");
+		// _data.textureShader = Shader::Create("assets/shaders/texture.glsl");
+		_data.textureShader = Shader::Create("/usr/local/public/GameEngine/assets/shaders/texture.glsl");
 		_data.textureShader->Bind();
-		_data.textureShader->setIntArray("u_Textures", samplers, _data.maxTextureSlots);
+		_data.textureShader->Set("u_Textures", samplers, _data.maxTextureSlots);
 
 		// Texture slot at 0 to white texture
 		_data.textureSlots[0] = _data.whiteTexture;
@@ -159,14 +159,14 @@ namespace Engine3D{
 		RENDER_PROFILE_FUNCTION();
 	}
 	
-	void Renderer2D::beginScene(const Camera& camera, const glm::mat4& transform){
+	void Renderer2D::Begin(const Camera& camera, const glm::mat4& transform){
 		RENDER_PROFILE_FUNCTION();
 
 		glm::mat4 viewProj = camera.getProjection() * glm::inverse(transform);
 		
 		
 		_data.textureShader->Bind();
-		_data.textureShader->setMat4("u_ViewProjection", viewProj);
+		_data.textureShader->Set("u_ViewProjection", viewProj);
 		
 		_data.quadIndexCount = 0;
 		_data.quadVertexBufferPtr = _data.quadVertexBufferBase; // Keeping track o our base memory allocations
@@ -181,7 +181,7 @@ namespace Engine3D{
 		RendererCommand::clear();
 	}
 
-	void Renderer2D::beginScene(const OrthographicCamera& camera){
+	void Renderer2D::Begin(const OrthographicCamera& camera){
 		RENDER_PROFILE_FUNCTION();
 
 
@@ -192,7 +192,7 @@ namespace Engine3D{
 		// upload is more API specific (actual OpenGL to set that uniform)
 		// Where set is just set is a much higher level concept.
 		_data.textureShader->Bind();
-		_data.textureShader->setMat4("u_ViewProjection", camera.getViewProjectionMatrix());
+		_data.textureShader->Set("u_ViewProjection", camera.getViewProjectionMatrix());
 		
 		_data.quadIndexCount = 0;
 		_data.quadVertexBufferPtr = _data.quadVertexBufferBase; // Keeping track o our base memory allocations
@@ -200,13 +200,13 @@ namespace Engine3D{
 		_data.textureSlotIndex = 1;
 	}
 	
-	void Renderer2D::beginScene(const EditorCamera& camera){
+	void Renderer2D::Begin(const EditorCamera& camera){
 		RENDER_PROFILE_FUNCTION();
 
 		glm::mat4 viewProj = camera.getViewProjection();
 		
 		_data.textureShader->Bind();
-		_data.textureShader->setMat4("u_ViewProjection", viewProj);
+		_data.textureShader->Set("u_ViewProjection", viewProj);
 		
 		_data.quadIndexCount = 0;
 		_data.quadVertexBufferPtr = _data.quadVertexBufferBase; // Keeping track o our base memory allocations
@@ -215,11 +215,11 @@ namespace Engine3D{
 
 	}
 
-	void Renderer2D::endScene(){
+	void Renderer2D::End(){
 		RENDER_PROFILE_FUNCTION();
 		
 		uint32_t dataSize = (uint8_t *)_data.quadVertexBufferPtr - (uint8_t *)_data.quadVertexBufferBase;
-		_data.quadVertexBuffer->setData(_data.quadVertexBufferBase, dataSize);
+		_data.quadVertexBuffer->SetData(_data.quadVertexBufferBase, dataSize);
 
 		flush();
 	}
@@ -231,14 +231,14 @@ namespace Engine3D{
 		// @note Essentially uploading data to the GPU
 		// @note Executing the actual rendering.
 		for(uint32_t i = 0; i < _data.textureSlotIndex; i++)
-			_data.textureSlots[i]->bind(i);
+			_data.textureSlots[i]->Bind(i);
 		
 		RendererCommand::drawIndexed(_data.quadVertexArray, _data.quadIndexCount);
 		_data.stats.drawCalls++;
 	}
 
 	void Renderer2D::flushAndReset(){
-		endScene();
+		End();
 		_data.quadIndexCount = 0;
 		_data.quadVertexBufferPtr = _data.quadVertexBufferBase; // Keeping track o our base memory allocations
 		
@@ -246,11 +246,11 @@ namespace Engine3D{
 		
 	}
 
-	void Renderer2D::drawQuad(const glm::vec2& pos, const glm::vec2& size, const glm::vec4& color){
-		drawQuad({pos.x, pos.y, 0.0f}, size, color);
+	void Renderer2D::DrawQuad(const glm::vec2& pos, const glm::vec2& size, const glm::vec4& color){
+		DrawQuad({pos.x, pos.y, 0.0f}, size, color);
 	}
 	
-	void Renderer2D::drawQuad(const glm::vec3& pos, const glm::vec2& size, const glm::vec4& color){
+	void Renderer2D::DrawQuad(const glm::vec3& pos, const glm::vec2& size, const glm::vec4& color){
 		RENDER_PROFILE_FUNCTION();
 		
 		// To prevent overflow.
@@ -261,26 +261,26 @@ namespace Engine3D{
 		glm::mat4 transform = glm::translate(glm::mat4(1.0f), pos)
 							  * glm::scale(glm::mat4(1.0f), {size.x, size.y, 1.0f});
 
-		drawQuad(transform, color);
+		DrawQuad(transform, color);
 	}
 	
-	void Renderer2D::drawQuad(const glm::vec2& pos, const glm::vec2& size, const Ref<Texture2D>& texture, float tilingFactor, const glm::vec4& tintColor){
-		drawQuad({pos.x, pos.y, 0.0f}, size, texture, tilingFactor, tintColor);
+	void Renderer2D::DrawQuad(const glm::vec2& pos, const glm::vec2& size, const Ref<Texture2D>& texture, float tilingFactor, const glm::vec4& tintColor){
+		DrawQuad({pos.x, pos.y, 0.0f}, size, texture, tilingFactor, tintColor);
 	}
 
-	void Renderer2D::drawQuad(const glm::vec3& pos, const glm::vec2& size, const Ref<Texture2D>& texture, float tilingFactor, const glm::vec4& tintColor){
+	void Renderer2D::DrawQuad(const glm::vec3& pos, const glm::vec2& size, const Ref<Texture2D>& texture, float tilingFactor, const glm::vec4& tintColor){
 		RENDER_PROFILE_FUNCTION();
 		glm::mat4 transform = glm::translate(glm::mat4(1.0f), pos)
 							  * glm::scale(glm::mat4(1.0f), {size.x, size.y, 1.0f});
 		
-		drawQuad(transform, texture, tilingFactor);
+		DrawQuad(transform, texture, tilingFactor);
 	}
 
-	void Renderer2D::drawQuad(const glm::vec2& pos, const glm::vec2& size, const Ref<SubTexture2D>& subTexture, float tilingFactor, const glm::vec4& tintColor){
-		drawQuad({pos.x, pos.y, 0.0f}, size, subTexture, tilingFactor, tintColor);
+	void Renderer2D::DrawQuad(const glm::vec2& pos, const glm::vec2& size, const Ref<SubTexture2D>& subTexture, float tilingFactor, const glm::vec4& tintColor){
+		DrawQuad({pos.x, pos.y, 0.0f}, size, subTexture, tilingFactor, tintColor);
 	}
 
-	void Renderer2D::drawQuad(const glm::vec3& pos, const glm::vec2& size, const Ref<SubTexture2D>& subTexture, float tilingFactor, const glm::vec4& tintColor){
+	void Renderer2D::DrawQuad(const glm::vec3& pos, const glm::vec2& size, const Ref<SubTexture2D>& subTexture, float tilingFactor, const glm::vec4& tintColor){
 		RENDER_PROFILE_FUNCTION();
 		// To prevent overflow.
 		if(_data.quadIndexCount >= Renderer2DData::maxIndices){
@@ -327,7 +327,7 @@ namespace Engine3D{
 	
 
 	// NEW DRAW QUAD
-	void Renderer2D::drawQuad(const glm::mat4& transform, const glm::vec4& color, int entityID){
+	void Renderer2D::DrawQuad(const glm::mat4& transform, const glm::vec4& color, int entityID){
 		constexpr size_t quadVertexCount = 4;
 		constexpr glm::vec2 textureCoords[] = { {0.0f, 0.0f}, {1.0f, 0.0f}, {1.0f, 1.0f}, {0.0f, 1.0f}};
 		
@@ -351,7 +351,7 @@ namespace Engine3D{
 	}
 
 	// NEW DRAW QUAD
-	void Renderer2D::drawQuad(const glm::mat4& transform, const Ref<Texture2D>& texture, float tilingFactor, const glm::vec4& tintColor, int entityID){
+	void Renderer2D::DrawQuad(const glm::mat4& transform, const Ref<Texture2D>& texture, float tilingFactor, const glm::vec4& tintColor, int entityID){
 
 		// To prevent overflow.
 		if(_data.quadIndexCount >= Renderer2DData::maxIndices){
@@ -395,11 +395,11 @@ namespace Engine3D{
 		_data.stats.quadCount++;
 	}
 	
-	void Renderer2D::drawRotatedQuad(const glm::vec2& pos, const glm::vec2& size, float rotation, const glm::vec4& color){
-		drawRotatedQuad({pos.x, pos.y, 0.0f}, size, rotation, color);
+	void Renderer2D::DrawRotatedQuad(const glm::vec2& pos, const glm::vec2& size, float rotation, const glm::vec4& color){
+		DrawRotatedQuad({pos.x, pos.y, 0.0f}, size, rotation, color);
 	}
 	
-	void Renderer2D::drawRotatedQuad(const glm::vec3& pos, const glm::vec2& size, float rotation, const glm::vec4& color){
+	void Renderer2D::DrawRotatedQuad(const glm::vec3& pos, const glm::vec2& size, float rotation, const glm::vec4& color){
 		RENDER_PROFILE_FUNCTION();
 		// To prevent overflow.
 		if(_data.quadIndexCount >= Renderer2DData::maxIndices){
@@ -431,11 +431,11 @@ namespace Engine3D{
 
 	}
 
-	void Renderer2D::drawRotatedQuad(const glm::vec2& pos, const glm::vec2& size, float rotation, const Ref<Texture2D>& texture, float tilingFactor, const glm::vec4& tintColor){
-		drawRotatedQuad({pos.x, pos.y, 0.0f}, size, rotation, texture, tilingFactor, tintColor);
+	void Renderer2D::DrawRotatedQuad(const glm::vec2& pos, const glm::vec2& size, float rotation, const Ref<Texture2D>& texture, float tilingFactor, const glm::vec4& tintColor){
+		DrawRotatedQuad({pos.x, pos.y, 0.0f}, size, rotation, texture, tilingFactor, tintColor);
 	}
 
-	void Renderer2D::drawRotatedQuad(const glm::vec3& pos, const glm::vec2& size, float rotation, const Ref<Texture2D>& texture, float tilingFactor, const glm::vec4& tintColor){
+	void Renderer2D::DrawRotatedQuad(const glm::vec3& pos, const glm::vec2& size, float rotation, const Ref<Texture2D>& texture, float tilingFactor, const glm::vec4& tintColor){
 		RENDER_PROFILE_FUNCTION();
 		// To prevent overflow.
 		if(_data.quadIndexCount >= Renderer2DData::maxIndices){
@@ -480,11 +480,11 @@ namespace Engine3D{
 		_data.stats.quadCount++;
 	}
 	
-	void Renderer2D::drawRotatedQuad(const glm::vec2& pos, const glm::vec2& size, float rotation, const Ref<SubTexture2D>& subTexture, float tilingFactor, const glm::vec4& tintColor){
-		drawRotatedQuad({pos.x, pos.y, 0.0f}, size, rotation, subTexture, tilingFactor, tintColor);
+	void Renderer2D::DrawRotatedQuad(const glm::vec2& pos, const glm::vec2& size, float rotation, const Ref<SubTexture2D>& subTexture, float tilingFactor, const glm::vec4& tintColor){
+		DrawRotatedQuad({pos.x, pos.y, 0.0f}, size, rotation, subTexture, tilingFactor, tintColor);
 	}
 
-	void Renderer2D::drawRotatedQuad(const glm::vec3& pos, const glm::vec2& size, float rotation, const Ref<SubTexture2D>& subTexture, float tilingFactor, const glm::vec4& tintColor){
+	void Renderer2D::DrawRotatedQuad(const glm::vec3& pos, const glm::vec2& size, float rotation, const Ref<SubTexture2D>& subTexture, float tilingFactor, const glm::vec4& tintColor){
 		RENDER_PROFILE_FUNCTION();
 		// To prevent overflow.
 		if(_data.quadIndexCount >= Renderer2DData::maxIndices){
@@ -534,9 +534,9 @@ namespace Engine3D{
 		/* auto t = src.color; */
 		// @note If texture submitted for SpriteRendererComponent then we render with that texture
 		if(src.texture)
-			drawQuad(transform, src.texture, src.tilingFactor, src.color, entityID);
+			DrawQuad(transform, src.texture, src.tilingFactor, src.color, entityID);
 		else
-			drawQuad(transform, src.color, entityID);
+			DrawQuad(transform, src.color, entityID);
 	}
 
 	Renderer2D::Statistics Renderer2D::getStats(){ return _data.stats; }

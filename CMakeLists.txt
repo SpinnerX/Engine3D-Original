@@ -31,7 +31,7 @@ set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 message("Message = ${CMAKE_INSTALL_PREFIX}")
 
 # add_subdirectory(Sandbox)
-# add_subdirectory(Sandbox-Internal)
+add_subdirectory(Sandbox-Internal)
 add_subdirectory(src)
 
 
@@ -52,6 +52,12 @@ endif()
 # target_precompile_headers(${PROJECT_NAME} PUBLIC
 # 	"$<$<COMPILE_LANGUAGE:CXX>:${CMAKE_CURRENT_SOURCE_DIR}/include/Engine3D/Engine3DPrecompiledHeader.h>"
 # )
+
+if(WIN32)
+include(cmake/win32.cmake)
+elseif(UNIX)
+include(cmake/unix.cmake)
+endif()
 
 target_precompile_headers(${PROJECT_NAME} PUBLIC
 	"$<$<COMPILE_LANGUAGE:CXX>:>"

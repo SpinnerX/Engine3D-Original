@@ -3,5 +3,5 @@
 
 namespace Engine3D{
 
-	Entity::Entity(entt::entity handle, Scene* scene) : _entityHandler(handle), _scene(scene) {}
+	Entity::Entity(entt::entity handle, Scene* scene) : entityHandler(handle), scene(scene) {}
 };

@@ -16,9 +16,9 @@ namespace Engine3D{
         // Basically allowing to use this as a float
         operator float() const { return _time; }
 		
-		friend std::ostream& operator<<(std::ostream& outs, const Timestep& step){
-			return outs << step._time;
-		}
+		// friend std::ostream& operator<<(std::ostream& outs, const Timestep& step){
+		// 	return outs << step._time;
+		// }
 
     private:
         float _time;

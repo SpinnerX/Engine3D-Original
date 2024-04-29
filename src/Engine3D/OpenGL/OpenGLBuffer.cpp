@@ -1,7 +1,5 @@
 #include <Engine3D/Engine3DPrecompiledHeader.h>
 #include <OpenGL/OpenGLBuffer.h>
-#include <glad/glad.h>
-#include <Engine3D/Debug/Instrumentor.h>
 
 namespace Engine3D{
     /// -------------------------------------------------
@@ -41,7 +39,7 @@ namespace Engine3D{
 
         glBindBuffer(GL_ARRAY_BUFFER, 0);
     }
-	void OpenGLVertexBuffer::setData(const void* data, uint32_t size){
+	void OpenGLVertexBuffer::SetData(const void* data, uint32_t size){
 		glBindBuffer(GL_ARRAY_BUFFER, _rendererID);
 		glBufferSubData(GL_ARRAY_BUFFER, 0, size, data);
 	}

@@ -1,11 +1,12 @@
 #pragma once
-#include <Engine3D/Renderer2D/OrthographicCamera.h>
+#include <Engine3D/Core/core.h>
+// #include <Engine3D/Renderer2D/OrthographicCamera.h>
 #include <Engine3D/Scene2D/SceneCamera.h>
 #include <Engine3D/Scene2D/ScriptableEntity.h>
-#include <glm/gtc/matrix_transform.hpp>
+// #include <glm/gtc/matrix_transform.hpp>
 
-#define GLM_ENABLE_EXPERIEMENTAL
-#include <glm/gtx/quaternion.hpp>
+// #define GLM_ENABLE_EXPERIEMENTAL
+// #include <glm/gtx/quaternion.hpp>
 
 namespace Engine3D{
 	
@@ -27,16 +28,7 @@ namespace Engine3D{
 		TransformComponent(const TransformComponent&) = default;
 		TransformComponent(const glm::vec3& t) : translation(t) {}
 			
-		glm::mat4 getTransform() const {
-			/* glm::mat4 rotate = glm::rotate(glm::mat4(1.0f), rotation.x, {1, 0, 0}) */
-			/* 					 * glm::rotate(glm::mat4(1.0f), rotation.y, {0, 1, 0}) */
-			/* 					 * glm::rotate(glm::mat4(1.0f), rotation.z, {0, 0, 1}); */
-			glm::mat4 rotate = glm::toMat4(glm::quat(rotation));
-
-			return glm::translate(glm::mat4(1.0f), translation)
-				   *  rotate
-				   *  glm::scale(glm::mat4(1.0f), scale);
-		}
+		glm::mat4 GetTransform() const;
 	};
 
 	struct SpriteRendererComponent{

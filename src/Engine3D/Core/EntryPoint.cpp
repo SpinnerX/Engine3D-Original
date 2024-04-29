@@ -1,5 +1,5 @@
+#include <Engine3D/Engine3DPrecompiledHeader.h>
 #include <Engine3D/Core/EntryPoint.h>
-#include <Engine3D/Core/Application.h>
 // if we are on the Windows OS (since windows uses dll files)
 
 // We move this entry point hhere

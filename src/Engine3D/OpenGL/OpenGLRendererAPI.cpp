@@ -1,8 +1,5 @@
 #include <Engine3D/Engine3DPrecompiledHeader.h>
 #include <OpenGL/OpenGLRendererAPI.h>
-#include <cstdint>
-#include <glad/glad.h>
-#include <Engine3D/Debug/Instrumentor.h>
 
 namespace Engine3D{
 
@@ -29,7 +26,7 @@ namespace Engine3D{
     }
 
     void OpenGLRendererAPI::drawIndexed(const Ref<VertexArray>& vertexArr, uint32_t indexCount) {
-		uint32_t count = indexCount ? vertexArr->getIndexBuffer()->getCount() : indexCount;
+		uint32_t count = indexCount ? vertexArr->GetIndexBuffer()->getCount() : indexCount;
         glDrawElements(GL_TRIANGLES, count, GL_UNSIGNED_INT, nullptr);
 		glBindTexture(GL_TEXTURE_2D, 0);
     }

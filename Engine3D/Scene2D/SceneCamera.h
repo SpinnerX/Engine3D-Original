@@ -1,5 +1,5 @@
 #pragma once
-#include <Engine3D/interfaces/Camera.h>
+#include <Engine3D/Graphics/Camera.h>
 
 namespace Engine3D{
 	/*
@@ -26,25 +26,25 @@ namespace Engine3D{
 		void setViewportSize(uint32_t width, uint32_t height);
 
 		// @note setting perpective values.
-		float getPerspectiveVerticalFOV() const { return _perspectiveFOV; }
-		void setPerspectiveVerticalFOV(float verticalFov ) { _perspectiveFOV = verticalFov; recalculateProjection(); }
+		float getPerspectiveVerticalFOV() const { return perspectiveFOV; }
+		void setPerspectiveVerticalFOV(float verticalFov ) { perspectiveFOV = verticalFov; recalculateProjection(); }
 		
-		float getPerspectiveNearClip() const { return _perspectiveNear; }
-		void setPerspectiveNearClip(float nearClip) { _perspectiveNear = nearClip; recalculateProjection(); }
+		float getPerspectiveNearClip() const { return perspectiveNear; }
+		void setPerspectiveNearClip(float nearClip) { perspectiveNear = nearClip; recalculateProjection(); }
 		
-		float getPerspectiveFarClip() const { return _perspectiveFar; }
-		void setPerspectiveFarClip(float farClip) { _perspectiveFar = farClip; recalculateProjection(); }
+		float getPerspectiveFarClip() const { return perspectiveFar; }
+		void setPerspectiveFarClip(float farClip) { perspectiveFar = farClip; recalculateProjection(); }
 		
-		float getOrthographicSize() const { return _orthographicSize; }
-		void setOrthographicSize(float size) { _orthographicSize = size; recalculateProjection(); }
+		float getOrthographicSize() const { return orthographicSize; }
+		void setOrthographicSize(float size) { orthographicSize = size; recalculateProjection(); }
 	
 		// @note nearClip for orthographic
 		// @note farClip for orthographic
-		float getOrthoNearClip() const { return _orthographicNear; }
-		void setOrthoNearClip(float nearClip) { _orthographicNear = nearClip; recalculateProjection(); }
+		float getOrthoNearClip() const { return orthographicNear; }
+		void setOrthoNearClip(float nearClip) { orthographicNear = nearClip; recalculateProjection(); }
 
-		float getOrthoFarClip() const { return _orthographicFar; }
-		void setOrthoFarClip(float farClip) { _orthographicFar = farClip; recalculateProjection(); }
+		float getOrthoFarClip() const { return orthographicFar; }
+		void setOrthoFarClip(float farClip) { orthographicFar = farClip; recalculateProjection(); }
 
 		ProjectionType getProjectionType() const { return _projectionType; }
 		
@@ -56,14 +56,14 @@ namespace Engine3D{
 		ProjectionType _projectionType = ProjectionType::Orthographic;
 		
 		// @note for perspective camera.
-		float _perspectiveFOV = glm::radians(45.0f);
-		float _perspectiveNear = 0.01;
-		float _perspectiveFar = 1000.0f;
+		float perspectiveFOV = glm::radians(45.0f);
+		float perspectiveNear = 0.01;
+		float perspectiveFar = 1000.0f;
 
 		// @note for orthographic camera
-		float _orthographicSize = 10.0f;
-		float _orthographicNear = -1.0f;
-		float _orthographicFar = 1.0f;
+		float orthographicSize = 10.0f;
+		float orthographicNear = -1.0f;
+		float orthographicFar = 1.0f;
 
 
 

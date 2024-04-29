@@ -1,4 +1,4 @@
-#include <Engine3D/interfaces/VertexArray.h>
+#include <Engine3D/Graphics/VertexArray.h>
 
 
 namespace Engine3D{
@@ -11,11 +11,11 @@ namespace Engine3D{
         virtual void Bind() const override;
         virtual void Unbind() const override; // NOTE: In vertex arrays there are use cases where you may want to unbind your data.
 
-        virtual void addVertexBuffer(const Ref<VertexBuffer>& vertexBuffer) override;
-        virtual void setIndexBuffer(const Ref<IndexBuffer>& vertexBuffer) override;
+        virtual void AddVertexBuffer(const Ref<VertexBuffer>& vertexBuffer) override;
+        virtual void SetIndexBuffer(const Ref<IndexBuffer>& vertexBuffer) override;
 
-        virtual const std::vector<Ref<VertexBuffer>>& getVertexBuffer() const override { return _vertexBuffers; }
-        virtual const Ref<IndexBuffer>& getIndexBuffer() const override { return _indexBuffer; }
+        virtual const std::vector<Ref<VertexBuffer>>& GetVertexBuffer() const override { return _vertexBuffers; }
+        virtual const Ref<IndexBuffer>& GetIndexBuffer() const override { return _indexBuffer; }
 
     private:
         uint32_t _rendererID;

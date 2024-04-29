@@ -1,6 +1,6 @@
 #pragma once
 #include <glm/glm.hpp>
-#include <Engine3D/interfaces/VertexArray.h>
+#include <Engine3D/Graphics/VertexArray.h>
 
 namespace Engine3D{
 

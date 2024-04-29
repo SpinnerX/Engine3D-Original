@@ -1,10 +1,9 @@
 #pragma once
-#include <memory>
 #include <Engine3D/Core/core.h>
 #include <Engine3D/Core/Window.h>
 #include <Engine3D/Core/LayerStack.h>
 #include <Engine3D/Imgui/ImGuiLayer.h>
-#include <Engine3D/Core/Timestep.h>
+#include <Engine3D/Event/ApplicationEvent.h>
 
 namespace Engine3D{
 	struct ApplicationCommandLineArgs{
@@ -36,15 +35,22 @@ namespace Engine3D{
 		
 		void close();
 		
-		ImGuiLayer* GetImGuiLayer() { return _imguiLayer; }
+		static ImGuiLayer* GetImGuiLayer() { return _instance->_imguiLayer; }
 
         // Wherever we are in our codebase, we will want to access the application
         // since this application contain important informaiton
         // Therefore why we only create one instance.
-        inline static Application& Get() { return *_instance; }
-        inline Window& GetWindow() { return *_window; }
+        // inline static Application& Get() { return *_instance; }
 
-		ApplicationCommandLineArgs getCommandLineArgs() const { return _commandLineArgs; }
+        inline static ApplicationCommandLineArgs GetCmdLineArg() { return _instance->GetCommandLineArgs(); }
+
+        inline static void Close() { _instance->close(); }
+
+        inline static Window& Get() { return *_instance->_window; }
+
+        // inline Window& GetWindow() { return *_window; }
+
+		ApplicationCommandLineArgs GetCommandLineArgs() const { return _commandLineArgs; }
 
     private:
         bool onWindowClose(WindowCloseEvent& e);

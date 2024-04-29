@@ -1,6 +1,6 @@
 // #pragma once
-// #include <Engine3D/Events/Event.h>
-// #include <Engine3D/Events/InputPoll.h>
+// #include <Engine3D/Event/Event.h>
+// #include <Engine3D/Event/InputPoll.h>
 
 // namespace Engine3D{
 //     // MouseMovedEvent

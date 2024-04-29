@@ -1,7 +1,7 @@
 #pragma once
 #include <Engine3D/Renderer2D/RenderCommand.h>
 #include <Engine3D/Renderer2D/OrthographicCamera.h>
-#include <Engine3D/interfaces/Shader.h>
+#include <Engine3D/Graphics/Shader.h>
 
 namespace Engine3D{
     
@@ -17,9 +17,9 @@ namespace Engine3D{
 
 		static void onWindowResize(uint32_t width, uint32_t height);
 
-        static void beginScene(OrthographicCamera& camera);
+        static void Begin(OrthographicCamera& camera);
 
-        static void endScene();
+        static void End();
 
         // Submitted into a renderer queue
         // Then is evaluated probably in a different thread and will get rendered

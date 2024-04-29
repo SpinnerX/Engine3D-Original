@@ -1,10 +1,7 @@
 #pragma once
 #include <Engine3D/Core/core.h>
-#include <Engine3D/Events/Event.h>
+#include <Engine3D/Event/Event.h>
 #include <Engine3D/Core/Timestep.h>
-#include <Engine3D/Core/EngineLogger.h>
-#include <Engine3D/Events/ApplicationEvent.h>
-#include <Engine3D/Debug/Instrumentor.h>
 
 namespace Engine3D{
 
@@ -19,7 +16,7 @@ namespace Engine3D{
         // When pushing onto the Layer Stack we attach it
         // Pop of thhe layer stack is for detaching (like shhutdown)
         virtual void OnAttach() {
-            coreLogInfo("Default onAttach() called instead!");
+            // coreLogInfo("Default onAttach() called instead!");
         }
 
         virtual void OnDetach() {}

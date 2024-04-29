@@ -1,5 +1,5 @@
 #pragma once
-#include <Engine3D/interfaces/Buffer.h>
+#include <Engine3D/Graphics/Buffer.h>
 
 namespace Engine3D{
     // VertexBuffer class for OpenGL specific
@@ -12,13 +12,13 @@ namespace Engine3D{
         virtual void Bind() const override;
         virtual void Unbind() const override;
 		
-		virtual void setData(const void* data, uint32_t size) override;
+		virtual void SetData(const void* data, uint32_t size) override;
 
-        virtual void setLayout(const BufferLayout& layout) override {
+        virtual void SetLayout(const BufferLayout& layout) override {
             _layout = layout;
         }
 
-        virtual const BufferLayout& getLayout() const override {
+        virtual const BufferLayout& GetLayout() const override {
             return _layout;
         }
 

@@ -53,7 +53,7 @@ namespace Engine3D{
         glBindVertexArray(0);
     }
 
-    void OpenGLVertexArray::addVertexBuffer(const Ref<VertexBuffer>& vertexBuffer) {
+    void OpenGLVertexArray::AddVertexBuffer(const Ref<VertexBuffer>& vertexBuffer) {
         // render_core_assert(vertexBuffer->getLayout().getElements().size(), "Vertex buffer has no layout!");
         
         glBindVertexArray(_rendererID);
@@ -61,7 +61,7 @@ namespace Engine3D{
         vertexBuffer->Bind();
 
         /* uint32_t index = 0; */
-        const auto& layout = vertexBuffer->getLayout();
+        const auto& layout = vertexBuffer->GetLayout();
         for(const auto& element : layout){
 			switch (element.type) {
 			case Engine3D::ShaderDataType::Float:
@@ -71,10 +71,10 @@ namespace Engine3D{
 				{
                 glEnableVertexAttribArray(index);
                 glVertexAttribPointer(index,
-                                        element.getComponentCount(),
+                                        element.GetComponentCount(),
                                         shaderDatatTypeToOpenGlBaseTypeConversion(element.type),
                                         element.isNormalized ? GL_TRUE : GL_FALSE,
-                                        vertexBuffer->getLayout().getStride(),
+                                        vertexBuffer->GetLayout().getStride(),
                                         (const void*)element.offset); // provind a vertex a shader
                 index++;
 				}
@@ -87,7 +87,7 @@ namespace Engine3D{
 				{
 					glEnableVertexAttribArray(index);
 					glVertexAttribIPointer(index,
-						element.getComponentCount(),
+						element.GetComponentCount(),
 						shaderDatatTypeToOpenGlBaseTypeConversion(element.type),
 						layout.getStride(),
 						(const void*)element.offset);
@@ -104,7 +104,7 @@ namespace Engine3D{
         _vertexBuffers.push_back(vertexBuffer);
     }
 
-    void OpenGLVertexArray::setIndexBuffer(const Ref<IndexBuffer>& indexBuffer) {
+    void OpenGLVertexArray::SetIndexBuffer(const Ref<IndexBuffer>& indexBuffer) {
         glBindVertexArray(_rendererID);
         indexBuffer->Bind();
 

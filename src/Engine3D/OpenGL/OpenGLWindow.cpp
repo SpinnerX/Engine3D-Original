@@ -1,13 +1,5 @@
 #include <Engine3D/Engine3DPrecompiledHeader.h>
 #include <OpenGL/OpenGLWindow.h>
-#include <Engine3D/Events//MouseEvent.h>
-#include <Engine3D/Events/KeyEvent.h>
-#include <Engine3D/Events/ApplicationEvent.h>
-#include <Engine3D/Events/KeyCodes.h>
-#include <Engine3D/Events/MouseButtonCodes.h>
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
-#include <OpenGL/OpenGLContext.h>
 
 namespace Engine3D{
     static bool _glfwInitialized = false;
@@ -185,7 +177,7 @@ namespace Engine3D{
         glfwDestroyWindow(_window);
     }
 
-    void WindowsWindow::onUpdate(){
+    void WindowsWindow::OnUpdate(){
 		RENDER_PROFILE_FUNCTION();
 
         glfwPollEvents();

@@ -104,7 +104,7 @@ namespace Engine3D{
 		output << YAML::Key << "Entity" << YAML::Value << "12837192831273"; // TODO: Entity ID goes here
 		output << YAML::EndMap;
 
-		if(entity.hasComponent<Component>()){
+		if(entity.HasComponent<Component>()){
 			Function(out); // Where out is going to be passed by reference that will handle the information related to these components.
 			out << YAML::EndMap;
 		}
@@ -114,21 +114,21 @@ namespace Engine3D{
 		output << YAML::BeginMap; // Entity
 		output << YAML::Key << "Entity" << YAML::Value << "12837192831273"; // TODO: Entity ID goes here
 
-		if(entity.hasComponent<TagComponent>()){
+		if(entity.HasComponent<TagComponent>()){
 			output <<  YAML::Key << "Tag Component";
 			output << YAML::BeginMap;
 			
-			auto& tag = entity.getComponent<TagComponent>().tag;
+			auto& tag = entity.GetComponent<TagComponent>().tag;
 			output << YAML::Key << "Tag" << YAML::Value << tag;
 
 			output << YAML::EndMap; // TagComponent
 		}
 
-		if(entity.hasComponent<TransformComponent>()){
+		if(entity.HasComponent<TransformComponent>()){
 			output << YAML::Key   << "TransformComponent";
 			output << YAML::BeginMap;
 			
-			auto& tc = entity.getComponent<TransformComponent>();
+			auto& tc = entity.GetComponent<TransformComponent>();
 			output << YAML::Key << "Translation" << YAML::Value << tc.translation;
 			output << YAML::Key << "Rotation" << YAML::Value << tc.rotation;
 			output << YAML::Key << "Scale" << YAML::Value << tc.scale;
@@ -136,11 +136,11 @@ namespace Engine3D{
 			output << YAML::EndMap; // TransformComponent
 		}
 
-		if(entity.hasComponent<CameraComponent>()){
+		if(entity.HasComponent<CameraComponent>()){
 			output << YAML::Key << "CameraComponent";
 			output << YAML::BeginMap;
 
-			auto& cameraComponent = entity.getComponent<CameraComponent>();
+			auto& cameraComponent = entity.GetComponent<CameraComponent>();
 			auto& camera = cameraComponent.camera;
 
 			output << YAML::Key << "Camera" << YAML::Value;
@@ -159,11 +159,11 @@ namespace Engine3D{
 			output << YAML::EndMap;
 		}
 
-		if(entity.hasComponent<SpriteRendererComponent>()){
+		if(entity.HasComponent<SpriteRendererComponent>()){
 			output << YAML::Key << "SpriteRendererComponent";
 			output << YAML::BeginMap;
 
-			auto& spriteRendererComponent = entity.getComponent<SpriteRendererComponent>();
+			auto& spriteRendererComponent = entity.GetComponent<SpriteRendererComponent>();
 
 			output << YAML::Key << "Color" << YAML::Value << spriteRendererComponent.color;
 
@@ -233,7 +233,7 @@ namespace Engine3D{
 				auto transformComponent = entity["TransformComponent"];
 				if(transformComponent){
 					// @note entities will always have transforms.
-					auto& tc = deserializeEntity.getComponent<TransformComponent>();
+					auto& tc = deserializeEntity.GetComponent<TransformComponent>();
 					tc.translation = transformComponent["Translation"].as<glm::vec3>();
 					tc.rotation = transformComponent["Rotation"].as<glm::vec3>();
 					tc.scale = transformComponent["Scale"].as<glm::vec3>();
@@ -242,7 +242,7 @@ namespace Engine3D{
 				// Deserializing Camera Component
 				auto cameraComponent = entity["CameraComponent"];
 				if(cameraComponent){
-					auto& cc = deserializeEntity.addComponent<CameraComponent>();
+					auto& cc = deserializeEntity.AddComponent<CameraComponent>();
 					auto cameraProps = cameraComponent["Camera"];
 					cc.camera.setProjectionType((SceneCamera::ProjectionType)cameraProps["ProjectionType"].as<int>());
 					
@@ -261,7 +261,7 @@ namespace Engine3D{
 				// Deserializing Sprite Renderer Component.
 				auto spriteRendererComponent = entity["SpriteRendererComponent"];
 				if(spriteRendererComponent){
-					auto& src = deserializeEntity.addComponent<SpriteRendererComponent>();
+					auto& src = deserializeEntity.AddComponent<SpriteRendererComponent>();
 					src.color = spriteRendererComponent["Color"].as<glm::vec4>();
 				}
 			}

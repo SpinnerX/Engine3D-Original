@@ -1,7 +1,5 @@
 #include <Engine3D/Engine3DPrecompiledHeader.h>
-#include <Engine3D/interfaces/Framebuffer.h>
-#include <OpenGL/OpenGLFramebuffer.h>
-#include <glad/glad.h>
+#include <Engine3D/OpenGL/OpenGLFramebuffer.h>
 
 namespace Engine3D{
 	static const uint32_t maxFrameBufferSize = 8192;
@@ -238,7 +236,6 @@ namespace Engine3D{
 		glEnable(GL_DEPTH_TEST);
 		glClearBufferiv(colorAttachments[attachmentIndex].attachmentID, 0, &data);
 	}
-		
 	
 };
 

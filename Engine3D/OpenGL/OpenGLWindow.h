@@ -1,6 +1,6 @@
 #pragma once
 #include <Engine3D/Core/Window.h>
-#include <Engine3D/interfaces/GraphicsContext.h>
+#include <Engine3D/Graphics/GraphicsContext.h>
 
 struct GLFWwindow;
 
@@ -14,7 +14,7 @@ namespace Engine3D{
         // Should just update GLFW
         // including swapping buffers, input events, and things like that
         // Should be running once-per frame
-        void onUpdate() override;
+        void OnUpdate() override;
 
         inline uint32_t GetWidth() const override { return _data.width; }
         inline uint32_t GetHeight() const override { return _data.height; }
@@ -27,7 +27,7 @@ namespace Engine3D{
         void setVSync(bool enabled) override;
         bool isVSync() const override { return _data.vSync; }
 
-        inline void* getNativeWindow() const override {
+        inline void* GetNativeWindow() const override {
             return _window;
         }
 

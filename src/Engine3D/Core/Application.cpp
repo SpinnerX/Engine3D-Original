@@ -1,8 +1,5 @@
+#include <Engine3D/Engine3DPrecompiledHeader.h>
 #include <Engine3D/Core/Application.h>
-#include <Engine3D/Core/EngineLogger.h>
-#include <Engine3D/Events/ApplicationEvent.h>
-#include <Engine3D/Renderer2D/Renderer.h>
-#include <GLFW/glfw3.h>
 
 namespace Engine3D{
     Application* Application::_instance = nullptr;
@@ -19,7 +16,7 @@ namespace Engine3D{
         _window->setEventCallback(bind(this, &Application::OnEvent));
 
         // Initializing our renderer
-        Renderer::init();
+        Renderer2D::Init();
 
         _imguiLayer = new ImGuiLayer();
         pushOverlay(_imguiLayer);
@@ -59,8 +56,10 @@ namespace Engine3D{
         // If not a layer and an overlay then we do not continue.
         auto iter = _layerStack.end();
         while(iter != _layerStack.begin()){
-            if(event._handled)
-				break;
+            // if(event._handled)
+			// 	break;
+            if(event.IsEventHandled())
+                break;
 
             (*--iter)->OnEvent(event);
 
@@ -78,6 +77,9 @@ namespace Engine3D{
             float time = (float)glfwGetTime(); // Should be in platform::getTime() (containing impl for Mac, Windows, etc.)
             Timestep timestep = time - _lastFrameTime;
             _lastFrameTime = time;
+            Renderer2D::setClearColor();
+            // Render
+            Renderer2D::resetStats();
 			
 			if(!isMinimized){
 				{
@@ -97,7 +99,7 @@ namespace Engine3D{
 				_imguiLayer->End();
 			}
 
-            _window->onUpdate();
+            _window->OnUpdate();
         }
     }
 	
@@ -120,7 +122,8 @@ namespace Engine3D{
 
 		// Telling the renderer the frame buffer has been resized
 		isMinimized = false;
-		Renderer::onWindowResize(e.GetWidth(), e.GetHeight());
+		// Renderer2D::onWindowResize(e.GetWidth(), e.GetHeight());
+        Renderer::onWindowResize(e.GetWidth(), e.GetHeight());
 		return false;
 	}
 };

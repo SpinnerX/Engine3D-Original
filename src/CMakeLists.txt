@@ -15,49 +15,48 @@ set(
   Engine3D/Core/EntryPoint.cpp
   Engine3D/Core/Application.cpp
   Engine3D/Core/EngineLogger.cpp
-  Engine3D/Event/InputPoll.cpp
   Engine3D/Core/Layer.cpp
   Engine3D/Core/LayerStack.cpp
 
   Engine3D/Imgui/ImGuiLayer.cpp
 
   Engine3D/OpenGL/OpenGLContext.cpp
-  Engine3D/interfaces/Shader.cpp
-  Engine3D/interfaces/Buffer.cpp
+  Engine3D/Graphics/Shader.cpp
+  Engine3D/Graphics/Buffer.cpp
   Engine3D/OpenGL/OpenGLBuffer.cpp
   Engine3D/Renderer2D/Renderer.cpp
-  Engine3D/interfaces/VertexArray.cpp
+  Engine3D/Graphics/VertexArray.cpp
   Engine3D/OpenGL/OpenGLVertexArray.cpp
-  Engine3D/interfaces/RendererAPI.cpp
+  Engine3D/Graphics/RendererAPI.cpp
   Engine3D/Renderer2D/RendererCommand.cpp
   Engine3D/OpenGL/OpenGLRendererAPI.cpp
   Engine3D/Renderer2D/OrthographicCamera.cpp
   Engine3D/OpenGL/OpenGLShader.cpp
-  Engine3D/interfaces/Texture.cpp
+  Engine3D/Graphics/Texture.cpp
   Engine3D/OpenGL/OpenGLTexture.cpp
   Engine3D/Renderer2D/OrthographicCameraController.cpp
 
-  Engine3D/OpenGL/OpenGLInputPoll.cpp
+  # Engine3D/OpenGL/OpenGLInputPoll.cpp
+  Engine3D/Event/InputPoll.cpp
   
   Engine3D/OpenGL/OpenGLWindow.cpp
   Engine3D/Renderer2D/Renderer2D.cpp
-  Engine3D/interfaces/SubTexture2D.cpp
-  Engine3D/interfaces/Framebuffer.cpp
+  Engine3D/Graphics/SubTexture2D.cpp
+  Engine3D/Graphics/Framebuffer.cpp
   Engine3D/OpenGL/OpenGLFramebuffer.cpp
   Engine3D/Scene2D/Scene.cpp
   Engine3D/Scene2D/Entity.cpp
+  Engine3D/Scene2D/Components.cpp
   Engine3D/Scene2D/SceneCamera.cpp
   Engine3D/Scene2D/SceneSerializer.cpp
-  Engine3D/image/stb_image.cpp
+  Engine3D/Image/stb_image.cpp
 
   Engine3D/platforms/Mac/MacPlatformUtils.cpp
   Engine3D/Math/Math.cpp
   Engine3D/Renderer2D/EditorCamera.cpp
-  Engine3D/interfaces/UniformBuffer.cpp
+  Engine3D/Graphics/UniformBuffer.cpp
   Engine3D/OpenGL/OpenGLUniformBuffer.cpp
 
-  Engine3D/Renderer3D/Renderer3D.cpp
-  Engine3D/OpenGL/OpenGLBuffer3D.cpp
 )
 
 # For Mac, linking AppKit only and only needing nfd_cocoa.m
@@ -109,18 +108,18 @@ set(
   ../${INCLUDE_DIR}/Imgui/ImGuiLayer.h
 
   ../${INCLUDE_DIR}/OpenGL/OpenGLContext.h
-  ../${INCLUDE_DIR}/interfaces/Shader.h
-  ../${INCLUDE_DIR}/interfaces/Buffer.h
+  ../${INCLUDE_DIR}/Graphics/Shader.h
+  ../${INCLUDE_DIR}/Graphics/Buffer.h
   ../${INCLUDE_DIR}/OpenGL/OpenGLBuffer.h
   ../${INCLUDE_DIR}/Renderer2D/Renderer.h
-  ../${INCLUDE_DIR}/interfaces/VertexArray.h
+  ../${INCLUDE_DIR}/Graphics/VertexArray.h
   ../${INCLUDE_DIR}/OpenGL/OpenGLVertexArray.h
-  ../${INCLUDE_DIR}/interfaces/RendererAPI.h
+  ../${INCLUDE_DIR}/Graphics/RendererAPI.h
   ../${INCLUDE_DIR}/Renderer2D/RenderCommand.h
   ../${INCLUDE_DIR}/OpenGL/OpenGLRendererAPI.h
   ../${INCLUDE_DIR}/Renderer2D/OrthographicCamera.h
   ../${INCLUDE_DIR}/OpenGL/OpenGLShader.h
-  ../${INCLUDE_DIR}/interfaces/Texture.h
+  ../${INCLUDE_DIR}/Graphics/Texture.h
   ../${INCLUDE_DIR}/OpenGL/OpenGLTexture.h
   ../${INCLUDE_DIR}/Renderer2D/OrthographicCameraController.h
 
@@ -130,90 +129,15 @@ set(
   ../${INCLUDE_DIR}/Event/Event.h
   ../${INCLUDE_DIR}/Event/KeyEvent.h
   ../${INCLUDE_DIR}/Event/MouseEvent.h
-  ../${INCLUDE_DIR}/OpenGL/OpenGLInputPoll.h
-  ../${INCLUDE_DIR}/image/stb_image.h
+  ../${INCLUDE_DIR}/Event/InputPoll.h
+  ../${INCLUDE_DIR}/Image/stb_image.h
 
   ../${INCLUDE_DIR}/Renderer3D/Renderer3D.h
 )
 
-if(APPLE)
-list(APPEND all_headers ../${INCLUDE_DIR}/platforms/Mac/nfd.h ../${INCLUDE_DIR}/platforms/Mac/nfd.hpp)
-endif(APPLE)
-
-include(CMakeFindDependencyMacro)
-
-# @note find_dependency is how you can specify what dependencies will be shipped with Engine3D
-# @note When users try to find this packages.
-
-# find_package(glfw3 REQUIRED)
-find_dependency(glfw3 REQUIRED)
-
-# find_package(OpenGL REQUIRED)
-# find_package(GLEW REQUIRED)
-find_dependency(OpenGL REQUIRED)
-if(APPLE)
-find_dependency(GLEW REQUIRED)
-endif(APPLE)
-# find_package(imgui REQUIRED)
-# find_package(ImGuizmo REQUIRED)
-find_dependency(imgui REQUIRED)
-find_dependency(ImGuizmo REQUIRED)
-
-# find_package(fmt REQUIRED)
-# find_package(spdlog REQUIRED)
-# find_package(glad REQUIRED)
-# find_package(glm REQUIRED)
-
-find_dependency(fmt REQUIRED)
-find_dependency(spdlog REQUIRED)
-find_dependency(glad REQUIRED)
-find_dependency(glm REQUIRED)
-
-find_dependency(box2d REQUIRED)
-find_dependency(yaml-cpp REQUIRED)
 
 add_library( ${PROJECT_NAME} ${all_src} ${all_headers} )
 
-# NOTE: Using {OPENGL_gl_LIBRARY}, if compiling on Apple.
-
-if(UNIX AND NOT APPLE)
-	target_link_libraries(
-		${PROJECT_NAME}
-		glfw
-		# ${OPENGL_gl_LIBRARY}
-		OpenGL::GL
-		# Vulkan::Vulkan
-		imgui::imgui
-		fmt::fmt
-		glm::glm
-		spdlog::spdlog
-		glad::glad
-		box2d::box2d
-		yaml-cpp::yaml-cpp
-	)
-endif(UNIX AND NOT APPLE)
-
-if(APPLE)
-target_link_libraries(
-	${PROJECT_NAME}
-	PUBLIC
-	glfw
-	"-framework Cocoa"
-	"-framework OpenGL"
-	"-framework IOKit"
-	${APPKIT_LIBRARY} ${UNIFORMTYPEIDENTIFIERS_LIBRARY} # Note as TODO: Probably should put this somewhere else, since it relies on nfd.cmake...
-	imgui::imgui
-	ImGuizmo::ImGuizmo
-	fmt::fmt
-	glm::glm
-	spdlog::spdlog
-	glad::glad
-	GLEW::GLEW
-	box2d::box2d
-	yaml-cpp::yaml-cpp
-	${APPKIT_LIBRARY} ${UNIFORMTYPEIDENTIFIERS_LIBRARY} # Note as TODO: Probably should put this somewhere else, since it relies on nfd.cmake...
-)
-endif(APPLE)
 
 target_include_directories(${PROJECT_NAME}
   PUBLIC

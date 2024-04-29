@@ -1,8 +1,5 @@
 #include <Engine3D/Engine3DPrecompiledHeader.h>
 #include <OpenGL/OpenGLContext.h>
-#include <Engine3D/Core/core.h>
-#include <Engine3D/Debug/Instrumentor.h>
-#include <Engine3D/Core/EngineLogger.h>
 
 namespace Engine3D{
 	OpenGLContext::OpenGLContext(GLFWwindow* other) : _window(other) {

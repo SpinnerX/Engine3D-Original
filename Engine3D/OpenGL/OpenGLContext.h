@@ -1,5 +1,5 @@
 #pragma once
-#include <Engine3D/interfaces/GraphicsContext.h>
+#include <Engine3D/Graphics/GraphicsContext.h>
 #include <glad/glad.h>
 #include  <GLFW/glfw3.h>
 

@@ -1,6 +1,6 @@
 #pragma once
 #include <Engine3D/Core/core.h>
-#include <Engine3D/interfaces/Camera.h>
+#include <Engine3D/Graphics/Camera.h>
 #include <glm/glm.hpp>
 
 namespace Engine3D{

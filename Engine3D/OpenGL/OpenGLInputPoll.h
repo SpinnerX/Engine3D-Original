@@ -1,18 +1,18 @@
 #pragma once
-#include <Engine3D/Events/InputPoll.h>
+#include <Engine3D/Event/InputPoll.h>
 
-namespace Engine3D {
+// namespace Engine3D {
 	
-	class OpenGLInputPoll : public InputPoll {
-	protected:
-		bool isKeyPressedImpl(Key keycode) override;
+// 	class OpenGLInputPoll : public InputPoll {
+// 	protected:
+// 		bool isKeyPressedImpl(Key keycode) override;
 
-		bool isMouseButtonPressedImpl(Mouse button) override;
+// 		bool isMouseButtonPressedImpl(Mouse button) override;
 
-		float getMouseXImpl() override;
+// 		float getMouseXImpl() override;
 
-		float getMouseYImpl() override;
+// 		float getMouseYImpl() override;
 
-		MousePosition getMousePositionImpl() override;
-	};
-}
+// 		MousePosition getMousePositionImpl() override;
+// 	};
+// }

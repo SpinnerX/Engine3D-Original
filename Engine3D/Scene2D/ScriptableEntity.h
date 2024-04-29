@@ -15,17 +15,17 @@ namespace Engine3D{
 		virtual ~ScriptableEntity(){}
 
 		template<typename  T>
-		T& getComponent(){
-			if(!_entity.hasComponent<T>()){
+		T& GetComponent(){
+			if(!_entity.HasComponent<T>()){
 				coreLogError("ScriptComponent Entity with this component could not be found");
 			}
 
-			return _entity.getComponent<T>();
+			return _entity.GetComponent<T>();
 		}
 		
 		virtual void onCreate(){}
 
-		virtual void onUpdate(Timestep ts){}
+		virtual void OnUpdate(Timestep ts){}
 		
 		virtual void onDestroy(){}
 

@@ -9,6 +9,10 @@ add_link_options(-fsanitize=address)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON CACHE INTERNAL "") # works (in creating the compile_commands.json file)
 project(${PROJECT_NAME})
 
+include_directories(
+    ../
+)
+
 find_package(Engine3D REQUIRED)
 find_package(glfw3 REQUIRED)
 find_package(OpenGL REQUIRED)
